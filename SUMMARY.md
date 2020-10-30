@@ -1,4 +1,5 @@
 # Table of contents
 
-* [Initial page](README.md)
+* [sd](README.md)
+* [Wild Apricot QuickBooks Manager Docs](readme.md.md)
 
