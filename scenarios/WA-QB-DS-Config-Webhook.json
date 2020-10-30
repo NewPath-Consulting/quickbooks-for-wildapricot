@@ -1,0 +1,1079 @@
+{
+    "name": "WA-QB-DS-Config-Webhook",
+    "flow": [
+        {
+            "id": 10,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 536023,
+                "maxResults": 2
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0,
+                    "name": "WA-QB-Config-Listener"
+                },
+                "restore": {
+                    "hook": {
+                        "label": "WA-QB-ConfigRequest"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "QB Version",
+                        "spec": [
+                            {
+                                "name": "QB Country",
+                                "type": "text"
+                            },
+                            {
+                                "name": "QB Platform",
+                                "type": "text"
+                            }
+                        ],
+                        "type": "collection"
+                    },
+                    {
+                        "name": "WA Org Env",
+                        "type": "text"
+                    },
+                    {
+                        "name": "WA Org Name",
+                        "type": "text"
+                    },
+                    {
+                        "name": "Customer Name",
+                        "type": "text"
+                    },
+                    {
+                        "name": "WA Order Types",
+                        "spec": {
+                            "spec": [
+                                {
+                                    "name": "OrderType",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "QB Receivables Account",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "QB Income Account Default",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "QB Header Class",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "Order Line Item Mapping",
+                                    "spec": {
+                                        "spec": [
+                                            {
+                                                "name": "OrderDetailFilter",
+                                                "type": "text"
+                                            },
+                                            {
+                                                "name": "QB Inventory Item",
+                                                "type": "text"
+                                            },
+                                            {
+                                                "name": "QB Income Account Override",
+                                                "type": "text"
+                                            },
+                                            {
+                                                "name": "QB SubClass",
+                                                "type": "text"
+                                            }
+                                        ],
+                                        "type": "collection"
+                                    },
+                                    "type": "array"
+                                }
+                            ],
+                            "type": "collection"
+                        },
+                        "type": "array"
+                    },
+                    {
+                        "name": "Sales Tax Types",
+                        "spec": {
+                            "spec": [
+                                {
+                                    "name": "Sales Tax Name",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "Sales Tax ID",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "Sales Tax QB Code",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "Sales Tax Rate",
+                                    "type": "number"
+                                },
+                                {
+                                    "name": "Sales Tax Account",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "Sales Tax Agency Name",
+                                    "type": "text"
+                                }
+                            ],
+                            "type": "collection"
+                        },
+                        "type": "array"
+                    },
+                    {
+                        "name": "Sales Tax Groups",
+                        "spec": {
+                            "spec": [
+                                {
+                                    "name": "Sales Tax Group Name",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "Sales Tax QB Group Code",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "Sales Tax Group Account",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "Sales Tax Group Agency Name",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "WA Tax IDs",
+                                    "spec": {
+                                        "type": "text"
+                                    },
+                                    "type": "array"
+                                }
+                            ],
+                            "type": "collection"
+                        },
+                        "type": "array"
+                    },
+                    {
+                        "name": "Subtotal List Name",
+                        "type": "text"
+                    },
+                    {
+                        "name": "Notification Emails",
+                        "spec": [
+                            {
+                                "name": "Company Email Address",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Support Email Address",
+                                "type": "text"
+                            }
+                        ],
+                        "type": "collection"
+                    },
+                    {
+                        "name": "WA Donation Mapping",
+                        "spec": [
+                            {
+                                "name": "QB Header Class",
+                                "type": "text"
+                            },
+                            {
+                                "name": "QB Header Account",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Donation Campaigns",
+                                "spec": {
+                                    "spec": [
+                                        {
+                                            "name": "DonationFilter",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "name": "QB DON Inventory Item",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "name": "QB DON Income Account",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "name": "QB DON Line Notes Format",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "name": "QB DON SubClass",
+                                            "type": "text"
+                                        }
+                                    ],
+                                    "type": "collection"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "name": "QB Header Memo Format",
+                                "type": "text"
+                            },
+                            {
+                                "name": "QB Tax Code for Exempt",
+                                "type": "text"
+                            },
+                            {
+                                "name": "QB Income Account Default",
+                                "type": "text"
+                            }
+                        ],
+                        "type": "collection"
+                    },
+                    {
+                        "name": "Output File Location",
+                        "spec": [
+                            {
+                                "name": "Storage Service",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Invoice Folder Path",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Donation Folder Path",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Error Invoice Filename Format",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Error Donation Filename Format",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Success Invoice Filename Format",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Success Donation Filename Format",
+                                "type": "text"
+                            }
+                        ],
+                        "type": "collection"
+                    },
+                    {
+                        "name": "WA INVOICE Time Periods",
+                        "spec": [
+                            {
+                                "name": "Manual End Date",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Manual Start Date",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Activate Invoice Jobs",
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "Invoice Job Scheduling Type",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Scheduled Number of Months Back",
+                                "type": "number"
+                            },
+                            {
+                                "name": "Scheduled-Reference-Run Schedule",
+                                "type": "text"
+                            }
+                        ],
+                        "type": "collection"
+                    },
+                    {
+                        "name": "Customer Billing Address",
+                        "spec": [
+                            {
+                                "name": "Address1",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Address2",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Address3",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Address4",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Address5",
+                                "type": "text"
+                            }
+                        ],
+                        "type": "collection"
+                    },
+                    {
+                        "name": "WA DONATION Time Periods",
+                        "spec": [
+                            {
+                                "name": "Manual End Date",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Manual Start Date",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Activate Donation Jobs",
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "Donation Job Scheduling Type",
+                                "type": "text"
+                            },
+                            {
+                                "name": "Scheduled Number of Months Back",
+                                "type": "number"
+                            },
+                            {
+                                "name": "Scheduled-Reference-Run Schedule",
+                                "type": "text"
+                            }
+                        ],
+                        "type": "collection"
+                    },
+                    {
+                        "name": "WA Order ExtraCost Exceptions",
+                        "spec": {
+                            "spec": [
+                                {
+                                    "name": "ExtraCost Name",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "EC QB Inventory Item",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "EC QB Income Account",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "EC QB SubClass",
+                                    "type": "text"
+                                }
+                            ],
+                            "type": "collection"
+                        },
+                        "type": "array"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 11,
+            "module": "gateway:WebhookRespond",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "body": "Received WA-QB Config",
+                "status": "200",
+                "headers": []
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0,
+                    "name": "Success response"
+                },
+                "restore": {
+                    "headers": {
+                        "items": []
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "status",
+                        "type": "uinteger",
+                        "label": "Status",
+                        "required": true,
+                        "validate": {
+                            "min": 100
+                        }
+                    },
+                    {
+                        "name": "body",
+                        "type": "any",
+                        "label": "Body"
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "key",
+                                "type": "text",
+                                "label": "Key",
+                                "required": true,
+                                "validate": {
+                                    "max": 256
+                                }
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value",
+                                "required": true,
+                                "validate": {
+                                    "max": 4096
+                                }
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Custom headers",
+                        "validate": {
+                            "maxItems": 16
+                        }
+                    }
+                ],
+                "advanced": true
+            }
+        },
+        {
+            "id": 12,
+            "module": "datastore:AddRecord",
+            "version": 1,
+            "parameters": {
+                "datastore": 24063
+            },
+            "mapper": {
+                "key": "",
+                "data": {
+                    "QB Version": {
+                        "QB Country": "{{10.`QB Version`.`QB Country`}}",
+                        "QB Platform": "{{10.`QB Version`.`QB Platform`}}"
+                    },
+                    "WA Org Env": "{{10.`WA Org Env`}}",
+                    "WA Org Name": "{{10.`WA Org Name`}}",
+                    "Customer Name": "{{10.`Customer Name`}}",
+                    "WA Order Types": "{{10.`WA Order Types`}}",
+                    "Sales Tax Types": "{{10.`Sales Tax Types`}}",
+                    "Sales Tax Groups": "{{10.`Sales Tax Groups`}}",
+                    "Subtotal List Name": "{{10.`Subtotal List Name`}}",
+                    "Notification Emails": {
+                        "Company Email Address": "{{10.`Notification Emails`.`Company Email Address`}}",
+                        "Support Email Address": "{{10.`Notification Emails`.`Support Email Address`}}"
+                    },
+                    "WA Donation Mapping": {
+                        "QB Header Class": "{{10.`WA Donation Mapping`.`QB Header Class`}}",
+                        "QB Header Account": "{{10.`WA Donation Mapping`.`QB Header Account`}}",
+                        "Donation Campaigns": "{{10.`WA Donation Mapping`.`Donation Campaigns`}}",
+                        "QB Header Memo Format": "{{10.`WA Donation Mapping`.`QB Header Memo Format`}}",
+                        "QB Tax Code for Exempt": "{{10.`WA Donation Mapping`.`QB Tax Code for Exempt`}}",
+                        "QB Income Account Default": "{{10.`WA Donation Mapping`.`QB Income Account Default`}}"
+                    },
+                    "Output File Location": {
+                        "Storage Service": "{{10.`Output File Location`.`Storage Service`}}",
+                        "Invoice Folder Path": "{{10.`Output File Location`.`Invoice Folder Path`}}",
+                        "Donation Folder Path": "{{10.`Output File Location`.`Donation Folder Path`}}",
+                        "Error Invoice Filename Format": "{{10.`Output File Location`.`Error Invoice Filename Format`}}",
+                        "Error Donation Filename Format": "{{10.`Output File Location`.`Error Donation Filename Format`}}",
+                        "Success Invoice Filename Format": "{{10.`Output File Location`.`Success Invoice Filename Format`}}",
+                        "Success Donation Filename Format": "{{10.`Output File Location`.`Success Donation Filename Format`}}"
+                    },
+                    "WA INVOICE Time Periods": {
+                        "Manual End Date": "{{10.`WA INVOICE Time Periods`.`Manual End Date`}}",
+                        "Manual Start Date": "{{10.`WA INVOICE Time Periods`.`Manual Start Date`}}",
+                        "Activate Invoice Jobs": "{{10.`WA INVOICE Time Periods`.`Activate Invoice Jobs`}}",
+                        "Invoice Job Scheduling Type": "{{10.`WA INVOICE Time Periods`.`Invoice Job Scheduling Type`}}",
+                        "Scheduled Number of Months Back": "{{10.`WA INVOICE Time Periods`.`Scheduled Number of Months Back`}}",
+                        "Scheduled-Reference-Run Schedule": "{{10.`WA INVOICE Time Periods`.`Scheduled-Reference-Run Schedule`}}"
+                    },
+                    "Customer Billing Address": {
+                        "Address1": "{{10.`Customer Billing Address`.Address1}}",
+                        "Address2": "{{10.`Customer Billing Address`.Address2}}",
+                        "Address3": "{{10.`Customer Billing Address`.Address3}}",
+                        "Address4": "{{10.`Customer Billing Address`.Address4}}",
+                        "Address5": "{{10.`Customer Billing Address`.Address5}}"
+                    },
+                    "WA DONATION Time Periods": {
+                        "Manual End Date": "{{10.`WA DONATION Time Periods`.`Manual End Date`}}",
+                        "Manual Start Date": "{{10.`WA DONATION Time Periods`.`Manual Start Date`}}",
+                        "Activate Donation Jobs": "{{10.`WA DONATION Time Periods`.`Activate Donation Jobs`}}",
+                        "Donation Job Scheduling Type": "{{10.`WA DONATION Time Periods`.`Donation Job Scheduling Type`}}",
+                        "Scheduled Number of Months Back": "{{10.`WA DONATION Time Periods`.`Scheduled Number of Months Back`}}",
+                        "Scheduled-Reference-Run Schedule": "{{10.`WA DONATION Time Periods`.`Scheduled-Reference-Run Schedule`}}"
+                    },
+                    "WA Order ExtraCost Exceptions": "{{10.`WA Order ExtraCost Exceptions`}}"
+                },
+                "overwrite": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 0,
+                    "name": "Add record to WA-QB-Config"
+                },
+                "restore": {
+                    "data": {
+                        "nested": {
+                            "WA Order Types": {
+                                "mode": "edit"
+                            },
+                            "Sales Tax Types": {
+                                "mode": "edit"
+                            },
+                            "Sales Tax Groups": {
+                                "mode": "edit"
+                            },
+                            "WA Donation Mapping": {
+                                "nested": {
+                                    "Donation Campaigns": {
+                                        "mode": "edit"
+                                    }
+                                }
+                            },
+                            "WA INVOICE Time Periods": {
+                                "nested": {
+                                    "Activate Invoice Jobs": {
+                                        "mode": "edit"
+                                    }
+                                }
+                            },
+                            "WA DONATION Time Periods": {
+                                "nested": {
+                                    "Activate Donation Jobs": {
+                                        "mode": "edit"
+                                    }
+                                }
+                            },
+                            "WA Order ExtraCost Exceptions": {
+                                "mode": "edit"
+                            }
+                        }
+                    },
+                    "datastore": {
+                        "label": "WA-QB-Invoice-Config"
+                    },
+                    "overwrite": {
+                        "mode": "chose"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "datastore",
+                        "type": "datastore",
+                        "label": "Data store",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "key",
+                        "type": "text",
+                        "label": "Key"
+                    },
+                    {
+                        "name": "overwrite",
+                        "type": "boolean",
+                        "label": "Overwrite an existing record",
+                        "required": true
+                    },
+                    {
+                        "name": "data",
+                        "spec": [
+                            {
+                                "name": "QB Version",
+                                "spec": [
+                                    {
+                                        "name": "QB Country",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "QB Platform",
+                                        "type": "text",
+                                        "multiline": false
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "QB Version",
+                                "required": false
+                            },
+                            {
+                                "name": "Customer Billing Address",
+                                "spec": [
+                                    {
+                                        "name": "Address1",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Address2",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Address3",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Address4",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Address5",
+                                        "type": "text",
+                                        "multiline": false
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Customer Billing Address",
+                                "required": false
+                            },
+                            {
+                                "name": "WA INVOICE Time Periods",
+                                "spec": [
+                                    {
+                                        "name": "Activate Invoice Jobs",
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "name": "Invoice Job Scheduling Type",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Manual Start Date",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Manual End Date",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Scheduled Number of Months Back",
+                                        "type": "number"
+                                    },
+                                    {
+                                        "name": "Scheduled-Reference-Run Schedule",
+                                        "type": "text",
+                                        "multiline": false
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "WA INVOICE Time Periods",
+                                "required": false
+                            },
+                            {
+                                "name": "WA DONATION Time Periods",
+                                "spec": [
+                                    {
+                                        "name": "Activate Donation Jobs",
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "name": "Donation Job Scheduling Type",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Manual Start Date",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Manual End Date",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Scheduled Number of Months Back",
+                                        "type": "number"
+                                    },
+                                    {
+                                        "name": "Scheduled-Reference-Run Schedule",
+                                        "type": "text",
+                                        "multiline": false
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "WA DONATION Time Periods",
+                                "required": false
+                            },
+                            {
+                                "name": "WA Donation Mapping",
+                                "spec": [
+                                    {
+                                        "name": "QB Header Account",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "QB Income Account Default",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "QB Header Class",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "QB Header Memo Format",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "QB Tax Code for Exempt",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Donation Campaigns",
+                                        "spec": [
+                                            {
+                                                "name": "DonationFilter",
+                                                "type": "text",
+                                                "label": null,
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "QB DON Inventory Item",
+                                                "type": "text",
+                                                "label": null,
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "QB DON Income Account",
+                                                "type": "text",
+                                                "label": null,
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "QB DON Line Notes Format",
+                                                "type": "text",
+                                                "label": null,
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "QB DON SubClass",
+                                                "type": "text",
+                                                "label": null,
+                                                "multiline": false
+                                            }
+                                        ],
+                                        "type": "array"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "WA Donation Mapping",
+                                "required": false
+                            },
+                            {
+                                "name": "Output File Location",
+                                "spec": [
+                                    {
+                                        "name": "Storage Service",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Invoice Folder Path",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Success Invoice Filename Format",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Error Invoice Filename Format",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Donation Folder Path",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Success Donation Filename Format",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Error Donation Filename Format",
+                                        "type": "text",
+                                        "multiline": false
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Output File Location",
+                                "required": false
+                            },
+                            {
+                                "name": "Notification Emails",
+                                "spec": [
+                                    {
+                                        "name": "Company Email Address",
+                                        "type": "text",
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Support Email Address",
+                                        "type": "text",
+                                        "multiline": false
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Notification Emails",
+                                "required": false
+                            },
+                            {
+                                "name": "WA Org Name",
+                                "type": "text",
+                                "multiline": false
+                            },
+                            {
+                                "name": "WA Org Env",
+                                "type": "text",
+                                "multiline": false
+                            },
+                            {
+                                "name": "Customer Name",
+                                "type": "text",
+                                "multiline": false
+                            },
+                            {
+                                "name": "WA Order Types",
+                                "spec": [
+                                    {
+                                        "name": "OrderType",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "QB Receivables Account",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "QB Income Account Default",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "QB Header Class",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Order Line Item Mapping",
+                                        "spec": [
+                                            {
+                                                "name": "OrderDetailFilter",
+                                                "type": "text",
+                                                "label": null,
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "QB Inventory Item",
+                                                "type": "text",
+                                                "label": null,
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "QB Income Account Override",
+                                                "type": "text",
+                                                "label": null,
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "QB SubClass",
+                                                "type": "text",
+                                                "label": null,
+                                                "multiline": false
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": null
+                                    }
+                                ],
+                                "type": "array"
+                            },
+                            {
+                                "name": "WA Order ExtraCost Exceptions",
+                                "spec": [
+                                    {
+                                        "name": "ExtraCost Name",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "EC QB Inventory Item",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "EC QB Income Account",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "EC QB SubClass",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    }
+                                ],
+                                "type": "array"
+                            },
+                            {
+                                "name": "Sales Tax Types",
+                                "spec": [
+                                    {
+                                        "name": "Sales Tax Name",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Sales Tax ID",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Sales Tax QB Code",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Sales Tax Rate",
+                                        "type": "number",
+                                        "label": null
+                                    },
+                                    {
+                                        "name": "Sales Tax Account",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Sales Tax Agency Name",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    }
+                                ],
+                                "type": "array"
+                            },
+                            {
+                                "name": "Sales Tax Groups",
+                                "spec": [
+                                    {
+                                        "name": "Sales Tax Group Name",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Sales Tax QB Group Code",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Sales Tax Group Account",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "Sales Tax Group Agency Name",
+                                        "type": "text",
+                                        "label": null,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "WA Tax IDs",
+                                        "spec": {
+                                            "type": "text",
+                                            "multiline": false
+                                        },
+                                        "type": "array",
+                                        "label": null
+                                    }
+                                ],
+                                "type": "array"
+                            },
+                            {
+                                "name": "Subtotal List Name",
+                                "type": "text",
+                                "multiline": false
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Record"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": false,
+            "sequential": false,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu1.integromat.com"
+    }
+}
