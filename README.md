@@ -1,2 +1,2 @@
-# waqm
-Wild Apricot QuickBooks Manager
+# Initial page
+
