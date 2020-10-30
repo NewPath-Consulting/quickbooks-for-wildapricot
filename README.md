@@ -8,6 +8,7 @@ _DISCLAIMER: This documentation is NOT intended to describe proper sales taxes f
 | :--- | :--- | :--- | :--- |
 | 0 | Sep 11, 2020 | D. Reed | First rough draft |
 | 1 | Oct 18, 2020 | D. Reed | Updated documentation from initial deployment |
+| 1.01 | Oct 30, 2020 | A. Sirota | Uploaded to private repo on Github - created private gitbook |
 
 ## Table of Contents:
 
