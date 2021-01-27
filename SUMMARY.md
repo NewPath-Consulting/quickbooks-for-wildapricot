@@ -1,6 +1,6 @@
 # Table of contents
 
-* [WAQM Documentation](README.md)
+* [WAQM Documentation Overview](README.md)
 
 ## WAQM Overview <a id="waqm-overview-1"></a>
 
