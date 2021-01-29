@@ -4,7 +4,7 @@ _DISCLAIMER: This documentation is NOT intended to describe proper sales taxes f
 
 _This is a consolidated set of documentation for WAQM that supports both clients and NPC staff.   Most sections are applicable to both audiences.   The later sections "for NPC Staff" are intended for NPC staff.   In some cases, links are provided to pages within this document to prevent duplication of content._
 
-_**In GitHub, look at the Summary.md file to see the Table of Contents.**_
+_**In GitHub, look at the [SUMMARY.md](/SUMMARY.md) file to see the Table of Contents.**_
 
  __
 
