@@ -128,7 +128,7 @@ Donation Job Scheduling:  see scheduling section below that applies similarly to
 
 WA Donation Mapping: This section defines the header that will be used on the QuickBooks “Sales Receipt” for a Donation. The Sales Receipt is similar to the Invoice, but is treated differently inside QuickBooks. These are the required configuration fields:
 
-* QB Header Account: A Bank Account or Undeposited Funds to which the Donation will be added. NOTE: If a SubAccount is desired, use the Quickbooks format for showing the Parent and child, separated by a colon. E.g. ParentAccount:ChildAccount
+* QB Header Account: A Bank Account, Deposit account or Undeposited Funds to which the Donation will be added. NOTE: If a SubAccount is desired, use the Quickbooks format for showing the Parent and child, separated by a colon. E.g. ParentAccount:ChildAccount
 * QB Header Account ID: \(for QBO only\) The corresponding system ID.
 * QB Income Account Default: If not defined in the Campaign Types, this Income/Revenue account will be used for the Donation Sales Receipt at the line item level. NOTE: If a SubAccount is desired, use the Quickbooks format for showing the Parent and child, separated by a colon. E.g. ParentAccount:ChildAccount
 * QB Item Product: The QuickBooks Inventory List Item \(Product\) to be used for the line item. This will show on the QuickBooks Donation sales receipt before the line item notes.
@@ -144,6 +144,8 @@ WA Donation Mapping: This section defines the header that will be used on the Qu
 WA Donation Campaigns: This section allows different campaigns to be mapped differently inside QuickBooks. Wild Apricot doesn't have standard fields to define campaigns, so this area may require customization in the Donation Scenario to support. These are the required configuration fields:
 
 * DonationFilter: The name of the Campaign. In the Donation Scenario, this filter must be mapped to the proper custom field in Wild Apricot.
+* QB DON Alt Deposit Account:  For situations in which a company wants Donations to be deposited into different "Bank accounts" in Quickbooks for different campaigns.  If not populated, the Donation Header account will be used.
+* QB DON Alt Deposit Account ID: \(for QBO only\)  The corresponding system ID 
 * QB DON Item Product: The QuickBooks Inventory List Item to be used for Donations. This will show on the QuickBooks Sales Receipt before the line item notes.
 * QB DON Item Product ID:  \(for QBO only\) The corresponding system ID.
 * QB DON Income Account: The Income/Revenue account to be used for the Donation campaign. NOTE: If a SubAccount is desired, use the Quickbooks format for showing the Parent and child, separated by a colon. E.g. ParentAccount:ChildAccount

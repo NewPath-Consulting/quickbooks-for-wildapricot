@@ -32,12 +32,12 @@ QBO will search for an existing customer match before invoice creation. If not f
 
 **Accounts**
 
-These types of Accounts must be defined in Quickbooks.
+These types of Accounts must be defined in Quickbooks.  If new accounts are created or accounts are edited, the corresponding WAQM configuration must be updated.
 
 * Receivables Account: Represents funds that are due to a company, but yet received. Many organizations will use a single AR account, but it is possible to have multiple AR accounts for multiple purposes.
-* Income \(Revenue\) Account: An account representing the income generated from a Sales Item. It is common to have multiple income accounts. It is recommended to use income accounts that will be fairly stable instead of creating new Income Accounts frequently. Each time a new Wild Apricot related Income account is created, the WAQM config must be updated.
+* Income \(Revenue\) Account: An account representing the income generated from a Sales Item. It is common to have multiple income accounts. It is recommended to use income accounts that will be fairly stable instead of creating new Income Accounts frequently.
 * Sales Tax Payable Account: If Sales Taxes are used, this represents the Sales Taxes that are expected to be paid to Taxing authorities.
-* If Donations are used, it is common to have a separate Deposit or Bank account o use with the Sales Receipt created for a Donation
+* If Donations are used, it is common to have a separate Deposit or Bank account to use with the Sales Receipt created for a Donation.  This is in place of the AR account.
 
 The recommended practice is to limit the number of accounts used. If further granularity is desired, classes and subclasses may be used in reporting.
 

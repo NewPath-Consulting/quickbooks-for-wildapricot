@@ -8,6 +8,7 @@
   * When the IIF Donation file is imported to Quickbooks Desktop, Quickbooks Sales Receipts are created that match the Wild Apricot donation \(customer, line items, amounts\) 
 * Quickbooks invoices are matched to the proper AR, Income, and Sales Tax Payable accounts and classes based on the Wild Apricot Invoice type 
 * Exception line item Income account mappings are possible based on Wild Apricot ExtraCost fields 
+* Quickbooks donations are matched to the proper Deposit-To and Income accounts and classes based on the Wild Apricot Donation Campaign Type. 
 * Create Quickbooks customer if it does not already exist
 
 #### Sample Quickbooks Invoice created from Wild Apricot data

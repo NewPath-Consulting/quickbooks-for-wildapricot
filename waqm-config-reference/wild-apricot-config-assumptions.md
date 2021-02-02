@@ -24,5 +24,7 @@ If used, the Sales Tax name and % must exactly match the Tax definition in WAQM.
 
 ![](../.gitbook/assets/10.png)
 
-### 
+**Donation**
+
+If Donations are used, it is possible to change the mapping for Donation Sales receipts based on the Donation Campaign.  Wild Apricot does not have a standard field for distinguishing Donation Campaigns, but it is typical to have a custom drop-down field allowing the Donor to select a Donation Campaign.  
 
