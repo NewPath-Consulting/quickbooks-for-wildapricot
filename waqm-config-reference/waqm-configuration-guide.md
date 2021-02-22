@@ -71,7 +71,7 @@ QB Desktop Billing Address Format: These fields configure which fields from Wild
   * The Customer Name field is truncated to 41 characters as that limit is enforced by QuickBooks.
   * The tokens assume that the WA field mappings in the previous section are properly configured. 
 
-![](../.gitbook/assets/screen-shot-2021-01-20-at-10.04.00-am.png)
+![](https://github.com/asirota/waqm/blob/master/.gitbook/assets/screen-shot-2021-01-20-at-10.04.00-am.png)
 
 **Invoice mapping configuration**
 
@@ -90,7 +90,7 @@ WA Order Type Items: Wild Apricot supports 6 Order \(Invoice\) Types: Membership
 * QB Header Class: The QuickBooks Class that should be defined for the Invoice Header. Current scenario logic overrides this header value based on the Class defined for the specific line item Class if it is defined. NOTE: If a Subclass is desired, use the Quickbooks format for showing the Parent and child, separated by a colon. E.g. ParentClass:ChildClass
 * QB Header Class ID:  \(for QBO only\) The corresponding system ID.
 
-![Example configuration mapping for MembershipApplication and a Line Item mapping](../.gitbook/assets/screen-shot-2021-01-06-at-11.48.46-am.png)
+![Example configuration mapping for MembershipApplication and a Line Item mapping](https://github.com/asirota/waqm/blob/master/.gitbook/assets/screen-shot-2021-01-06-at-11.48.46-am.png)
 
 WA Order Line Item Mapping: Each Order Type uses different techniques to allow separate mappings based on the value at the line item level. All line items on an Invoice will use the same mapping unless an exception is defined for ExtraCosts. \(See the next section on ExtraCost Exceptions.\)
 
@@ -118,7 +118,7 @@ WA Order ExtraCost Exceptions: As described in the OrderType section, all line i
 * EC QB SubClass: same definition as the Line Item Mapping section
 * EC QB SubClass ID:  \(for QBO only\) The corresponding system ID.
 
-![Example configuration for ExtraCost field mappings](../.gitbook/assets/screen-shot-2021-01-06-at-12.30.09-pm.png)
+![Example configuration for ExtraCost field mappings](https://github.com/asirota/waqm/blob/master/.gitbook/assets/screen-shot-2021-01-06-at-12.30.09-pm.png)
 
 **Donation mapping configuration**
 
@@ -139,7 +139,7 @@ WA Donation Mapping: This section defines the header that will be used on the Qu
   * Example: My donation supports the efforts of: {SupportName}-{Comment}
 * QB Tax Code for Exempt: The QuickBooks tax code to be used on the line item to represent Zero Tax or Tax Exempt. Example: E
 
-![](../.gitbook/assets/screen-shot-2021-01-06-at-12.46.32-pm.png)
+![](https://github.com/asirota/waqm/blob/master/.gitbook/assets/screen-shot-2021-01-06-at-12.46.32-pm.png)
 
 WA Donation Campaigns: This section allows different campaigns to be mapped differently inside QuickBooks. Wild Apricot doesn't have standard fields to define campaigns, so this area may require customization in the Donation Scenario to support. These are the required configuration fields:
 
@@ -154,7 +154,7 @@ WA Donation Campaigns: This section allows different campaigns to be mapped diff
 * QB DON SubClass: The Quickbooks Class to be used for the line item. If defined at the line item, this value will be used in place of the Class defined at the Donation header. NOTE: If a Subclass is desired, use the Quickbooks format for showing the Parent and child, separated by a colon. E.g. ParentClass:ChildClass
 * QB DON SubClass ID:  \(for QBO only\) The corresponding system ID.
 
-![](../.gitbook/assets/screen-shot-2021-01-06-at-12.48.10-pm.png)
+![](https://github.com/asirota/waqm/blob/master/.gitbook/assets/screen-shot-2021-01-06-at-12.48.10-pm.png)
 
 **Sales Tax mapping configuration**
 
@@ -170,7 +170,7 @@ Sales Tax Types: This section maps the tax rates used in Wild Apricot to the tax
 
 NOTE: For US versions of Quickbooks, a “NoTax” mapping may be needed when no tax is defined for a line item in Wild Apricot.
 
-![](../.gitbook/assets/screen-shot-2021-01-06-at-12.53.45-pm.png)
+![](https://github.com/asirota/waqm/blob/master/.gitbook/assets/screen-shot-2021-01-06-at-12.53.45-pm.png)
 
 Sales Tax Groups: Sales Tax Groups are used in Quickbooks when a line item uses a composite of multiple individual tax rates. \(e.g. a city tax and a province tax\) Sales Tax Groups do not exist inside Wild Apricot. This section maps which Quickbooks Tax Group is used when a single Wild Apricot line item uses 2 separate Sales Taxes.
 
@@ -182,11 +182,11 @@ Sales Tax Groups: Sales Tax Groups are used in Quickbooks when a line item uses 
 * WA Tax IDs: Add each Sales Tax Name from Wild Apricot as a separate item in the Tax ID array.  This must exactly match Wild Apricot and the mapping in the individual sales tax rate section.  
   * Example: 1\) GST 2\) PST
 
-![](../.gitbook/assets/screen-shot-2021-01-06-at-1.00.51-pm.png)
+![](https://github.com/asirota/waqm/blob/master/.gitbook/assets/screen-shot-2021-01-06-at-1.00.51-pm.png)
 
 Subtotal List Name: The QuickBooks Sales Inventory Item for Subtotals. This is primarily used for US Desktop versions of Quickbooks.  
 
-![](../.gitbook/assets/19.png)
+![](https://github.com/asirota/waqm/blob/master/.gitbook/assets/19.png)
 
 **WAQM scheduling configuration**
 
@@ -203,7 +203,7 @@ WA Invoice Job Scheduling:  Defines the frequency and time periods used when the
 * Scheduled Number of Periods Back: format = \# \(e.g. 1 = 1 month back from “today”\)
 * Scheduled-Reference-Run Schedule: reference notes to describe the configured schedule of the Invoice scenario. This does not drive scenario behavior. Scheduling must be done directly on the scenario.
 
-![](../.gitbook/assets/screen-shot-2021-01-06-at-1.20.01-pm.png)
+![](https://github.com/asirota/waqm/blob/master/.gitbook/assets/screen-shot-2021-01-06-at-1.20.01-pm.png)
 
 Additional Notes regarding dates and scheduling:
 
@@ -223,14 +223,14 @@ Output File Location: This section defines the service, folder path, and filenam
 * Success Invoice Filename Format: This field defines the preferred filename format for the generated Invoice IIF files that are loaded to the online storage service. If the token {DateTime} is included, the current date and time will be inserted in the filename.
 * Donation Folder Path, and Filename Format: These fields have the same purpose as the Invoice items above and allow a separate folder and filename for Donation related files.
 
-![](../.gitbook/assets/screen-shot-2021-01-06-at-1.35.39-pm.png)
+![](https://github.com/asirota/waqm/blob/master/.gitbook/assets/screen-shot-2021-01-06-at-1.35.39-pm.png)
 
 Notification Emails: This section defines the email addresses that will be used to send notifications when the scenarios run. The emails describe the dates used for a WAQM run and, for Quickbooks Desktop, provide a link to the generated file. To support notifications the email domain must be configured inside Integromat Mailgun utility.
 
 * Company Email Address: The To: email address.
 * Support Email Address: The cc: email address.
 
-![](../.gitbook/assets/screen-shot-2021-01-06-at-1.37.42-pm.png)
+![](https://github.com/asirota/waqm/blob/master/.gitbook/assets/screen-shot-2021-01-06-at-1.37.42-pm.png)
 
 ## 
 
