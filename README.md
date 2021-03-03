@@ -8,13 +8,55 @@ _**In GitHub, look at the Summary.md file to see the Table of Contents.**_
 
  __
 
-| **Version** | **Date** | **Owner** | **Notes** |
-| :--- | :--- | :--- | :--- |
-| 0 | Dec 7, 2020 | D. Reed | First version of Customer documentation |
-| 0.1 | Dec 16, 2020 | D. Reed | Initial conversion to Gitbook |
-| 1 | Jan 6, 2021 | D. Reed | Updates for major version v0.5 \(QBO v5 milestone\) |
-| 1.1 | Jan 27, 2021 | D.Reed | Clean-up before merged to GitHub |
-|  |  |  |  |
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"><b>Version</b>
+      </th>
+      <th style="text-align:left"><b>Date</b>
+      </th>
+      <th style="text-align:left"><b>Owner</b>
+      </th>
+      <th style="text-align:left"><b>Notes</b>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">0</td>
+      <td style="text-align:left">Dec 7, 2020</td>
+      <td style="text-align:left">D. Reed</td>
+      <td style="text-align:left">First version of Customer documentation</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">0.1</td>
+      <td style="text-align:left">Dec 16, 2020</td>
+      <td style="text-align:left">D. Reed</td>
+      <td style="text-align:left">Initial conversion to Gitbook</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">1</td>
+      <td style="text-align:left">Jan 6, 2021</td>
+      <td style="text-align:left">D. Reed</td>
+      <td style="text-align:left">Updates for major version v0.5 (QBO v5 milestone)</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">1.1</td>
+      <td style="text-align:left">Jan 27, 2021</td>
+      <td style="text-align:left">D.Reed</td>
+      <td style="text-align:left">Clean-up before merged to GitHub</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">1.2</td>
+      <td style="text-align:left">Mar 3, 2021</td>
+      <td style="text-align:left">D. Reed</td>
+      <td style="text-align:left">
+        <p>Updates to WAQM references for v.5 scenarios</p>
+        <p>New reference section for IIF file usage</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## 
 
