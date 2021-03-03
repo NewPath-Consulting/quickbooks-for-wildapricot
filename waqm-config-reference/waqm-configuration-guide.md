@@ -94,7 +94,7 @@ WA Order Type Items: Wild Apricot supports 6 Order \(Invoice\) Types: Membership
 
 WA Order Line Item Mapping: Each Order Type uses different techniques to allow separate mappings based on the value at the line item level. All line items on an Invoice will use the same mapping unless an exception is defined for ExtraCosts. \(See the next section on ExtraCost Exceptions.\)
 
-* Membership Invoices: The first invoice line item defines the Membership Level. The Membership Level is read and is used as the “filter” for mapping.
+* Membership Invoices: The first line item from any membership-related invoice includes the Member Level name.  The Membership Level is read and is used as the “filter” for mapping.
 * EventRegistration Invoices: The corresponding Event can use Tags. The Tag is read and used as the “filter” for mapping.
 * OnlineStore Invoices: Though Wild Apricot does support Tags, these tags are not available to WAQM. Only 1 default mapping can be used for all OnlineStore invoices.
 * Manual Item \(Undefined\) Invoices: Only 1 mapping is supported.

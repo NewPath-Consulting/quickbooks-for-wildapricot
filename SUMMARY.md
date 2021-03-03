@@ -25,6 +25,7 @@
 ## Other References
 
 * [Sales Tax Scenarios](other-references/sales-tax-scenarios.md)
+* [Quickbooks Desktop IIF reference](other-references/quickbooks-desktop-iif-reference.md)
 
 ## Install Steps for NPC Staff
 

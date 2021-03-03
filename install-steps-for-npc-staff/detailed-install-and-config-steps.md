@@ -9,9 +9,9 @@ These are the detailed steps to install the components of WAQM into a new client
 3. WAQM-Invoice-Line \(required\) 
 4. WA-QB-Invoice-IIF\_TRNS \(optional-documentation of structure\) 
 5. WA-QB-Invoice-IIF\_SPL \(optional-documentation of structure\) 
-6. Cust ID 
-7. Tax Code 
-8. Invoice List
+6. WAQM QBO Cust ID 
+7. WAQM QB Tax Code 
+8. WAQM-Invoice-List
 
 ![](https://lh6.googleusercontent.com/hAMP9QPJ5ZYJ6u3IPWeisWZOOUvVxdUio7j9a7qD04XkU_UnAQcF8MNkyudFSVhOUt1q-UUm7FngxzYtNADhh4GnnzmdNCQVAL86EEXh48AWW8YFt6IN_-gLSEXDfKCw4QCHE9qg)
 
@@ -67,9 +67,11 @@ These are the detailed steps to install the components of WAQM into a new client
 
 1. DEV-WAQM-Invoice \(latest version\) 
 2. DEV-WAQM-Donation \(latest version\) 
-3. WAQM-Config-BackupRecord \(used for maintenance purposes\)      IMPORTANT NOTE: During the clone process, you will be asked to update the connections and data stores. If the connections are new, login information may be needed to complete the clone process.
+3. WAQM-Config-BackupRecord \(used for maintenance purposes\)      
 
-             ![](https://lh4.googleusercontent.com/5GMRsEmqx44v1x2Lk1xcF8t3m_Gm9IpAmR51-Vgju3sGPxdndyxl0GrVP2E6S94TG_OuRxMYYTHsnxAXmnQtOUhijA70g_j6XnFPS6nMXP-wq74QpboYW22VkwlYFLX4skKZPZtq)
+IMPORTANT NOTE: During the clone process, you will be asked to update the connections and data stores. If the connections are new, login information may be needed to complete the clone process.
+
+          ![](https://lh4.googleusercontent.com/5GMRsEmqx44v1x2Lk1xcF8t3m_Gm9IpAmR51-Vgju3sGPxdndyxl0GrVP2E6S94TG_OuRxMYYTHsnxAXmnQtOUhijA70g_j6XnFPS6nMXP-wq74QpboYW22VkwlYFLX4skKZPZtq)
 
 **E\) If needed, change all 3 scenarios to work for the client’s environment:** 
 
