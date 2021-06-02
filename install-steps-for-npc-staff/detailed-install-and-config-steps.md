@@ -4,7 +4,7 @@ These are the detailed steps to install the components of WAQM into a new client
 
 **A\) Clone Data Structures** \([https://www.integromat.com/udts/197209](https://www.integromat.com/udts/197209)\): _From the NPC Integromat organization, clone each Data Structure below to the client’s organization. Update the name, select the client’s org as the target. Recommendation: update the name to remove the phrase “\(copy\)”_ 
 
-1. WAQM-Config \(required\) 
+1. WAQM Config \(required\) 
 2. WAQM-Invoice-IIF\_RAW \(required\) 
 3. WAQM-Invoice-Line \(required\) 
 4. WA-QB-Invoice-IIF\_TRNS \(optional-documentation of structure\) 
@@ -12,13 +12,15 @@ These are the detailed steps to install the components of WAQM into a new client
 6. WAQM QBO Cust ID 
 7. WAQM QB Tax Code 
 8. WAQM-Invoice-List
+9. WAQM-Invoice-QBOPayload
+10. WAQM-Donation-QBOPayload
 
 ![](https://lh6.googleusercontent.com/hAMP9QPJ5ZYJ6u3IPWeisWZOOUvVxdUio7j9a7qD04XkU_UnAQcF8MNkyudFSVhOUt1q-UUm7FngxzYtNADhh4GnnzmdNCQVAL86EEXh48AWW8YFt6IN_-gLSEXDfKCw4QCHE9qg)
 
 **B\) Create new Data Stores** \([https://www.integromat.com/datastores/](https://www.integromat.com/datastores/)\):  _From the client’s Integromat organization, create the 2 Data Stores shown below. Name the Data Stores, select the corresponding Data Structure, and specify the storage size._
 
 1. WAQM-Config \(Use the WAQM-Config Data Structure. Use the minimum storage capacity =1 MB.\) 
-2. WAQM-Invoice-TMP \(Use the WAQM-Invoice-IIF\_RAW. The storage capacity may need to vary depending on the number of records. 1-2 MB should be sufficient.\)
+2. WAQM-Invoice-TMP \(Use the WAQM-Invoice-IIF\_RAW data structure. The storage capacity may need to vary depending on the number of records. 1-2 MB should be sufficient.\)
 
 ![](https://lh3.googleusercontent.com/ZhCx3h7C37GdC_rzEB1b5Ulu_yDAPUbhzC0a-enmBuVEMXFqWUd_QP7UwQZZKyNETM9xua3ui7_UCi4DbqzDW0NrQVkIP9lk8tn0ry_O9yzD1FHJ9kdgKcb2HniXVjmCcs1Dxlrb)
 
@@ -65,9 +67,11 @@ These are the detailed steps to install the components of WAQM into a new client
 
 **D\) Clone scenarios from NPC’s organization to the client’s organization** 
 
-1. DEV-WAQM-Invoice \(latest version\) 
-2. DEV-WAQM-Donation \(latest version\) 
-3. WAQM-Config-BackupRecord \(used for maintenance purposes\)      
+1. WAQM-Invoice-Core \(latest version\) 
+2. WAQM-Invoice-QBO \(latest version\) \[For QBO clients only\]
+3. WAQM-Donation-Core \(latest version\)
+4. WAQM-Donation-QBO \(latest version\) \[For QBO clients only\]
+5. WAQM-Config-BackupRecord \(used for maintenance purposes\)      
 
 IMPORTANT NOTE: During the clone process, you will be asked to update the connections and data stores. If the connections are new, login information may be needed to complete the clone process.
 
