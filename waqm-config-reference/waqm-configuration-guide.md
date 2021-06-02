@@ -24,6 +24,7 @@ QB Version: These fields drive the scenario logic as different versions of Quick
 
 WAQM Version Info:  reference fields to indicate which version of WAQM is in place during configuration
 
+* WAQM License Key: For each WAQM run, the key is checked to ensure it is still valid and unexpired.   Visit [https://newpathconsulting.com/waqm](https://newpathconsulting.com/waqm) to buy or extend a WAQM license.
 * WAQM Invoice Scenario Version
 * WAQM Donation Scenario Version
 
@@ -128,6 +129,7 @@ Donation Job Scheduling:  see scheduling section below that applies similarly to
 
 WA Donation Mapping: This section defines the header that will be used on the QuickBooks “Sales Receipt” for a Donation. The Sales Receipt is similar to the Invoice, but is treated differently inside QuickBooks. These are the required configuration fields:
 
+* WA Campaign Field Name:  By default, Wild Apricot does not have a field for specifying different campaigns or types of Donations.  If an organization does not include a 'Campaign' field inside the Donation, WAQM cannot provide mappings to different accounts for different Campaigns.  If the organization does define Campaign types inside the Wild Apricot Donation, this field is used to list the Label \(Display Name\) for the custom field.   WAQM assumes this custom field is a drop down field, with different campaigns listed as choices within the drop-down.  The field name listed here is the overall field name, not the listings of individual campaign types.
 * QB Header Account: A Bank Account, Deposit account or Undeposited Funds to which the Donation will be added. NOTE: If a SubAccount is desired, use the Quickbooks format for showing the Parent and child, separated by a colon. E.g. ParentAccount:ChildAccount
 * QB Header Account ID: \(for QBO only\) The corresponding system ID.
 * QB Income Account Default: If not defined in the Campaign Types, this Income/Revenue account will be used for the Donation Sales Receipt at the line item level. NOTE: If a SubAccount is desired, use the Quickbooks format for showing the Parent and child, separated by a colon. E.g. ParentAccount:ChildAccount
@@ -135,22 +137,26 @@ WA Donation Mapping: This section defines the header that will be used on the Qu
 * QB Item Product ID:  \(for QBO only\) The corresponding system ID.
 * QB Header Class: The QuickBooks Class that should be defined for the Donation Sales Receipt Header. Current scenario logic overrides this header value based on the Class defined for the specific line item Class if it is defined. NOTE: If a Subclass is desired, use the Quickbooks format for showing the Parent and child, separated by a colon. E.g. ParentClass:ChildClass
 * QB Header Class ID:  \(for QBO only\) The corresponding system ID.
-* QB Header Memo Format: This allows default text and placeholder tokens to be defined to pull values from the Donation and insert into the QuickBooks Memo field. Wild Apricot donations have limited standard fields and typically use custom fields. This section may require customization in the scenario to support specific choices.
-  * Example: My donation supports the efforts of: {SupportName}-{Comment}
-* QB Tax Code for Exempt: The QuickBooks tax code to be used on the line item to represent Zero Tax or Tax Exempt. Example: E
+* QB Header Memo Format: This allows default text and placeholder tokens to be defined to pull values from the Donation and insert into the QuickBooks Memo field.  The only standard Wild Apricot donation text field is 'Comment'.  Using a custom Donation field inside this mapping requires WAQM customization.   have limited standard fields and typically use custom fields. This section may require customization in the scenario to support specific choices.
+  * Example: {Comment}
+  * Example 2:  Note from Donor-{Comment}
+* QB Tax Code for Exempt: The QuickBooks tax code to be used on the line item to represent Zero Tax or Tax Exempt.   Donations are assumed to have zero tax applied and do not rely on the WAQM Sales Tax section.
+  * Example: E
 
 ![](../.gitbook/assets/screen-shot-2021-01-06-at-12.46.32-pm.png)
 
-WA Donation Campaigns: This section allows different campaigns to be mapped differently inside QuickBooks. Wild Apricot doesn't have standard fields to define campaigns, so this area may require customization in the Donation Scenario to support. These are the required configuration fields:
+![](../.gitbook/assets/screen-shot-2021-05-25-at-11.53.15-am.png)
 
-* DonationFilter: The name of the Campaign. In the Donation Scenario, this filter must be mapped to the proper custom field in Wild Apricot.
+WA Donation Campaigns: This section allows different campaigns to be mapped to different accounts and classes inside QuickBooks. This section assumes the Wild Apricot Campaign field has been listed at the beginning of the Donation mapping configuration. These are the required configuration fields:
+
+* DonationFilter: The name of the Campaign chosen by the Donor. This must match the Label of the drop down list item inside Wild Apricot exactly.  The custom drop down field name is configured separately at the beginning of the Donation mapping configuration.
 * QB DON Alt Deposit Account:  For situations in which a company wants Donations to be deposited into different "Bank accounts" in Quickbooks for different campaigns.  If not populated, the Donation Header account will be used.
 * QB DON Alt Deposit Account ID: \(for QBO only\)  The corresponding system ID 
 * QB DON Item Product: The QuickBooks Inventory List Item to be used for Donations. This will show on the QuickBooks Sales Receipt before the line item notes.
 * QB DON Item Product ID:  \(for QBO only\) The corresponding system ID.
 * QB DON Income Account: The Income/Revenue account to be used for the Donation campaign. NOTE: If a SubAccount is desired, use the Quickbooks format for showing the Parent and child, separated by a colon. E.g. ParentAccount:ChildAccount
-* QB DON Line Notes Format: This allows default text and placeholder tokens to be defined to pull values from the Donation and insert into the QuickBooks Line Item Notes field. Donations have limited standard fields. This section may require customization in the scenario to support specific choices.
-  * Example: Donation is directed to: {CampaignName}
+* QB DON Line Notes Format: This allows default text and the name of the Donor's selected Campaign to be inserted into the QuickBooks Line Item Notes field on the Sales Receipt. This configuration assumes that the organization is using a custom drop-down field for selecting the Donation Type.  If this field is left blank, WAQM defaults to use: "Donation For: {Campaign Name}" 
+  * Example: Amazing Donation For: {Campaign Name}
 * QB DON SubClass: The Quickbooks Class to be used for the line item. If defined at the line item, this value will be used in place of the Class defined at the Donation header. NOTE: If a Subclass is desired, use the Quickbooks format for showing the Parent and child, separated by a colon. E.g. ParentClass:ChildClass
 * QB DON SubClass ID:  \(for QBO only\) The corresponding system ID.
 
@@ -227,8 +233,9 @@ Output File Location: This section defines the service, folder path, and filenam
 
 Notification Emails: This section defines the email addresses that will be used to send notifications when the scenarios run. The emails describe the dates used for a WAQM run and, for Quickbooks Desktop, provide a link to the generated file. To support notifications the email domain must be configured inside Integromat Mailgun utility.
 
-* Company Email Address: The To: email address.
-* Support Email Address: The cc: email address.
+* Company Email Address: The To: email address.   This should be the list of emails from the client that will receive notifications when WAQM runs.
+  * NOTE:  The first listed company email will be used as the From: address.
+* Support Email Address: The cc: email address.  This is typically the NewPath Consulting support email address\(es\) that will receive notifications when WAQM runs.
 
 ![](../.gitbook/assets/screen-shot-2021-01-06-at-1.37.42-pm.png)
 
