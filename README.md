@@ -59,7 +59,8 @@ _**In GitHub, look at the Summary.md file to see the Table of Contents.**_
       <td style="text-align:left">1.3</td>
       <td style="text-align:left">Jun 2, 2021</td>
       <td style="text-align:left">D. Reed</td>
-      <td style="text-align:left">Updates to WAQM references for v0.6.1 scenarios</td>
+      <td style="text-align:left">Updates to WAQM references for v0.6.1 scenarios and removing default WAQM
+        Config values from data structure</td>
     </tr>
   </tbody>
 </table>
