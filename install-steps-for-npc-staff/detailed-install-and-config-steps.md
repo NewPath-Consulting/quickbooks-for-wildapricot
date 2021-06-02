@@ -20,7 +20,7 @@ These are the detailed steps to install the components of WAQM into a new client
 **B\) Create new Data Stores** \([https://www.integromat.com/datastores/](https://www.integromat.com/datastores/)\):  _From the client’s Integromat organization, create the 2 Data Stores shown below. Name the Data Stores, select the corresponding Data Structure, and specify the storage size._
 
 1. WAQM-Config \(Use the WAQM-Config Data Structure. Use the minimum storage capacity =1 MB.\) 
-2. WAQM-Invoice-TMP \(Use the WAQM-Invoice-IIF\_RAW. The storage capacity may need to vary depending on the number of records. 1-2 MB should be sufficient.\)
+2. WAQM-Invoice-TMP \(Use the WAQM-Invoice-IIF\_RAW data structure. The storage capacity may need to vary depending on the number of records. 1-2 MB should be sufficient.\)
 
 ![](https://lh3.googleusercontent.com/ZhCx3h7C37GdC_rzEB1b5Ulu_yDAPUbhzC0a-enmBuVEMXFqWUd_QP7UwQZZKyNETM9xua3ui7_UCi4DbqzDW0NrQVkIP9lk8tn0ry_O9yzD1FHJ9kdgKcb2HniXVjmCcs1Dxlrb)
 
