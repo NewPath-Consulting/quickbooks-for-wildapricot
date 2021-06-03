@@ -35,3 +35,8 @@
 * [Detailed Config Steps](install-steps-for-npc-staff/detailed-config-steps.md)
 * [WAQM Version History](install-steps-for-npc-staff/waqm-version-history.md)
 
+## IIF Specification for WAQM Quickbooks Desktop
+
+* [General IIF Requirements and Behavior](iif-specification-for-waqm-quickbooks-desktop/general-iif-requirements-and-behavior.md)
+* [IIF Specification and Notes](iif-specification-for-waqm-quickbooks-desktop/iif-specification-and-notes.md)
+
