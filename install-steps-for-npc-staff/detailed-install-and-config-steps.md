@@ -77,7 +77,11 @@ IMPORTANT NOTE: During the clone process, you will be asked to update the connec
 
 ![](https://lh4.googleusercontent.com/5GMRsEmqx44v1x2Lk1xcF8t3m_Gm9IpAmR51-Vgju3sGPxdndyxl0GrVP2E6S94TG_OuRxMYYTHsnxAXmnQtOUhijA70g_j6XnFPS6nMXP-wq74QpboYW22VkwlYFLX4skKZPZtq)
 
-If the scenarios in this section use _**webhooks**_, a new webhook must be created inside the client's account as part of the cloning process.  The webhook allows information from the Core scenario to be passed to a secondary scenario.   \(See the screenshot for an example.\) 
+If the scenarios in this section use _**webhooks**_, a new webhook must be created inside the client's account as part of the cloning process.  See the next section for detailed instructions about Webhooks and the corresponding HTTP Send modules inside the scenarios.
+
+**E\) Create webhook and update the HTTP Send URL \(only needed if the cloned scenarios in the previous section use Webhooks\)**
+
+The webhook allows information from the Core scenario to be passed to a secondary scenario.   \(See the screenshot for an example.\) 
 
 * Give the webhook a name that includes the client name, scenario reference and data structure version number.   
 * Choose the appropriate data structure.  Use the table below to understand which scenarios and data structures are related.
@@ -89,9 +93,23 @@ If the scenarios in this section use _**webhooks**_, a new webhook must be creat
 
 ![](../.gitbook/assets/screen-shot-2021-06-14-at-10.27.02-am.png)
 
+After the Webhook is created, the URL from the Webhook must be copied to the HTTP Send module of the corresponding scenario.  Follow steps and see the screenshots for an example.
+
+1. Open the scenario that includes the Webhook
+2. Open the first module, which is the Webhook module
+3. Copy the URL using the "copy address to clipboard" button \[do not ave any changes\]
+4. Close the scenario
+5. Open the corresponding "Core" scenario
+6. Find the HTTP Make a Request module with the corresponding name.  It is usually to the far right of the scenario.
+7. Open the HTTP Make a Request module
+8. Paste the URL from the webhook into the URL field inside the HTTP Make a Request module
+9. Press OK and Save the scenario
+
+NOTE: This process is expected to work as-is.  Sometimes the Webhook must be "trained" to recognize the data structure.  This Integromat article describes the process.  [https://support.integromat.com/hc/en-us/articles/360006249313-Webhooks](https://support.integromat.com/hc/en-us/articles/360006249313-Webhooks).
 
 
-**E\) If needed, change all 3 scenarios to work for the client’s environment:** 
+
+**F\) If needed, change all 3 scenarios to work for the client’s environment:** 
 
 1. Configuration record key in the 1st module to read proper record from the Config Data Store  See the screenshot for an example.
 
