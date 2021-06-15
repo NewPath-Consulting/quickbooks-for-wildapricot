@@ -107,7 +107,11 @@ After the Webhook is created, the URL from the Webhook must be copied to the HTT
 
 NOTE: This process is expected to work as-is.  Sometimes the Webhook must be "trained" to recognize the data structure.  This Integromat article describes the process.  [https://support.integromat.com/hc/en-us/articles/360006249313-Webhooks](https://support.integromat.com/hc/en-us/articles/360006249313-Webhooks).
 
+![](../.gitbook/assets/screen-shot-2021-06-15-at-9.09.58-am.png)
 
+![](../.gitbook/assets/screen-shot-2021-06-15-at-9.09.07-am.png)
+
+\*\*\*\*
 
 **F\) If needed, change all 3 scenarios to work for the client’s environment:** 
 
