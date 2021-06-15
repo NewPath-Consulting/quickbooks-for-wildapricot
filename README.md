@@ -62,6 +62,12 @@ _**In GitHub, look at the [SUMMARY.md](/SUMMARY.md) file to see the Table of Con
       <td style="text-align:left">Updates to WAQM references for v0.6.1 scenarios and removing default WAQM
         Config values from data structure</td>
     </tr>
+    <tr>
+      <td style="text-align:left">1.4</td>
+      <td style="text-align:left">Jun 15, 2021</td>
+      <td style="text-align:left">D. Reed</td>
+      <td style="text-align:left">Update install instructions for refactored scenarios (v0.6.1)</td>
+    </tr>
   </tbody>
 </table>
 

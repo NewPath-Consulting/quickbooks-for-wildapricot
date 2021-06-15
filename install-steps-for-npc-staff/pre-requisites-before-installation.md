@@ -21,7 +21,7 @@ These accounts and items should be in place before beginning the Integromat Clon
 
 
 
-* Client’s SMTP account \(to support notification emails when WAQM runs\) 
+* Client’s Domain and DNS information  \(to support configuration of Mailgun to send notification emails when WAQM runs\) 
 
 
 

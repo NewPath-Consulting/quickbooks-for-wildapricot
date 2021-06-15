@@ -2,7 +2,7 @@
 
 These are the detailed steps to install the components of WAQM into a new client's Integromat instance.   An overview of the installation process is described on this page.   [WAQM Installation Overview](../waqm-overview-1/waqm-installation-overview.md)
 
-**A\) Clone Data Structures** \([https://www.integromat.com/udts/197209](https://www.integromat.com/udts/197209)\): _From the NPC Integromat organization, clone each Data Structure below to the client’s organization. Update the name, select the client’s org as the target. Recommendation: update the name to remove the phrase “\(copy\)”_ 
+**A\) Clone Data Structures** \([https://www.integromat.com/udts/197209](https://www.integromat.com/udts/197209)\): _From the NPC Integromat organization, clone each Data Structure below to the client’s organization. Update the name, select the client’s org as the target. Recommendation: update the name to include the client's name and the data structure version number._ 
 
 1. WAQM Config \(required\) 
 2. WAQM-Invoice-IIF\_RAW \(required\) 
@@ -17,7 +17,7 @@ These are the detailed steps to install the components of WAQM into a new client
 
 ![](https://lh6.googleusercontent.com/hAMP9QPJ5ZYJ6u3IPWeisWZOOUvVxdUio7j9a7qD04XkU_UnAQcF8MNkyudFSVhOUt1q-UUm7FngxzYtNADhh4GnnzmdNCQVAL86EEXh48AWW8YFt6IN_-gLSEXDfKCw4QCHE9qg)
 
-**B\) Create new Data Stores** \([https://www.integromat.com/datastores/](https://www.integromat.com/datastores/)\):  _From the client’s Integromat organization, create the 2 Data Stores shown below. Name the Data Stores, select the corresponding Data Structure, and specify the storage size._
+**B\) Create new Data Stores** \([https://www.integromat.com/datastores/](https://www.integromat.com/datastores/)\):  _From the client’s Integromat organization, create the 2 Data Stores shown below. Name the Data Stores, select the corresponding Data Structure, and specify the storage size.   For the name, include the clients name and the version of the corresponding data structure._
 
 1. WAQM-Config \(Use the WAQM-Config Data Structure. Use the minimum storage capacity =1 MB.\) 
 2. WAQM-Invoice-TMP \(Use the WAQM-Invoice-IIF\_RAW data structure. The storage capacity may need to vary depending on the number of records. 1-2 MB should be sufficient.\)
@@ -73,15 +73,29 @@ These are the detailed steps to install the components of WAQM into a new client
 4. WAQM-Donation-QBO \(latest version\) \[For QBO clients only\]
 5. WAQM-Config-BackupRecord \(used for maintenance purposes\)      
 
-IMPORTANT NOTE: During the clone process, you will be asked to update the connections and data stores. If the connections are new, login information may be needed to complete the clone process.
+IMPORTANT NOTE: During the clone process, you will be asked to update the connections, webhooks, and data stores. If the connections are new, login information may be needed to complete the clone process. 
 
-          ![](https://lh4.googleusercontent.com/5GMRsEmqx44v1x2Lk1xcF8t3m_Gm9IpAmR51-Vgju3sGPxdndyxl0GrVP2E6S94TG_OuRxMYYTHsnxAXmnQtOUhijA70g_j6XnFPS6nMXP-wq74QpboYW22VkwlYFLX4skKZPZtq)
+![](https://lh4.googleusercontent.com/5GMRsEmqx44v1x2Lk1xcF8t3m_Gm9IpAmR51-Vgju3sGPxdndyxl0GrVP2E6S94TG_OuRxMYYTHsnxAXmnQtOUhijA70g_j6XnFPS6nMXP-wq74QpboYW22VkwlYFLX4skKZPZtq)
+
+If the scenarios in this section use _**webhooks**_, a new webhook must be created inside the client's account as part of the cloning process.  The webhook allows information from the Core scenario to be passed to a secondary scenario.   \(See the screenshot for an example.\) 
+
+* Give the webhook a name that includes the client name, scenario reference and data structure version number.   
+* Choose the appropriate data structure.  Use the table below to understand which scenarios and data structures are related.
+
+| Scenario Containing a Webhook | Data Structure to use | Recommended Webhook Name |
+| :--- | :--- | :--- |
+| WAQM-Invoice-QBO | WAQM-Invoice-QBOPayload | WAQM-QBO-Inv-\[version\]-\[client\] |
+| WAQM-Donation-QBO | WAQM-Donation-QBOPayload | WAQM-QBO-Don-\[version\]-\[client\] |
+
+![](../.gitbook/assets/screen-shot-2021-06-14-at-10.27.02-am.png)
+
+
 
 **E\) If needed, change all 3 scenarios to work for the client’s environment:** 
 
-1. Configuration record key in the 1st module to read proper record from the Config Data Store 
+1. Configuration record key in the 1st module to read proper record from the Config Data Store  See the screenshot for an example.
 
-             ![](https://lh3.googleusercontent.com/U7o_oyAAjT8ndkW3a9pNTIK-nIbnP91rAFTh-yi-hGUChBU74aOmY3JnUGOM7lUAxUkU-Nd7MJsOAueJx_oAmBR2ahIIcPbvjoQLR0iQUHUwfJMkoaT5icRgJxcyEJyeLHbOXCP4)
+             ![](../.gitbook/assets/screen-shot-2021-06-15-at-8.35.51-am.png)
 
 2. Ensure any test filters are removed \(e.g. Invoice ID = \#\#\) 
 3. Output modules for Box, DropBox, etc. \(folder, filename format, etc.\).
