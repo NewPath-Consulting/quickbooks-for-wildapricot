@@ -35,7 +35,9 @@ These are the detailed steps to install the components of WAQM into a new client
 
 **C-2:  Option 2 - “create” from a previous config record in NPC Lab:** \(see diagram for pictorial representation\)
 
-![](https://lh6.googleusercontent.com/Wx4RJdQFpBdopjrxNa4RX2HWzhBCI_IT5f6VM_8S89SErnX9oKJtGajcNwWfoemnE7EuFwbpPIU2QcvPykc0B0Tye5e84x871B1uMyiS57GCLNl5SIQzf_xsC8XkyxO6HywHbbXV)
+![](../.gitbook/assets/config-copy-data-flow-diagram.png)
+
+
 
 1. In the originating Integromat Organization \(NPC Lab\), clone this scenario to the target organization: WAQM-DS-Config-Webhook. During the clone process, check these configurations: 
    1. Add a new Webhook connection \(choose any name as this a Temporary connection that is not needed after the config is copied\) 
@@ -86,10 +88,12 @@ The webhook allows information from the Core scenario to be passed to a secondar
 * Give the webhook a name that includes the client name, scenario reference and data structure version number.   
 * Choose the appropriate data structure.  Use the table below to understand which scenarios and data structures are related.
 
-| Scenario Containing a Webhook | Data Structure to use | Recommended Webhook Name |
-| :--- | :--- | :--- |
-| WAQM-Invoice-QBO | WAQM-Invoice-QBOPayload | WAQM-QBO-Inv-\[version\]-\[client\] |
-| WAQM-Donation-QBO | WAQM-Donation-QBOPayload | WAQM-QBO-Don-\[version\]-\[client\] |
+| Scenario Containing a Webhook | Data Structure to use | Recommended Webhook Name | Scenario with corresponding HTTP Send |
+| :--- | :--- | :--- | :--- |
+| WAQM-Invoice-QBO | WAQM-Invoice-QBOPayload | WAQM-QBO-Inv-\[version\]-\[client\] | WAQM-Invoice-Core |
+| WAQM-Donation-QBO | WAQM-Donation-QBOPayload | WAQM-QBO-Don-\[version\]-\[client\] | WAQM-Donation-Core |
+
+![](../.gitbook/assets/qbo-scenario-linkage-v0.6.1.png)
 
 ![](../.gitbook/assets/screen-shot-2021-06-14-at-10.27.02-am.png)
 
