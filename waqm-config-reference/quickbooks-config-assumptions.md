@@ -97,7 +97,11 @@ The examples below show a list of Sales Tax Items and Sales Tax Groups in additi
 
 ![](../.gitbook/assets/5.png)
 
-![](../.gitbook/assets/6.png) ![](../.gitbook/assets/7.png)
+ 
+
+![](../.gitbook/assets/7.png)
+
+![](../.gitbook/assets/6.png)
 
 **Taxes for United States \(US\) Quickbooks Desktop versions:**
 

@@ -43,29 +43,37 @@ These are the detailed steps to install the components of WAQM into a new client
    1. Add a new Webhook connection \(choose any name as this a Temporary connection that is not needed after the config is copied\) 
    2. Ensure the Config Data Store module points to the newly created Config Data Store in the target organization.
 
-                ![](https://lh4.googleusercontent.com/5GMRsEmqx44v1x2Lk1xcF8t3m_Gm9IpAmR51-Vgju3sGPxdndyxl0GrVP2E6S94TG_OuRxMYYTHsnxAXmnQtOUhijA70g_j6XnFPS6nMXP-wq74QpboYW22VkwlYFLX4skKZPZtq)
+          
 2. From the cloned scenario inside the target organization, copy the URL address from the Webhook module. This will be used back in the originating organization. 
 3. Save and turn on the cloned Webhook scenario in the target organization.  
    NOTE:  If the first Webhook module indicates that data structure determination is needed, running the scenario in step v.\) \(WAQM-DS-Config-SendJSON\) will need to be run twice. The first run “trains” the webhook to recognize the data structure. The 2nd run actually creates the new config record in the target organization. For further info, see: [https://support.integromat.com/hc/en-us/articles/360006249313-Webhooks](https://support.integromat.com/hc/en-us/articles/360006249313-Webhooks).
 
-             ![](https://lh6.googleusercontent.com/65LTfynjOVBTC8wmUUHVFSEHY4O3O5ZjWJgQrY7qEbPnFCt810JH3wZuN80ae2zprGndO_5z_e2ahGYWVIEvRECtGkhwI9ghBzBPz3504WmnNKUyNS_cJcBRUJICvbOStRbtiOqp)
+          
 
 4. In the originating organization \(NPC Lab\), check the config of the scenario: WAQM-DS-Config-SendJSON 
    1. Go into the NPC organization’s WAQM Data Store and confirm which record will be copied to the client. Copy the key for the record.
 
-                ![](https://lh6.googleusercontent.com/-IOPlCsviAkPppCfl3kqWR8tUcEN61uTchUzjoHHF9EzptZ8rNi1QX4IRfOvQ35T4XES17GzkByeCwi2K4kIe3leG96RZ1KVNbnoxyqlE0zcIsivJBX3zTtetB2V8KTW3qaFfgmn)
+          
 
    2. Ensure the “key” in the first Data Store module corresponds to the proper config record to be sent to the target organization
 
-                ![](https://lh5.googleusercontent.com/5p9AOFM-LBKwCthEdw3RXNtXGsZtaoGVvVC3GRcZDfOlbB_nwwmXE89L7tQ3GSqQ_EciiKkPCAPaM_q-y_JKcoJv0awzttz021QDsl54lJa-eh1jmd3m9M83TEgC3wbNDWz8mKoG)
+          
 
    3. Check the URL in the HTTP request module \(from step ii above\). Ensure it matches the URL copied from the Cloned scenario inside the target organization.
-
-      ![](https://lh4.googleusercontent.com/A7xI9Af5rxPTT1JmlY3zpWoPxJ6_Bx16yvnS3JE7I6AMvrVclRawPWmZVc69XCviCsHJ_rdyROoaEJFBRxWq8uhUsyGu6U4LBpty2yNL57LBhvOVyQ8gzxR305cts3MbWWYbt8PT)
 5. Run the scenario in the originating org \(NPC Lab\): WAQM-DS-Config-SendJSON 
 6. In the target organization, confirm that the Webhook ran successfully. Confirm that the record was created in the Data Store in the target organization. NOTE: If the receiving scenario did not run properly or add a Config record to the new data store, it is possible that the new Webhook needed to be “re-trained” to recognize the data structure. See description and integromat support URL in step iii\) above. 
 7. Edit the newly created Config record in the Target Organization as needed to match the clients needs. 
 8. The Webhook Scenario may be deleted inside the Target Organization after the Config record is created.
+
+![](https://lh5.googleusercontent.com/5p9AOFM-LBKwCthEdw3RXNtXGsZtaoGVvVC3GRcZDfOlbB_nwwmXE89L7tQ3GSqQ_EciiKkPCAPaM_q-y_JKcoJv0awzttz021QDsl54lJa-eh1jmd3m9M83TEgC3wbNDWz8mKoG)
+
+![](https://lh4.googleusercontent.com/A7xI9Af5rxPTT1JmlY3zpWoPxJ6_Bx16yvnS3JE7I6AMvrVclRawPWmZVc69XCviCsHJ_rdyROoaEJFBRxWq8uhUsyGu6U4LBpty2yNL57LBhvOVyQ8gzxR305cts3MbWWYbt8PT)
+
+![](https://lh6.googleusercontent.com/-IOPlCsviAkPppCfl3kqWR8tUcEN61uTchUzjoHHF9EzptZ8rNi1QX4IRfOvQ35T4XES17GzkByeCwi2K4kIe3leG96RZ1KVNbnoxyqlE0zcIsivJBX3zTtetB2V8KTW3qaFfgmn)
+
+![](https://lh6.googleusercontent.com/65LTfynjOVBTC8wmUUHVFSEHY4O3O5ZjWJgQrY7qEbPnFCt810JH3wZuN80ae2zprGndO_5z_e2ahGYWVIEvRECtGkhwI9ghBzBPz3504WmnNKUyNS_cJcBRUJICvbOStRbtiOqp)
+
+![](https://lh4.googleusercontent.com/5GMRsEmqx44v1x2Lk1xcF8t3m_Gm9IpAmR51-Vgju3sGPxdndyxl0GrVP2E6S94TG_OuRxMYYTHsnxAXmnQtOUhijA70g_j6XnFPS6nMXP-wq74QpboYW22VkwlYFLX4skKZPZtq)
 
 **D\) Clone scenarios from NPC’s organization to the client’s organization** 
 
@@ -121,11 +129,13 @@ NOTE: This process is expected to work as-is.  Sometimes the Webhook must be "tr
 
 1. Configuration record key in the 1st module to read proper record from the Config Data Store  See the screenshot for an example.
 
-             ![](../.gitbook/assets/screen-shot-2021-06-15-at-8.35.51-am.png)
+          
 
 2. Ensure any test filters are removed \(e.g. Invoice ID = \#\#\) 
 3. Output modules for Box, DropBox, etc. \(folder, filename format, etc.\).
 4. NOTES: 
    1. Box folder paths must be manually selected after cloning; they cannot be configured through the Data Store. 
    2. If a storage service is not used, it may need to be deleted from the cloned scenario to prevent warnings.
+
+![](../.gitbook/assets/screen-shot-2021-06-15-at-8.35.51-am.png)
 
