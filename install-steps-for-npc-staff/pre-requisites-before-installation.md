@@ -2,6 +2,8 @@
 
 These accounts and items should be in place before beginning the Integromat Clone and Install process.  Either NPC staff must have the admin privileges below or the client admin must perform the steps together with NPC staff.
 
+NOTE:  Recommended best practice is to create the required connections inside a client's Integromat account before starting with the scenario cloning process.  Integromat only allows connections to be created as part of a scenario.  Create a simple, single module scenario for each software and create the connection as part of that scenario.  See this linked [Integromat article](https://www.integromat.com/en/help/connecting-to-services) for general info about connections.  
+
 * Client’s Wild Apricot account \(using Invoices and/or Donations\) 
   * Full admin access is accessible to create Webhooks in Wild Apricot
 
