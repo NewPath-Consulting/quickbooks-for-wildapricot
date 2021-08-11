@@ -7,6 +7,32 @@ description: >-
 
 # WAQM Version History
 
+### WAQM v0.6.1.1
+
+**Scope of Change:**
+
+* Invoice QBO v0.6.1.1 \(other scenarios not changed\)
+
+Key changes:
+
+* improved Invoice-QBO scenario error handling and notification message to show Duplicate Customer and Duplicate Invoice numbers more clearly
+* updated Tax code specification on QBO invoice creation so that the same scenario can be used for US and Canadian customers.
+
+Installation impacts:
+
+* none
+
+Upgrade impacts to existing customers:
+
+* minor tweak to customers using v0.6.1.  Either tweak the scenario in the existing client environment or clone the new scenario and make sure the config key and HTTP URLs are updated to match the customer's previous scenario.
+* If tweaking, this is the summary of changes:
+  * Invoice-QBO scenario: \(no changes to Core scenario\)
+    * remove US customer filter after the first router
+    * new error handling route after QBO customer creation
+    * update the logic for QB Tax Code ID inside module 215: Iterate across lines
+    * update the Resume Error Handler module after QBO invoice creation
+    * Update he Mailgun module:  subject line and initial text paragraph 
+
 ### WAQM v0.6.1
 
 #### Scope of Change: 
