@@ -7,6 +7,24 @@ description: >-
 
 # WAQM Version History
 
+### WAQM v0.6.1.2
+
+**Scope of Change:**
+
+* Invoice QBO v0.6.1.2 \(other scenarios not changed\)
+
+Key changes:
+
+* Updated tax logic to insert a default tax code for QBO when one cannot be derived from Wild Apricot.
+
+Installation impacts:
+
+* For customers requiring this feature, a "NoTaxInWA" entry is required in the WAQM config.  See special case note inside the WAQM configuration section.
+
+Upgrade impacts to existing customers:
+
+* no impact; upgrade not required
+
 ### WAQM v0.6.1.1
 
 **Scope of Change:**
@@ -29,9 +47,11 @@ Upgrade impacts to existing customers:
   * Invoice-QBO scenario: \(no changes to Core scenario\)
     * remove US customer filter after the first router
     * new error handling route after QBO customer creation
-    * update the logic for QB Tax Code ID inside module 215: Iterate across lines
+    * update the logic for QB Tax Code ID inside module 219: Inv Line array in QBO format
     * update the Resume Error Handler module after QBO invoice creation
-    * Update he Mailgun module:  subject line and initial text paragraph 
+    * update the link in module 252: Create Invoice html row
+    * Update the Mailgun module:  subject line and initial text paragraph
+  * Repeat with small differences in the Donation-QBO scenario 
 
 ### WAQM v0.6.1
 
