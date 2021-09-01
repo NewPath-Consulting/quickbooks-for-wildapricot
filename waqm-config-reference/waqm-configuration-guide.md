@@ -201,6 +201,10 @@ NOTE: For US versions of Quickbooks, a “NoTax” mapping may be needed when no
 
 ![](https://github.com/asirota/waqm/blob/master/.gitbook/assets/screen-shot-2021-01-06-at-12.53.45-pm.png)
 
+SPECIAL CASE:   Some scenarios may exist where a client requires taxes inside their instance of QBO, but no tax information is configured within their instance of Wild Apricot.  If this occurs, configuring a single Sales Tax entry with the Sales Tax ID = NoTaxInWA can be used to insert a single default Tax Code for all invoices.   \(see screenshot\) .This is introduced in Invoice-QBO v0.6.1.2. 
+
+![](../.gitbook/assets/screen-shot-2021-09-01-at-9.19.58-am.png)
+
 Sales Tax Groups: Sales Tax Groups are used in Quickbooks when a line item uses a composite of multiple individual tax rates. \(e.g. a city tax and a province tax\) Sales Tax Groups do not exist inside Wild Apricot. This section maps which Quickbooks Tax Group is used when a single Wild Apricot line item uses 2 separate Sales Taxes.
 
 * Sales Tax Group Name: The name of the Sales Tax Group. Used for reference only.
