@@ -1,4 +1,4 @@
-# Terms of service
+# Terms of service 
 ## Updated 25 November 2021
 
 These Terms of Service (the “Terms”) including its appendices listed below constitutes the entire agreement between the Customer or You and NewPath Consulting, Inc. (”NewPath” or “we,” “our” or “us” ), regarding your use of our services specified in the Terms (the software, and services are collectively referred to as the “Service”). Please read these Terms carefully. The term “you” shall also include your employees or other authorized users to the extent applicable and permitted under your subscription of the Service.
