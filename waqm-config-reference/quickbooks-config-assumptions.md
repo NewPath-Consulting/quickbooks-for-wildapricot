@@ -12,15 +12,15 @@ Though QuickBooks Desktop has some functionally allowing Items, Accounts, and Ta
 
 **General QB Configuration**
 
-* Sales Taxes must be enabled. \(Settings/Preferences for the Company file\) If taxes are not used inside of Wild Apricot or Quickbooks, the scenarios must be customized to remove tax functionality.
+* Sales Taxes must be enabled. (Settings/Preferences for the Company file) If taxes are not used inside of Wild Apricot or Quickbooks, the scenarios must be customized to remove tax functionality.
 
 ![Sales Tax setting in QBD](../.gitbook/assets/1.png)
 
-* “Use class tracking” must be enabled \(Transaction Settings/Preferences for the Company file\)
+* “Use class tracking” must be enabled (Transaction Settings/Preferences for the Company file)
 
 ![Class tracking setting in QBD](../.gitbook/assets/2.png)
 
-![Class tracking setting in QBO](../.gitbook/assets/screen-shot-2021-01-06-at-10.27.18-am.png)
+![Class tracking setting in QBO](<../.gitbook/assets/Screen Shot 2021-01-06 at 10.27.18 AM (1).png>)
 
 **Customer Name and Billing Address**
 
@@ -35,7 +35,7 @@ QBO will search for an existing customer match before invoice creation. If not f
 These types of Accounts must be defined in Quickbooks.  If new accounts are created or accounts are edited, the corresponding WAQM configuration must be updated.
 
 * Receivables Account: Represents funds that are due to a company, but yet received. Many organizations will use a single AR account, but it is possible to have multiple AR accounts for multiple purposes.
-* Income \(Revenue\) Account: An account representing the income generated from a Sales Item. It is common to have multiple income accounts. It is recommended to use income accounts that will be fairly stable instead of creating new Income Accounts frequently.
+* Income (Revenue) Account: An account representing the income generated from a Sales Item. It is common to have multiple income accounts. It is recommended to use income accounts that will be fairly stable instead of creating new Income Accounts frequently.
 * Sales Tax Payable Account: If Sales Taxes are used, this represents the Sales Taxes that are expected to be paid to Taxing authorities.
 * If Donations are used, it is common to have a separate Deposit or Bank account to use with the Sales Receipt created for a Donation.  This is in place of the AR account.
 
@@ -52,15 +52,15 @@ NOTES:
 
 ![QBD Example: list of accounts](../.gitbook/assets/3.png)
 
-![QBO Example: Identifying the system ID for Accounts Receivable account](../.gitbook/assets/screen-shot-2021-01-06-at-11.17.35-am.png)
+![QBO Example: Identifying the system ID for Accounts Receivable account](<../.gitbook/assets/Screen Shot 2021-01-06 at 11.17.35 AM.png>)
 
 **Sales Items**
 
-For each Order Type in Wild Apricot \(Membership, Events, Online Store, Manual Item\), a Sales Inventory List Item \(Product\) must exist inside Quickbooks. This may represent a good or a service. The Item links the Sales item to the proper Income accounts and displays on the Quickbooks internal Invoice.
+For each Order Type in Wild Apricot (Membership, Events, Online Store, Manual Item), a Sales Inventory List Item (Product) must exist inside Quickbooks. This may represent a good or a service. The Item links the Sales item to the proper Income accounts and displays on the Quickbooks internal Invoice.
 
-For Quickbooks Desktop:  The recommended practice is to use a single Item per category, such as “Membership”. The specific line item details will also be listed on each line item \(e.g. Gold Membership Level renewal\) and each may be mapped to separate income accounts.  If further granularity is desired, classes and subclasses may be used in reporting.
+For Quickbooks Desktop:  The recommended practice is to use a single Item per category, such as “Membership”. The specific line item details will also be listed on each line item (e.g. Gold Membership Level renewal) and each may be mapped to separate income accounts.  If further granularity is desired, classes and subclasses may be used in reporting.
 
-For Quickbooks Online:  Income accounts are not explicitly mapped by WAQM.  If a different income account is required for a type of Wild Apricot transaction, a different Inventory List Item \(Product\) must be defined and used in the mapping.
+For Quickbooks Online:  Income accounts are not explicitly mapped by WAQM.  If a different income account is required for a type of Wild Apricot transaction, a different Inventory List Item (Product) must be defined and used in the mapping.
 
 NOTES:
 
@@ -85,25 +85,25 @@ Membership:Professional Memberships
 
 QuickBooks manages taxes differently for US and Canadian versions as well as some differences for Quickbooks Desktop vs Quickbooks Online. Note the Quickbooks version used and which portions of configuration must be maintained.
 
-**Taxes for Canadian \(CAD\) Quickbooks Desktop versions:**
+**Taxes for Canadian (CAD) Quickbooks Desktop versions:**
 
 A simple mapping of tax codes is required for WAQM. Most of the tax calculation is managed by Quickbooks during the import process. Other fields exist inside the WAQM configuration and can be used as a reference.
 
 Sales Tax Item: For each Sales Tax used, a Sales Tax Item must be configured inside Quickbooks. This defines the name, account, tax rate, and taxing agency. The name is used in the WAQM configuration for proper mapping.
 
-Sales Tax Group: For each Sales Tax Group used \(a combination of tax rates applied to a single item\), a Sales Tax Group must be configured inside Quickbooks. This defines the combination of Tax Rates included in the Tax Group. The name is used in the WAQM configuration for proper mapping.
+Sales Tax Group: For each Sales Tax Group used (a combination of tax rates applied to a single item), a Sales Tax Group must be configured inside Quickbooks. This defines the combination of Tax Rates included in the Tax Group. The name is used in the WAQM configuration for proper mapping.
 
 The examples below show a list of Sales Tax Items and Sales Tax Groups in addition to the configuration options for each type.
 
 ![](../.gitbook/assets/5.png)
 
- 
+&#x20;
 
 ![](../.gitbook/assets/7.png)
 
 ![](../.gitbook/assets/6.png)
 
-**Taxes for United States \(US\) Quickbooks Desktop versions:**
+**Taxes for United States (US) Quickbooks Desktop versions:**
 
 Sales taxes must be fully defined and formatted within the IIF file for each invoice. This includes these fields:
 
@@ -115,13 +115,13 @@ Sales taxes must be fully defined and formatted within the IIF file for each inv
 
 Though these items are defined in the IIF file, it is highly recommended that the same exact configuration of Tax Rates, Tax Names, Tax Agencies, and Tax Accounts exist inside QuickBooks. This will minimize unexpected behavior or confusion.
 
-WAQM configuration maps the Wild Apricot tax names and rates to the corresponding QuickBooks Tax configuration \(name, rate, account, tax agency\). The WAQM scenario uses the tax rates to calculate the tax amount to list on the invoices. For untaxed invoices, a Sales Tax line with zero tax must still be created to allow IIF import into a QuickBooks Company that has Sales Taxes enabled.
+WAQM configuration maps the Wild Apricot tax names and rates to the corresponding QuickBooks Tax configuration (name, rate, account, tax agency). The WAQM scenario uses the tax rates to calculate the tax amount to list on the invoices. For untaxed invoices, a Sales Tax line with zero tax must still be created to allow IIF import into a QuickBooks Company that has Sales Taxes enabled.
 
 Some limitations on tax scenarios exist based on QuickBooks US limitations. These scenarios are supported:
 
-* A single tax rate for an entire invoice \(different combinations of taxable and non-taxable items are okay\)
-* Different single tax rates for different line items \(uses the Subtotal technique to define a tax line for the Subtotal\)
-* A single Sales Tax Group for an entire invoice \(all line items have the same 2 taxes; taxable and nontaxable items are okay\)
+* A single tax rate for an entire invoice (different combinations of taxable and non-taxable items are okay)
+* Different single tax rates for different line items (uses the Subtotal technique to define a tax line for the Subtotal)
+* A single Sales Tax Group for an entire invoice (all line items have the same 2 taxes; taxable and nontaxable items are okay)
 
 These scenarios are not supported:
 
@@ -130,8 +130,7 @@ These scenarios are not supported:
 
 **QB List Item: Subtotal configuration**
 
-\(For some advanced tax scenarios, subtotal is used to group items with the same tax rates. The Integromat scenario only supports a single general “Subtotal” item.\)
+(For some advanced tax scenarios, subtotal is used to group items with the same tax rates. The Integromat scenario only supports a single general “Subtotal” item.)
 
-* Create a List Item = Subtotal \(type subtotal\)
-* If a different Subtotal item already exists \(different name\), change the Integromat config to use the correct name.
-
+* Create a List Item = Subtotal (type subtotal)
+* If a different Subtotal item already exists (different name), change the Integromat config to use the correct name.
