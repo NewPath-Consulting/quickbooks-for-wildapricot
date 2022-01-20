@@ -2,7 +2,7 @@
 
 * [WAQM Documentation Overview](README.md)
 
-## WAQM Overview <a id="waqm-overview-1"></a>
+## WAQM Overview <a href="#waqm-overview-1" id="waqm-overview-1"></a>
 
 * [WAQM Introduction](waqm-overview-1/introduction.md)
 * [WAQM Capabilities](waqm-overview-1/waqm-capabilities.md)
@@ -20,7 +20,6 @@
 * [Maintenance Overview](waqm-maintenance/overview.md)
 * [WAQM Scheduling Options](waqm-maintenance/waqm-scheduling-options.md)
 * [Managing Config Key Records](waqm-maintenance/managing-config-key-records.md)
-* [Managing WAQM Integromat Scenarios](waqm-maintenance/managing-waqm-integromat-scenarios.md)
 
 ## Other References
 
@@ -39,4 +38,3 @@
 
 * [General IIF Requirements and Behavior](iif-specification-for-waqm-quickbooks-desktop/general-iif-requirements-and-behavior.md)
 * [IIF Specification and Notes](iif-specification-for-waqm-quickbooks-desktop/iif-specification-and-notes.md)
-

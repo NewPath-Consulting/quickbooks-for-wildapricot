@@ -1,6 +1,6 @@
 # WAQM Configuration Guide
 
-### WAQM Configuration
+## WAQM Configuration
 
 The Integromat Data Store holds the WAQM configuration needed to map items from Wild Apricot to QuickBooks. Only 1 record is used to drive all of the supported WAQM financial transactions. Additional records inside the data store represent backups from previous versions of the utility or represent test scenarios.
 
@@ -8,7 +8,7 @@ Recommendation: Before making significant changes to a configuration record, use
 
 The following sections describe the WAQM Data Store configuration fields along with general guidelines for usage.
 
-**General configuration**
+### **General configuration**
 
 WA Org Name: The name for the Company. This does not drive mapping of records between Wild Apricot and QuickBooks. However, this field may be used in notification emails, folder name formats, and filename formats.
 
@@ -32,7 +32,7 @@ WAQM Version Info:  reference fields to indicate which version of WAQM is in pla
 * WAQM Donation Scenario Version
 * WAQM Transaction Loader Scenario Version (QBD or QBO)
 
-**Contact-Customer configuration**
+### **Contact-Customer configuration**
 
 Wild Apricot Field Names:  Since different organizations may use different field names for common Contact fields, this section allows that field name to be specified.  Use the display label without brackets.  Do not enter the System Code for the field.  Currently Supported fields:
 
@@ -81,7 +81,7 @@ QB Desktop Billing Address Format: These fields configure which fields from Wild
 
 ![](<../.gitbook/assets/Screen Shot 2021-01-20 at 10.04.00 AM.png>)
 
-**Invoice mapping configuration**
+### **Invoice mapping configuration**
 
 Invoices Enabled:  set to Yes to allow scenarios to run
 
@@ -149,7 +149,7 @@ WA Order ExtraCost Exceptions: As described in the OrderType section, all line i
 
 ****
 
-**Payment mapping configuration**
+### **Payment mapping configuration**
 
 Payments Enabled:  set to Yes to allow scenarios to run
 
@@ -172,7 +172,7 @@ Payment Tender Mapping:  This provides the mapping between Wild Apricot Payment 
 
 
 
-**Donation mapping configuration**
+### **Donation mapping configuration**
 
 NOTES: &#x20;
 
@@ -224,7 +224,7 @@ Donation Campaign Mapping: As described, a Campaign may be used to drive alterna
 
 ![Example Alternate Donation Mapping for a Campaign](<../.gitbook/assets/Screen Shot 2022-01-19 at 4.15.47 PM.png>)
 
-**Sales Tax mapping configuration**
+### **Sales Tax mapping configuration**
 
 Sales Tax Types: This section maps the tax rates used in Wild Apricot to the taxes in Quickbooks and the associated required fields.  To avoid unexpected behavior, Wild Apricot, Quickbooks, and WAQM must have consistent Sales Tax configurations.
 
@@ -242,7 +242,7 @@ NOTE: For US versions of Quickbooks, a “NoTax” mapping may be needed when no
 
 ![](<../.gitbook/assets/Screen Shot 2021-01-06 at 12.53.45 PM.png>)
 
-SPECIAL CASE:   Some scenarios may exist where a client requires taxes inside their instance of QBO Canada, but no tax information is configured within their instance of Wild Apricot.  If this occurs, configuring a single Sales Tax entry with the Sales Tax ID = NoTaxInWA can be used to insert a single default Tax Code for all invoices.   (see screenshot) .This is introduced in Invoice-QBO v0.6.1.2.&#x20;
+SPECIAL CASE:   Some scenarios may exist where a client requires taxes inside their instance of QBO Canada, but no tax information is configured within their instance of Wild Apricot.  If this occurs, configuring a single Sales Tax entry with the Sales Tax WA ID = NoTaxInWA can be used to insert a single default Tax Code for all invoices.   (see screenshot) .This is introduced in Invoice-QBO v0.6.1.2.&#x20;
 
 ![](<../.gitbook/assets/Screen Shot 2021-09-01 at 9.19.58 AM.png>)
 
@@ -262,43 +262,52 @@ Subtotal List Name: The QuickBooks Sales Inventory Item for Subtotals. This is u
 
 ![](../.gitbook/assets/19.png)
 
-**WAQM scheduling configuration**
+### **WAQM scheduling configuration**
 
 WAQM scheduling is defined separately for each transaction type, but works consistently for each.   This section uses Invoice scheduling as the explicit example.
 
 WA Invoice Job Scheduling Type:  _(must enter the keyword phrase in **bold** exactly)_
 
-* **Manual** → the scenario will use the Manual Start Date and End Date when it runs to define which Invoices are read from Wild Apricot.
-* **Scheduled** → each time the job runs, it will read invoices during the defined time period.
+* **Manual** → the scenario will use the Manual Start Date and End Date when it runs to define which Invoices are read from Wild Apricot.  Use the settings inside the Manual Scheduling section.
+* **Scheduled** → each time the job runs, it will read invoices during the defined time period.  Use the settings inside the Auto Run Schedule section.
 
 **Manual** Job Invoice Config:&#x20;
 
 * Manual Start Date: format = YYYY-MM-DD hh:mm A
 * Manual End Date: format = YYYY-MM-DD hh:mm A
 * Manual Invoice Doc Number:  The customer visible Invoice doc number inside Wild Apricot.  If this is specified, only this invoice document will be returned from the job.  If left blank, all invoice documents will be returned from the manual start and end date time period.
+* NOTE: For Donation transactions, use the Donation doc number that is visible inside Wild Apricot.
+* NOTE:  For Payment transactions, a customer visible document number does not exist.  The internal Wild Apricot Payment ID may be used as the Doc Number.  This can be seen by looking at the URL when looking at the payment inside Wild Apricot (see screenshot for example).
 
 ![Example Manual Schedule Config](<../.gitbook/assets/Screen Shot 2022-01-19 at 5.19.01 PM.png>)
 
+![Example of a Payment internal ID in the URL of Wild Apricot](<../.gitbook/assets/Screen Shot 2022-01-20 at 11.49.40 AM.png>)
+
 Auto **Schedule** Job Invoice Config:  These settings define when the job runs and the time period used for each run.
 
-* Time Period Type for Each Run:  The supported types are Daily, Weekly, and Monthly.
+* Time Period Type for Each Run:  The supported types are **Daily**, **Weekly**, and **Monthly**.  The bold value must be entered exactly.
 * Number of Time Periods for Each Run:  This should be an integer number that defines the number of periods for the run.     (e.g. 2 "weeks", 1 "month", etc.)
 * Weekly-Day of Week to Start Run:  The short 3-character name of the week that defines the day of the week a Weekly run will start.  (e.g.  Mon, Thu)
 * Monthly-Day of Month to Start Run:  The integer number representing the day of the month that defines the day of the Month a Monthly run will start.  (e.g.  1--> 1st day of month)
-* Start Time for Run (reference only): The time of day when the run should start.  This is configured separately inside Integromat, but recording here is a good reference point.  If all transactions are used, the times should be offset to prevent conflicts (1st: Invoice;  2nd: Payment; 3rd: Donation)
-* Last Inv AutoRun (do not edit): This should not be changed.  The Integromat job will populate this automatically after a successful auto-run and will be used to determine when the next run should occur.
+* Start Time for Run (reference only): The time of day when the run should start.  This is configured separately inside Integromat, but recording here is a good reference point.  If all transactions are used, the times should be offset by 15 minutes or more to prevent conflicts (1st: Invoice;  2nd: Payment; 3rd: Donation) ****  NOTE: This does not impact the time period in which transactions are extracted.
+* Last Inv AutoRun (do not edit): This should not be changed.  The Integromat job will populate this automatically after a successful auto-run and will be used to determine when the next run should occur. &#x20;
 
 ![Example AutoRun Schedule Config](<../.gitbook/assets/Screen Shot 2022-01-19 at 5.19.17 PM.png>)
 
 Additional Notes regarding dates and scheduling:
 
-* Scheduled runs are intended to process transactions for an entire period.  e.g. from the 1st day of a month through the last day of a month.  To ensure all documents from the time period are included, the following scheduling assumptions are used by WAQM:
+* Scheduled runs are intended to process transactions for an entire period.  e.g. from the 1st day of a month through the last day of a month.  To ensure all documents from the entire time period are included, the following scheduling assumptions are used by WAQM:
   * The start date for a scheduled run uses midnight as the start time.   00:00:00
   * When the scenario runs, the end date is set as just before midnight of the previous day. 23:59:59
-  * Example:   A monthly scenario runs on Dec 1 and is set to run for 1 period back.  The start date is set for Nov 1 at the time of 00:00:00.  The end date is set for Nov 30 at 23:59:59.
+  * Example:   A **Monthly** scenario runs on Dec 1 and is set to run for **1** period back.  The start date is set for Nov 1 at the time of 00:00:00.  The end date is set for Nov 30 at 23:59:59.
 * Manual Dates allow date, hour, and minute to be specified.  Because seconds cannot be specified inside Integromat, WAQM assumes 00 seconds for the start date and 59 seconds for the end date.
+* See the "EXAMPLE: Scheduled" sheet inside the WAQM Mapping Guide for additional examples of AutoRun **Schedule** settings.
 
-**WAQM output file location:  (Desktop)** This section defines the service, folder path, and filenames used for Quickbooks Desktop versions. (not used for Quickbooks Online)  This is the location where IIF files are loaded that can later be imported into Quickbooks Desktop.  The current scenarios are designed to use the “box” online storage service. The scenarios can be customized to use different services.
+
+
+### **WAQM output file location  (Quickbooks Desktop only)**&#x20;
+
+This section defines the service, folder path, and filenames used for Quickbooks Desktop versions. (not used for Quickbooks Online)  This is the location where IIF files are loaded that can later be imported into Quickbooks Desktop.  The current scenarios are designed to use the “box” online storage service. The scenarios can be customized to use different services.
 
 * Storage Service: The name of the service. Currently, this is just a reference field.
 * Invoice Folder Path: For 'box' this is just a reference field as the folder path must be configured inside the scenario. Other services allow the folder to be mapped using this field.
@@ -307,7 +316,9 @@ Additional Notes regarding dates and scheduling:
 
 ![](<../.gitbook/assets/Screen Shot 2021-01-06 at 1.35.39 PM.png>)
 
-**Notification Emails:** This section defines the email addresses that will be used to send notifications when the scenarios run. There are generally 2 email notifications that may be generated per run.  Both types will describe the dates used for a WAQM run and other reference information.&#x20;
+### **Notification Emails**&#x20;
+
+This section defines the email addresses that will be used to send notifications when the scenarios run. There are generally 2 email notifications that may be generated per run.  Both types will describe the dates used for a WAQM run and other reference information.&#x20;
 
 * A "success" email:  This lists the invoices that were successfully processed by WAQM.  The Quickbooks Desktop version provides a link to the IIF file that is generated and loaded to the storage service.   The Quickbooks Online version provides links to each transaction that was created.   &#x20;
 * A "mapping error" email:  This lists the transactions that were not mapped successfully based on the WAQM config and the info that was extracted from Wild Apricot.  This email will not be generated if there are no mapping errors.

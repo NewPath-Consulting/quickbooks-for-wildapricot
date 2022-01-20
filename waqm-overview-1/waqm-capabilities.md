@@ -9,6 +9,10 @@
 * Exception line item Income account mappings are possible for invoices based on Wild Apricot ExtraCost fields&#x20;
 * Create Quickbooks customer if it does not already exist
 
+#### High Level Explanation of WAQM Flow
+
+![](<../.gitbook/assets/WAQM Explained.png>)
+
 #### Sample Quickbooks Invoice created from Wild Apricot data
 
 ![Example invoice from Quickbooks Desktop (QBD)](../.gitbook/assets/0.png)
