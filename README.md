@@ -18,6 +18,7 @@ _**In GitHub, look at the Summary.md file to see the Table of Contents.**_
 | 1.3         | Jun 2, 2021  | D. Reed   | Updates to WAQM references for v0.6.1 scenarios and removing default WAQM Config values from data structure |
 | 1.4         | Jun 15, 2021 | D. Reed   | Update install instructions for refactored scenarios (v0.6.1)                                               |
 | 1.5         | Sep 1, 2021  | D. Reed   | Minor versions v0.6.1.1 and v0.6.1.2 - version history                                                      |
-| 1.6         | OCt 4        | D. Reed   | Minor version v0.6.1.3                                                                                      |
+| 1.6         | Oct 4, 2021  | D. Reed   | Minor version v0.6.1.3                                                                                      |
+| 1.7         | Jan 19, 2022 | D. Reed   | Major edits for v0.7                                                                                        |
 
 ##

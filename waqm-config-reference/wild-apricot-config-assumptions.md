@@ -1,12 +1,16 @@
 # Wild Apricot Config Assumptions
 
+Each Invoice Order Type depends on different portions of the Wild Apricot configuration:
+
+**Membership**
+
 The Member Level Name is used to drive mappings on all line items of a Membership Invoice. It is also possible to read the name of an Extra Cost field to overwrite the mapping of a specific line item on an invoice.
 
 ![](../.gitbook/assets/8.png)
 
 **Events**
 
-The Event “Tag” is used as the basis for mapping Event invoices
+The Event “Tag” is used as the basis for mapping Event invoices.  A Wild Apricot event may have multiple tags.  However, WAQM can only use 1 tag to map to the proper Quickbooks accounts and classes.   The first "matched" tag on an event will be used during QWAQM mapping.
 
 ![](../.gitbook/assets/9.png)
 
@@ -20,11 +24,10 @@ Manual invoices by nature do not provide any means for systemically mapping to a
 
 **Sales Tax**
 
-If used, the Sales Tax name and % must exactly match the Tax definition in WAQM. NOTE: WAQM currently reads the Tax Name. The Scenario can be customized to read the Tax ID.
+If used, the Sales Tax name and % must exactly match the Tax definition in WAQM. NOTE: WAQM uses the Tax Name.&#x20;
 
 ![](../.gitbook/assets/10.png)
 
 **Donation**
 
-If Donations are used, it is possible to change the mapping for Donation Sales receipts based on the Donation Campaign.  Wild Apricot does not have a standard field for distinguishing Donation Campaigns, but it is typical to have a custom drop-down field allowing the Donor to select a Donation Campaign.  
-
+If Donations are used, it is possible to change the mapping for Donation Sales receipts based on a Donation Campaign.  Wild Apricot does not have a standard field for distinguishing Donation Campaigns, but it is typical to have a custom drop-down field allowing the Donor to select a Donation Campaign. &#x20;

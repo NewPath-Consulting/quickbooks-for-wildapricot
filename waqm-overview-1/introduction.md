@@ -2,7 +2,7 @@
 
 #### Introduction
 
-Wild Apricot QuickBooks Manager \(WAQM\) is an Integromat-based utility to extract data from Wild Apricot and transform to a properly formatted IIF file that can be imported into QuickBooks Desktop. \(Third-party utilities exist to allow an IIF file to be imported into QuickBooks Online.\) As of January 2021, WAQM supports Invoices and Donations from Wild Apricot imported into the Quickbooks Online \(QBO\) and Quickbooks Desktop \(QBD\).  
+**QuickBooks for WildApricot** is an Integromat-based utility to extract financial transactions from WildApricot and create the transactions in Quickbooks with the desired Quickbooks accounts and classes.  For Quickbooks Online, the transactions are created directly in Quickbooks Online.  For Quickbooks Desktop, a properly formatted IIF file is prepared that is ready for import into Quickbooks Desktop.  Invoices, Payments, and Donations are supported for Quickbooks Online and Quickbooks Desktop. &#x20;
 
 #### Sections of the WAQM Customer Guide
 
@@ -19,5 +19,4 @@ Maintenance instructions for WAQM:
 * Running WAQM for specified manual dates or for auto-scheduled monthly time periods
 * Updating WAQM configuration as your business evolves
 
-## 
-
+##
