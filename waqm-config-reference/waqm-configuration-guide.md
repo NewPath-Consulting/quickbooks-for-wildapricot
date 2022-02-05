@@ -230,8 +230,8 @@ Sales Tax Types: This section maps the tax rates used in Wild Apricot to the tax
 
 NOTE:  [Reference the separate "Sales Tax Scenario" section](../other-references/sales-tax-scenarios.md) of this document to understand some limitations for some combinations of Sales Taxes, especially for US versions.   This is due to design differences between Wild Apricot and Quickbooks.
 
-* Sales Tax Name: The exact name defined in Wild Apricot. This is the current key used to map invoice details to the corresponding tax in Quickbooks.
-* Sales Tax ID: The exact name defined in Wild Apricot. This is currently a reference item only.
+* Sales Tax Name: The exact name defined in Wild Apricot. This is currently a reference item only.
+* Sales Tax ID: The exact name defined in Wild Apricot. This is the current key used to map invoice details to the corresponding tax in Quickbooks.
 * Sales Tax QB Code: The corresponding QuickBooks tax code.
 * Sales Tax QB Code ID:  (for QBO only) The corresponding system ID.
 * Sales Tax Rate: The Tax Rate as a whole or decimal number. (7 for 7% tax; 7.25 for 7.25% tax) For Online and CAD Quickbooks versions, this is a reference only as the tax amount is calculated internally to QuickBooks using the Tax Code and Sales Tax Items.
