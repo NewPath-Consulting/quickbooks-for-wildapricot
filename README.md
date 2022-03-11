@@ -20,5 +20,6 @@ _**In GitHub, look at the Summary.md file to see the Table of Contents.**_
 | 1.5         | Sep 1, 2021  | D. Reed   | Minor versions v0.6.1.1 and v0.6.1.2 - version history                                                      |
 | 1.6         | Oct 4, 2021  | D. Reed   | Minor version v0.6.1.3                                                                                      |
 | 1.7         | Jan 19, 2022 | D. Reed   | Major edits for v0.7                                                                                        |
+| 2.0         | Mar 9, 2022  | D. Reed   | Revise install per Make.com transition                                                                      |
 
 ##

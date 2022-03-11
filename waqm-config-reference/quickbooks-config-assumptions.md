@@ -4,7 +4,7 @@
 
 ### Overview
 
-WAQM’s configuration is defined inside of Integromat and is intended to map transactions from Wild Apricot to QuickBooks. WAQM creates IIF files formatted for import into QuickBooks Desktop or creates invoices directly inside Quickbooks Online.
+WAQM’s configuration is defined inside of Make.com and is intended to map transactions from Wild Apricot to QuickBooks. WAQM creates IIF files formatted for import into QuickBooks Desktop or creates invoices directly inside Quickbooks Online.
 
 This section describes the QuickBooks configuration that is expected to be in place to support WAQM. Most companies using QuickBooks will have an established configuration already. In most cases, the QuickBooks configuration can continue to be used as-is. In some cases, recommendations may be made to align with Wild Apricot usage.
 

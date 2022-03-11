@@ -2,7 +2,7 @@
 
 ## WAQM Configuration
 
-The Integromat Data Store holds the WAQM configuration needed to map items from Wild Apricot to QuickBooks. Only 1 record is used to drive all of the supported WAQM financial transactions. Additional records inside the data store represent backups from previous versions of the utility or represent test scenarios.
+The Make.com Data Store holds the WAQM configuration needed to map items from Wild Apricot to QuickBooks. Only 1 record is used to drive all of the supported WAQM financial transactions. Additional records inside the data store represent backups from previous versions of the utility or represent test scenarios.
 
 Recommendation: Before making significant changes to a configuration record, use the Config Backup scenario to backup the current config record. See instructions in the Maintenance document.
 
@@ -289,8 +289,8 @@ Auto **Schedule** Job Invoice Config:  These settings define when the job runs a
 * Number of Time Periods for Each Run:  This should be an integer number that defines the number of periods for the run.     (e.g. 2 "weeks", 1 "month", etc.)
 * Weekly-Day of Week to Start Run:  The short 3-character name of the week that defines the day of the week a Weekly run will start.  (e.g.  Mon, Thu)
 * Monthly-Day of Month to Start Run:  The integer number representing the day of the month that defines the day of the Month a Monthly run will start.  (e.g.  1--> 1st day of month)
-* Start Time for Run (reference only): The time of day when the run should start.  This is configured separately inside Integromat, but recording here is a good reference point.  If all transactions are used, the times should be offset by 15 minutes or more to prevent conflicts (1st: Invoice;  2nd: Payment; 3rd: Donation) ****  NOTE: This does not impact the time period in which transactions are extracted.
-* Last Inv AutoRun (do not edit): This should not be changed.  The Integromat job will populate this automatically after a successful auto-run and will be used to determine when the next run should occur. &#x20;
+* Start Time for Run (reference only): The time of day when the run should start.  This is configured separately inside Make.com, but recording here is a good reference point.  If all transactions are used, the times should be offset by 15 minutes or more to prevent conflicts (1st: Invoice;  2nd: Payment; 3rd: Donation) ****  NOTE: This does not impact the time period in which transactions are extracted.
+* Last Inv AutoRun (do not edit): This should not be changed.  The Make.com job will populate this automatically after a successful auto-run and will be used to determine when the next run should occur. &#x20;
 
 ![Example AutoRun Schedule Config](<../.gitbook/assets/Screen Shot 2022-01-19 at 5.19.17 PM.png>)
 
@@ -300,7 +300,7 @@ Additional Notes regarding dates and scheduling:
   * The start date for a scheduled run uses midnight as the start time.   00:00:00
   * When the scenario runs, the end date is set as just before midnight of the previous day. 23:59:59
   * Example:   A **Monthly** scenario runs on Dec 1 and is set to run for **1** period back.  The start date is set for Nov 1 at the time of 00:00:00.  The end date is set for Nov 30 at 23:59:59.
-* Manual Dates allow date, hour, and minute to be specified.  Because seconds cannot be specified inside Integromat, WAQM assumes 00 seconds for the start date and 59 seconds for the end date.
+* Manual Dates allow date, hour, and minute to be specified.  Because seconds cannot be specified inside Make.com, WAQM assumes 00 seconds for the start date and 59 seconds for the end date.
 * See the "EXAMPLE: Scheduled" sheet inside the WAQM Mapping Guide for additional examples of AutoRun **Schedule** settings.
 
 
@@ -328,7 +328,7 @@ Configuration items to support notification emails:
 * From Email Address:  The email address (from the client's organization) that will be used as the "from" email for these notifications.   This email must match the email configured inside Mailgun (see below).
 * To: Email Addresses: The To: email addresses on the notification emails.   This should be the list of emails from the client that will receive notifications when WAQM runs.
 * BCC: Email Address: The bcc: email addresses.  This is typically the NewPath Consulting support email address(es) that will receive notifications when WAQM runs.
-* Mailgun Domain Name:  The email domain name configured inside the Mailgun utility for this client.  This utility allows Integromat to generate and send notification emails on your behalf.  Additional DNS changes are needed in the client's domain provider to setup Mailgun.  This process and settings are described elsewhere.
+* Mailgun Domain Name:  The email domain name configured inside the Mailgun utility for this client.  This utility allows Make.com to generate and send notification emails on your behalf.  Additional DNS changes are needed in the client's domain provider to setup Mailgun.  This process and settings are described elsewhere.
 
 ![Example Email Notification Config](<../.gitbook/assets/Screen Shot 2022-01-19 at 5.38.32 PM.png>)
 

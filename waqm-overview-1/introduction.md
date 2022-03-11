@@ -2,7 +2,7 @@
 
 #### Introduction
 
-**QuickBooks for WildApricot** is an Integromat-based utility to extract financial transactions from WildApricot and create the transactions in Quickbooks with the desired Quickbooks accounts and classes.  For Quickbooks Online, the transactions are created directly in Quickbooks Online.  For Quickbooks Desktop, a properly formatted IIF file is prepared that is ready for import into Quickbooks Desktop.  Invoices, Payments, and Donations are supported for Quickbooks Online and Quickbooks Desktop. &#x20;
+**QuickBooks for WildApricot** is a Make.com-based utility to extract financial transactions from WildApricot and create the transactions in Quickbooks with the desired Quickbooks accounts and classes.  For Quickbooks Online, the transactions are created directly in Quickbooks Online.  For Quickbooks Desktop, a properly formatted IIF file is prepared that is ready for import into Quickbooks Desktop.  Invoices, Payments, and Donations are supported for Quickbooks Online and Quickbooks Desktop. &#x20;
 
 #### Sections of the WAQM Customer Guide
 
