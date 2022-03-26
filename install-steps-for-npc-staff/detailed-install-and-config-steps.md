@@ -48,14 +48,14 @@ _From the WAQM Operations Released folder, clone each Data Structure below to th
 ### **E) Clone remaining "Install Helper" scenarios**
 
 1. WAQM-Config-Receiver
-   * During Clone, add a **new Webhook** using:
-     1. &#x20;This naming convention: TMP-WAQM-Config-Receiver (client name)
-     2. And, select this Data Structure from the Advanced menu:  WAQM Config-v0.7 (client name)
-   * During Clone, Add a **new datastore** using:
-     1. This naming convention: TMP-WAQM-Config-Receiver (client name)
-     2. And, select this Data Structure from the Advanced menu:  WAQM Config-v0.7 (client name)
+   * During the Scenario clone, **ADD** a **new Webhook** using:
+     1. &#x20;Use this naming convention for the Added Webhook: TMP-WAQM-Config-Receiver (client name)
+     2. And, select this Data Structure for the Webhook from the Advanced menu:  WAQM Config-v0.7 (client name)
+   * During the Scenario clone, **ADD** a **new datastore** using:
+     1. Use this naming convention for the Added Datastore: TMP-WAQM-Config-Receiver (client name)
+     2. And, select this Data Structure for the Datastore from the Advanced menu:  WAQM Config-v0.7 (client name)
 2. WAQM QBO Mapping Queries - Load WAQM Mapping Master \[QBO clients only]
-   * During Clone, use these Connections:
+   * During the Scenario clone, use these Connections:
      1. A new Google connection for yourself (or the owner of the Mapping Sheet)
      2. Choose the existing WA and QBO connections created in step B
 3. Move scenarios into Helper-Install folder
@@ -101,8 +101,7 @@ _Only clone the Invoice, Payment, or Donation Core scenarios if that transaction
 NOTES:&#x20;
 
 * Remember to pick the Client's Team as the Target
-* In general most connections, data stores, and data structures should exist already. Select the existing items from the drop-downs during Clone.  The "Mailgun" connection will need to be duplicated for the first scenario.  Choose this duplicated connection for the following scenarios.
-* If the previous install process steps were followed, you will still need to “duplicate” the NPC Mailgun Connection during the initial Core scenario.&#x20;
+* In general most connections, data stores, and data structures should exist already. Select the existing items from the drop-downs during Clone.  However, the "Mailgun" connection will need to be duplicated for the first scenario.  Choose this duplicated connection for the following scenarios.
 * Move Core scenarios to the Released folder
 
 ![During 1st Core scenario Clone, duplicate the Mailgun connection and select the existing items for other inputs.](<../.gitbook/assets/Screen Shot 2022-03-10 at 6.33.14 PM (1).png>) ![For remaining Core scenario Clones, select the existing items for all inputs](<../.gitbook/assets/Screen Shot 2022-03-10 at 6.36.55 PM.png>)
@@ -116,13 +115,13 @@ _Each client only needs the QBO or the QBD Txn scenario._
 1. WAQM-Txn-QBO (latest version) \[For QBO clients only] &#x20;
 2. WAQM-Txn-QBD (latest version) \[For QBD clients only]  &#x20;
 
-* NOTES: A new Webhook must be created during cloning using these steps:&#x20;
+* NOTES: A new Webhook must be Added/Created during cloning using these steps:&#x20;
   1. Press Add to create a new webhook
-  2. Use a name with the format:  WAQM-Txn-QBO(or QBD)-Payload Receiver (client name).
-  3. In Advanced settings, select the WAQM-Txn-Payload data structure.&#x20;
+  2. Use a name for the Webhook with the format:  WAQM-Txn-QBO(or QBD)-Payload Receiver (client name).
+  3. In Advanced settings for the new Webhook, select the WAQM-Txn-Payload data structure.&#x20;
   4. After cloning, the URL from this Webhook must be copied and placed in each of the Core Scenarios in the corresponding "HTTP Send" module for either the QBD or QBO branch to the right of the scenario.  (Do not replace the URL in the "HTTP Send" module for checking Licenses.
 * For the QBD Txn scenario, the WAQM-QBD-IIF-TMP datastore should be duplicated during the Clone process.
-* For QBD clients, update the IIF Data Store and the IIF Data Structure to include the client's name.
+* For QBD clients, update the Cloned IIF Data Store and the IIF Data Structure to include the client's name.
 * Move Txn scenario to the Released folder
 
 ![Creating Webhook as part of Txn scenario](<../.gitbook/assets/Screen Shot 2022-03-10 at 6.48.18 PM.png>)
