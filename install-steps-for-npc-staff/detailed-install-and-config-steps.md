@@ -52,7 +52,7 @@ _From the WAQM Operations Released folder, clone each Data Structure below to th
      1. &#x20;Use this naming convention for the Added Webhook: TMP-WAQM-Config-Receiver (client name)
      2. And, select this Data Structure for the Webhook from the Advanced menu:  WAQM Config-v0.7 (client name)
    * During the Scenario clone, **ADD** a **new datastore** using:
-     1. Use this naming convention for the Added Datastore: TMP-WAQM-Config-Receiver (client name)
+     1. Use this naming convention for the Added Datastore: WAQM-Config (client name)
      2. And, select this Data Structure for the Datastore from the Advanced menu:  WAQM Config-v0.7 (client name)
 2. WAQM QBO Mapping Queries - Load WAQM Mapping Master \[QBO clients only]
    * During the Scenario clone, use these Connections:
@@ -69,15 +69,15 @@ _From the WAQM Operations Released folder, clone each Data Structure below to th
 These steps copy a config record from NPC's master data store and send to the Client's Team.  This "initial" record can be used as a starting point.   Alternately, this step can be skipped and a new record may be created in the Client's Team manually.
 
 1. Go to the Client's Team and go to Webhooks
-2. Find the TMP-Config-Receiver (from step D), and copy the URL exactly.
-3. Go back to the WAQM-Operations Team and the Released folder. &#x20;
+2. Find the TMP-Config-Receiver  Webhook (from step D), and copy the URL exactly.
+3. Go back to the WAQM-Operations Team and the Install Helper folder. &#x20;
 4. Find the Install Helper - "Send JSON to Client" scenario
 5. Open the scenario.  In the 3rd module (Send JSON...) replace the URL with the one copied from the Webhook in the Client's Team. SAVE.
 6. In the 1st module (Read WAQM Config...), make sure the listed Config Key matches the record you want to copy from the NPC Master data store. SAVE.
 7. In that "Send JSON" scenario, click "Run Once".
 8. Exit the scenario.  It is okay if the scenario is not saved as this change is done for every Client.
 9. Go back to the Client's Team.
-10. Open the TMP scenario in Edit Mode and "Run once", then press "Process existing".
+10. Open the WAQM Config Receiver scenario in Edit Mode and "Run once", then press "Process existing".
 11. NOTE:  It is okay if a yellow warning appears in the second module regarding "not executing immediately.  This can be ignored.
 
 
@@ -121,7 +121,7 @@ _Each client only needs the QBO or the QBD Txn scenario._
   3. In Advanced settings for the new Webhook, select the WAQM-Txn-Payload data structure.&#x20;
   4. After cloning, the URL from this Webhook must be copied and placed in each of the Core Scenarios in the corresponding "HTTP Send" module for either the QBD or QBO branch to the right of the scenario.  (Do not replace the URL in the "HTTP Send" module for checking Licenses.
 * For the QBD Txn scenario, the WAQM-QBD-IIF-TMP datastore should be duplicated during the Clone process.
-* For QBD clients, update the Cloned IIF Data Store and the IIF Data Structure to include the client's name.
+* For QBD clients, update the Duplicated IIF Data Store and the IIF Data Structure to include the client's name.
 * Move Txn scenario to the Released folder
 
 ![Creating Webhook as part of Txn scenario](<../.gitbook/assets/Screen Shot 2022-03-10 at 6.48.18 PM.png>)
@@ -146,7 +146,7 @@ _NOTE: Remember to update the Google Sheet references in this scenario to match 
 
 ### **K) Configure the Data Store record using the Client's input from the Mapping document**
 
-Consider using the "BackUp Record" helper scenario before starting and after major changes.
+Consider using the "BackUp Record" helper scenario before starting and after major changes.  You may need to update the first module of the "BackUp Record" scenario to reference the correct datastore record inside the client's environment.
 
 Use a naming convention for the Record Name that includes the word "USE" to clarify which record for the client is the current active record that should be used.
 
@@ -162,7 +162,7 @@ In the first module of each Core scenario, change the Config Key to match the "U
 
 ### **M) Scenario updates if needed (rare)**
 
-For QBO clients, "box" is the configured data storage software.  Not all clients use "box".  If a client uses a different data storage software a minor update will be needed.  Consult Product/Development for assistance.
+For QBD clients, "box" is the configured data storage software.  Not all clients use "box".  If a client uses a different data storage software a minor update will be needed.  Consult Product/Development for assistance.
 
 ### **N) Work with Client to test the scenarios for specific date ranges using the Manual scheduling options**
 
