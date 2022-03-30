@@ -35,11 +35,11 @@ _From the WAQM Operations Released folder, clone each Data Structure below to th
 
 1. WAQM Config&#x20;
 2. WAQM-QBD-Txn-IIF\_RAW \[QBD clients only]
-3. WAQM-Txn-Line&#x20;
-4. WAQM-Txn
-5. WAQM-Txn-Payload
-6. WAQM QB Tax Code&#x20;
-7. WAQM QBO Cust ID \[QBO clients only]
+3. WAQM QBO Cust ID \[QBO clients only]
+4. WAQM QB Tax Code&#x20;
+5. WAQM-Txn-Line&#x20;
+6. WAQM-Txn-Payload
+7. WAQM-Txn
 8. WA-QB-Invoice-IIF\_TRNS (optional for QBD clients-documentation of IIF structure for QBD)&#x20;
 9. WA-QB-Invoice-IIF\_SPL (optional for QBD clients-documentation of structure for QBD)&#x20;
 
@@ -47,14 +47,17 @@ _From the WAQM Operations Released folder, clone each Data Structure below to th
 
 ### **E) Clone remaining "Install Helper" scenarios**
 
-1. WAQM-Config-Receiver
+1. Clone "WAQM-Config-Receiver" scenario:
    * During the Scenario clone, **ADD** a **new Webhook** using:
-     1. &#x20;Use this naming convention for the Added Webhook: TMP-WAQM-Config-Receiver (client name)
+     1. &#x20;Use this naming convention for the Added Webhook: TMP-WAQM-Config-Receiver (version) (client name)
      2. And, select this Data Structure for the Webhook from the Advanced menu:  WAQM Config-v0.7 (client name)
+     3. SAVE
    * During the Scenario clone, **ADD** a **new datastore** using:
-     1. Use this naming convention for the Added Datastore: WAQM-Config (client name)
+     1. Use this naming convention for the Added Datastore: WAQM-Config (version) (client name)
      2. And, select this Data Structure for the Datastore from the Advanced menu:  WAQM Config-v0.7 (client name)
-2. WAQM QBO Mapping Queries - Load WAQM Mapping Master \[QBO clients only]
+     3. Ensure size is 1MB
+     4. SAVE
+2. Clone "WAQM QBO Mapping Queries - Load WAQM Mapping Master \[QBO clients only]
    * During the Scenario clone, use these Connections:
      1. A new Google connection for yourself (or the owner of the Mapping Sheet)
      2. Choose the existing WA and QBO connections created in step B
@@ -68,17 +71,19 @@ _From the WAQM Operations Released folder, clone each Data Structure below to th
 
 These steps copy a config record from NPC's master data store and send to the Client's Team.  This "initial" record can be used as a starting point.   Alternately, this step can be skipped and a new record may be created in the Client's Team manually.
 
-1. Go to the Client's Team and go to Webhooks
-2. Find the TMP-Config-Receiver  Webhook (from step D), and copy the URL exactly.
-3. Go back to the WAQM-Operations Team and the Install Helper folder. &#x20;
-4. Find the Install Helper - "Send JSON to Client" scenario
-5. Open the scenario.  In the 3rd module (Send JSON...) replace the URL with the one copied from the Webhook in the Client's Team. SAVE.
-6. In the 1st module (Read WAQM Config...), make sure the listed Config Key matches the record you want to copy from the NPC Master data store. SAVE.
-7. In that "Send JSON" scenario, click "Run Once".
-8. Exit the scenario.  It is okay if the scenario is not saved as this change is done for every Client.
-9. Go back to the Client's Team.
-10. Open the WAQM Config Receiver scenario in Edit Mode and "Run once", then press "Process existing".
-11. NOTE:  It is okay if a yellow warning appears in the second module regarding "not executing immediately.  This can be ignored.
+1. Go to the Client's Team
+2. Go to Webhooks
+3. Find the TMP-Config-Receiver  Webhook (from step D), and copy the URL exactly.
+4. Go back to the WAQM-Operations Team and the Install Helper scenario folder. &#x20;
+5. Find the Install Helper - "Send JSON to Client" scenario
+6. Open the scenario.  In the 3rd module (Send JSON...) replace the URL with the one copied from the Webhook in the Client's Team. SAVE.
+7. In the 1st module (Read WAQM Config...), make sure the listed Config Key matches the record you want to copy from the NPC Master data store. SAVE.
+8. In that "Send JSON" scenario, click "Run Once".
+9. Exit the scenario.  It is okay if the scenario is not saved as this change is done for every Client.
+10. Go back to the Client's Team.
+11. Open the WAQM Config Receiver scenario in Edit Mode and "Run once", then press "Process existing".
+    * NOTE:  It is okay if a yellow warning appears in the second module regarding "not executing immediately.  This can be ignored.
+12. Go to the DataStore and confirm the record was created
 
 
 
