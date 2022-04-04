@@ -20,12 +20,15 @@ The capability to create teams is restricted to overall NPC Admins.  This step m
 
 For each of the scenarios below, Clone the scenario from the WAQM Operations Released-Install Helper folder to the Client Team.   During cloning, create a new Connection to the Clients system using credentials provided by the client. &#x20;
 
-* Create-Test QBO Connection \[QBO clients only] (need login credentials)
-* Create-Test WA Connection (need API Key)
-* Create-Test “box” Connection (only for QBD and client’ using box)
-* Move scenarios into Helper-Install folder
+1. Create-Test QBO Connection with Invoice \[QBO clients only] (need login credentials)
+   * This scenario uses an Invoice module to push QBO to provide "Accounting" permissions.
+2. Create-Test WA Connection (need API Key)
+3. Create-Test “box” Connection (only for QBD and client’ using box)
+   * NOTE:  If a QBD client does not use "box", a temporary connection may be needed.  Once the scenarios are adjusted for "box" alternates, the temporary connection can be removed. &#x20;
+4. Make sure each scenario runs successfully once to demonstrate that the connection has been created successfully.
+5. Move scenarios into Helper-Install folder
 
-NOTE:  If a QBD client does not use "box", a temporary connection may be needed.  Once the scenarios are adjusted for "box" alternates, the temporary connection can be removed. &#x20;
+
 
 ![Example - creating connection during scenario clone process](<../.gitbook/assets/Screen Shot 2022-03-10 at 10.39.23 AM (1).png>)
 
@@ -62,6 +65,7 @@ _From the WAQM Operations Released folder, clone each Data Structure below to th
      1. A new Google connection for yourself (or the owner of the Mapping Sheet)
      2. Choose the existing WA and QBO connections created in step B
 3. Move scenarios into Helper-Install folder
+4. Doublecheck and confirm that any Webhooks are turned "ON".
 
 ![Creating a Webhook during Config Receiver scenario cloning](<../.gitbook/assets/Screen Shot 2022-03-10 at 6.15.36 PM.png>) ![Creating a datastore during Config Receiver scenario cloning](<../.gitbook/assets/Screen Shot 2022-03-10 at 6.16.17 PM.png>)
 
@@ -99,6 +103,8 @@ These steps copy a config record from NPC's master data store and send to the Cl
 
 _Only clone the Invoice, Payment, or Donation Core scenarios if that transaction type is in scope for the client._&#x20;
 
+_NOTE:  Make sure previous connections are created (added) and data structures are cloned before proceeding.   Unexpected complications can occur if Connections are created later and manually switched inside the scenarios._
+
 1. WAQM-Invoice-Core (latest version)&#x20;
 2. WAQM-Payment-Core (latest version)&#x20;
 3. WAQM-Donation-Core (latest version)&#x20;
@@ -128,6 +134,7 @@ _Each client only needs the QBO or the QBD Txn scenario._
 * For the QBD Txn scenario, the WAQM-QBD-IIF-TMP datastore should be duplicated during the Clone process.
 * For QBD clients, update the Duplicated IIF Data Store and the IIF Data Structure to include the client's name.
 * Move Txn scenario to the Released folder
+* Doublecheck and confirm that any Webhooks are turned "ON".
 
 ![Creating Webhook as part of Txn scenario](<../.gitbook/assets/Screen Shot 2022-03-10 at 6.48.18 PM.png>)
 
