@@ -230,10 +230,10 @@ Because of limitations with Migrating from the EU region to the US region, the f
    4. When prompted, click the "Choose file button".  Find the File and then click Save.
    5. The scenario should appear.
    6. Update the name of the scenario to:  WAQM-Txn-QBD (v0.7) (Client Name)
-   7. Add a new QBD Webhook:
+   7. Add a new QBD Txn Webhook:
       1. Open the first module with the webhook
       2. Click Add
-      3. Use a name:  WAQM-Txn-QBD (v0.7) (Client Name)
+      3. Use a name:   WAQM-Txn-QBD-Payload Receiver (v0.7) (Client Name)  &#x20;
       4. Select Advanced Settings
       5. Select the Data Structure of: WAQM-Txn-Payload-v0.7 (Client Name)
       6. Click Save
