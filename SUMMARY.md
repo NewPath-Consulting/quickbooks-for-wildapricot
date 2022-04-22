@@ -30,7 +30,8 @@
 
 * [Install Overview for NPC Staff](install-steps-for-npc-staff/install-overview-for-npc-staff.md)
 * [Pre-Requisites before Installation](install-steps-for-npc-staff/pre-requisites-before-installation.md)
-* [Detailed Install Steps](install-steps-for-npc-staff/detailed-install-and-config-steps.md)
+* [Detailed Install Steps (New Team Inside Make.com Org)](install-steps-for-npc-staff/detailed-install-and-config-steps.md)
+* [Detailed Install Steps (Migrate to New Make.com Org)](install-steps-for-npc-staff/detailed-install-and-config-steps-1.md)
 * [Detailed Config Steps](install-steps-for-npc-staff/detailed-config-steps.md)
 * [WAQM Version History](install-steps-for-npc-staff/waqm-version-history.md)
 
