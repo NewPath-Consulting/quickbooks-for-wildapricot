@@ -22,5 +22,8 @@ _**In GitHub, look at the Summary.md file to see the Table of Contents.**_
 | 1.7         | Jan 19, 2022 | D. Reed   | Major edits for v0.7                                                                                        |
 | 2.0         | Mar 9, 2022  | D. Reed   | Revise install per Make.com transition                                                                      |
 | 2.0.1       | Mar 26, 2022 | D. Reed   | Tweak install to clarify Webhook/Datastore creation during clone                                            |
+| 2.1         | Apr 20, 2022 | D. Reed   | Alt detail instructions for install to new Make.com Org                                                     |
+| 2.1.1       | May 12, 2022 | D. Reed   | Bug fix v0.7.0.1                                                                                            |
+|             |              |           |                                                                                                             |
 
 ##

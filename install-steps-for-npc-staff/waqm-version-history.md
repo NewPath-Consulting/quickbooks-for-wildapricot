@@ -7,9 +7,32 @@ description: >-
 
 # WAQM Version History
 
-## WAQM v0.7.test
+## QBWA v0.7.0.1
 
-NOTE:  This is a major release with new features and completely refactored from previous versions.
+### Scope of Change:
+
+* Core scenarios (Invoice, Payment, Donation) require a small error handling tweak.  Technically, this is not needed for the Invoice scenario, but it is still updated to keep Core scenarios consistent.
+
+### Key changes:
+
+* Bug fix.  Error Handling Detail message after the "WA Get Invoice Details" module changed between Integromat.com and Make.com.  Update Error Handler to address either.
+
+### Installation impacts:
+
+* No change to process.  Use Core scenario versions v0.7.0.1.  No other changes.
+
+### Upgrade impacts to existing customers:
+
+* Only impacts existing customers with  v0.7 installed.  As of May 12, 2022, I think all installed customers are upgraded already.
+* If others found, go into the client's environment and update the filter on the Error Handing route after the WA Get Invoice Details module (55).  "Titled:  Txn without matched invoice". Reference the version in WAQM Operations.
+* Add:  Type = BundleValidation Error  AND  Detail contains "invoiceID"  AND  Scenario Type != Invoice
+* This change should be made to all 3 Core scenarios: Invoice, Payment, and Donation.
+
+
+
+## WAQM v0.7
+
+NOTE:  This is a major release with new features and completely refactored from previous versions.  Requires reinstall for existing clients.
 
 ### **Scope of Change:**
 
@@ -40,13 +63,13 @@ NOTE:  This is a major release with new features and completely refactored from 
 
 ### Installation impacts:
 
-* Major changes.   Basic process is the same, but the specific list of Data Structures and Scenarios has changed.   Consult install guide for updates.
+* Major changes.   Basic process is the same, but the specific list of Data Structures and Scenarios has changed.   Consult install guide for updates.  Install guide has been revamped to simplify install somewhat.  Follow steps exactly.
 
 ### Upgrade impacts to existing customers:
 
 * Major.  If a customer wishes to upgrade to this version, it is effectively a re-install as the Config Data Store structure has changed. &#x20;
-* If possible, work with the customer to populate the new version of the Mapping Guide.  Depending on how old the customer is, some new data may be required.
-* Still pending - an Integromat utility to help transfer data store configuration from previous versions to this version.
+* If possible, work with the customer to populate the new version of the Mapping Guide.  Depending on how old the customer is, some new data may be required.  Payment congig details are new.
+* Upgrade utility exists to upgrade v0.6 config data structure to v0.7 config data structure.  Some tweaking may still be required.
 
 ## WAQM v0.6.1.3
 
