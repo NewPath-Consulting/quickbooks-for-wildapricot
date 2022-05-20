@@ -7,6 +7,36 @@ description: >-
 
 # WAQM Version History
 
+## QBWA v0.7.0.2
+
+### Scope of Change:
+
+* Core scenarios (Invoice, Payment, Donation) require a small logic update in 1 module. &#x20;
+
+### Key changes:
+
+* Minor improvement to Summary Email message in scenario where the Default mapping is used because no matched Alternate mapping was found.  This change clarifies which Default mapping was used.  e.g.  MemberApplication or DonationPayment.     The change is in a single module (295) in each of the core scenarios where the "Matched Order Alternate Mapping" is found".
+
+### Installation impacts:
+
+* No change to process.  Use Core scenario versions v0.7.0.2.  No other changes.  Txn scenarios v0.7 are still valid.
+
+### Upgrade impacts to existing customers:
+
+* Nice to do change only for clients with v0.7 or v0.7.0.1.   Clarifies the Email Summary message as described above.
+* Change summary:
+  * Go to module 295 - Alternate Mapping Match & Contact Values" . &#x20;
+  * The logic is changed in the first variable - "Matched Order Alternate Mapping". &#x20;
+  * CAUTION - the logic in this variable is very complex and can easily be broken. &#x20;
+  * At the end of the logic, find "NoAltMatch-UseDefault"
+  * Replace with (taking care not to change the parenthesis:   NoMatch-Use\{{291.`Txn Source Order Type`\}}Default
+  * When pasted in Make.com the brackets will not be visible.   (see image)
+* This change should be made to all 3 Core scenarios: Invoice, Payment, and Donation.
+
+![](<../.gitbook/assets/Screen Shot 2022-05-20 at 11.19.13 AM.png>)
+
+im
+
 ## QBWA v0.7.0.1
 
 ### Scope of Change:
