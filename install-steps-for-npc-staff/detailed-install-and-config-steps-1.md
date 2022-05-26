@@ -190,6 +190,10 @@ This phase is where most of the "cloning" (old terminology) occurs.   Be careful
 12. You should see the progress of the migration proceed to 100%. &#x20;
 13. When done, you should see a "Go to target" button on the bottom right.  Click on this to open Make.com in the Target Org (the Client's Org)
 14. Edit all objects to use the Client's actual short name instead of a generic "Client Name": scenarios, connections, webhooks, datstores, data structures
+15. NOTE:  There is a current Make.com bug that must be checked.   When scenarios with QBO modules are installed/migrated, the connection to the clients QBO account are not properly set and saved to the scenario during install.   Every single QBO module must be manually checked.   QBO exists in the Txn scenario in the Released folder and in multiple scenarios across the Helper folders.  For each module, check these items:
+    1. The connection must be set to the client's QBO connection
+    2. Once the connection is set and the fields reload, check every field in the module to make sure the logic is accurate.  Often, any array field or field with a drop-down choice, must be marked as "mapped" and the logic from the source system must be recopied. &#x20;
+    3. Save the module changes (and then save the scenario).
 
 
 
