@@ -7,6 +7,36 @@ description: >-
 
 # WAQM Version History
 
+##
+
+## QBWA v0.7.0.3
+
+### Scope of Change:
+
+* Core scenarios (Invoice, Payment, Donation) require a small logic update in 1 filter. &#x20;
+
+### Key changes:
+
+* Bug from Make.com migration.   The "array value" is not correct in the filter between the iterator in module 293 and the aggregator in module 294.    Text editor shows:  \{{293.value\[]\}}
+* Manually reselecting the array value corrects this issue in the scenario.   Text editor shows:  \{{293.value\}}
+
+### Installation impacts:
+
+* No change to process.  Use Core scenario versions v0.7.0.3.  No other changes.  Txn scenarios v0.7 are still valid.
+
+### Upgrade impacts to existing customers:
+
+* For clients that use multiple Event Tag business logic mappings, this change is required for proper mapping.   For other clients it is a "nice to do change" to ensure the scenario will work in the future if they choose to start using different Event tag mappings.
+* Change summary:  (repeat for each Core scenario)
+  * Go to the filter between module 293 and 294
+  * Delete the 293.Value portion (the entire box/value)
+  * Reselect the 293 Value Array form the inspector.   (see screenshot to see what it should look like when done.
+  * Save the filter.
+  * Update the scenario version to v0.7.0.3
+  * Save the scenario
+
+![INCORRECT](<../.gitbook/assets/Screen Shot 2022-06-07 at 10.49.05 AM.png>) ![CORRECT](<../.gitbook/assets/Screen Shot 2022-06-07 at 10.49.18 AM (1).png>)
+
 ## QBWA v0.7.0.2
 
 ### Scope of Change:
