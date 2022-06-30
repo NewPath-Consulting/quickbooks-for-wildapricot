@@ -15,15 +15,16 @@ description: >-
 
 ### Scope of Change:
 
-* QBO Txn scenario and Core scenarios (Invoice, Payment, Donation) require a small logic update in 2 modules and in 1 filter. &#x20;
+* QBO Txn scenario and Core scenarios (Invoice, Payment, Donation) require a small logic update in 3 modules and in 1 filter. &#x20;
 * NOTE: moved version of QBO Txn scenario from v0.7 to v0.7.0.4 for consistency. &#x20;
 
 ### Key changes:
 
-* See GitHub issues # 88, 89, 90
+* See GitHub issues # 88, 89, 90, 91
   * 88: Line Item Description on a Sales Receipt (Donation) does not populate
   * 89: AutoRun schedule may not work properly for Donations
   * 90: Sales Receipt (Donation) creation fails for some clients
+  * 91: Event without tags should use Default mappings (not an Alternate mapping)
 
 ### Installation impacts:
 
@@ -38,12 +39,13 @@ description: >-
     * 90: remove "Private Note" property from Sales Receipt API call (module 389)
   * In each of the Core scenarios:
     * 88: update logic for Line Item Description field (module 374).
+    * 91: u\[date logic for Matched Event Tag (module 291).
   * Update version number in title of each scenario
   * Update "installed version" inside the active data store record
 
 ![filter for issue #89](<../.gitbook/assets/Screen Shot 2022-06-28 at 1.05.27 PM.png>) ![issue #90 before](<../.gitbook/assets/Screen Shot 2022-06-28 at 1.06.53 PM.png>) ![issue #90 after](<../.gitbook/assets/Screen Shot 2022-06-28 at 1.08.27 PM.png>)
 
-![issue #88 before](<../.gitbook/assets/Screen Shot 2022-06-28 at 1.10.00 PM.png>) ![issue #88 after](<../.gitbook/assets/Screen Shot 2022-06-28 at 1.11.19 PM.png>)
+![issue #88 before](<../.gitbook/assets/Screen Shot 2022-06-28 at 1.10.00 PM.png>) ![issue #88 after](<../.gitbook/assets/Screen Shot 2022-06-28 at 1.11.19 PM.png>) ![issue #91](<../.gitbook/assets/Screen Shot 2022-06-30 at 1.28.12 PM.png>)
 
 ## QBWA v0.7.0.3
 
