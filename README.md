@@ -28,6 +28,7 @@ _**In GitHub, look at the Summary.md file to see the Table of Contents.**_
 | 2.1.3       | May 26, 2022  | D. Reed   | tweak to instal steps for new Make org. Make.com bug regarding QBO connections.                             |
 | 2.1.4       | June 7, 2022  | D. Reed   | v0.7.03 bug fix                                                                                             |
 | 2.1.5       | June 28, 2022 | D. Reed   | v0.7.0.4 bug fixes                                                                                          |
+| 2.1.6       | July 27, 2022 | D. Reed   | v0.7.0.5 - issues 87 and 94                                                                                 |
 |             |               |           |                                                                                                             |
 
 ##

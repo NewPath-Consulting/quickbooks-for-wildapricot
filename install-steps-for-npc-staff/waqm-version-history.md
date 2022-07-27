@@ -11,6 +11,35 @@ description: >-
 
 ##
 
+## QBWA v0.7.0.5
+
+### Scope of Change:
+
+* Core scenarios (Invoice, Payment, Donation) require a: updated License Check URL; b) a small logic update in 1 filter for license key check; and c) subsequent route for license renewal email.
+* NOTE: moved version of QBO Txn scenario to v0.7.0.5 for consistency. &#x20;
+
+### Key changes:
+
+* See GitHub issues # 87 and 94
+  * 87: Update License Checker Webhook URL
+  * 94: Insert Grace Period for License Check to allow renewal payment success
+
+### Installation impacts:
+
+* No change to process for installation.  Use Txn and Core scenario versions v0.7.0.5.  No other changes. &#x20;
+
+### Upgrade impacts to existing customers:
+
+* Impacts all clients on v0.6 or after.&#x20;
+* Change summary:  (see screenshots to see exact change)
+  * In each of the Core scenarios:
+    * 87: update the URL in the HTTP License Check module (module 374) to [http://newpathconsulting.com/check](http://newpathconsulting.com/check)
+    * 94: update filter after HTTP license check module to insert a 3 day grace period; add route (and new filter) for email to send a license renewal warning email.
+  * Update version number in title of each scenario
+* Update "installed version" inside the active data store record
+
+![Change existing filter title and logic](<../.gitbook/assets/Screen Shot 2022-07-27 at 2.49.12 PM.png>) ![New filter and Warning Emails](<../.gitbook/assets/Screen Shot 2022-07-27 at 2.50.21 PM.png>) ![New filter logic](<../.gitbook/assets/Screen Shot 2022-07-27 at 2.50.54 PM.png>)
+
 ## QBWA v0.7.0.4
 
 ### Scope of Change:
