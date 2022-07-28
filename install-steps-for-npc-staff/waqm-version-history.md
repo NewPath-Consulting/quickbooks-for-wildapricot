@@ -16,6 +16,7 @@ description: >-
 ### Scope of Change:
 
 * Core scenarios (Invoice, Payment, Donation) require a: updated License Check URL; b) a small logic update in 1 filter for license key check; and c) subsequent route for license renewal email.
+* Also in Core scenarios, inserted TestMode variables in first module and 5 filters in scenarios to facilitate installation testing by CRMs.  &#x20;
 * NOTE: moved version of QBO Txn scenario to v0.7.0.5 for consistency. &#x20;
 
 ### Key changes:
@@ -23,6 +24,7 @@ description: >-
 * See GitHub issues # 87 and 94
   * 87: Update License Checker Webhook URL
   * 94: Insert Grace Period for License Check to allow renewal payment success
+* TestMode support inside Core scenarios.   Allows true/false variables to be set in first module to allow simple installation testing at each client, without actually modifying scenarios.   No Emails (suppresses emails), License Check Only (stops scenario before data gets pulled from Wild Apricot to conserve Make.com operations consumption), No Transactions Processed (prevents payload from being sent to secondary QBO or QBD Txn scenarios.    Before client is activated all of these variables must be set to "false".
 
 ### Installation impacts:
 
@@ -30,13 +32,14 @@ description: >-
 
 ### Upgrade impacts to existing customers:
 
-* Impacts all clients on v0.6 or after.&#x20;
+* Github issues Impact all clients on v0.6 or after.&#x20;
 * Change summary:  (see screenshots to see exact change)
   * In each of the Core scenarios:
     * 87: update the URL in the HTTP License Check module (module 374) to [http://newpathconsulting.com/check](http://newpathconsulting.com/check)
     * 94: update filter after HTTP license check module to insert a 3 day grace period; add route (and new filter) for email to send a license renewal warning email.
   * Update version number in title of each scenario
 * Update "installed version" inside the active data store record
+* NOTE: TestMode changes were only made in NPC repositories to use for future clients.
 
 ![Change existing filter title and logic](<../.gitbook/assets/Screen Shot 2022-07-27 at 2.49.12 PM.png>) ![New filter and Warning Emails](<../.gitbook/assets/Screen Shot 2022-07-27 at 2.50.21 PM.png>) ![New filter logic](<../.gitbook/assets/Screen Shot 2022-07-27 at 2.50.54 PM.png>)
 
