@@ -54,15 +54,15 @@ For this first step, only the "Create-Test connection" scenarios are "Fast Migra
 
 In this phase, the NPC lead will work with the client to create and test each of the required connections.    Normally, this is best done together with the client on a call, with the NPC lead giving guidance.  &#x20;
 
-BEFORE meeting with the client, update the Google Sheet connection to use the NPC Focal's Google Sheet connection that works with the MappingGuide for this Client.
+BEFORE meeting with the client, update the Google Sheet connection to use the NPC Focal's Google Sheet connection that works with the MappingGuide for this Client.  NOTE: It is possible to also use the client's&#x20;
 
-**"Google Sheet" connection:**
+**"Google Sheet" connection (in Make.com):**
 
-1. Navigate to the "WAQM-Helpers-Install" folder and the "Create-Test Google Sheets Connection" scenario
+1. Navigate to the "WAQM-Helpers-Install" folder inside the client's Make.com instance and the "Create-Test Google Sheets Connection" scenario
 2. Go into Edit mode
 3. Click on the first module
 4. In the connection box, click "Add"
-5. Choose a name such as "GoogleSheet-Mapping \<NPC Focal Name>"
+5. Choose a name such as "WAQM-GoogleSheet-Mapping \<NPC Focal Name>"
 6. Click Save for the Connection
 7. If you have multiple Google accounts, it will ask to choose the proper account.  Use the one that has access to the WAQM (QBWA) Mapping Guide.
 8. Enter the password for the chosen account and then press Next
@@ -101,7 +101,7 @@ BEFORE meeting with the client, update the Google Sheet connection to use the NP
    10. Click on "Run Once"
    11. If successful, the module name should turn green and a small "1" should appear to the upper right of the module.   Clicking on the number "1" should show details about the Client's WA org.
    12. Click Save and exit the scenario.
-5. QBO connection: (if needed)
+5. QBO connection: (for QBO clients only)
    1. Navigate to the "WAQM-Helpers-Install" folder and the "Create-Test QBO Connection" scenario
    2. Go into Edit mode
    3. Click on the first module
@@ -117,7 +117,7 @@ BEFORE meeting with the client, update the Google Sheet connection to use the NP
    13. Click on "Run Once"
    14. If successful, the module name should turn green and a small "1" should appear to the upper right of the module.   Clicking on the number "1" may show details about an Invoice or may show nothing if there are no recent Invoices.  It is okay if no Invoices are found during this connection step.
    15. Click Save and exit the scenario.
-6. "box" connection: (if needed)
+6. "box" connection: (for QBD clients only)
    1. Navigate to the "WAQM-Helpers-Install" folder and the "Create-Test box Connection" scenario
    2. Go into Edit mode
    3. Click on the first module
@@ -132,9 +132,10 @@ BEFORE meeting with the client, update the Google Sheet connection to use the NP
    12. If successful, the module name should turn green and a small "1" should appear to the upper right of the module.   Clicking on the number "1" will typically show 0 bundles in the output.  It is okay if no output is found during this connection step.
    13. Click Save and exit the scenario.
 7. Complete any other discussion with the Client and complete the following steps after the call.
-8. Go into the Client's Org and look at the Connections.  Determine if there were any connections that were created as part of the migration process (without the client's name)
-9. Delete those connections.   If a pop-up shows that a scenario will stop working if the connection is deleted, DO NOT PROCEED.   Make sure you are deleting the correct connection.
-10. You may also delete any extra "bad" connections that were created with the client.    Be careful not to delete any other connections if the Client uses Make.com for other purposes.
+8. Clean up unneeded Connections inside Make.com:
+   1. Go into the Client's Org in Make.com and look at the Connections.  Determine if there were any connections that were created as part of the migration process (without the client's name)
+   2. Delete those connections.   If a pop-up shows that a scenario will stop working if the connection is deleted, DO NOT PROCEED.   Make sure you are deleting the correct connection.
+   3. You may also delete any extra "bad" connections that were created with the client.    (e.g. any unsuccessful QBO connections)  Be careful not to delete any other connections if the Client uses Make.com for non-WAQM purposes.
 
 ### E) "Manual Migrate" Core/Helper/QBO scenarios
 
@@ -143,8 +144,8 @@ This phase is where most of the "cloning" (old terminology) occurs.   Be careful
 1. Initiate the Migration utility by going to this URL:  https://migrate.make.com
 2. In the migration utility go to step 2 "Sign into accounts"  (Source and Target)
    1. For Source, select Make and Sign In (with your login that has admin access to the NPC Org or the NPC replica in the EU data region)
-   2. For Target, select Make and Sign In (with your login that has access to the Client's NPC Org.
-   3. NOTE:  Typically, the NPC installer's login should have access to both the Source and Target accounts.
+   2. For Target, select Make and Sign In (with your login that has access to the Client's Org)
+   3. NOTE:  The NPC installer's login must have access to both the Source and Target accounts.
 3. Continue to step 2.1 in the migration utility "Teams and organizations"&#x20;
    1. If the client is in the US:
       1. For Source, select the org "WAQM Operations Core + QBO" and "My Team" \[this is in the EU region]
@@ -158,14 +159,17 @@ This phase is where most of the "cloning" (old terminology) occurs.   Be careful
       1. NOTE:  QBD clients will not need the WAQM-Txn-QBO scenario.
       2. NOTE: Go ahead and select all of the Core scenarios, even if they currently do not have the transaction type in scope.
    3. Scroll down to the folder "WAQM-Helpers-Support" and click the "select folder" checkbox to the right.   This should select all of the scenarios inside this folder.&#x20;
-      1. NOTE: QBD clients will not need the Quickbooks related helpers.  You may unselect these scenarios.
+      1. NOTE: QBD clients will not need the Quickbooks QBO related helpers.  You may unselect these QBO scenarios.
    4. Scroll down to the folder "WAQM-Helpers-Install" and click the "select folder" checkbox to the right.   This should select all of the scenarios inside this folder. &#x20;
-      1. UNSELECT the "WAQM-DS-Config-SendJSON... \[do not clone]" scenario
+      1. For QB Online clients UNSELECT these scenarios (do NOTE migrate them)
+         1. UNSELECT the "WAQM-DS-Config-SendJSON... \[do not clone]" scenario
+         2. UNSELECT the "WAQM-Migrate-IIF-TMP-RAW Data Structure" scenario
+         3. UNSELECT the "Create-Test box Connection (Client Name)" scenario
    5. Before proceeding, ensure that ONLY the proper scenarios are selected.&#x20;
    6. DO NOT PRESS "Fast Migration"
    7. Click on Manual Migration on the bottom right
 5. The migration screen should move you to step 3.4 "Data Selection" - Webhooks
-   1. For each Webhook, choose:  "Duplicate Webhook"  \[ DO NOT forward ]
+   1. For each Webhook, choose:  "Duplicate Webhook"  \[NOT "duplicate webhook and forward"]
    2. Click Next on the bottom right
 6. The migration screen should move you to step 3.4 "Data Selection" - Connections
    1. For the NPC Mailgun connection, choose "duplicate connection"
@@ -183,13 +187,13 @@ This phase is where most of the "cloning" (old terminology) occurs.   Be careful
    2. Otherwise choose:  Duplicate folder
    3. Click Next on the bottom right
 10. The migration screen should move you to step 4.1 "Migration Settings"
-    1. Source:  Choose: No
-    2. Target: Choose: No
+    1. Source:  Choose: No (disable all scenarios)
+    2. Target: Choose: No (activate all scenarios)
     3. Click Next on the bottom right
 11. The migration screen should move you to step 4.2 Migration Settings.    Press the "Start migration" button
 12. You should see the progress of the migration proceed to 100%. &#x20;
 13. When done, you should see a "Go to target" button on the bottom right.  Click on this to open Make.com in the Target Org (the Client's Org)
-14. Edit all objects to use the Client's actual short name instead of a generic "Client Name": scenarios, connections, webhooks, datstores, data structures
+14. Edit all objects to use the Client's actual short name instead of a generic "Client Name": scenarios, connections, webhooks, datastores, data structures
 15. NOTE:  There is a current Make.com bug that must be checked.   When scenarios with QBO modules are installed/migrated, the connection to the clients QBO account are not properly set and saved to the scenario during install.   Every single QBO module must be manually checked.   QBO exists in the Txn scenario in the Released folder and in multiple scenarios across the Helper folders.  For each module, check these items:
     1. The connection must be set to the client's QBO connection
     2. Once the connection is set and the fields reload, check every field in the module to make sure the logic is accurate.  Often, any array field or field with a drop-down choice, must be marked as "mapped" and the logic from the source system must be recopied. &#x20;
