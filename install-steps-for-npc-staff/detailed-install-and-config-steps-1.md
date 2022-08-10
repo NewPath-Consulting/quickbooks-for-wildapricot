@@ -204,10 +204,11 @@ This phase is where most of the "cloning" (old terminology) occurs.   Be careful
 12. You should see the progress of the migration proceed to 100%. &#x20;
 13. When done, you should see a "Go to target" button on the bottom right.  Click on this to open Make.com in the Target Org (the Client's Org)
 14. Edit all objects to use the Client's actual short name instead of a generic "Client Name": scenarios, connections, webhooks, datastores, data structures
-15. Fix QBO Connection Bugs:  NOTE:  There is a current Make.com bug that must be checked.   When scenarios with QBO modules are installed/migrated, the connection to the clients QBO account are not properly set and saved to the scenario during install.   Every single QBO module must be manually checked.   QBO exists in the Txn scenario in the Released folder and in multiple scenarios across the Helper folders.  For each module, check these items:
+15. Fix QBO Connection Bugs:  NOTE:  There is a current Make.com bug that must be checked.   When scenarios with QBO modules are installed/migrated, the connection to the clients QBO account are not properly set and saved to the scenario during install.   Every single QBO module must be manually checked.   QBO exists in the Txn scenario in the Released folder, the QBO Mapping  Queries scenario in the Helper-Install folder, and in multiple scenarios within the Helper0Support folder (all the ones that show a black Quickbooks module).  For each module, check these items:
     1. The connection must be set to the client's QBO connection
     2. Once the connection is set and the fields reload, check every field in the module to make sure the logic is accurate.  Often, any array field or field with a drop-down choice, must be marked as "mapped" and the logic from the source system must be recopied. &#x20;
     3. Save the module changes (and then save the scenario).
+    4. NOTE:  Many of the helper scenarios end in a "transformer" module.  You may get a warning that the transformer should not be the last module.  For the helper scenarios, this is okay.  You can proceed and ignore the warnings.
 16. Validate and run  "QBO Mapping Queries" scenario (inside Helpers-Install folder) has proper connections and is mapped properly.
     1. Check the yellow Google Drive connection and make sure it is correct
     2. Check all of the green Google Sheets connections and make sure they are correct
