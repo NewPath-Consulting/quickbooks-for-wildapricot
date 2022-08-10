@@ -41,7 +41,7 @@ For this first step, only the "Create-Test connection" scenarios are "Fast Migra
       2. For the Target, select the client's org and team.
 4. Continue to step 3.3 (data selection) Scenarios
    1. This screen lists all the possible scenarios to migrate, organized by folder.
-   2. Scroll down and SELECT ONLY the 4 "Create-Test Connection..." scenarios (WA, QBO, box, Google Sheet)
+   2. Scroll down and SELECT ONLY the 4 "Create-Test Connection..." scenarios (WA, QBO, box, Google Drive-Sheet)
    3. NOTE:  QBO clients will not need the box connection/scenario.  QBD clients will not need the QBO connection/scenario.
    4. Before proceeding, ensure that ONLY the connection scenarios are selected.&#x20;
    5. Click on Fast Migration on the bottom right
@@ -56,23 +56,33 @@ In this phase, the NPC lead will work with the client to create and test each of
 
 BEFORE meeting with the client, update the Google Sheet connection to use the NPC Focal's Google Sheet connection that works with the MappingGuide for this Client.  NOTE: It is possible to also use the client's&#x20;
 
-**"Google Sheet" connection (in Make.com):**
+**"Google Drive & Sheet" connection (in Make.com):**
 
-1. Navigate to the "WAQM-Helpers-Install" folder inside the client's Make.com instance and the "Create-Test Google Sheets Connection" scenario
+1. Navigate to the "WAQM-Helpers-Install" folder inside the client's Make.com instance and the "Create-Test Google Drive-Sheets Connection" scenario
 2. Go into Edit mode
-3. Click on the first module
-4. In the connection box, click "Add"
-5. Choose a name such as "WAQM-GoogleSheet-Mapping \<NPC Focal Name>"
-6. Click Save for the Connection
-7. If you have multiple Google accounts, it will ask to choose the proper account.  Use the one that has access to the WAQM (QBWA) Mapping Guide.
-8. Enter the password for the chosen account and then press Next
-9. On the next screen, confirm and press "Allow"
-10. If the connection is successful, it should take you back to the Module.  Press OK.
-11. Reopen the same Module and select the proper Mapping spreadsheet that is being used with this Client.  Press OK.
-12. Save the scenario (disk icon on lower left)
-13. Click on "Run Once"
-14. If successful, the module name should turn green and a small "1" should appear to the upper right of the module.   Clicking on the number "1" will show the sheets in the Mapping Guide.
-15. Click Save and exit the scenario.
+3. Google Dive Connection
+   1. Click on the first yellow, Google Drive module
+   2. In the connection box, click "Add"
+   3. Choose a name such as "WAQM-GoogleDrive \<NPC Focal Name>"
+   4. Click Save for the Connection
+   5. If you have multiple Google accounts, it will ask to choose the proper account.  Use the one that has access to the WAQM (QBWA) Mapping Guide.
+   6. Enter the password for the chosen account and then press Next
+   7. On the next screen, confirm and press "Allow"
+   8. If the connection is successful, it should take you back to the Module.  Press OK.
+   9. Reopen the same Module and find the "Query" field.  Enter a text string that can be used to query the title of the Google Drive files to find the Mapping Guide for this client.  Press OK.
+4. Google Sheets Connection
+   1. Click on the second green, Google Sheets module
+   2. In the connection box, click "Add"
+   3. Choose a name such as "WAQM-GoogleSheets \<NPC Focal Name>"
+   4. Click Save for the Connection
+   5. If you have multiple Google accounts, it will ask to choose the proper account.  Use the one that has access to the WAQM (QBWA) Mapping Guide.
+   6. Enter the password for the chosen account and then press Next
+   7. On the next screen, confirm and press "Allow"
+   8. If the connection is successful, it should take you back to the Module.  Press OK.
+5. Save the scenario (disk icon on lower left)
+6. Click on "Run Once"
+7. If successful, the module names should both turn green and a small "1" should appear to the upper right of the module.   Clicking on the number "1" will show the file (yellow module) and the sheets in the Mapping Guide (green module).
+8. Click Save and exit the scenario.
 
 **AFTER the Google Sheet connection**, proceed to meet with the Client for the other connections.
 
@@ -194,10 +204,19 @@ This phase is where most of the "cloning" (old terminology) occurs.   Be careful
 12. You should see the progress of the migration proceed to 100%. &#x20;
 13. When done, you should see a "Go to target" button on the bottom right.  Click on this to open Make.com in the Target Org (the Client's Org)
 14. Edit all objects to use the Client's actual short name instead of a generic "Client Name": scenarios, connections, webhooks, datastores, data structures
-15. NOTE:  There is a current Make.com bug that must be checked.   When scenarios with QBO modules are installed/migrated, the connection to the clients QBO account are not properly set and saved to the scenario during install.   Every single QBO module must be manually checked.   QBO exists in the Txn scenario in the Released folder and in multiple scenarios across the Helper folders.  For each module, check these items:
+15. Fix QBO Connection Bugs:  NOTE:  There is a current Make.com bug that must be checked.   When scenarios with QBO modules are installed/migrated, the connection to the clients QBO account are not properly set and saved to the scenario during install.   Every single QBO module must be manually checked.   QBO exists in the Txn scenario in the Released folder and in multiple scenarios across the Helper folders.  For each module, check these items:
     1. The connection must be set to the client's QBO connection
     2. Once the connection is set and the fields reload, check every field in the module to make sure the logic is accurate.  Often, any array field or field with a drop-down choice, must be marked as "mapped" and the logic from the source system must be recopied. &#x20;
     3. Save the module changes (and then save the scenario).
+16. Validate and run  "QBO Mapping Queries" scenario (inside Helpers-Install folder) has proper connections and is mapped properly.
+    1. Check the yellow Google Drive connection and make sure it is correct
+    2. Check all of the green Google Sheets connections and make sure they are correct
+    3. Check all of the black Quickbooks Online connections and make sure they are correct
+    4. IMPORTANT:  In the yellow Google Drive module, modify the Query field to match the name of the client's QBWA Mapping Guide document/ .  This ensures that you will send Quickbooks data to the proper mapping file.   Mis-mapping this name can result in client data being exposed improperly.
+    5. Save the scenario
+    6. Run once
+    7. Go to the client's GoogleSheets mapping Guide.   Look at any of the tabs starting with "Example" and validate they were populated.   This is the data from the client's WildApricot and Quickbooks accounts that can be analyzed to fill out the Mapping Guide.
+    8. Exit the scenario
 
 
 
@@ -279,11 +298,11 @@ This section connects the front end Core scenarios to the back-end Txn scenario(
    2. Copy the URL for the Webhook
 3. Update the URL in the Core scenarios
    1. Open the Invoice Core scenario in Edit mode
-   2. Go to the right and find the HTTP Send Txn Payload module that corresponds to the Txn type (QBO or QBD).
-   3. Open the module and replace the URL with the one from the Webhook
+   2. Go to the right and find the blue HTTP Send Txn Payload module that corresponds to the Txn type (QBO or QBD).
+   3. Open the module and replace the URL with the one from the Webhook.  Click OK.
    4. Save
    5. Repeat for the Payment Scenario
-   6. Repeat for the Donation sScenario
+   6. Repeat for the Donation Scenario
 4. If this is an NPC situation with both QBO and QBD scenarios, repeat steps 2 and 3 for the 2nd Txn type and Webhook.
 
 ![Webhook for the Txn scenario. A client will have either the QBO or the QBD Scenario/Webhook.](<../.gitbook/assets/Screen Shot 2022-03-10 at 6.56.02 PM.png>) ![Insert the copied URL into the appropriate module for all Core scenarios.](<../.gitbook/assets/Screen Shot 2022-03-10 at 6.56.55 PM.png>)

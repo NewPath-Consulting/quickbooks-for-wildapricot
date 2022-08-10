@@ -1,6 +1,10 @@
-# Detailed Install Steps
+# Detailed Install Steps (New Team Inside Make.com Org)
 
-These are the detailed steps to install the components of WAQM into a new Team within NPC's MAke.com instance.   An overview of the installation process is described on this page.   [WAQM Installation Overview](../waqm-overview-1/waqm-installation-overview.md)
+_<mark style="color:red;">**NOTE:  This section should not be needed.  Using the Detailed Install Steps (for a New Make.com Org) should work for a new Team inside NPC's org as well.   The install approach still relies on the repository in a separate Make.com global region and the migration tool.**</mark>_
+
+
+
+These are the detailed steps to install the components of WAQM into a new Team within NPC's Make.com instance.   An overview of the installation process is described on this page.   [WAQM Installation Overview](../waqm-overview-1/waqm-installation-overview.md)
 
 ### **A) Create Team for Client inside Make.com**
 
