@@ -60,20 +60,20 @@ BEFORE meeting with the client, update the Google Sheet connection to use the NP
 
 1. Navigate to the "WAQM-Helpers-Install" folder inside the client's Make.com instance and the "Create-Test Google Drive-Sheets Connection" scenario
 2. Go into Edit mode
-3. **Google Drive** Connection
+3. Google Dive Connection
    1. Click on the first yellow, Google Drive module
    2. In the connection box, click "Add"
-   3. Choose a name such as "WAQM-**GoogleDrive** \<NPC Focal Name>"
+   3. Choose a name such as "WAQM-GoogleDrive \<NPC Focal Name>"
    4. Click Save for the Connection
    5. If you have multiple Google accounts, it will ask to choose the proper account.  Use the one that has access to the WAQM (QBWA) Mapping Guide.
    6. Enter the password for the chosen account and then press Next
    7. On the next screen, confirm and press "Allow"
    8. If the connection is successful, it should take you back to the Module.  Press OK.
    9. Reopen the same Module and find the "Query" field.  Enter a text string that can be used to query the title of the Google Drive files to find the Mapping Guide for this client.  Press OK.
-4. **Google Sheets** Connection
+4. Google Sheets Connection
    1. Click on the second green, Google Sheets module
    2. In the connection box, click "Add"
-   3. Choose a name such as "WAQM-**GoogleSheets** \<NPC Focal Name>"
+   3. Choose a name such as "WAQM-GoogleSheets \<NPC Focal Name>"
    4. Click Save for the Connection
    5. If you have multiple Google accounts, it will ask to choose the proper account.  Use the one that has access to the WAQM (QBWA) Mapping Guide.
    6. Enter the password for the chosen account and then press Next
@@ -142,12 +142,10 @@ BEFORE meeting with the client, update the Google Sheet connection to use the NP
    12. If successful, the module name should turn green and a small "1" should appear to the upper right of the module.   Clicking on the number "1" will typically show 0 bundles in the output.  It is okay if no output is found during this connection step.
    13. Click Save and exit the scenario.
 7. Complete any other discussion with the Client and complete the following steps after the call.
-
-**After meeting with the client and making the needed connections** in Make.com, **Clean Up unneeded connections inside Make.com**.   This will make following Migration steps easier.
-
-1. Go into the Client's Org in Make.com and look at the Connections.  Determine if there were any connections that were created as part of the migration process (without the client's name).  For example: these may include the phrase NPC, DWR, RP, or something similar in the title of the connection.
-2. Delete those connections.   If a pop-up shows that a scenario will stop working if the connection is deleted, DO NOT PROCEED.   Make sure you are deleting the correct connection.
-3. You may also delete any extra "bad" connections that were created with the client.    (e.g. any unsuccessful QBO connections)  Be careful not to delete any other connections if the Client uses Make.com for non-WAQM purposes.
+8. Clean up unneeded Connections inside Make.com:
+   1. Go into the Client's Org in Make.com and look at the Connections.  Determine if there were any connections that were created as part of the migration process (without the client's name)
+   2. Delete those connections.   If a pop-up shows that a scenario will stop working if the connection is deleted, DO NOT PROCEED.   Make sure you are deleting the correct connection.
+   3. You may also delete any extra "bad" connections that were created with the client.    (e.g. any unsuccessful QBO connections)  Be careful not to delete any other connections if the Client uses Make.com for non-WAQM purposes.
 
 ### E) "Manual Migrate" Core/Helper/QBO scenarios
 
@@ -174,57 +172,52 @@ This phase is where most of the "cloning" (old terminology) occurs.   Be careful
       1. NOTE: QBD clients will not need the Quickbooks QBO related helpers.  You may unselect these QBO scenarios.
    4. Scroll down to the folder "WAQM-Helpers-Install" and click the "select folder" checkbox to the right.   This should select all of the scenarios inside this folder. &#x20;
       1. For QB Online clients UNSELECT these scenarios (do NOTE migrate them)
-         1. UNSELECT the "Create-Test box Connection (Client Name)" scenario \[Quickbooks Desktop only]
-         2. UNSELECT the "WAQM-DS-Config-SendJSON... \[do not clone]" scenario
-         3. UNSELECT the "WAQM-Migrate-IIF-TMP-RAW Data Structure" scenario \[Quickbooks Desktop only]
+         1. UNSELECT the "WAQM-DS-Config-SendJSON... \[do not clone]" scenario
+         2. UNSELECT the "WAQM-Migrate-IIF-TMP-RAW Data Structure" scenario
+         3. UNSELECT the "Create-Test box Connection (Client Name)" scenario
    5. Before proceeding, ensure that ONLY the proper scenarios are selected.&#x20;
    6. DO NOT PRESS "Fast Migration"
-   7. Click on "Migrate Manually" on the bottom right
-5. The migration screen should move you to step 3.4 "Data Selection" (Webhooks will be listed on this page)
+   7. Click on Manual Migration on the bottom right
+5. The migration screen should move you to step 3.4 "Data Selection" - Webhooks
    1. For each Webhook, choose:  "Duplicate Webhook"  \[NOT "duplicate webhook and forward"]
    2. Click Next on the bottom right
-6. The migration screen should move you to step 3.4 "Data Selection" (Connections will be listed on this page)
+6. The migration screen should move you to step 3.4 "Data Selection" - Connections
    1. For the NPC Mailgun connection, choose "duplicate connection"
    2. For the other connections, choose to "replace with...\<connection created with the client for each application>
    3. Click Next on the bottom right
-7. The migration screen should move you to step 3.4 "Data Selection" (Data Stores will be listed on this page)
+7. The migration screen should move you to step 3.4 "Data Selection" - Data Stores
    1. For the DataStore, choose:  "Duplicate Data store and migrate contents"
    2. Click Next on the bottom right
-8. The migration screen should move you to step 3.4 "Data Selection" (Data Structures will be listed on this page)
+8. The migration screen should move you to step 3.4 "Data Selection" - Data Structures
    1. For each Data Structure, choose:  "Duplicate data structure"&#x20;
    2. Make sure you scroll to the bottom and verify all Data Structures
    3. Click Next on the bottom right
-9. The migration screen should move you to step 3.4 "Data Selection"  (Folders sill be listed on this page)
-   1. For each folder, choose:  "previously migrated folder..." if it exists OR choose "Duplicate Folder"
-      1. If the folder has been migrated previously, it will show "previously migrated folder..."
-      2. If the folder was not migrated previously, it will show the  "duplicate folder" option.
-   2. Click Next on the bottom right
+9. The migration screen should move you to step 3.4 "Data Selection" - Folders
+   1. For each folder, choose:  "previously migrated folder..." if it exists
+   2. Otherwise choose:  Duplicate folder
+   3. Click Next on the bottom right
 10. The migration screen should move you to step 4.1 "Migration Settings"
     1. Source:  Choose: No (disable all scenarios)
     2. Target: Choose: No (activate all scenarios)
     3. Click Next on the bottom right
 11. The migration screen should move you to step 4.2 Migration Settings.    Press the "Start migration" button
 12. You should see the progress of the migration proceed to 100%. &#x20;
-13. If you see a warning message, you may use the "Show Logs" and scroll through the log to find the yellow warning.  Seek guidance from experts.
-14. When done, you should see a "Go to target" button on the bottom right.  Click on this to open Make.com in the Target Org (the Client's Org).  You may close the migration screen at this point.
-
-**Clean-up steps after the Migration is completed & running the QBO Mapping Queries scenario to load data from the client's systems into the Mapping spreadsheet:**
-
-1. Edit all objects to use the Client's actual short name instead of a generic "Client Name": scenarios, connections, webhooks, datastores, data structures
-2. Fix QBO Connection Bugs:  NOTE:  There is a current Make.com bug that must be checked.   When scenarios with QBO modules are installed/migrated, the connection to the clients QBO account are not properly set and saved to the scenario during install.   Every single QBO module must be manually checked and compared to the original repository that was used as the Source for the migration.   QBO exists in the Txn scenario in the Released folder, the QBO Mapping  Queries scenario in the Helper-Install folder, and in multiple scenarios within the Helper-Support folder (all the ones that show a black Quickbooks module).  For each module, check these items:
-   1. The connection must be set to the client's QBO connection
-   2. Once the connection is set and the fields reload, check every field in the module to make sure the logic is accurate.  Often, any array field or field with a drop-down choice, must be marked as "mapped" and the logic from the source system must be recopied. &#x20;
-   3. Save the module changes (and then save the scenario).
-   4. NOTE:  Many of the helper scenarios end in a "transformer" module.  You may get a warning that the transformer should not be the last module.  For the helper scenarios, this is okay.  You can proceed and ignore the warnings.
-3. Validate and run  "QBO Mapping Queries" scenario (inside Helpers-Install folder) has proper connections and is mapped properly.
-   1. Check the yellow Google Drive connection and make sure it is correct
-   2. Check all of the green Google Sheets connections and make sure they are correct
-   3. Check all of the black Quickbooks Online connections and make sure they are correct
-   4. IMPORTANT:  In the yellow Google Drive module, modify the Query field to match the name of the client's QBWA Mapping Guide document.  This ensures that you will send Quickbooks data to the proper mapping file.   Mis-mapping this name can result in client data being exposed improperly to a different client.
-   5. Save the scenario
-   6. Run once
-   7. Go to the client's GoogleSheets mapping Guide.   Look at any of the tabs starting with "Example" and validate they were populated.   This is the data from the client's WildApricot and Quickbooks accounts that can be analyzed to fill out the Mapping Guide.
-   8. Exit the scenario
+13. When done, you should see a "Go to target" button on the bottom right.  Click on this to open Make.com in the Target Org (the Client's Org)
+14. Edit all objects to use the Client's actual short name instead of a generic "Client Name": scenarios, connections, webhooks, datastores, data structures
+15. Fix QBO Connection Bugs:  NOTE:  There is a current Make.com bug that must be checked.   When scenarios with QBO modules are installed/migrated, the connection to the clients QBO account are not properly set and saved to the scenario during install.   Every single QBO module must be manually checked.   QBO exists in the Txn scenario in the Released folder, the QBO Mapping  Queries scenario in the Helper-Install folder, and in multiple scenarios within the Helper0Support folder (all the ones that show a black Quickbooks module).  For each module, check these items:
+    1. The connection must be set to the client's QBO connection
+    2. Once the connection is set and the fields reload, check every field in the module to make sure the logic is accurate.  Often, any array field or field with a drop-down choice, must be marked as "mapped" and the logic from the source system must be recopied. &#x20;
+    3. Save the module changes (and then save the scenario).
+    4. NOTE:  Many of the helper scenarios end in a "transformer" module.  You may get a warning that the transformer should not be the last module.  For the helper scenarios, this is okay.  You can proceed and ignore the warnings.
+16. Validate and run  "QBO Mapping Queries" scenario (inside Helpers-Install folder) has proper connections and is mapped properly.
+    1. Check the yellow Google Drive connection and make sure it is correct
+    2. Check all of the green Google Sheets connections and make sure they are correct
+    3. Check all of the black Quickbooks Online connections and make sure they are correct
+    4. IMPORTANT:  In the yellow Google Drive module, modify the Query field to match the name of the client's QBWA Mapping Guide document/ .  This ensures that you will send Quickbooks data to the proper mapping file.   Mis-mapping this name can result in client data being exposed improperly.
+    5. Save the scenario
+    6. Run once
+    7. Go to the client's GoogleSheets mapping Guide.   Look at any of the tabs starting with "Example" and validate they were populated.   This is the data from the client's WildApricot and Quickbooks accounts that can be analyzed to fill out the Mapping Guide.
+    8. Exit the scenario
 
 
 
@@ -378,11 +371,5 @@ Confirm the start date and other scheduling options from the Mapping document.  
 Set up the auto schedule and turn on the scenarios
 
 Set a calendar reminder for yourself to check and make sure the runs are processing on the expected schedules.
-
-### P) Final-clean up
-
-In the client's environment, consider deleting the GoogleDrive and GoogleSheets connections, especially if they are connected to your personal Google account.  This improves security of your data, preventing anyone in the Make.com account from using the connection to look at your Google Drive contents.
-
-When deleting the connection, you will get a warning that the Mapping Queries scenario will stop working.  This is okay.   If this is needed in the future, you can add a new connection again from within that scenario.
 
 ### ****
