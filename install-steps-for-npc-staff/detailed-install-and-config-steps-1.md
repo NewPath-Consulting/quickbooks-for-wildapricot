@@ -307,11 +307,11 @@ This section connects the front end Core scenarios to the back-end Txn scenario(
 1. Go to the Client's Org
 2. Get the Webhook URL for the Client's Txn scenario
    1. Find the Webhook that corresponds to their Txn scenario (QBO or QBD)
-   2. Copy the URL for the Webhook
+   2. Copy the URL for the Webhook that is shown just below the Webhook name.
 3. Update the URL in the Core scenarios
    1. Open the Invoice Core scenario in Edit mode
-   2. Go to the right and find the blue HTTP Send Txn Payload module that corresponds to the Txn type (QBO or QBD).
-   3. Open the module and replace the URL with the one from the Webhook.  Click OK.
+   2. Go to the right side (end of scenario) and find the blue HTTP Send Txn Payload module that corresponds to the Txn type (QBO or QBD).
+   3. Open the module and replace the URL in the module with the one from the Webhook.  Click OK.
    4. Save
    5. Repeat for the Payment Scenario
    6. Repeat for the Donation Scenario
@@ -339,17 +339,36 @@ _NOTE: Remember to update the Google Sheet references in this scenario to match 
 
 ### **J) Configure the Data Store record using the Client's input from the Mapping document**
 
-Consider using the "BackUp Record" helper scenario before starting and after major changes.  You may need to update the first module of the "BackUp Record" scenario to reference the correct datastore record inside the client's environment.
+When the data store is created in the client's Make.com environment (during the migration from the NPC repository), there should be 1 sample record that should be used as a starting point for configuring the client's Data Store record. &#x20;
 
-Use a naming convention for the Record Name that includes the word "USE" to clarify which record for the client is the current active record that should be used.
+NOTES and TIPS for editing the data store record:
 
-When the config record is complete, copy the Config Key for that "USE" record.
+* The "Config Key" for the sample record is already identified in the Core QBWA scenarios as the correct configuration data store record to use.  By using this record and editing it, you should not need to make the "Config Key" updates described in the following section. &#x20;
+* Edit each column of the data store record to match the configuration defined in the Mapping Guide spreadsheet for the client. &#x20;
+* Be aware that there is sample data in the sample record that may need to be edited and/or deleted. &#x20;
+* Remember to SAVE your work.  The overall record is not committed to the data store until you click the SAVE button at the top of the screen.
+* For the "WA Config Record Name",  use a naming convention that includes the word "USE" \[e.g. "MASTER (USE)" ]to clarify which record for the client is the current active record that should be used.  This helps other NPC focals to have a consistent method for identifying the active data store record across clients.
+* The UI inside Make.com for the Invoice Config column of the Data Store record can be confusing.  It is organized like this:
+  * Invoice scheduling
+  * WA Invoice Mapping
+    * Invoice Order Type (1 sub-record for each of MembershipApplication, MemberRenewal, MemberLevelChange, EventRegistration, Online Store, Undefined)
+      * Default Mappings for the Order Type
+      * Alternate Mappings for the Order Type
+  * WA Invoice Line Item Extra Cost Exceptions
+* Special tips for the Invoice Config column:
+  * NEVER delete the top-level "Invoice Order Type" records that start with MembershipApplication, MemberRenewal, OnlineStore, etc. &#x20;
+  * You should delete any unneeded records for "Alternate Mappings for Invoice Order Type" under each Order Type. &#x20;
+  * If an Order Type is not used by the client (e.g. OnlineStore), do not delete the order type, but ensure any accounts, products, or class entries are cleared out for that Order Type.
+
+When you are done editing the record, consider using the "BackUp Record" helper scenario to create a back-up data store record.  This can be helpful as a reference in the future or in case data gets deleted in the future.   (see instructions for using the "BackUp Record" scenario in the Maintenance section of this document.
 
 ![When complete, copy the Config Key for the data store record](<../.gitbook/assets/Screen Shot 2022-03-10 at 7.29.59 PM.png>)
 
 ### **K) Update Core scenarios to use the Config Key from the "USE" record**
 
-In the first module of each Core scenario, change the Config Key to match the "USE" record from the previous step.
+Validate whether the Config Key for your Master - USE data store record is already identified in the first module of each of the Core scenarios. (Invoice, Donation, Payment)
+
+If not, copy the Config Key from our Master - USE data store record and place in the proper field inside the first module for each Core Scenario.
 
 ![Insert the copied Config Key into the 1st module of each Core scenario](<../.gitbook/assets/Screen Shot 2022-03-10 at 7.27.39 PM.png>)
 
@@ -365,7 +384,7 @@ As a recommendation, ask the client for a date range that includes multiple tran
 
 As part of the testing, train the Client on how they can interpret the automated messages that come out of WAQM. &#x20;
 
-For QBD clients, make sure they know how ti import an IIF fiel and how to find any error files generated during the IIF process.
+For QBD clients, make sure they know how to import an IIF file and how to find any error files generated during the IIF process.
 
 Get confirmation from the Client that testing is complete and they are ready to turn it "on".
 
