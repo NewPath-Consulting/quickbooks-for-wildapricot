@@ -25,6 +25,8 @@ The Backup scenario creates a new record in the configuration Data Store with a 
 5. Changes can now be made to the original configuration record key.
 6. If needed, each Core scenarios can be changed to refer to different record keys (in the 1st module of each scenario).  See the next section.
 
+<figure><img src="../.gitbook/assets/Screen Shot 2022-09-26 at 11.24.45 AM.png" alt=""><figcaption></figcaption></figure>
+
 ### Re-pointing Make.com Scenarios to use a different Configuration Record
 
 In most cases, this action is not required. Re-pointing scenarios to a different record in the Config Data Store is typically done when referring back to an old configuration record.
