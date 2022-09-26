@@ -16,12 +16,12 @@ Inside the Core Scenarios for each transaction, the first “module” inside th
 
 Recommendation: Before making WAQM configuration changes, use the Backup scenario to create a copy of the current configuration.
 
-The Backup scenario creates a new record in the configuration Data Store with a new key and the phrase "-BACKUP" appended to the end of the Config Record Name. The Make.com Core scenarios will be unchanged and will still point to the previously used configuration key record.
+The Backup scenario creates a new record in the configuration Data Store with a new key and the phrase " (copy)" appended to the end of the Config Record Name. The Make.com Core scenarios will be unchanged and will still point to the previously used configuration key record.
 
 1. Open the Make.com Scenario “WAQM DS Record Backup”.
-2. Confirm the first module is pointed to the correct record “key” from the Data Store that you wish to Backup.
+2. Confirm the first module is using the correct  “WA Config Record Name” from the Data Store record that you wish to copy.
 3. Click the “Run Once” button inside the Backup scenario.
-4. If successful, the record is copied and added to the Data Store with a new key. The “Config Record Name” field will copy the original value and add the suffix “-BACKUP”.
+4. If successful, the record is copied and added to the Data Store with a new key. The “Config Record Name” field will copy the original value and add the suffix “ (copy)”.  Also, the Config Last Updated date will be set to the current date.
 5. Changes can now be made to the original configuration record key.
 6. If needed, each Core scenarios can be changed to refer to different record keys (in the 1st module of each scenario).  See the next section.
 
