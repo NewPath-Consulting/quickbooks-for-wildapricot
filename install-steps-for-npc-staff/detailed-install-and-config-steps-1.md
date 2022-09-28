@@ -362,7 +362,7 @@ NOTES and TIPS for editing the data store record:
 
 When you are done editing the record, consider using the "BackUp Record" helper scenario to create a back-up data store record.  This can be helpful as a reference in the future or in case data gets deleted in the future.   (see instructions for using the "BackUp Record" scenario in the Maintenance section of this document.
 
-![When complete, copy the Config Key for the data store record](<../.gitbook/assets/Screen Shot 2022-03-10 at 7.29.59 PM.png>)
+<figure><img src="../.gitbook/assets/Screen Shot 2022-09-28 at 4.57.25 PM.png" alt=""><figcaption><p>When complete, copy the Config Key for the data store record</p></figcaption></figure>
 
 ### **K) Update Core scenarios to use the Config Key from the "USE" record**
 
@@ -378,11 +378,17 @@ For QBD clients, "box" is the configured data storage software.  Not all clients
 
 ### **M) Work with Client to test the scenarios for specific date ranges using the Manual scheduling options**
 
-This may require several iterations to uncover any errors from the Mapping document or from the data entry into the data store. &#x20;
+Time Zone NOTE:  During testing and when setting up Auto Scheduling, the time zone you have set inside your Make.com profile must be the same as the time zone of the client's Make.com organization.   If not the same, the times used for date-time ranges may be offset and lead to unpredictable results.&#x20;
 
-As a recommendation, ask the client for a date range that includes multiple transactions across the different types of Wild Apricot activity (e.g. Membership, Events, Manual, etc.)
+* e.g. A transaction occurs at 12:30am in the client's time zone, but in your browser this would show up as 11:30p the previous day.  Depending on date ranges you set for start and stop dates, your test run may not find the transaction.
+* To adjust your time zone, go to your profile in Make.com (bottom left) and look for the time zone options section.    Make sure the client Org time zone is correct AND make sure your Web time zone matches.  You can revert your Web timezone to your normal timezone when not working with the client on testing or scheduling.
 
-As part of the testing, train the Client on how they can interpret the automated messages that come out of WAQM. &#x20;
+\
+**Testing may require several iterations** to uncover any errors from the Mapping document, from the data entry into the data store, or errors inside the client's Wild Apricot or Quickbooks systems. &#x20;
+
+As a recommendation, ask the client for a date range that includes multiple transactions across the different types of Wild Apricot activity (e.g. Membership, Events, Manual, etc.)  As an alternate, ask for specific Invoices to use as test cases for the various Invoice Order Types.  Newer version of the Mapping Guide have a "Test Tracker" tab that can help with collecting the example test cases from the client and recording the results.
+
+As part of the testing, train the Client on how they can interpret the automated, email summary messages that come out of QBWA. &#x20;
 
 For QBD clients, make sure they know how to import an IIF file and how to find any error files generated during the IIF process.
 
@@ -390,11 +396,15 @@ Get confirmation from the Client that testing is complete and they are ready to 
 
 ### **N) Optional - some clients may request a manual run to process historic transactions**
 
+Time Zone NOTE:   See above note in the Testing section.   This note applies when setting up manual historic runs.
+
 If a Client wants this, confirm the dates and help to run the scenarios manually.
 
 If this will be a very large number of documents, a higher than normal number of operations may be consumed.  (In the new Make process, this will be paid through the NPC account.  This may require notification to the Admin in case NPC will need additional "operations" for the current month.)
 
 ### **O) When testing is complete, set up the Auto-Schedule options**
+
+Time Zone NOTE:   See above note in the Testing section.   This note applies when setting up the auto-scheduled runs.
 
 Confirm the start date and other scheduling options from the Mapping document.  &#x20;
 
