@@ -7,9 +7,64 @@ description: >-
 
 # WAQM Version History
 
-##
+## QBWA v0.7.0.6
 
-##
+### Scope of Change:
+
+* Core scenarios (Invoice, Payment, Donation) require logic updates in the transformation section to handle Extra Cost variations from Wild Apricot and to correct the logic for Donation Campaign identification.
+* NOTE: moved version of QBO Txn scenario to v0.7.0.6 for consistency. &#x20;
+
+### Key changes:
+
+* See GitHub issues # 105 and 106.
+  * 105: Donation Campaign Mapping Logic
+  * 106: Extra Cost field mapping variations
+
+### Installation impacts:
+
+* No change to process for installation.  Use Txn and Core scenario versions v0.7.0.6.  No other changes. &#x20;
+
+### Upgrade impacts to existing customers:
+
+* Github issues Impact all clients on v0.6 or after.  &#x20;
+  * Issue #105 only impacts clients that use Donations with different mappings for different Donation Campaigns.
+  * Issue #106 only impacts clients that use Extra Cost Charge mappings inside QBWA.
+* Change summary:  (see screenshots to see exact change)
+  * In each of the Core scenarios:
+    * issue #105:  Module 291 - Order Type Default Mappings: Update the Logic for "Donation Campaign Name" variable.  "1.Label" --> "1.1.Label"
+    * issue #106: update and insert modules for handling Extra Cost mapping variations just after module 372 - Iterate Txn Lines.
+  * Update version number in title of each scenario
+* Update "installed version" inside the active data store record
+
+<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.09.50 PM.png" alt=""><figcaption><p>issue 105 1.1.Label</p></figcaption></figure>
+
+<div>
+
+<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.10.29 PM.png" alt=""><figcaption><p>modules impacted by issue 106</p></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.11.23 PM.png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.11.44 PM.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<div>
+
+<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.11.55 PM.png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.12.09 PM.png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.12.20 PM.png" alt=""><figcaption></figcaption></figure>
+
+</div>
 
 ## QBWA v0.7.0.5
 

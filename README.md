@@ -31,6 +31,8 @@ _**In GitHub, look at the Summary.md file to see the Table of Contents.**_
 | 2.1.6       | July 27, 2022      | D. Reed   | v0.7.0.5 - issues 87 and 94                                                                                 |
 | 2.1.7       | August 9, 2022     | D. Reed   | tweaks to install instructions from Carol's input                                                           |
 | 2.1.8       | September 14, 2022 | D. Reed   | tweaks to install instructions from Carol's input                                                           |
+| 2.1.9       | February 15, 2023  | D. Reed   | v0.7.0.6 - issues 105 and 106                                                                               |
+| 2.1.10      | February 27, 2023  | D. Reed   | added Quickbooks duplicate transaction setting screenshots                                                  |
 |             |                    |           |                                                                                                             |
 
 ##

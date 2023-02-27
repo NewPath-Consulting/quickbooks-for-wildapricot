@@ -16,7 +16,7 @@ Though QuickBooks Desktop has some functionally allowing Items, Accounts, and Ta
 
 ![Sales Tax setting in QBD](../.gitbook/assets/1.png)
 
-* “Use class tracking” must be enabled (Transaction Settings/Preferences for the Company file)
+* If a client expects to use Classes inside Quickbooks, “Use class tracking” must be enabled (Transaction Settings/Preferences for the Company file).  NOTE:  If enabled, Quickbooks expects every transaction to have a Class specified in Quickbooks.
 
 ![Class tracking setting in QBD](../.gitbook/assets/2.png)
 
@@ -147,3 +147,28 @@ Because of Quickbooks US limitations, these tax scenarios are not supported:
 
 * Create a List Item = Subtotal (type subtotal)
 * If a different Subtotal item already exists (different name), change the Integromat config to use the correct name.
+
+**Prevent Duplicate Invoice and Sales Receipt (Sales) Transactions**
+
+We highly recommend using the setting described below to prevent duplicate Sales transactions from being created inside Quickbooks.  This will prevent a transaction from being created if the transaction number (Invoice number of Sales Receipt number) from being reused. &#x20;
+
+&#x20;         Sales / Custom transaction numbers =ON
+
+NOTE:  Quickbooks does not have a setting to prevent Payment transactions.
+
+The screenshots below show the method to turn on this setting within Quickbooks Online.  Specific client's screenshots may vary depending on their Quickbooks Online account setup.
+
+<div>
+
+<figure><img src="../.gitbook/assets/Screenshot 2023-02-27 at 2.09.53 PM.png" alt=""><figcaption><p>Access Account Settings from the Gear icon in the upper right.</p></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/Screenshot 2023-02-27 at 2.10.20 PM.png" alt=""><figcaption><p>Navigate to Sales and click on the Edit icon.</p></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/Screenshot 2023-02-27 at 2.15.38 PM (1).png" alt=""><figcaption><p>Turn the Custom transaction number setting to ON and Save</p></figcaption></figure>
+
+</div>
+
