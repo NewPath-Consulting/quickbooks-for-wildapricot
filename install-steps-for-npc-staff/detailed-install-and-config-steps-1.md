@@ -1,18 +1,18 @@
 # Detailed Install Steps (Migrate to New Make.com Org)
 
-These are the detailed steps to install the components of WAQM into a new Make.com Org using the Migrate tool to transfer components from NPC's Make.com instance.  &#x20;
+These are the detailed steps to install the components of QBWA into a new Make.com Org using the Migrate tool to transfer components from NPC's Make.com instance.  &#x20;
 
-This is still considered DRAFT, especially the potion for manually importing the QBD scenario.
+This is still considered DRAFT, especially the portion for manually importing the QBD scenario.
 
-### **A) Validate Admin access to  "WAQM Ops" Make.com Org**
+### **A) Validate Admin access to  "**QBWA **Ops" Make.com Org**
 
 Make.com's migration tool allows easy migration of scenarios and all related objects (connections, data structures, webhooks. datastores, etc.) from one Make.com Org to another Make.com Org as long as they are in different data regions.  (US or EU)
 
-Currently, NPC clients are in the US data region for Make.com. (North America)  A replica of the released WAQM components exists in an EU region Ops Org for purposes of the following install process.   The exception is the QBD Transaction (Txn) scenario.  This is described further in these instructions.
+Currently, NPC clients are in the US data region for Make.com. (North America)  A replica of the released QBWA components exists in an EU region Ops Org for purposes of the following install process.   The exception is the QBD Transaction (Txn) scenario.  This is described further in these instructions.
 
 **The NPC Installers need admin access to this separate Make.com Ops Org.**
 
-If a future client exists in the Make.com EU region, the following process can be done directly from NPC's US data region Org and the WAQM Operations Team.   See notes about how the QBD Transaction (Txn) scenario will be different in this case.
+If a future client exists in the Make.com EU region, the following process can be done directly from NPC's US data region Org and the QBWA Operations Team.   See notes about how the QBD Transaction (Txn) scenario will be different in this case.
 
 ### **B) Validate Admin access and Teams in Client's Make.com instance**
 
@@ -20,7 +20,7 @@ To complete the install process and to support testing, the client must invite t
 
 1. Accept invitation and confirm ability to access
 2. Validate subscription level (Most client's will be okay using the 10k operations per month and the Core level.  During initial install and testing, extra operations may need to be purchased.)
-3. Validate whether Teams level is used.  This is unlikely for most clients.  If yes, ask client if a new Team should be setup for the WAQM components. &#x20;
+3. Validate whether Teams level is used.  This is unlikely for most clients.  If yes, ask client if a new Team should be setup for the QBWA components. &#x20;
 4. If needed Create a new Team in client's Make.com account.  Use the Format QBWA-\<client name>
 
 ### **C) "Fast Migrate" Create-Test connection scenarios**
@@ -34,10 +34,10 @@ For this first step, only the "Create-Test connection" scenarios are "Fast Migra
    3. NOTE:  Typically, the NPC installer's login should have access to both the Source and Target accounts.
 3. Continue to step 2.1 in the migration utility "Teams and organizations"&#x20;
    1. If the client is in the US:
-      1. For Source, select the org "WAQM Operations Core + QBO" and "My Team" \[this is in the EU region]
+      1. For Source, select the org "QBWA Operations Core + QBO" and "My Team" \[this is in the EU region]
       2. For the Target, select the client's org and team.
    2. If the client is in the EU:
-      1. For Source, select the org "NewPath Consulting" and Team "WAQM Operations" \[this is in the US region]
+      1. For Source, select the org "NewPath Consulting" and Team "QBWA Operations" \[this is in the US region]
       2. For the Target, select the client's org and team.
 4. Continue to step 3.3 (data selection) Scenarios
    1. This screen lists all the possible scenarios to migrate, organized by folder.
@@ -58,14 +58,14 @@ BEFORE meeting with the client, update the Google Sheet connection to use the NP
 
 **"Google Drive & Sheet" connection (in Make.com):**
 
-1. Navigate to the "WAQM-Helpers-Install" folder inside the client's Make.com instance and the "Create-Test Google Drive-Sheets Connection" scenario
+1. Navigate to the "QBWA-Helpers-Install" folder inside the client's Make.com instance and the "Create-Test Google Drive-Sheets Connection" scenario
 2. Go into Edit mode
 3. **Google Drive** Connection
    1. Click on the first yellow, Google Drive module
    2. In the connection box, click "Add"
-   3. Choose a name such as "WAQM-**GoogleDrive** \<NPC Focal Name>"
+   3. Choose a name such as "QBWA-**GoogleDrive** \<NPC Focal Name>"
    4. Click Save for the Connection
-   5. If you have multiple Google accounts, it will ask to choose the proper account.  Use the one that has access to the WAQM (QBWA) Mapping Guide.
+   5. If you have multiple Google accounts, it will ask to choose the proper account.  Use the one that has access to the QBWA (QBWA) Mapping Guide.
    6. Enter the password for the chosen account and then press Next
    7. On the next screen, confirm and press "Allow"
    8. If the connection is successful, it should take you back to the Module.  Press OK.
@@ -73,9 +73,9 @@ BEFORE meeting with the client, update the Google Sheet connection to use the NP
 4. **Google Sheets** Connection
    1. Click on the second green, Google Sheets module
    2. In the connection box, click "Add"
-   3. Choose a name such as "WAQM-**GoogleSheets** \<NPC Focal Name>"
+   3. Choose a name such as "QBWA-**GoogleSheets** \<NPC Focal Name>"
    4. Click Save for the Connection
-   5. If you have multiple Google accounts, it will ask to choose the proper account.  Use the one that has access to the WAQM (QBWA) Mapping Guide.
+   5. If you have multiple Google accounts, it will ask to choose the proper account.  Use the one that has access to the QBWA (QBWA) Mapping Guide.
    6. Enter the password for the chosen account and then press Next
    7. On the next screen, confirm and press "Allow"
    8. If the connection is successful, it should take you back to the Module.  Press OK.
@@ -95,13 +95,13 @@ BEFORE meeting with the client, update the Google Sheet connection to use the NP
    2. Go to WA Settings and then select Authorized applications
    3. Click on Authorize application
    4. Choose "server application"
-   5. Choose a name for the application:  WAQM NPC
+   5. Choose a name for the application:  QBWA NPC
    6. Select  "Read Only"
    7. Copy the API Key (it will be used inside Make.com)
    8. Click Save
 4. Wild Apricot connection inside Make.com:
    1. Ask the client to login to Make.com
-   2. Navigate to the "WAQM-Helpers-Install" folder and the "Create-Test WA Connection" scenario
+   2. Navigate to the "QBWA-Helpers-Install" folder and the "Create-Test WA Connection" scenario
    3. Go into Edit mode
    4. Click on the first module
    5. In the connection box, click "Add"
@@ -116,7 +116,7 @@ BEFORE meeting with the client, update the Google Sheet connection to use the NP
    1. NOTES before QBO connection: &#x20;
       1. Most clients will need to do this step themselves inside Make.com, since most clients will pref not sharing their username and password.  If needed, this can be done jointly with the client in a Zoom meeting.
       2. It is helpful if the client first logs into Quickbooks and then logs into Make.com in a separate tab of the same browser before proceeding with the QBO connection steps.&#x20;
-   2. Navigate to the "WAQM-Helpers-Install" folder and the "Create-Test QBO Connection" scenario
+   2. Navigate to the "QBWA-Helpers-Install" folder and the "Create-Test QBO Connection" scenario
    3. Go into Edit mode
    4. Click on the first module
    5. In the connection box, click "Add"
@@ -132,7 +132,7 @@ BEFORE meeting with the client, update the Google Sheet connection to use the NP
    15. If successful, the module name should turn green and a small "1" should appear to the upper right of the module.   Clicking on the number "1" may show details about an Invoice or may show nothing if there are no recent Invoices.  It is okay if no Invoices are found during this connection step.
    16. Click Save and exit the scenario.
 6. "box" connection: (for QBD clients only)
-   1. Navigate to the "WAQM-Helpers-Install" folder and the "Create-Test box Connection" scenario
+   1. Navigate to the "QBWA-Helpers-Install" folder and the "Create-Test box Connection" scenario
    2. Go into Edit mode
    3. Click on the first module
    4. In the connection box, click "Add"
@@ -151,7 +151,7 @@ BEFORE meeting with the client, update the Google Sheet connection to use the NP
 
 1. Go into the Client's Org in Make.com and look at the Connections.  Determine if there were any connections that were created as part of the migration process (without the client's name).  For example: these may include the phrase NPC, DWR, RP, or something similar in the title of the connection.
 2. Delete those connections.   If a pop-up shows that a scenario will stop working if the connection is deleted, DO NOT PROCEED.   Make sure you are deleting the correct connection.
-3. You may also delete any extra "bad" connections that were created with the client.    (e.g. any unsuccessful QBO connections)  Be careful not to delete any other connections if the Client uses Make.com for non-WAQM purposes.
+3. You may also delete any extra "bad" connections that were created with the client.    (e.g. any unsuccessful QBO connections)  Be careful not to delete any other connections if the Client uses Make.com for non-QBWA purposes.
 
 ### E) "Manual Migrate" Core/Helper/QBO scenarios
 
@@ -164,23 +164,23 @@ This phase is where most of the "cloning" (old terminology) occurs.   Be careful
    3. NOTE:  The NPC installer's login must have access to both the Source and Target accounts.
 3. Continue to step 2.1 in the migration utility "Teams and organizations"&#x20;
    1. If the client is in the US:
-      1. For Source, select the org "WAQM Operations Core + QBO" and "My Team" \[this is in the EU region]
+      1. For Source, select the org "QBWA Operations Core + QBO" and "My Team" \[this is in the EU region]
       2. For the Target, select the client's org and team.
    2. If the client is in the EU:
-      1. For Source, select the org "NewPath Consulting" and Team "WAQM Operations" \[this is in the US region]
+      1. For Source, select the org "NewPath Consulting" and Team "QBWA Operations" \[this is in the US region]
       2. For the Target, select the client's org and team.
 4. Continue to step 3.3 (data selection) Scenarios
    1. This screen lists all the possible scenarios to migrate, organized by folder.
-   2. Scroll down to the folder "WAQM\_Released" and click the "select folder" checkbox to the right.   This should select all of the scenarios inside this folder.&#x20;
-      1. NOTE:  QBD clients will not need the WAQM-Txn-QBO scenario.
+   2. Scroll down to the folder "QBWA\_Released" and click the "select folder" checkbox to the right.   This should select all of the scenarios inside this folder.&#x20;
+      1. NOTE:  QBD clients will not need the QBWA-Txn-QBO scenario.
       2. NOTE: Go ahead and select all of the Core scenarios, even if they currently do not have the transaction type in scope.
-   3. Scroll down to the folder "WAQM-Helpers-Support" and click the "select folder" checkbox to the right.   This should select all of the scenarios inside this folder.&#x20;
+   3. Scroll down to the folder "QBWA-Helpers-Support" and click the "select folder" checkbox to the right.   This should select all of the scenarios inside this folder.&#x20;
       1. NOTE: QBD clients will not need the Quickbooks QBO related helpers.  You may unselect these QBO scenarios.
-   4. Scroll down to the folder "WAQM-Helpers-Install" and click the "select folder" checkbox to the right.   This should select all of the scenarios inside this folder. &#x20;
+   4. Scroll down to the folder "QBWA-Helpers-Install" and click the "select folder" checkbox to the right.   This should select all of the scenarios inside this folder. &#x20;
       1. For QB Online clients UNSELECT these scenarios (do NOTE migrate them)
          1. UNSELECT the "Create-Test box Connection (Client Name)" scenario \[Quickbooks Desktop only]
-         2. UNSELECT the "WAQM-DS-Config-SendJSON... \[do not clone]" scenario
-         3. UNSELECT the "WAQM-Migrate-IIF-TMP-RAW Data Structure" scenario \[Quickbooks Desktop only]
+         2. UNSELECT the "QBWA-DS-Config-SendJSON... \[do not clone]" scenario
+         3. UNSELECT the "QBWA-Migrate-IIF-TMP-RAW Data Structure" scenario \[Quickbooks Desktop only]
    5. Before proceeding, ensure that ONLY the proper scenarios are selected.&#x20;
    6. DO NOT PRESS "Fast Migration"
    7. Click on "Migrate Manually" on the bottom right
@@ -245,36 +245,36 @@ Because of limitations with Migrating from the EU region to the US region, the f
 1. In the Target Client's Org, create the IIF TMP data store
    1. Go to data stores
    2. Click Add datastore
-   3. Use this name:  WAQM-QBD-IIF-TMP-v0.7 (Client Name)
-   4. Select this data structure:  WAQM-QBD-Txn-IIF\_RAW-v0.7 (Client Name)
+   3. Use this name:  QBWA-QBD-IIF-TMP-v0.7 (Client Name)
+   4. Select this data structure:  QBWA-QBD-Txn-IIF\_RAW-v0.7 (Client Name)
    5. Select 1 MB as the size
    6. Save
 2. Export from the NewPath Consulting Make.com Org:
-   1. Go to the Make.com Org for NewPath Consulting and go to the WAQM Operations Team
-   2. Go to the WAQM\_Released folder and find the "WAQM-Txn-QBD" scenario
+   1. Go to the Make.com Org for NewPath Consulting and go to the QBWA Operations Team
+   2. Go to the QBWA\_Released folder and find the "QBWA-Txn-QBD" scenario
    3. Open the scenario in Edit mode.
    4. Go to the More menu (3 dots - in the lower center) and click "export blueprint"
    5. This will place a "blueprint.json" file on your computer.  Make a note of the location.
    6. Exit the scenario and do not Save.
 3. Create IIF TMP Data Store
    1. In the client's Make.com Org, go to Data Stores and select "Add Data Store"
-   2. Use this name:  WAQM-QBD-IIF-TMP-v0.7 (Client Name)
-   3. Choose this data structure: WAQM-QBD-Txn-IIF\_RAW-v0.7 (Client Name)
+   2. Use this name:  QBWA-QBD-IIF-TMP-v0.7 (Client Name)
+   3. Choose this data structure: QBWA-QBD-Txn-IIF\_RAW-v0.7 (Client Name)
    4. Choose the size of: 1
    5. Save
 4. Import to the Client's Make.com Org"
-   1. Go to the Clients Org and open the WAQM\_Released scenario folder
+   1. Go to the Clients Org and open the QBWA\_Released scenario folder
    2. Click New scenario
    3. Go to the More menu (3 dots - in the lower center) and click "import blueprint"
    4. When prompted, click the "Choose file button".  Find the File and then click Save.
    5. The scenario should appear.
-   6. Update the name of the scenario to:  WAQM-Txn-QBD (v0.7) (Client Name)
+   6. Update the name of the scenario to:  QBWA-Txn-QBD (v0.7) (Client Name)
    7. Add a new QBD Txn Webhook:
       1. Open the first module with the webhook
       2. Click Add
-      3. Use a name:   WAQM-Txn-QBD-Payload Receiver (v0.7) (Client Name)  &#x20;
+      3. Use a name:   QBWA-Txn-QBD-Payload Receiver (v0.7) (Client Name)  &#x20;
       4. Select Advanced Settings
-      5. Select the Data Structure of: WAQM-Txn-Payload-v0.7 (Client Name)
+      5. Select the Data Structure of: QBWA-Txn-Payload-v0.7 (Client Name)
       6. Click Save
       7. If the module says "determining data structure" press Stop
       8. Click OK
@@ -333,7 +333,7 @@ This migration process copies "all" sample records from the migration source.  C
 
 ### **I) If not done already, complete the Mapping document with the Client**
 
-For QBO clients, this may require using this scenario to find the QBO IDs needed to complete the mapping:   "WAQM QBO Mapping Queries - Load WAQM Mapping Master"
+For QBO clients, this may require using this scenario to find the QBO IDs needed to complete the mapping:   "QBWA QBO Mapping Queries - Load QBWA Mapping Master"
 
 _NOTE: Remember to update the Google Sheet references in this scenario to match the Google Mapping Document for this specific client._
 

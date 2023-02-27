@@ -1,25 +1,25 @@
 # Table of contents
 
-* [WAQM Documentation Overview](README.md)
+* [QBWA Documentation Overview](README.md)
 
-## WAQM Overview <a href="#waqm-overview-1" id="waqm-overview-1"></a>
+## QBWA Overview <a href="#waqm-overview-1" id="waqm-overview-1"></a>
 
-* [WAQM Introduction](waqm-overview-1/introduction.md)
-* [WAQM Capabilities](waqm-overview-1/waqm-capabilities.md)
-* [WAQM Installation Overview](waqm-overview-1/waqm-installation-overview.md)
-* [WAQM Usage and Maintenance Overview](waqm-overview-1/waqm-usage-and-maintenance-overview.md)
+* [QBWA Introduction](waqm-overview-1/introduction.md)
+* [QBWA Capabilities](waqm-overview-1/waqm-capabilities.md)
+* [QBWA Installation Overview](waqm-overview-1/waqm-installation-overview.md)
+* [QBWA Usage and Maintenance Overview](waqm-overview-1/waqm-usage-and-maintenance-overview.md)
 
-## WAQM Config Reference
+## QBWA Config Reference
 
-* [Quickbooks Config Assumptions](waqm-config-reference/quickbooks-config-assumptions.md)
-* [Wild Apricot Config Assumptions](waqm-config-reference/wild-apricot-config-assumptions.md)
-* [WAQM Configuration Guide](waqm-config-reference/waqm-configuration-guide.md)
+* [Quickbooks Config Assumptions](qbwa-config-reference/quickbooks-config-assumptions.md)
+* [Wild Apricot Config Assumptions](qbwa-config-reference/wild-apricot-config-assumptions.md)
+* [QBWA Configuration Guide](qbwa-config-reference/waqm-configuration-guide.md)
 
-## WAQM Maintenance
+## QBWA Maintenance
 
-* [Maintenance Overview](waqm-maintenance/overview.md)
-* [WAQM Scheduling Options](waqm-maintenance/waqm-scheduling-options.md)
-* [Managing Config Key Records](waqm-maintenance/managing-config-key-records.md)
+* [Maintenance Overview](qbwa-maintenance/overview.md)
+* [QBWA Scheduling Options](qbwa-maintenance/waqm-scheduling-options.md)
+* [Managing Config Key Records](qbwa-maintenance/managing-config-key-records.md)
 
 ## Other References
 
@@ -33,9 +33,9 @@
 * [Detailed Install Steps (New Team Inside Make.com Org)](install-steps-for-npc-staff/detailed-install-and-config-steps.md)
 * [Detailed Install Steps (Migrate to New Make.com Org)](install-steps-for-npc-staff/detailed-install-and-config-steps-1.md)
 * [Detailed Config Steps](install-steps-for-npc-staff/detailed-config-steps.md)
-* [WAQM Version History](install-steps-for-npc-staff/waqm-version-history.md)
+* [QBWA Version History](install-steps-for-npc-staff/waqm-version-history.md)
 
-## IIF Specification for WAQM Quickbooks Desktop
+## IIF Specification for QBWA Quickbooks Desktop
 
-* [General IIF Requirements and Behavior](iif-specification-for-waqm-quickbooks-desktop/general-iif-requirements-and-behavior.md)
-* [IIF Specification and Notes](iif-specification-for-waqm-quickbooks-desktop/iif-specification-and-notes.md)
+* [General IIF Requirements and Behavior](iif-specification-for-qbwa-quickbooks-desktop/general-iif-requirements-and-behavior.md)
+* [IIF Specification and Notes](iif-specification-for-qbwa-quickbooks-desktop/iif-specification-and-notes.md)

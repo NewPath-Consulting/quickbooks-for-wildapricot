@@ -10,7 +10,7 @@ The Member Level Name is used to drive mappings on all line items of a Membershi
 
 **Events**
 
-The Event “Tag” is used as the basis for mapping Event invoices.  A Wild Apricot event may have multiple tags.  However, WAQM can only use 1 tag to map to the proper Quickbooks accounts and classes.   The first "matched" tag on an event will be used during QWAQM mapping.
+The Event “Tag” is used as the basis for mapping Event invoices.  A Wild Apricot event may have multiple tags.  However, WAQM can only use 1 tag to map to the proper Quickbooks accounts and classes.   The first "matched" tag on an event will be used during QBWA mapping.
 
 ![](../.gitbook/assets/9.png)
 
@@ -20,11 +20,11 @@ The design intent is to use Product “Tag” as the basis of mapping Online Sto
 
 **Manual Item**
 
-Manual invoices by nature do not provide any means for systemically mapping to accounts. The WAQM design allows for all “manual” items to be mapped to a specified general “manual” account in Quickbooks. It is recommended that the client plans to manually re-class these “manual” items.
+Manual invoices by nature do not provide any means for systemically mapping to accounts. The QBWA design allows for all “manual” items to be mapped to a specified general “manual” account in Quickbooks. It is recommended that the client plans to manually re-class these “manual” items.
 
 **Sales Tax**
 
-If used, the Sales Tax name and % must exactly match the Tax definition in WAQM. NOTE: WAQM uses the Tax Name.&#x20;
+If used, the Sales Tax name and % must exactly match the Tax definition in QBWA. NOTE: QBWA uses the Tax Name.&#x20;
 
 ![](../.gitbook/assets/10.png)
 

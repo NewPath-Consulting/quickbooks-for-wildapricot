@@ -1,6 +1,6 @@
-# WAQM Capabilities
+# QBWA Capabilities
 
-#### Core functions provided by WAQM
+#### Core functions provided by QBWA
 
 * Read Wild Apricot data to create an invoice, payment, or donation (sales receipt) transaction inside Quickbooks
 * Configure "business rules" (mapping configuration) to define the proper Quickbooks accounts, inventory products, and classes to use for each transaction based on the source data inside Wild Apricot
@@ -9,7 +9,7 @@
 * Exception line item Income account mappings are possible for invoices based on Wild Apricot ExtraCost fields&#x20;
 * Create Quickbooks customer if it does not already exist
 
-#### High Level Explanation of WAQM Flow
+#### High Level Explanation of QBWA Flow
 
 ![](<../.gitbook/assets/WAQM Explained.png>)
 

@@ -1,12 +1,12 @@
-# WAQM Configuration Guide
+# QBWA Configuration Guide
 
-## WAQM Configuration
+## QBWA Configuration
 
-The Make.com Data Store holds the WAQM configuration needed to map items from Wild Apricot to QuickBooks. Only 1 record is used to drive all of the supported WAQM financial transactions. Additional records inside the data store represent backups from previous versions of the utility or represent test scenarios.
+The Make.com Data Store holds the QBWA configuration needed to map items from Wild Apricot to QuickBooks. Only 1 record is used to drive all of the supported QBWA financial transactions. Additional records inside the data store represent backups from previous versions of the utility or represent test scenarios.
 
 Recommendation: Before making significant changes to a configuration record, use the Config Backup scenario to backup the current config record. See instructions in the Maintenance document.
 
-The following sections describe the WAQM Data Store configuration fields along with general guidelines for usage.
+The following sections describe the QBWA Data Store configuration fields along with general guidelines for usage.
 
 ### **General configuration**
 
@@ -24,19 +24,19 @@ QB Version Info: These fields drive the scenario logic as different versions of 
 * QB Platform: **Desktop**  or   **Online**
 * QBO Online Root URL:   e.g. app.company. qbo.intuit.com (allows notification emails to include links to the created transactions)  This does not typically change, but may be different if a client uses an Intuit Sandbox environment.
 
-WAQM Version Info:  reference fields to indicate which version of WAQM is in place during configuration
+QBWA Version Info:  reference fields to indicate which version of QBWA is in place during configuration
 
-* WAQM License Key: For each WAQM run, the key is checked to ensure it is still valid and unexpired.   Visit [https://newpathconsulting.com/waqm](https://newpathconsulting.com/waqm) to buy or extend a WAQM license.
-* WAQM Invoice Scenario Version
-* WAQM Payment Scenario Version
-* WAQM Donation Scenario Version
-* WAQM Transaction Loader Scenario Version (QBD or QBO)
+* QBWA License Key: For each QBWA run, the key is checked to ensure it is still valid and unexpired.   Visit [https://newpathconsulting.com/quickbooks-for-wild-apricot/](https://newpathconsulting.com/quickbooks-for-wild-apricot/) to buy or extend a QBWA license.
+* QBWA Invoice Scenario Version
+* QBWA Payment Scenario Version
+* QBWA Donation Scenario Version
+* QBWA Transaction Loader Scenario Version (QBD or QBO)
 
 ### **Contact-Customer configuration**
 
 Wild Apricot Field Names:  Since different organizations may use different field names for common Contact fields, this section allows that field name to be specified.  Use the display label without brackets.  Do not enter the System Code for the field.  Currently Supported fields:
 
-* Wild Apricot System Fields - WAQM defaults in this name/config (may be changed if needed)
+* Wild Apricot System Fields - QBWA defaults in this name/config (may be changed if needed)
   * User ID
   * First Name
   * Last Name
@@ -51,7 +51,7 @@ Wild Apricot Field Names:  Since different organizations may use different field
   * Postal Code
   * Country (assumes a drop-down field is used to pick the Province/State)
 
-Quickbooks Display Name Format: This field configures which fields from Wild Apricot are used to define the Customer (Member/Contact) Display Name on the Quickbooks transaction. The supported tokens listed below are supported inside WAQM.  (see example in screenshot below)
+Quickbooks Display Name Format: This field configures which fields from Wild Apricot are used to define the Customer (Member/Contact) Display Name on the Quickbooks transaction. The supported tokens listed below are supported inside QBWA.  (see example in screenshot below)
 
 * {Organization} - pulls the Organization Name for the Wild Apricot Contact record
 * {User Id} - pulls the User ID for the Wild Apricot Contact record
@@ -155,14 +155,14 @@ Payments Enabled:  set to Yes to allow scenarios to run
 
 Payment Job Scheduling:  See the scheduling section below that describes scheduling options.  This allows automated scheduling or manual runs for explicit dates.
 
-Payment Default Mapping:  This section defines the default accounts that will be used for all payment transactions.   By itself, a payment document does not have sufficient information to support alternate mappings.  However, if WAQM successfully links a Payment to an Invoice, the data on the invoice may be used to provide an alternate "Deposit-To" account.  This is configured separately in the Invoice Alternate Mapping section.  These values are supported for default mappings:
+Payment Default Mapping:  This section defines the default accounts that will be used for all payment transactions.   By itself, a payment document does not have sufficient information to support alternate mappings.  However, if QBWA successfully links a Payment to an Invoice, the data on the invoice may be used to provide an alternate "Deposit-To" account.  This is configured separately in the Invoice Alternate Mapping section.  These values are supported for default mappings:
 
 * QB Payment Deposit Account:  The account where the payment funds will be added.  Many organizations use "Undeposited Funds", however other "deposit-to" bank accounts may be used.
 * QBO Payment Deposit Account ID: (for QBO only) The corresponding system ID.
 * QB Receivables Account:  The QuickBooks AR account name used for the order type. Most organizations use “Accounts Receivable”.
 * QBO Receivables Account ID: (for QBO only) The corresponding system ID.
 
-Payment Tender Mapping:  This provides the mapping between Wild Apricot Payment Methods and Quickbooks Payment Methods.  The proper payment types must be created in both systems.  WAQM does not create a Payment Method Type (Tender) if it is not found.   These values are used for the mapping between systems:
+Payment Tender Mapping:  This provides the mapping between Wild Apricot Payment Methods and Quickbooks Payment Methods.  The proper payment types must be created in both systems.  QBWA does not create a Payment Method Type (Tender) if it is not found.   These values are used for the mapping between systems:
 
 * WA Payment Tender Name
 * QB Payment Tender Name
@@ -176,8 +176,8 @@ Payment Tender Mapping:  This provides the mapping between Wild Apricot Payment 
 
 NOTES: &#x20;
 
-* WAQM creates a Sales Receipt inside Quickbooks for each Donation.  This allows the income to be allocated to a revenue account and for the funds to be placed into a Deposit-To account.
-* To support Alternate Mappings, a "Campaign" field may be created inside Wild Apricot that allows a donor to pick a different campaign for each donation.  WAQM assumes that the "Campaign" field is required on a Donation and is defined as a drop-down field with each value in  the drop-down representing a different Campaign.
+* QBWA creates a Sales Receipt inside Quickbooks for each Donation.  This allows the income to be allocated __ to a revenue account and for the funds to be placed into a Deposit-To account.
+* To support Alternate Mappings, a "Campaign" field may be created inside Wild Apricot that allows a donor to pick a different campaign for each donation.  QBWA assumes that the "Campaign" field is required on a Donation and is defined as a drop-down field with each value in  the drop-down representing a different Campaign.
 
 ![Example of a Campaign drop-down field](<../.gitbook/assets/Screen Shot 2021-05-13 at 3.33.57 PM.png>)
 
@@ -189,7 +189,7 @@ Donation Job Scheduling:  See the scheduling section below that describes schedu
 
 WA Donation Mapping (general):  This section defines values that will be used for all Donations. &#x20;
 
-* WA Campaign Field Name:  If an organization does define Campaign types inside the Wild Apricot Donation, this field is used to list the Label (Display Name) for the custom field.   WAQM assumes this custom field is a drop down field, with different campaigns listed as choices within the drop-down.  The field name listed here is the overall field name, not the listings of individual campaign types.
+* WA Campaign Field Name:  If an organization does define Campaign types inside the Wild Apricot Donation, this field is used to list the Label (Display Name) for the custom field.   QBWA assumes this custom field is a drop down field, with different campaigns listed as choices within the drop-down.  The field name listed here is the overall field name, not the listings of individual campaign types.
 * WA Donation Comment Field Name:  Wild Apricot provides a Comment field that a donor can use to provide notes on the Donation.  This is just the name (display label) of the Comment Field on the Donation.
 * QB Exempt Tax Code for Donations:  Donations are assumed to be tax-exempt.  For organizations that do use taxes inside Quickbooks, a tax exempt code must be specified for the Sales Receipt.
 * QBO Exempt Tax Code ID for Donations:  (for QBO only) The corresponding system ID.
@@ -205,7 +205,7 @@ Default Donation Mappings:   These values will be used for Donations (Sales Rece
 * QBO Item Product ID
 * QB Donation Class
 * QBO Donation Class ID
-* QB Default Donation Line Description:  This allows default text and the name of the Donor's selected Campaign to be inserted into the QuickBooks Line Item Notes field on the Sales Receipt. This configuration assumes that the organization is using a custom drop-down field for selecting the Donation Type.  If this field is left blank, WAQM defaults to use: "Donation For: {Campaign}"&#x20;
+* QB Default Donation Line Description:  This allows default text and the name of the Donor's selected Campaign to be inserted into the QuickBooks Line Item Notes field on the Sales Receipt. This configuration assumes that the organization is using a custom drop-down field for selecting the Donation Type.  If this field is left blank, QBWA defaults to use: "Donation For: {Campaign}"&#x20;
   * Example: Amazing Donation For: {Campaign}
 
 ![Example Default Mapping for Donations](<../.gitbook/assets/Screen Shot 2022-01-19 at 4.15.09 PM.png>)
@@ -226,7 +226,7 @@ Donation Campaign Mapping: As described, a Campaign may be used to drive alterna
 
 ### **Sales Tax mapping configuration**
 
-Sales Tax Types: This section maps the tax rates used in Wild Apricot to the taxes in Quickbooks and the associated required fields.  To avoid unexpected behavior, Wild Apricot, Quickbooks, and WAQM must have consistent Sales Tax configurations.
+Sales Tax Types: This section maps the tax rates used in Wild Apricot to the taxes in Quickbooks and the associated required fields.  To avoid unexpected behavior, Wild Apricot, Quickbooks, and QBWA must have consistent Sales Tax configurations.
 
 NOTE:  [Reference the separate "Sales Tax Scenario" section](../other-references/sales-tax-scenarios.md) of this document to understand some limitations for some combinations of Sales Taxes, especially for US versions.   This is due to design differences between Wild Apricot and Quickbooks.
 
@@ -262,9 +262,9 @@ Subtotal List Name: The QuickBooks Sales Inventory Item for Subtotals. This is u
 
 ![](../.gitbook/assets/19.png)
 
-### **WAQM scheduling configuration**
+### QBWA **scheduling configuration**
 
-WAQM scheduling is defined separately for each transaction type, but works consistently for each.   This section uses Invoice scheduling as the explicit example.
+QBWA scheduling is defined separately for each transaction type, but works consistently for each.   This section uses Invoice scheduling as the explicit example.
 
 WA Invoice Job Scheduling Type:  _(must enter the keyword phrase in **bold** exactly)_
 
@@ -296,16 +296,16 @@ Auto **Schedule** Job Invoice Config:  These settings define when the job runs a
 
 Additional Notes regarding dates and scheduling:
 
-* Scheduled runs are intended to process transactions for an entire period.  e.g. from the 1st day of a month through the last day of a month.  To ensure all documents from the entire time period are included, the following scheduling assumptions are used by WAQM:
+* Scheduled runs are intended to process transactions for an entire period.  e.g. from the 1st day of a month through the last day of a month.  To ensure all documents from the entire time period are included, the following scheduling assumptions are used by QBWA:
   * The start date for a scheduled run uses midnight as the start time.   00:00:00
   * When the scenario runs, the end date is set as just before midnight of the previous day. 23:59:59
   * Example:   A **Monthly** scenario runs on Dec 1 and is set to run for **1** period back.  The start date is set for Nov 1 at the time of 00:00:00.  The end date is set for Nov 30 at 23:59:59.
-* Manual Dates allow date, hour, and minute to be specified.  Because seconds cannot be specified inside Make.com, WAQM assumes 00 seconds for the start date and 59 seconds for the end date.
-* See the "EXAMPLE: Scheduled" sheet inside the WAQM Mapping Guide for additional examples of AutoRun **Schedule** settings.
+* Manual Dates allow date, hour, and minute to be specified.  Because seconds cannot be specified inside Make.com, QBWA assumes 00 seconds for the start date and 59 seconds for the end date.
+* See the "EXAMPLE: Scheduled" sheet inside the QBWA Mapping Guide for additional examples of AutoRun **Schedule** settings.
 
 
 
-### **WAQM output file location  (Quickbooks Desktop only)**&#x20;
+### QBWA **output file location  (Quickbooks Desktop only)**&#x20;
 
 This section defines the service, folder path, and filenames used for Quickbooks Desktop versions. (not used for Quickbooks Online)  This is the location where IIF files are loaded that can later be imported into Quickbooks Desktop.  The current scenarios are designed to use the “box” online storage service. The scenarios can be customized to use different services.
 
@@ -318,16 +318,16 @@ This section defines the service, folder path, and filenames used for Quickbooks
 
 ### **Notification Emails**&#x20;
 
-This section defines the email addresses that will be used to send notifications when the scenarios run. There are generally 2 email notifications that may be generated per run.  Both types will describe the dates used for a WAQM run and other reference information.&#x20;
+This section defines the email addresses that will be used to send notifications when the scenarios run. There are generally 2 email notifications that may be generated per run.  Both types will describe the dates used for a QBWA run and other reference information.&#x20;
 
-* A "success" email:  This lists the invoices that were successfully processed by WAQM.  The Quickbooks Desktop version provides a link to the IIF file that is generated and loaded to the storage service.   The Quickbooks Online version provides links to each transaction that was created.   &#x20;
-* A "mapping error" email:  This lists the transactions that were not mapped successfully based on the WAQM config and the info that was extracted from Wild Apricot.  This email will not be generated if there are no mapping errors.
+* A "success" email:  This lists the invoices that were successfully processed by QBWA.  The Quickbooks Desktop version provides a link to the IIF file that is generated and loaded to the storage service.   The Quickbooks Online version provides links to each transaction that was created.   &#x20;
+* A "mapping error" email:  This lists the transactions that were not mapped successfully based on the QBWA config and the info that was extracted from Wild Apricot.  This email will not be generated if there are no mapping errors.
 
 Configuration items to support notification emails:
 
 * From Email Address:  The email address (from the client's organization) that will be used as the "from" email for these notifications.   This email must match the email configured inside Mailgun (see below).
-* To: Email Addresses: The To: email addresses on the notification emails.   This should be the list of emails from the client that will receive notifications when WAQM runs.
-* BCC: Email Address: The bcc: email addresses.  This is typically the NewPath Consulting support email address(es) that will receive notifications when WAQM runs.
+* To: Email Addresses: The To: email addresses on the notification emails.   This should be the list of emails from the client that will receive notifications when QBWA runs.
+* BCC: Email Address: The bcc: email addresses.  This is typically the NewPath Consulting support email address(es) that will receive notifications when QBWA runs.
 * Mailgun Domain Name:  The email domain name configured inside the Mailgun utility for this client.  This utility allows Make.com to generate and send notification emails on your behalf.  Additional DNS changes are needed in the client's domain provider to setup Mailgun.  This process and settings are described elsewhere.
 
 ![Example Email Notification Config](<../.gitbook/assets/Screen Shot 2022-01-19 at 5.38.32 PM.png>)

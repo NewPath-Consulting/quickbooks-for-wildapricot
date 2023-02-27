@@ -7,8 +7,8 @@ NOTE:  For QBO clients, some helper Make.com scenarios are needed to identify pr
 * Client’s Wild Apricot account&#x20;
   * Full admin access is accessible to create Webhooks in Wild Apricot
 * For Quickbooks Online clients, access to the Client’s QuickBooks Online account
-* Client’s Domain and DNS information  (to support configuration of Mailgun to send notification emails when WAQM runs)&#x20;
-* For Quickbooks Desktop clients, the Client’s online storage account (Box, DropBox,OneDrive, etc.) used for storing the WAQM output files for Quickbooks Desktop versions. &#x20;
-  * WAQM currently supports “Box” or OneDrive, but it can be updated to other services.
+* Client’s Domain and DNS information  (to support configuration of Mailgun to send notification emails when QBWA runs)&#x20;
+* For Quickbooks Desktop clients, the Client’s online storage account (Box, DropBox,OneDrive, etc.) used for storing the QBWA output files for Quickbooks Desktop versions. &#x20;
+  * QBWA currently supports “Box” or OneDrive, but it can be updated to other services.
 * Completed Mapping Guide spreadsheet
 

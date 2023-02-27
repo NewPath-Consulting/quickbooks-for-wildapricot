@@ -1,11 +1,11 @@
 ---
 description: >-
-  Track version changes for WAQM and highlight key differences relative to new
+  Track version changes for QBWA and highlight key differences relative to new
   installs and upgrades from previous versions.    NOTE: Detailed version
   history has not been tracked before version v0.6.1.
 ---
 
-# WAQM Version History
+# QBWA Version History
 
 ## QBWA v0.7.0.6
 
@@ -209,13 +209,13 @@ im
 ### Upgrade impacts to existing customers:
 
 * Only impacts existing customers with  v0.7 installed.  As of May 12, 2022, I think all installed customers are upgraded already.
-* If others found, go into the client's environment and update the filter on the Error Handing route after the WA Get Invoice Details module (55).  "Titled:  Txn without matched invoice". Reference the version in WAQM Operations.
+* If others found, go into the client's environment and update the filter on the Error Handing route after the WA Get Invoice Details module (55).  "Titled:  Txn without matched invoice". Reference the version in QBWA Operations.
 * Add:  Type = BundleValidation Error  AND  Detail contains "invoiceID"  AND  Scenario Type != Invoice
 * This change should be made to all 3 Core scenarios: Invoice, Payment, and Donation.
 
 
 
-## WAQM v0.7
+## QBWA v0.7
 
 NOTE:  This is a major release with new features and completely refactored from previous versions.  Requires reinstall for existing clients.
 
@@ -240,7 +240,7 @@ NOTE:  This is a major release with new features and completely refactored from 
 * Miscellaneous client facing changes:
   * Added TimeZone config to carry through scenario (to eliminate discrepancies between NPC Staff and Client time zones)
   * Updated Donation logic to include Donation Document Number (now available from Wild Apricot API)
-  * Updated QBO Transaction Creation to search for existing customers using "Display Name" since this is Quickbooks' unique key.  This should reduce the umber of "false" duplicate customer warnings.  This also requires configuring the WAQM Display Name format to match Quickbooks.
+  * Updated QBO Transaction Creation to search for existing customers using "Display Name" since this is Quickbooks' unique key.  This should reduce the umber of "false" duplicate customer warnings.  This also requires configuring the QBWA Display Name format to match Quickbooks.
 * Architecture changes support NPC roadmap
   * Refactored Core scenarios to use common logic and process (supports future goal of further refactoring away to support DevOps models and to support different source systems)
   * Refactored Transaction Creation QBO scenario to support all QBO transaction types with a single scenario.
@@ -256,7 +256,7 @@ NOTE:  This is a major release with new features and completely refactored from 
 * If possible, work with the customer to populate the new version of the Mapping Guide.  Depending on how old the customer is, some new data may be required.  Payment congig details are new.
 * Upgrade utility exists to upgrade v0.6 config data structure to v0.7 config data structure.  Some tweaking may still be required.
 
-## WAQM v0.6.1.3
+## QBWA v0.6.1.3
 
 ### **Scope of Change:**
 
@@ -274,7 +274,7 @@ NOTE:  This is a major release with new features and completely refactored from 
 
 * no impact; upgrade not required
 
-## WAQM v0.6.1.2
+## QBWA v0.6.1.2
 
 ### **Scope of Change:**
 
@@ -286,13 +286,13 @@ NOTE:  This is a major release with new features and completely refactored from 
 
 ### Installation impacts:
 
-* For customers requiring this feature, a "NoTaxInWA" entry is required in the WAQM config.  See special case note inside the WAQM configuration section.
+* For customers requiring this feature, a "NoTaxInWA" entry is required in the QBWA config.  See special case note inside the QBWA configuration section.
 
 ### Upgrade impacts to existing customers:
 
 * no impact; upgrade not required
 
-## WAQM v0.6.1.1
+## QBWA v0.6.1.1
 
 ### **Scope of Change:**
 
@@ -321,7 +321,7 @@ NOTE:  This is a major release with new features and completely refactored from 
   * Repeat with small differences in the Donation-QBO scenario\
 
 
-## WAQM v0.6.1
+## QBWA v0.6.1
 
 ### Scope of Change:&#x20;
 
@@ -336,18 +336,18 @@ NOTE:  This is a major release with new features and completely refactored from 
 
 ### Installation impacts:
 
-* New "WAQM License Key" configuration field needed to support License check.  This has been added to the mapping sheet and is added to the WAQM Config data structure, and must be populated as part of the WAQM version section of the data store configuration.  &#x20;
+* New "QBWA License Key" configuration field needed to support License check.  This has been added to the mapping sheet and is added to the QBWA Config data structure, and must be populated as part of the QBWA version section of the data store configuration.  &#x20;
 * Work with NewPath Consulting to get a valid license key.   It is typically in the format of XXXX-XXXX-XXXX-XXXX.
 * 2 separate scenarios exist for Invoices and for Donations.   QBO clients require all scenarios.   QBD clients only need the Core scenarios.
 * New data structures for cloning:   &#x20;
-  * WAQM QBO Cust ID
-  * WAQM QB Tax Code&#x20;
-  * WAQM-Invoice-QBOPayload
-  * WAQM-Donation-QBOPayload
+  * QBWA QBO Cust ID
+  * QBWA QB Tax Code&#x20;
+  * QBWA-Invoice-QBOPayload
+  * QBWA-Donation-QBOPayload
 
 ### Upgrade considerations:
 
-* WAQM configuration data structure only has minor changes from recent versions.   It may be easier to edit the existing data structure and data store instead of creating a new data structure and data store.  This would require re-entering config data in the new data store.
+* QBWA configuration data structure only has minor changes from recent versions.   It may be easier to edit the existing data structure and data store instead of creating a new data structure and data store.  This would require re-entering config data in the new data store.
 * If an existing QBD client has customizations related to the Storage location for IIF files (e.g. OneDrive, box, or other), these same customizations will need to be carried forward to the newly cloned scenarios.
 
 

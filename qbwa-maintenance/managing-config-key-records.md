@@ -2,9 +2,9 @@
 
 
 
-### WAQM configuration “key” records
+### QBWA configuration “key” records
 
-WAQM uses the Make.com Data Store to configure mappings from Wild Apricot to Quickbooks. Only 1 row (record) is needed to correctly configure WAQM for all transaction types. Other records are backups or specific to separate tests.
+QBWA uses the Make.com Data Store to configure mappings from Wild Apricot to Quickbooks. Only 1 row (record) is needed to correctly configure QBWA for all transaction types. Other records are backups or specific to separate tests.
 
 Inside the Core Scenarios for each transaction, the first “module” inside the scenario lists the configuration “key” that corresponds to the appropriate record in the configuration Data Store. These screenshots show this key in a scenario and inside the Data Store.  These must match exactly in order to use the desired configuration.
 
@@ -12,13 +12,13 @@ Inside the Core Scenarios for each transaction, the first “module” inside th
 
 ![Config Key inside the Data Store](../.gitbook/assets/26.png)
 
-### Backing up a WAQM configuration record
+### Backing up a QBWA configuration record
 
-Recommendation: Before making WAQM configuration changes, use the Backup scenario to create a copy of the current configuration.
+Recommendation: Before making QBWA configuration changes, use the Backup scenario to create a copy of the current configuration.
 
 The Backup scenario creates a new record in the configuration Data Store with a new key and the phrase " (copy)" appended to the end of the Config Record Name. The Make.com Core scenarios will be unchanged and will still point to the previously used configuration key record.
 
-1. Open the Make.com Scenario “WAQM DS Record Backup”.
+1. Open the Make.com Scenario “QBWA DS Record Backup”.
 2. Confirm the first module is using the correct  “WA Config Record Name” from the Data Store record that you wish to copy.
 3. Click the “Run Once” button inside the Backup scenario.
 4. If successful, the record is copied and added to the Data Store with a new key. The “Config Record Name” field will copy the original value and add the suffix “ (copy)”.  Also, the Config Last Updated date will be set to the current date.
@@ -33,7 +33,7 @@ In most cases, this action is not required. Re-pointing scenarios to a different
 
 Steps:
 
-1. Open the WAQM Config Data Store.
+1. Open the QBWA Config Data Store.
 2. Identify the desired record that should be used for running the Make.com scenarios.
 3. Copy the key for that record.&#x20;
 4. Go to the desired Core scenario and click to open.

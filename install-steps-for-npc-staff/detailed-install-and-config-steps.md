@@ -4,7 +4,7 @@ _<mark style="color:red;">**NOTE:  This section should not be needed.  Using the
 
 
 
-These are the detailed steps to install the components of WAQM into a new Team within NPC's Make.com instance.   An overview of the installation process is described on this page.   [WAQM Installation Overview](../waqm-overview-1/waqm-installation-overview.md)
+These are the detailed steps to install the components of QBWA into a new Team within NPC's Make.com instance.   An overview of the installation process is described on this page.   [QBWA Installation Overview](../waqm-overview-1/waqm-installation-overview.md)
 
 ### **A) Create Team for Client inside Make.com**
 
@@ -15,14 +15,14 @@ The capability to create teams is restricted to overall NPC Admins.  This step m
 
 ### **B) Create recommended Scenario folders in Client Team**
 
-* WAQM\_Released
-* WAQM-Helpers-Install
-* WAQM-Helpers-Support
-* WAQM-Helpers-Upgrade \[for future use-only for existing WAQM clients moving from earlier version to v7)
+* QBWA\_Released
+* QBWA-Helpers-Install
+* QBWA-Helpers-Support
+* QBWA-Helpers-Upgrade \[for future use-only for existing QBWA clients moving from earlier version to v7)
 
 ### **C) Clone initial "Connection" scenarios and Create connections**
 
-For each of the scenarios below, Clone the scenario from the WAQM Operations Released-Install Helper folder to the Client Team.   During cloning, create a new Connection to the Clients system using credentials provided by the client. &#x20;
+For each of the scenarios below, Clone the scenario from the QBWA Operations Released-Install Helper folder to the Client Team.   During cloning, create a new Connection to the Clients system using credentials provided by the client. &#x20;
 
 1. Create-Test QBO Connection with Invoice \[QBO clients only] (need login credentials)
    * This scenario uses an Invoice module to push QBO to provide "Accounting" permissions.
@@ -38,15 +38,15 @@ For each of the scenarios below, Clone the scenario from the WAQM Operations Rel
 
 ### **D) Clone Data Structures**&#x20;
 
-_From the WAQM Operations Released folder, clone each Data Structure below to the client’s Team (the target). Update the name and select the client’s Team as the target. Update the name to include the client's name and the data structure version number._&#x20;
+_From the_ QBWA _Operations Released folder, clone each Data Structure below to the client’s Team (the target). Update the name and select the client’s Team as the target. Update the name to include the client's name and the data structure version number._&#x20;
 
-1. WAQM Config&#x20;
-2. WAQM-QBD-Txn-IIF\_RAW \[QBD clients only]
-3. WAQM QBO Cust ID \[QBO clients only]
-4. WAQM QB Tax Code&#x20;
-5. WAQM-Txn-Line&#x20;
-6. WAQM-Txn-Payload
-7. WAQM-Txn
+1. QBWA Config&#x20;
+2. QBWA-QBD-Txn-IIF\_RAW \[QBD clients only]
+3. QBWA QBO Cust ID \[QBO clients only]
+4. QBWA QB Tax Code&#x20;
+5. QBWA-Txn-Line&#x20;
+6. QBWA-Txn-Payload
+7. QBWA-Txn
 8. WA-QB-Invoice-IIF\_TRNS (optional for QBD clients-documentation of IIF structure for QBD)&#x20;
 9. WA-QB-Invoice-IIF\_SPL (optional for QBD clients-documentation of structure for QBD)&#x20;
 
@@ -54,17 +54,17 @@ _From the WAQM Operations Released folder, clone each Data Structure below to th
 
 ### **E) Clone remaining "Install Helper" scenarios**
 
-1. Clone "WAQM-Config-Receiver" scenario:
+1. Clone "QBWA-Config-Receiver" scenario:
    * During the Scenario clone, **ADD** a **new Webhook** using:
-     1. &#x20;Use this naming convention for the Added Webhook: TMP-WAQM-Config-Receiver (version) (client name)
-     2. And, select this Data Structure for the Webhook from the Advanced menu:  WAQM Config-v0.7 (client name)
+     1. &#x20;Use this naming convention for the Added Webhook: TMP-QBWA-Config-Receiver (version) (client name)
+     2. And, select this Data Structure for the Webhook from the Advanced menu:  QBWA Config-v0.7 (client name)
      3. SAVE
    * During the Scenario clone, **ADD** a **new datastore** using:
-     1. Use this naming convention for the Added Datastore: WAQM-Config (version) (client name)
-     2. And, select this Data Structure for the Datastore from the Advanced menu:  WAQM Config-v0.7 (client name)
+     1. Use this naming convention for the Added Datastore: QBWA-Config (version) (client name)
+     2. And, select this Data Structure for the Datastore from the Advanced menu:  QBWA Config-v0.7 (client name)
      3. Ensure size is 1MB
      4. SAVE
-2. Clone "WAQM QBO Mapping Queries - Load WAQM Mapping Master \[QBO clients only]
+2. Clone "QBWA QBO Mapping Queries - Load QBWA Mapping Master \[QBO clients only]
    * During the Scenario clone, use these Connections:
      1. A new Google connection for yourself (or the owner of the Mapping Sheet)
      2. Choose the existing WA and QBO connections created in step B
@@ -82,14 +82,14 @@ These steps copy a config record from NPC's master data store and send to the Cl
 1. Go to the Client's Team
 2. Go to Webhooks
 3. Find the TMP-Config-Receiver  Webhook (from step D), and copy the URL exactly.
-4. Go back to the WAQM-Operations Team and the Install Helper scenario folder. &#x20;
+4. Go back to the QBWA-Operations Team and the Install Helper scenario folder. &#x20;
 5. Find the Install Helper - "Send JSON to Client" scenario
 6. Open the scenario.  In the 3rd module (Send JSON...) replace the URL with the one copied from the Webhook in the Client's Team. SAVE.
-7. In the 1st module (Read WAQM Config...), make sure the listed Config Key matches the record you want to copy from the NPC Master data store. SAVE.
+7. In the 1st module (Read QBWA Config...), make sure the listed Config Key matches the record you want to copy from the NPC Master data store. SAVE.
 8. In that "Send JSON" scenario, click "Run Once".
 9. Exit the scenario.  It is okay if the scenario is not saved as this change is done for every Client.
 10. Go back to the Client's Team.
-11. Open the WAQM Config Receiver scenario in Edit Mode and "Run once", then press "Process existing".
+11. Open the QBWA Config Receiver scenario in Edit Mode and "Run once", then press "Process existing".
     * NOTE:  It is okay if a yellow warning appears in the second module regarding "not executing immediately.  This can be ignored.
 12. Go to the DataStore and confirm the record was created
 
@@ -109,9 +109,9 @@ _Only clone the Invoice, Payment, or Donation Core scenarios if that transaction
 
 _NOTE:  Make sure previous connections are created (added) and data structures are cloned before proceeding.   Unexpected complications can occur if Connections are created later and manually switched inside the scenarios._
 
-1. WAQM-Invoice-Core (latest version)&#x20;
-2. WAQM-Payment-Core (latest version)&#x20;
-3. WAQM-Donation-Core (latest version)&#x20;
+1. QBWA-Invoice-Core (latest version)&#x20;
+2. QBWA-Payment-Core (latest version)&#x20;
+3. QBWA-Donation-Core (latest version)&#x20;
 
 NOTES:&#x20;
 
@@ -127,15 +127,15 @@ NOTES:&#x20;
 
 _Each client only needs the QBO or the QBD Txn scenario._
 
-1. WAQM-Txn-QBO (latest version) \[For QBO clients only] &#x20;
-2. WAQM-Txn-QBD (latest version) \[For QBD clients only]  &#x20;
+1. QBWA-Txn-QBO (latest version) \[For QBO clients only] &#x20;
+2. QBWA-Txn-QBD (latest version) \[For QBD clients only]  &#x20;
 
 * NOTES: A new Webhook must be Added/Created during cloning using these steps:&#x20;
   1. Press Add to create a new webhook
-  2. Use a name for the Webhook with the format:  WAQM-Txn-QBO(or QBD)-Payload Receiver (client name).
-  3. In Advanced settings for the new Webhook, select the WAQM-Txn-Payload data structure.&#x20;
+  2. Use a name for the Webhook with the format:  QBWA-Txn-QBO(or QBD)-Payload Receiver (client name).
+  3. In Advanced settings for the new Webhook, select the QBWA-Txn-Payload data structure.&#x20;
   4. After cloning, the URL from this Webhook must be copied and placed in each of the Core Scenarios in the corresponding "HTTP Send" module for either the QBD or QBO branch to the right of the scenario.  (Do not replace the URL in the "HTTP Send" module for checking Licenses.
-* For the QBD Txn scenario, the WAQM-QBD-IIF-TMP datastore should be duplicated during the Clone process.
+* For the QBD Txn scenario, the QBWA-QBD-IIF-TMP datastore should be duplicated during the Clone process.
 * For QBD clients, update the Duplicated IIF Data Store and the IIF Data Structure to include the client's name.
 * Move Txn scenario to the Released folder
 * Doublecheck and confirm that any Webhooks are turned "ON".
@@ -156,7 +156,7 @@ _Move these Helper scenarios to the appropriate "Support" folder._
 
 ### **J) If not done already, complete the Mapping document with the Client**
 
-For QBO clients, this may require using this scenario to find the QBO IDs needed to complete the mapping:   "WAQM QBO Mapping Queries - Load WAQM Mapping Master"
+For QBO clients, this may require using this scenario to find the QBO IDs needed to complete the mapping:   "QBWA QBO Mapping Queries - Load QBWA Mapping Master"
 
 _NOTE: Remember to update the Google Sheet references in this scenario to match the Google Mapping Document for this specific client._
 
@@ -186,7 +186,7 @@ This may require several iterations to uncover any errors from the Mapping docum
 
 As a recommendation, ask the client for a date range that includes multiple transactions across the different types of Wild Apricot activity (e.g. Membership, Events, Manual, etc.)
 
-As part of the testing, train the Client on how they can interpret the automated messages that come out of WAQM. &#x20;
+As part of the testing, train the Client on how they can interpret the automated messages that come out of QBWA. &#x20;
 
 For QBD clients, make sure they know how ti import an IIF fiel and how to find any error files generated during the IIF process.
 

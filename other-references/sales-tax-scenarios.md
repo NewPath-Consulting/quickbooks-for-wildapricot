@@ -67,8 +67,8 @@ Resulting Invoice documents and data:
   * No known limitation exists to the number or combination of tax codes on different line items.
 * Additional Notes for US Quickbooks Online versions:
   * US Quickbooks Online uses AST (Auto Sale Tax) determination to determine proper taxing authorities and tax rates based on the address of the buyer and the seller.  &#x20;
-  * AST overrides any specific tax codes that WAQM specifies during invoice creation.
-  * The collect tax amount specified by WAQM is still used on the invoice, but it may be split proportionally to different taxing agencies based on Quickbooks Online AST logic.
+  * AST overrides any specific tax codes that QBWA specifies during invoice creation.
+  * The collect tax amount specified by QBWA is still used on the invoice, but it may be split proportionally to different taxing agencies based on Quickbooks Online AST logic.
 
 #### Potential limitations due to Wild Apricot and Quickbooks differences
 

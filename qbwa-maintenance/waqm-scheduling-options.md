@@ -1,12 +1,12 @@
-# WAQM Scheduling Options
+# QBWA Scheduling Options
 
 ### Changing Scheduling Configuration and Running Manually
 
-The WAQM scenarios may be set-up to run on a specific schedule automatically or they may be run manually for a defined set of start and end dates or a specific document number. The Document Date on the transaction is used to find documents for the specified time periods.
+The QBWA Core scenarios may be set-up to run on a specific schedule automatically or they may be run manually for a defined set of start and end dates or a specific document number. The Document Date on the transaction is used to find documents for the specified time periods.
 
 The scheduling features must be set for each transaction type separately.  They all work consistently.
 
-Review the [WAQM Configuration Guide](../waqm-config-reference/waqm-configuration-guide.md#waqm-scheduling-configuration) scheduling section from more details on the Scheduling Settings.
+Review the [QBWA Configuration Guide](../qbwa-config-reference/waqm-configuration-guide.md#waqm-scheduling-configuration) scheduling section from more details on the Scheduling Settings.
 
 ### **Automatic Scheduling**
 
