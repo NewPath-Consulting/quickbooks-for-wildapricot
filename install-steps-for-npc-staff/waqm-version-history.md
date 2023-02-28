@@ -11,7 +11,7 @@ description: >-
 
 ### Scope of Change:
 
-* Core scenarios (Invoice, Payment, Donation) require logic updates in the transformation section to handle Extra Cost variations from Wild Apricot and to correct the logic for Donation Campaign identification.
+* Core scenarios (Invoice, Payment, Donation) require logic updates in the transformation section to handle Extra Cost variations from Wild Apricot and to correct the logic for Donation Campaign identification.  Also added Sleep module to "slow down" the execution as it exceeded WildApricot API rate limits sometimes.
 * NOTE: moved version of QBO Txn scenario to v0.7.0.6 for consistency. &#x20;
 
 ### Key changes:
