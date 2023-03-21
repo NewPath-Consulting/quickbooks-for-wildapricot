@@ -33,6 +33,7 @@ _**In GitHub, look at the**_ [_**SUMMARY.md**_](SUMMARY.md) _**file to see the T
 | 2.1.8       | September 14, 2022 | D. Reed   | tweaks to install instructions from Carol's input                                                                                                                                             |
 | 2.1.9       | February 15, 2023  | D. Reed   | v0.7.0.6 - issues [#105](https://github.com/NewPath-Consulting/quickbooks-for-wildapricot/issues/105) and [#106](https://github.com/NewPath-Consulting/quickbooks-for-wildapricot/issues/106) |
 | 2.1.10      | February 27, 2023  | D. Reed   | WAQM-->QBWA; added Quickbooks duplicate transaction setting screenshots                                                                                                                       |
-| test push   |                    |           |                                                                                                                                                                                               |
+| 2.1.11      | March 21, 2023     | D. Reed   | tweak to QBO duplicate transaction setting descriptions                                                                                                                                       |
+|             |                    |           |                                                                                                                                                                                               |
 
 ##

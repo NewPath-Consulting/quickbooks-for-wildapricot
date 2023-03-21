@@ -152,13 +152,13 @@ Because of Quickbooks US limitations, these tax scenarios are not supported:
 
 We highly recommend using the setting described below to prevent duplicate Sales transactions from being created inside Quickbooks Online.  This will prevent a transaction from being created if the transaction number (Invoice number of Sales Receipt number) from being reused. &#x20;
 
-&#x20;         Sales / Custom transaction numbers =ON
+* Sales / Custom transaction numbers =ON
+* Advanced / Other Preferences / Warn if duplicate journal number is used = ON (for some clients)
 
-&#x20;         Advanced / Other Preferences / Warn if duplicate journal number is used = ON (for som clients)
+NOTES: &#x20;
 
-NOTE:  Quickbooks does not have a setting to prevent Payment transactions.
-
-NOTE:  Quickbooks Online will still allow a duplicate Invoice Number if the original Invoice was an Invoice converted/imported from Quickbooks Desktop.  This should only be relevant during an y initial periods when a client is transitioning from Desktop to Online.
+* Quickbooks Online does not have a setting to prevent Payment transactions.
+* Quickbooks Online will still allow a duplicate Invoice Number if the original Invoice was an Invoice converted/imported from Quickbooks Desktop.  This should only be relevant during an y initial periods when a client is transitioning from Desktop to Online.
 
 The screenshots below show the method to turn on this setting within Quickbooks Online.  Specific client's screenshots may vary depending on their Quickbooks Online account setup.
 
