@@ -148,13 +148,17 @@ Because of Quickbooks US limitations, these tax scenarios are not supported:
 * Create a List Item = Subtotal (type subtotal)
 * If a different Subtotal item already exists (different name), change the Integromat config to use the correct name.
 
-**Prevent Duplicate Invoice and Sales Receipt (Sales) Transactions**
+**Prevent Duplicate Invoice and Sales Receipt (Sales) Transactions (QuickBooks Online)**
 
-We highly recommend using the setting described below to prevent duplicate Sales transactions from being created inside Quickbooks.  This will prevent a transaction from being created if the transaction number (Invoice number of Sales Receipt number) from being reused. &#x20;
+We highly recommend using the setting described below to prevent duplicate Sales transactions from being created inside Quickbooks Online.  This will prevent a transaction from being created if the transaction number (Invoice number of Sales Receipt number) from being reused. &#x20;
 
 &#x20;         Sales / Custom transaction numbers =ON
 
+&#x20;         Advanced / Other Preferences / Warn if duplicate journal number is used = ON (for som clients)
+
 NOTE:  Quickbooks does not have a setting to prevent Payment transactions.
+
+NOTE:  Quickbooks Online will still allow a duplicate Invoice Number if the original Invoice was an Invoice converted/imported from Quickbooks Desktop.  This should only be relevant during an y initial periods when a client is transitioning from Desktop to Online.
 
 The screenshots below show the method to turn on this setting within Quickbooks Online.  Specific client's screenshots may vary depending on their Quickbooks Online account setup.
 
