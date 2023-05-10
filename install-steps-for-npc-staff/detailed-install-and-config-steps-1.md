@@ -256,13 +256,7 @@ Because of limitations with Migrating from the EU region to the US region, the f
    4. Go to the More menu (3 dots - in the lower center) and click "export blueprint"
    5. This will place a "blueprint.json" file on your computer.  Make a note of the location.
    6. Exit the scenario and do not Save.
-3. Create IIF TMP Data Store
-   1. In the client's Make.com Org, go to Data Stores and select "Add Data Store"
-   2. Use this name:  QBWA-QBD-IIF-TMP-v0.7 (Client Name)
-   3. Choose this data structure: QBWA-QBD-Txn-IIF\_RAW-v0.7 (Client Name)
-   4. Choose the size of: 1
-   5. Save
-4. Import to the Client's Make.com Org"
+3. Import to the Client's Make.com Org"
    1. Go to the Clients Org and open the QBWA\_Released scenario folder
    2. Click New scenario
    3. Go to the More menu (3 dots - in the lower center) and click "import blueprint"
@@ -418,4 +412,4 @@ In the client's environment, consider deleting the GoogleDrive and GoogleSheets 
 
 When deleting the connection, you will get a warning that the Mapping Queries scenario will stop working.  This is okay.   If this is needed in the future, you can add a new connection again from within that scenario.
 
-### ****
+###
