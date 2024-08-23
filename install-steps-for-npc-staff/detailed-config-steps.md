@@ -31,8 +31,9 @@ Configuration items that must be pre-defined and match config exactly:&#x20;
 
 1. Membership Level names and ExtraCosts&#x20;
 2. Event Tags&#x20;
-3. Sales Tax Names and Rates&#x20;
-4. Customer (Member) Name formats
+3. Online Store Product Tags
+4. Sales Tax Names and Rates&#x20;
+5. Customer (Member) Name formats
 
 ### C) Review the QBWA Data Store configuration and adjust as needed.&#x20;
 

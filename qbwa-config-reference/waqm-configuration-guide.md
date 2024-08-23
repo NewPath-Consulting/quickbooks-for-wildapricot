@@ -147,7 +147,7 @@ WA Order ExtraCost Exceptions: As described in the OrderType section, all line i
 
 ![Example ExtraCost Line Item Mapping](<../.gitbook/assets/Screen Shot 2022-01-19 at 3.41.16 PM.png>)
 
-****
+
 
 ### **Payment mapping configuration**
 
@@ -176,7 +176,7 @@ Payment Tender Mapping:  This provides the mapping between Wild Apricot Payment 
 
 NOTES: &#x20;
 
-* QBWA creates a Sales Receipt inside Quickbooks for each Donation.  This allows the income to be allocated __ to a revenue account and for the funds to be placed into a Deposit-To account.
+* QBWA creates a Sales Receipt inside Quickbooks for each Donation.  This allows the income to be allocated to a revenue account and for the funds to be placed into a Deposit-To account.
 * To support Alternate Mappings, a "Campaign" field may be created inside Wild Apricot that allows a donor to pick a different campaign for each donation.  QBWA assumes that the "Campaign" field is required on a Donation and is defined as a drop-down field with each value in  the drop-down representing a different Campaign.
 
 ![Example of a Campaign drop-down field](<../.gitbook/assets/Screen Shot 2021-05-13 at 3.33.57 PM.png>)
@@ -289,7 +289,7 @@ Auto **Schedule** Job Invoice Config:  These settings define when the job runs a
 * Number of Time Periods for Each Run:  This should be an integer number that defines the number of periods for the run.     (e.g. 2 "weeks", 1 "month", etc.)
 * Weekly-Day of Week to Start Run:  The short 3-character name of the week that defines the day of the week a Weekly run will start.  (e.g.  Mon, Thu)
 * Monthly-Day of Month to Start Run:  The integer number representing the day of the month that defines the day of the Month a Monthly run will start.  (e.g.  1--> 1st day of month)
-* Start Time for Run (reference only): The time of day when the run should start.  This is configured separately inside Make.com, but recording here is a good reference point.  If all transactions are used, the times should be offset by 15 minutes or more to prevent conflicts (1st: Invoice;  2nd: Payment; 3rd: Donation) ****  NOTE: This does not impact the time period in which transactions are extracted.
+* Start Time for Run (reference only): The time of day when the run should start.  This is configured separately inside Make.com, but recording here is a good reference point.  If all transactions are used, the times should be offset by 15 minutes or more to prevent conflicts (1st: Invoice;  2nd: Payment; 3rd: Donation)   NOTE: This does not impact the time period in which transactions are extracted.
 * Last Inv AutoRun (do not edit): This should not be changed.  The Make.com job will populate this automatically after a successful auto-run and will be used to determine when the next run should occur. &#x20;
 
 ![Example AutoRun Schedule Config](<../.gitbook/assets/Screen Shot 2022-01-19 at 5.19.17 PM.png>)

@@ -7,6 +7,37 @@ description: >-
 
 # QBWA Version History
 
+## QBWA v0.8
+
+### Scope of Change:
+
+* Added Support for Online Store Product Tags.
+* Core scenarios (Invoice, Payment, Donation) updated to support:
+  * Added Support for Online Store Product Tags
+  * Refactored to decrease operations usage (moved Invoice Alt Mapping, Event Tag, and Product Tag mappings to separate route)
+
+### Key changes:
+
+* See GitHub issues # 54
+  * 54 : Add Online Store Product Tag support
+  * Refactoring:  Transaction Level Mapping Reference moved to separate route.  Decreases operation usage; Event Tag determination is only done for Event invoices.
+  * Refactoring:  Transaction Line Alt Mapping moved to separate route.  Decreases operation usage; Extra Cost and Product Tag determination is only done for Event invoices.
+
+### Installation impacts:
+
+* No change to process for installation.  Use Txn and Core scenario versions v0.8 for core scenarios.  Other scenarios and data structures are unchanged and remain at v0.7.0.6.
+
+### Upgrade impacts to existing customers:
+
+* Upgrading existing customers with v0.7.x installations.
+* From the repository, clone the Core (Invoice, Payment, Donation) scenarios into the client's Make.com environment.
+* For each Core scenario:
+  * Update the name of the scenario to include the client's name.
+  * Ensure the Config Key in the first module matches the Data Store Config used by the client.
+  * Ensure the last HTTP module (Send to QBO-TxnPayload) is using the correct URL.  The correct URL is in the webhook (first module) of the corresponding Txn-QBO scenario.
+  * Update the scenario's scheduling to match the scheduling of the previous scenarios.
+* Update "installed version" inside the active data store record. (nice to do; not required)
+
 ## QBWA v0.7.0.6
 
 ### Scope of Change:

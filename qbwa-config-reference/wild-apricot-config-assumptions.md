@@ -16,7 +16,9 @@ The Event “Tag” is used as the basis for mapping Event invoices.  A Wild Apr
 
 **Online Store**
 
-The design intent is to use Product “Tag” as the basis of mapping Online Store invoices. However, Wild Apricot has a current limitation where this Tag cannot be read through API or Integromat.  At this time, all Online Store items can only be mapped to a single Quickbooks Account, Item, and Class.
+The Product “Tag” is used as the basis of mapping Online Store invoices.  A Wild Apricot Product may have multiple tags.  However, WAQM can only use 1 tag to map to the proper Quickbooks accounts and classes.   The first "matched" tag on a product will be used during QBWA mapping.
+
+<figure><img src="../.gitbook/assets/Screenshot 2024-08-23 at 3.02.30 PM.png" alt=""><figcaption></figcaption></figure>
 
 **Manual Item**
 
