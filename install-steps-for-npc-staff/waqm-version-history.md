@@ -7,6 +7,39 @@ description: >-
 
 # QBWA Version History
 
+## QBWA v0.8.0.1 (2024-10-21)
+
+### Scope of Change:
+
+* Fixed refactoring errors in v0.8 Core scenarios (Invoice, Payment, and Donation)
+
+### Key changes:
+
+* Issue:  Variables for transactions are persisting from one invoice to the next invoice, causing mapping errors.
+* Changes:
+  * Transaction Type / Detail Type:
+    * Router 414 (just after "Order Type and Contact Variables" module):  ensure all branches set all of the variables that are retrieved inside module 420 -  "Get Matched Tag and Alt Mappings".   If not used by a branch, set the variable to null.  This includes all the branches for Invoice detail type and the Donation branch.   The key variables of concern are: "Matched Event Tag" and "Products Array".
+    * Router 459 (Invoice Order Detail Types): Undefined branch:  Update name and remove filter.  Set this branch as a fallback branch.   This ensures that only 1 route for the Invoice Detail Type is used.
+    * Module 420 - "Get Matched Tag and Alt Mappings":  Remove the variable "Matched Product Tag".  It is not used at the transaction level and is not used in the rest of the scenario.
+  * Transaction Line Item Alternate Mappings:
+    * Router 460 (just after "Iterate Txn Lines" iterator:  ensure all branches set all of the variables that are retrieved inside module 434 -  "Get Matched EC-Product Mapping".   If not used by a branch, set the variable to null.  This includes all the branches for Extra Cost and Online Store branches.   The key variables of concern are: "Matched Extra Cost Mapping" and "Matched Product Mapping".
+    * Router 428 (Line Item Detail Types): Add a "none of the above" branch:  This ensures that only 1 route for the router is used and sets variable sto null if the line item is not Extra Cost or Online Store.
+      * Filter:  Name = Not EC or OnlineStore Line;  Route = fallback route
+      * Set variables module:
+        * Name = Null EC and Store Variables
+        * Variables set to Null = "Matched Extra Cost Mapping" and "Matched Product Mapping".
+        * Other Variables:  Invoice Bundle Position and Invoice Line Item Position; use formula/mapping from other branches.   This is primarily used for troubleshooting errors.
+    * Module 434 - "Get Matched EC-Product Mapping":  No changes
+
+### Installation impacts:
+
+* No change to process for installation.  Use Txn and Core scenario versions v0.8.0.1 for core scenarios.  Other scenarios and data structures are unchanged and remain at v0.7.0.6.
+
+### Upgrade impacts to existing customers:
+
+* For customers using v0.8, make the above changes directly inside the Core scenarios and update the version number of the scenario.
+* For customers upgrading from prior versions, use the same instructions defined in v0.8.
+
 ## QBWA v0.8
 
 ### Scope of Change:
