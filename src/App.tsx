@@ -6,9 +6,13 @@ import {createConnection, getConnections, verifyConnection} from "./services/api
 import {createDataStore, createDataStructure, getDataStructures} from "./services/api/makeApi/dataStructuresService.ts";
 import {setAuth} from "./services/httpClient.ts";
 import {setConnectionValue, setDataStoreValue, setJSONValue} from "./utils/setParameters.ts";
+import {useOnBoarding} from "./hooks/useOnboarding.ts";
+import {toast} from "react-toastify";
+import update = toast.update;
 
 //26aba993-f746-44bf-9378-e71a2ffae2e6
 function App() {
+  const {onBoardingData, updateData} = useOnBoarding();
   const [authToken, setAuthToken] = useState("");
   const [apiKey, setApikey] = useState("");
   const [clientId, setClientId] = useState("");
@@ -24,6 +28,7 @@ function App() {
   const verifyUser = async(e) => {
     e.preventDefault()
     setAuth(authToken);
+    updateData({authToken});
     try{
       const response = await getUserInfo();
       setVerification(true);
