@@ -1,0 +1,65 @@
+.sidebar {
+    width: 300px;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    height: calc(100vh - 60px); /* Navbar height (60px) subtracted from full height */
+    overflow-y: auto;
+    scroll-behavior: auto;
+}
+.sidebar::-webkit-scrollbar {
+    width: 0; /* Removes scrollbar */
+    height: 0;
+}
+
+.sidebar {
+    scrollbar-width: thin; /* For Firefox: makes the scrollbar thin */
+    scrollbar-color: transparent transparent; /* Makes scrollbar invisible */
+}
+
+/* Scrollbar visible on hover */
+.sidebar:hover::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar when scrolling */
+}
+
+.sidebar:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2); /* Visible scrollbar thumb on hover */
+    border-radius: 4px;
+}
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.logo .highlight {
+    color: var(--app-color);
+}
+
+.steps {
+    list-style: none;
+    padding: 0;
+}
+
+.steps li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.step-number {
+    width: 30px;
+    height: 30px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.active-step .step-number {
+    background-color: var(--app-color);
+    color: white;
+}

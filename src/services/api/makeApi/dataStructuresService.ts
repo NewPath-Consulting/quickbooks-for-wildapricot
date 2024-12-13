@@ -1,9 +1,10 @@
 import httpClient from "../../httpClient.ts";
 import endpoints from "../../endpoints.ts";
 import {IDataRecordBody, IDataStoreBody, IDataStructureBody} from "../../../typings/IDataStructureBody.ts";
+import {AxiosResponse} from "axios";
 
 
-export const getDataStructures = async (teamId: number) => {
+export const getDataStructures = async (teamId: number): Promise<AxiosResponse<IDataStructureBody[]>> => {
 
   return httpClient.get(endpoints.makeApi.listDataStructures, {
     params: {

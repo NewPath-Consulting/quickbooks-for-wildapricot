@@ -1,7 +1,9 @@
 import httpClient from "../../httpClient.ts";
 import endpoints from "../../endpoints.ts";
+import {IScenarioBody, IScenarioResponse} from "../../../typings/IScenarioBody.ts";
+import {AxiosResponse} from "axios";
 
-export const getScenarios = async (teamId: number, folderId ?: number) => {
+export const getScenarios = async (teamId: number, folderId ?: number): Promise<AxiosResponse<IScenarioResponse[]>> => {
   const params = {teamId, folderId};
   return httpClient.get(endpoints.makeApi.listScenarios, {params})
 }

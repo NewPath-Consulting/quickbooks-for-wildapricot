@@ -1,0 +1,17 @@
+
+nav{
+    padding: 1.2em 4em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    z-index: 10000;
+    background-color: white;
+}
+
+nav button{
+    border: 1px solid grey;
+    border-radius: 20px;
+    color: grey;
+    font-weight: bold;
+}
