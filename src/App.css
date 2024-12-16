@@ -3,10 +3,11 @@
 .main-layout {
     display: flex;
     overflow: hidden; /* Prevent main-layout from overflowing */
+    color: var(--text-color)
 }
 .app-container {
     display: flex;
-    flex-direction: column; /* Stacks Navbar and main content vertically */
+    flex-direction: column; /* Stacks navbar and main content vertically */
     height: 100vh; /* Full viewport height */
 }
 
@@ -15,3 +16,10 @@
     padding: 3em 5em;
     overflow-y: auto; /* Allows scrolling if content is long */
 }
+
+@media (max-width: 800px) {
+    .content-area {
+        padding: 3em 3em;
+    }
+}
+

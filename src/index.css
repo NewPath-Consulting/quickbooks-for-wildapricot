@@ -1,5 +1,5 @@
 :root {
-  font-family: Roboto, sans-serif;
+  font-family: Haffer,"Helvetica Neue",Helvetica,Arial,sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -11,6 +11,7 @@
   --blue: #7979d2;
   --app-color: #1DE20F;
 
+  --text-color: #1c1b18;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -20,6 +21,8 @@
 body {
   margin: 0;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 * {

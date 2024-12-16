@@ -1,8 +1,17 @@
 main > * {
-    margin-bottom: 0.2em;
+    margin-bottom: 2em;
 }
 
-main > p {
-    font-size: 0.9em;
+.instructions-container > *{
+    margin-bottom: 10px;
+}
+
+header > p {
+    font-size: 0.85em;
     font-weight: 400;
+    color: grey;
+}
+
+header > h2 {
+    margin-bottom: 10px;
 }

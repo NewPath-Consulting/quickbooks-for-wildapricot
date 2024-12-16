@@ -1,4 +1,4 @@
-/* Sidebar Container */
+/* sidebar Container */
 .sidebar {
     width: 300px;
     padding: 3em 20px; /* Provides spacing inside the sidebar */
@@ -59,7 +59,7 @@
     display: flex; /* Centers the content */
     align-items: center; /* Vertically aligns number */
     justify-content: center; /* Horizontally aligns number */
-    font-weight: bold; /* Makes the number bold */
+    font-weight: 600; /* Makes the number bold */
     border: 1px solid #ddd;
 }
 
