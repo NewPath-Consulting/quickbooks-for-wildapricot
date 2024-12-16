@@ -1,65 +1,92 @@
+/* Sidebar Container */
 .sidebar {
     width: 300px;
-    padding: 20px;
-    border-right: 1px solid #ddd;
-    height: calc(100vh - 60px); /* Navbar height (60px) subtracted from full height */
-    overflow-y: auto;
-    scroll-behavior: auto;
+    padding: 3em 20px; /* Provides spacing inside the sidebar */
+    border-right: 1px solid #ddd; /* Creates a dividing line on the right */
+    height: calc(100vh - 60px); /* Adjusts for navbar height */
+    overflow-y: auto; /* Enables vertical scrolling if content exceeds height */
+    scroll-behavior: auto; /* Smooth scrolling behavior */
 }
+
+@media (max-width: 800px) {
+    .sidebar{
+        display: none;
+    }
+}
+
+/* Custom Scrollbar - Webkit Browsers */
 .sidebar::-webkit-scrollbar {
-    width: 0; /* Removes scrollbar */
+    width: 0; /* Hides scrollbar by default */
     height: 0;
 }
 
 .sidebar {
-    scrollbar-width: thin; /* For Firefox: makes the scrollbar thin */
-    scrollbar-color: transparent transparent; /* Makes scrollbar invisible */
+    scrollbar-width: thin; /* Firefox: makes scrollbar thin */
+    scrollbar-color: transparent transparent; /* Hides scrollbar */
 }
 
-/* Scrollbar visible on hover */
+/* Show Scrollbar on Hover */
 .sidebar:hover::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar when scrolling */
+    width: 8px; /* Scrollbar width on hover */
 }
 
 .sidebar:hover::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.2); /* Visible scrollbar thumb on hover */
-    border-radius: 4px;
-}
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
+    border-radius: 4px; /* Rounded scrollbar */
 }
 
-.logo .highlight {
-    color: var(--app-color);
-}
-
+/* Step List Container */
 .steps {
-    list-style: none;
-    padding: 0;
+    list-style: none; /* Removes default list bullets */
+    padding: 0; /* Resets padding */
 }
 
+/* Individual Step Item */
 .steps li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 30px;
+    position: relative; /* Enables positioning for the line */
+    display: flex; /* Aligns number and text horizontally */
+    align-items: center; /* Centers items vertically */
+    gap: 10px; /* Adds space between number and text */
+    margin-bottom: 30px; /* Spacing between steps */
 }
 
+/* Step Number Styling */
 .step-number {
-    width: 30px;
-    height: 30px;
-    background-color: #ddd;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
-    font-weight: bold;
+    width: 30px; /* Fixed width for circular number */
+    height: 30px; /* Fixed height for circular number */
+    color: #ddd; /* Default gray background */
+    border-radius: 50%; /* Makes it circular */
+    display: flex; /* Centers the content */
+    align-items: center; /* Vertically aligns number */
+    justify-content: center; /* Horizontally aligns number */
+    font-weight: bold; /* Makes the number bold */
+    border: 1px solid #ddd;
 }
 
+/* Active Step Styling */
 .active-step .step-number {
-    background-color: var(--app-color);
-    color: white;
+    background-color: white; /* White background for active step */
+    color: var(--app-color); /* App color for active step number */
+    border: 1px solid var(--app-color); /* Outline for active step */
+}
+
+/* Vertical Line After Each Step */
+.steps li::after {
+    position: absolute;
+    content: "";
+    width: 1px;
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 100%;
+    top: 84%;
+    left: 15px;
+    z-index: 3;
+}
+
+.steps li.active-step::after {
+    background-color: #4bb543; /* Active step line color (green in this case) */
+}
+
+/* Remove Line After the Last Step */
+.steps li:last-child::after {
+    display: none;
 }

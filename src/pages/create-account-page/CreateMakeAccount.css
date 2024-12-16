@@ -1,0 +1,8 @@
+main > * {
+    margin-bottom: 0.2em;
+}
+
+main > p {
+    font-size: 0.9em;
+    font-weight: 400;
+}

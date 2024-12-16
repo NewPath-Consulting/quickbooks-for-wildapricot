@@ -6,9 +6,9 @@ const Sidebar: React.FC = () => {
     <aside className="sidebar">
       <ul className="steps">
         {
-          steps.map(step => {
+          steps.map((step, index) => {
             return (
-              <li className="active-step">
+              <li className={index == 0  ? "active-step" : ""} key={index}>
                 <span className="step-number">{step.stepNumber}</span>
                 <div>
                   <strong style={{fontSize: "0.9rem"}}>{step.title}</strong>

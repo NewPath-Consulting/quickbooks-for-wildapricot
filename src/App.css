@@ -1,11 +1,17 @@
 #root {
 }
 .main-layout {
-    flex: 1;
+    display: flex;
     overflow: hidden; /* Prevent main-layout from overflowing */
 }
 .app-container {
     display: flex;
     flex-direction: column; /* Stacks Navbar and main content vertically */
     height: 100vh; /* Full viewport height */
+}
+
+.content-area {
+    flex: 1;
+    padding: 3em 5em;
+    overflow-y: auto; /* Allows scrolling if content is long */
 }

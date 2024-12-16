@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {FirstDraft} from "./FirstDraft.tsx";
 import {Navbar} from "./components/Navbar/Navbar.tsx";
 import Sidebar from "./components/Sidebar/Sidebar.tsx";
+import {CreatMakeAccountPage} from "./pages/create-account-page/CreatMakeAccount.tsx";
 
 //26aba993-f746-44bf-9378-e71a2ffae2e6
 function App() {
@@ -14,9 +15,7 @@ function App() {
           <Sidebar/>
           <div className="content-area">
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route path="/" element={<CreatMakeAccountPage />} />
             </Routes>
           </div>
         </div>
