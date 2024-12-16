@@ -1,13 +1,24 @@
 
-.instruction-container {
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
+.instruction-header-container {
     padding: 1em 1.5em;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid transparent;
 }
 
+.expanded {
+    border-bottom-color: var(--border-color);
+}
+
+.instruction-content {
+    padding: 1em 1.5em;
+}
+
+.instruction-container{
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
 
 p {
     font-size: 12px;

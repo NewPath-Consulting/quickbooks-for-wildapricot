@@ -30,7 +30,13 @@ export const CreatMakeAccountPage = () => {
       </header>
       <div className={"instructions-container"}>
         {
-          steps.map((step, index) => <Instruction stepNumber={index+1} img={step.img} description={step.description} />)
+          steps.map((step, index) => {
+            return (
+              <Instruction stepNumber={index+1} img={step.img} description={step.description}>
+                <p>Hello world</p>
+              </Instruction>
+            )
+          })
         }
       </div>
     </main>
