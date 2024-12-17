@@ -29,7 +29,7 @@ const steps: {description: string, img: string}[] = [
 ]
 
 export const CreatMakeAccountPage = () => {
-  const {onBoardingData, updateData} = useOnBoarding();
+  const {onBoardingData, updateData, setCurrentStep} = useOnBoarding();
   const [authData, setAuthData] = useState({authToken: "", baseUrl: ""})
   const [hasError, setError] = useState(false);
   const navigate = useNavigate();
@@ -41,6 +41,10 @@ export const CreatMakeAccountPage = () => {
       baseUrl: onBoardingData.baseUrl.length ? onBoardingData.baseUrl : prevState.baseUrl,
     }));
   }, [onBoardingData]);
+
+  useEffect(() => {
+    setCurrentStep(1)
+  }, []);
 
   const handleVerification = async (e) => {
     e.preventDefault()

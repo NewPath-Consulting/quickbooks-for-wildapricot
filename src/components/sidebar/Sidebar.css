@@ -70,19 +70,25 @@
     border: 1px solid var(--app-color); /* Outline for active step */
 }
 
+.completed-step .step-number {
+    background-color: var(--app-color); /* White background for active step */
+    color: white; /* App color for active step number */
+    border: 1px solid var(--app-color); /* Outline for active step */
+}
+
 /* Vertical Line After Each Step */
 .steps li::after {
     position: absolute;
     content: "";
-    width: 1px;
+    width: 2px;
     background-color: rgba(0, 0, 0, 0.2);
     height: 100%;
-    top: 84%;
-    left: 15px;
+    top: 87%;
+    left: 14.5px;
     z-index: 3;
 }
 
-.steps li.active-step::after {
+.steps li.completed-step::after{
     background-color: #4bb543; /* Active step line color (green in this case) */
 }
 

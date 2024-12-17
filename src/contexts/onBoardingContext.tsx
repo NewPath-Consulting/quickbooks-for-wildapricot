@@ -22,6 +22,8 @@ export const OnBoardingProvider = ({children}) => {
     connections: []
   });
 
+  const [currentStep, setCurrentStep] = useState<number>(1);
+
   const updateData = (data) => {
     setOnBoardingData(prev => {
       return {...prev, ...data}
@@ -29,7 +31,7 @@ export const OnBoardingProvider = ({children}) => {
   }
 
   return (
-    <OnboardingContext.Provider value={{onBoardingData, updateData}}>
+    <OnboardingContext.Provider value={{onBoardingData, updateData, currentStep, setCurrentStep}}>
       {children}
     </OnboardingContext.Provider>
   )

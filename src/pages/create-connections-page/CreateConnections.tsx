@@ -4,12 +4,16 @@ import * as React from "react";
 
 
 export const CreatConnectionsPage = () => {
-  const {onBoardingData, updateData} = useOnBoarding();
+  const {onBoardingData, updateData, setCurrentStep} = useOnBoarding();
   const [hasError, setError] = useState(false);
 
   useEffect(() => {
     console.log(onBoardingData)
   }, [onBoardingData])
+
+  useEffect(() => {
+    setCurrentStep(2)
+  }, []);
 
   return (
     <main>
