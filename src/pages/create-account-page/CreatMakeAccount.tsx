@@ -1,11 +1,12 @@
 import './CreateMakeAccount.css'
 import {Instruction} from "../../components/instruction/Instruction.tsx";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import * as React from "react";
 import {setAuth} from "../../services/httpClient.ts";
 import {getUserInfo} from "../../services/api/makeApi/usersService.ts";
 import {getConnections} from "../../services/api/makeApi/connectionsService.ts";
+import {useNavigate, useNavigation} from "react-router-dom";
 
 
 const steps: {description: string, img: string}[] = [
@@ -31,12 +32,23 @@ export const CreatMakeAccountPage = () => {
   const {onBoardingData, updateData} = useOnBoarding();
   const [authData, setAuthData] = useState({authToken: "", baseUrl: ""})
   const [hasError, setError] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setAuthData((prevState) => ({
+      ...prevState,
+      authToken: onBoardingData.authToken.length ? onBoardingData.authToken : prevState.authToken,
+      baseUrl: onBoardingData.baseUrl.length ? onBoardingData.baseUrl : prevState.baseUrl,
+    }));
+  }, [onBoardingData]);
+
   const handleVerification = async (e) => {
     e.preventDefault()
     setAuth(authData.authToken);
-    updateData({authData});
     try{
       const response = await getUserInfo();
+      updateData({authToken: authData.authToken, baseUrl: authData.baseUrl});
+      navigate('create-connections')
       console.log("Correct credentials!")
     }
     catch(e){
