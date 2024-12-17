@@ -1,12 +1,10 @@
 import './CreateMakeAccount.css'
-import {Instruction} from "../../components/instruction/Instruction.tsx";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {useEffect, useState} from "react";
 import * as React from "react";
 import {setAuth} from "../../services/httpClient.ts";
 import {getUserInfo} from "../../services/api/makeApi/usersService.ts";
-import {getConnections} from "../../services/api/makeApi/connectionsService.ts";
-import {useNavigate, useNavigation} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
 const steps: {description: string, img: string}[] = [
@@ -50,7 +48,7 @@ export const CreatMakeAccountPage = () => {
     e.preventDefault()
     setAuth(authData.authToken);
     try{
-      const response = await getUserInfo();
+      await getUserInfo();
       updateData({authToken: authData.authToken, baseUrl: authData.baseUrl});
       navigate('create-connections')
       console.log("Correct credentials!")
@@ -78,7 +76,6 @@ export const CreatMakeAccountPage = () => {
 
       <div className="accordion" id="accordionExample">
         {steps.map((step, index) => {
-          const isActive = index === 0; // Check if it's the first item
           return (
             <div className="accordion-item" key={index}>
               <h2 className="accordion-header">

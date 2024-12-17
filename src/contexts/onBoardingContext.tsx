@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useState} from "react";
 import {ICustomerInformation} from "../typings/ICustomerInformation.ts";
 
 interface OnboardingState {

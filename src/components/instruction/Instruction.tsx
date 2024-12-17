@@ -1,4 +1,4 @@
-import {JSX, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import './Instruction.css'
 import * as React from "react";
 export interface IInstructionProps {
