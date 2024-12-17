@@ -6,7 +6,7 @@ main > * {
     margin-bottom: 10px;
 }
 
-header > p {
+p{
     font-size: 0.85em;
     font-weight: 400;
     color: grey;
@@ -14,4 +14,8 @@ header > p {
 
 header > h2 {
     margin-bottom: 10px;
+}
+
+div[class = "form-group"] button {
+    padding: 10px 2em
 }

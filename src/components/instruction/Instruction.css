@@ -7,9 +7,11 @@
     border-bottom: 1px solid transparent;
 }
 
+
 .expanded {
     border-bottom-color: var(--border-color);
 }
+
 
 .instruction-content {
     padding: 1em 1.5em;
