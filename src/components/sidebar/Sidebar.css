@@ -89,7 +89,7 @@
 }
 
 .steps li.completed-step::after{
-    background-color: #4bb543; /* Active step line color (green in this case) */
+    background-color: var(--app-color); /* Active step line color (green in this case) */
 }
 
 /* Remove Line After the Last Step */

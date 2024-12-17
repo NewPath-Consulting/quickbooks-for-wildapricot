@@ -70,7 +70,7 @@ export const CreatMakeAccountPage = () => {
   }
 
   return (
-    <main>
+    <main >
       <header>
         <h2>Create a Make account</h2>
         <p>Follow the steps below to create a Make account, then enter your credentials to continue.</p>
@@ -97,7 +97,7 @@ export const CreatMakeAccountPage = () => {
                       alt={"predefined images for each step"}
                     />
                     <div>
-                      <strong>Step {index + 1}</strong>
+                      <p className={"mb-1"} style={{fontWeight: "500", color: "rgb(0, 0, 0, 0.7)", fontSize: "15px"}}>Step {index + 1}</p>
                       <p>{step.description}</p>
                     </div>
                   </div>
@@ -120,11 +120,11 @@ export const CreatMakeAccountPage = () => {
 
 
       <form className={""} onSubmit={handleVerification}>
-          <div className="form-floating col-md-8 col-sm-12 mb-3">
+          <div className="form-floating col-sm-12 mb-3">
             <input type="password" value={authData.authToken} name={"authToken"} className="form-control" id="access-token" onChange={handleChange} placeholder="http/"/>
             <label htmlFor="access-token">Access Token</label>
           </div>
-          <div className="form-floating col-md-8 col-sm-12 mb-3">
+          <div className="form-floating col-sm-12 mb-3">
             <input type="text" className="form-control" id="base-url" name={"baseUrl"} value={authData.baseUrl} placeholder="Base Url" onChange={handleChange}/>
             <label htmlFor="base-url">Base Url</label>
           </div>

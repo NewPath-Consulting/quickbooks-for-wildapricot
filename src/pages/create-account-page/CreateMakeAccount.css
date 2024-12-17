@@ -2,11 +2,22 @@ main > * {
     margin-bottom: 2em;
 }
 
+
+
 .instructions-container > *{
     margin-bottom: 10px;
 }
 
-p{
+.accordion-button.collapsed {
+    box-shadow: none; /* Remove the box shadow when expanded */
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: rgba(29, 226, 15, 0.09); /* Optional: Remove background color */
+    box-shadow: none;
+}
+
+div[class = "accordion"] p, header p{
     font-size: 0.85em;
     font-weight: 400;
     color: grey;

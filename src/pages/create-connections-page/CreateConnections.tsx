@@ -21,6 +21,8 @@ export const CreatConnectionsPage = () => {
         <h2>Connect your Tools</h2>
         <p>Set up your app connections to automate your workflows.</p>
       </header>
+
+
     </main>
   )
 }
