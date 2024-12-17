@@ -8,7 +8,7 @@ import {CreatMakeAccountPage} from "./pages/create-account-page/CreatMakeAccount
 //26aba993-f746-44bf-9378-e71a2ffae2e6
 function App() {
   return (
-    <Router>
+    <Router basename={"/onboarding"}>
       <div className="app-container">
         <Navbar/>
         <div className="main-layout">
