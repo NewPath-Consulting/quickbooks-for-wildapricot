@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import * as React from "react";
 
 
-export const CreatConnectionsPage = () => {
+export const CreateConnectionsPage = () => {
   const {onBoardingData, updateData, setCurrentStep} = useOnBoarding();
   const [hasError, setError] = useState(false);
 

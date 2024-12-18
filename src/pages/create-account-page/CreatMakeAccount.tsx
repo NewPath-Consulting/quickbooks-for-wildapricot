@@ -29,7 +29,7 @@ const steps: {description: string, img: string}[] = [
 export const CreatMakeAccountPage = () => {
   const {onBoardingData, updateData, setCurrentStep} = useOnBoarding();
   const [authData, setAuthData] = useState({authToken: "", baseUrl: ""})
-  const [hasError, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,8 +54,8 @@ export const CreatMakeAccountPage = () => {
       console.log("Correct credentials!")
     }
     catch(e){
-      console.error("Incorrect credentials" + e.response.data.error);
-      setError(true)
+      console.error("Incorrect credentials: " + e.response.data.error);
+      setErrorMsg(e.response.data.error)
     }
   }
 
@@ -117,14 +117,17 @@ export const CreatMakeAccountPage = () => {
 
 
       <form className={""} onSubmit={handleVerification}>
-          <div className="form-floating col-sm-12 mb-3">
-            <input type="password" value={authData.authToken} name={"authToken"} className="form-control" id="access-token" onChange={handleChange} placeholder="http/"/>
-            <label htmlFor="access-token">Access Token</label>
-          </div>
-          <div className="form-floating col-sm-12 mb-3">
-            <input type="text" className="form-control" id="base-url" name={"baseUrl"} value={authData.baseUrl} placeholder="Base Url" onChange={handleChange}/>
-            <label htmlFor="base-url">Base Url</label>
-          </div>
+        {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
+            <i className={'bi bi-exclamation-circle'}></i> {errorMsg}
+        </div>}
+        <div className="form-floating col-sm-12 mb-3">
+          <input type="password" value={authData.authToken} name={"authToken"} className="form-control" id="access-token" onChange={handleChange} placeholder="http/"/>
+          <label htmlFor="access-token">Access Token</label>
+        </div>
+        <div className="form-floating col-sm-12 mb-3">
+          <input type="text" className="form-control" id="base-url" name={"baseUrl"} value={authData.baseUrl} placeholder="Base Url" onChange={handleChange}/>
+          <label htmlFor="base-url">Base Url</label>
+        </div>
         <div className="form-group">
           <button className={"btn-success"} disabled={authData.authToken.length==0 || authData.baseUrl.length == 0} type={"submit"}>Next</button>
         </div>
