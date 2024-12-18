@@ -13,7 +13,7 @@ const Sidebar: React.FC = () => {
             return (
               <li className={index + 1 < currentStep ? "completed-step" : index + 1 == currentStep  ? "active-step" : ""} key={index}>
                 <span className="step-number">
-                  {index + 1 < currentStep ? <i style={{fontSize: "1.2em"}} className={"bi bi-check"}></i> : step.stepNumber}
+                  {index + 1 < currentStep ? <i style={{fontSize: "1.2em", color: "white"}} className={"bi bi-check"}></i> : step.stepNumber}
                 </span>
                 <div >
                   <p style={{fontSize: "0.9rem", fontWeight: "500", color: `${index + 1 <= currentStep ? "black" : "rgba(0, 0, 0, 0.2)"}`}}>{step.title}</p>

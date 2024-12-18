@@ -7,11 +7,14 @@
     border-bottom: 1px solid transparent;
 }
 
-
+.instruction-header-container button {
+    background-color: black;
+    padding: 5px 1em;
+    border-radius: 10px;
+}
 .expanded {
     border-bottom-color: var(--border-color);
 }
-
 
 .instruction-content {
     padding: 1em 1.5em;
