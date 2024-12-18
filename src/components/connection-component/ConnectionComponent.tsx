@@ -5,9 +5,10 @@ export interface ConnectionComponentProps {
   title: string,
   img: string,
   description: string,
+  isConnected: boolean
 }
 
-export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({title, description, img}) => {
+export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({title, description, img, isConnected}) => {
   const [isExpanded, setExpanded] = useState<boolean>(false);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
@@ -22,9 +23,12 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({title, 
           </div>
         </div>
         <div className={"d-flex gap-3 align-items-center"}>
-          <p>Learn More <i className={'bi bi-chevron-down'}></i></p>
+          <p>Learn More <i className={`bi bi-chevron-down`}></i></p>
           <div style={{height: "10px", width: "2px", background: 'rgb(0, 0, 0, 0.2)'}}/>
-          <button className={"d-flex align-items-center fw-bold"}><i style={{color: 'white'}} className={'bi bi-link-45deg fs-5 me-2'}></i> Connect</button>
+          <button className={`d-flex align-items-center fw-bold ${isConnected ? "completed" : "not-completed"}`}>
+            <i style={{color: 'white'}} className={`bi ${isConnected ? 'bi-check-circle' : 'bi-link-45deg'} fs-5 me-2`}></i>
+            {isConnected ? "Done" : "Connect"}
+          </button>
         </div>
       </div>
     </div>

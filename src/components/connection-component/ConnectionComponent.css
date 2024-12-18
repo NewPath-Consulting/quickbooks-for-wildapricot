@@ -8,9 +8,16 @@
 }
 
 .instruction-header-container button {
-    background-color: black;
     padding: 5px 1em;
     border-radius: 10px;
+}
+
+.not-completed {
+    background-color: black;
+}
+
+.completed {
+    background-color: #69c282;
 }
 .expanded {
     border-bottom-color: var(--border-color);
