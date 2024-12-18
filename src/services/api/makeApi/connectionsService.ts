@@ -6,7 +6,7 @@ export const getConnections = async (teamId: number): Promise<AxiosResponse<ICon
   return httpClient.get(endpoints.makeApi.listConnections, {params: {teamId}})
 }
 
-export const createConnection = async (body: IConnectionBody, teamId: number) => {
+export const createConnection = async (body: IConnectionBody, teamId: number): Promise<AxiosResponse<IConnectionResponse>> => {
   console.log(body, teamId);
   return httpClient.post(endpoints.makeApi.createConnection, body, {params: {teamId}});
 }

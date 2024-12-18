@@ -5,6 +5,7 @@ import * as React from "react";
 import {setAuth} from "../../services/httpClient.ts";
 import {getUserInfo} from "../../services/api/makeApi/usersService.ts";
 import {useNavigate} from "react-router-dom";
+import {getConnections} from "../../services/api/makeApi/connectionsService.ts";
 
 
 const steps: {description: string, img: string}[] = [
@@ -49,9 +50,10 @@ export const CreatMakeAccountPage = () => {
     setAuth(authData.authToken);
     try{
       await getUserInfo();
-      updateData({authToken: authData.authToken, baseUrl: authData.baseUrl});
+      const response = await getConnections(740188);
+
+      updateData({authToken: authData.authToken, baseUrl: authData.baseUrl, connections: response.data});
       navigate('create-connections')
-      console.log("Correct credentials!")
     }
     catch(e){
       console.error("Incorrect credentials: " + e.response.data.error);

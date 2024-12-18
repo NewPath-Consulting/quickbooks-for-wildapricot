@@ -7,10 +7,11 @@
     border-bottom: 1px solid transparent;
 }
 
-.instruction-header-container button {
+.instruction-header-container button, .modal button {
     padding: 5px 1em;
     border-radius: 10px;
 }
+
 
 .not-completed {
     background-color: black;
