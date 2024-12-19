@@ -67,7 +67,7 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoadi
           </div>
           <div className="mb-3">
             <label htmlFor={`base-url`} className="col-form-label">Base Url:</label>
-            <input type="password" name={`baseUrl`} onChange={handleInput} placeholder={""} className="form-control" id='base-url'/>
+            <input type="text" name={`baseUrl`} onChange={handleInput} placeholder={""} className="form-control" id='base-url'/>
           </div>
         </form>
       )
@@ -98,9 +98,10 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoadi
           <p>Learn More <i className={`bi bi-chevron-down`}></i></p>
           <div style={{height: "10px", width: "2px", background: 'rgb(0, 0, 0, 0.2)'}}/>
           <button data-bs-toggle="modal" data-bs-target={`#${connection.accountType}`} className={`d-flex align-items-center fw-bold ${isConnected ? "completed" : "not-completed"}`}>
-            <i style={{color: 'white'}} className={`bi ${isConnected ? 'bi-check-circle' : 'bi-link-45deg'} fs-5 me-2`}></i>
-            {/*<span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>*/}
-            {isConnected ? "Done" : "Connect"}
+            {isLoading ? <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span> :
+              <i style={{color: 'white'}} className={`bi ${isConnected ? 'bi-check-circle' : 'bi-link-45deg'} fs-5 me-2`}></i>
+            }
+            {isLoading ? "Connecting" : isConnected ? "Done" : "Connect"}
           </button>
         </div>
       </div>

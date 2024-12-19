@@ -49,12 +49,24 @@ export const CreateConnectionsPage = () => {
       connectionsList.map((connection) => [connection.accountType, false])
     );
   });
+  const [isLoadingMap, setIsLoadingMap] = useState(() => {
+    return new Map(
+      connectionsList.map((connection) => [connection.accountType, false])
+    );
+  });
 
-  const [isLoading, setIsLoading] = useState(false);
   const [isContentLoading, setIsContentLoading] = useState(false);
 
+  const setConnectionLoading = (accountName: string, isLoading: boolean) => {
+    setIsLoadingMap((prevMap) => {
+      const newMap = new Map(prevMap);
+      newMap.set(accountName, isLoading)
+      return newMap; // Return the updated map
+    });
+  }
+
   const handleConnection = async (connectionBody: IConnectionBody) => {
-    setIsLoading(true)
+    setConnectionLoading(connectionBody.accountType, true)
     try{
       const connectionResponse = await createConnection(connectionBody, 740188);
       const connectionId = connectionResponse.data.id;
@@ -78,11 +90,11 @@ export const CreateConnectionsPage = () => {
                 newMap.set(connectionBody.accountType, true);
                 return newMap;
               })
-            console.log(response);
-            setIsLoading(false)
+            setErrorMsg("");
+            setConnectionLoading(connectionBody.accountType, false)
           }
           catch(e){
-            setIsLoading(false)
+            setConnectionLoading(connectionBody.accountType, false)
             setErrorMsg(e.response.data.error + connectionBody.accountName);
             console.log(e);
           }
@@ -90,7 +102,7 @@ export const CreateConnectionsPage = () => {
       }, 500);
     }
     catch(e){
-      setIsLoading(false)
+      setConnectionLoading(connectionBody.accountType, false)
       setErrorMsg(e.response.data.error);
       console.error(e.response.data.error);
     }
@@ -147,7 +159,7 @@ export const CreateConnectionsPage = () => {
           <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
       </div>}
       <div>
-        {connectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoading} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
+        {connectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
       </div>
       <button className={"btn-success"} disabled={false} type={"submit"} onClick={() => console.log(isConnectedMap)}>Next</button>
     </main>
