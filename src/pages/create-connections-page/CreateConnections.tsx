@@ -3,9 +3,7 @@ import {useEffect, useState} from "react";
 import * as React from "react";
 import {ConnectionComponent} from "../../components/connection-component/ConnectionComponent.tsx";
 import {createConnection, getConnections, verifyConnection} from "../../services/api/makeApi/connectionsService.ts";
-import {toast} from "react-toastify";
-import {setAuth} from "../../services/httpClient.ts";
-import loading = toast.loading;
+import {useNavigate} from "react-router-dom";
 
 export interface IConnection {
   img: string,
@@ -54,8 +52,8 @@ export const CreateConnectionsPage = () => {
       connectionsList.map((connection) => [connection.accountType, false])
     );
   });
-
   const [isContentLoading, setIsContentLoading] = useState(false);
+  const navigate = useNavigate();
 
   const setConnectionLoading = (accountName: string, isLoading: boolean) => {
     setIsLoadingMap((prevMap) => {
@@ -161,7 +159,8 @@ export const CreateConnectionsPage = () => {
       <div>
         {connectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
       </div>
-      <button className={"btn-success"} disabled={false} type={"submit"} onClick={() => console.log(isConnectedMap)}>Next</button>
+      <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/')}>Back</button>
+      <button className={"btn-success"} disabled={Array.from(isConnectedMap).every(val => !val[1])} type={"submit"} onClick={() => navigate('/customer-information')}>Next</button>
     </main>
   )
 }
