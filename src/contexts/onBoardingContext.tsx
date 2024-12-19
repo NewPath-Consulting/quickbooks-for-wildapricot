@@ -1,5 +1,8 @@
-import {createContext, useState} from "react";
+import {createContext, useEffect, useRef, useState} from "react";
 import {ICustomerInformation} from "../typings/ICustomerInformation.ts";
+import {getUserInfo} from "../services/api/makeApi/usersService.ts";
+import {getConnections} from "../services/api/makeApi/connectionsService.ts";
+import {setAuth} from "../services/httpClient.ts";
 
 interface OnboardingState {
   authToken: string;
@@ -10,7 +13,7 @@ interface OnboardingState {
 
 interface OnboardingContextType {
   onBoardingData: OnboardingState | undefined;
-  updateData: (data: Partial<OnboardingState>) => void;
+  updateData: (data: any) => void;
 }
 
 export const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
@@ -26,9 +29,15 @@ export const OnBoardingProvider = ({children}) => {
     };
   });
 
+  useEffect(() => {
+    if(onBoardingData.baseUrl && onBoardingData.authToken){
+      setAuth(onBoardingData.authToken);
+    }
+  }, []);
+
   const [currentStep, setCurrentStep] = useState<number>(1);
 
-  const updateData = (data: Partial<OnboardingState>) => {
+  const updateData = (data) => {
     // Update context state
     setOnBoardingData((prev) => {
       const updatedData = { ...prev, ...data };

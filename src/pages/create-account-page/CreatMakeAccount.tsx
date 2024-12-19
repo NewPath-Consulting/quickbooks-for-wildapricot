@@ -52,7 +52,7 @@ export const CreatMakeAccountPage = () => {
       await getUserInfo();
       const response = await getConnections(740188);
 
-      updateData({authToken: authData.authToken, baseUrl: authData.baseUrl, connections: response.data});
+      updateData({authToken: authData.authToken, baseUrl: authData.baseUrl});
       navigate('create-connections')
     }
     catch(e){

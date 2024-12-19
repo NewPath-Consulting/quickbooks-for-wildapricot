@@ -4,6 +4,8 @@ import * as React from "react";
 import {ConnectionComponent} from "../../components/connection-component/ConnectionComponent.tsx";
 import {createConnection, getConnections, verifyConnection} from "../../services/api/makeApi/connectionsService.ts";
 import {toast} from "react-toastify";
+import {setAuth} from "../../services/httpClient.ts";
+import loading = toast.loading;
 
 export interface IConnection {
   img: string,
@@ -43,22 +45,13 @@ export const CreateConnectionsPage = () => {
   const {onBoardingData, updateData, setCurrentStep} = useOnBoarding();
   const [errorMsg, setErrorMsg] = useState("");
   const [isConnectedMap, setIsConnectedMap] = useState(() => {
-    const initialMap = new Map(
+    return new Map(
       connectionsList.map((connection) => [connection.accountType, false])
     );
-
-    if (onBoardingData.connections) {
-      for (const connection of onBoardingData.connections) {
-        if (initialMap.has(connection.accountName)) {
-          initialMap.set(connection.accountName, true);
-        }
-      }
-    }
-
-    return initialMap;
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isContentLoading, setIsContentLoading] = useState(false);
 
   const handleConnection = async (connectionBody: IConnectionBody) => {
     setIsLoading(true)
@@ -104,13 +97,45 @@ export const CreateConnectionsPage = () => {
   }
 
   useEffect(() => {
-    console.log(onBoardingData)
-  }, [onBoardingData])
+    setIsContentLoading(true);
+    const listConnections = async () => {
+      try {
+        const response = await getConnections(740188);
+
+        // Update the context state with fetched connections
+        updateData({ connections: response.data });
+
+        // Update `isConnectedMap` directly using `response.data`
+        setIsConnectedMap((prevMap) => {
+          const newMap = new Map(prevMap);
+
+          for (const connection of response.data) {
+            if (newMap.has(connection.accountName)) {
+              newMap.set(connection.accountName, true);
+            }
+          }
+
+          return newMap; // Return the updated map
+        });
+      } catch (error) {
+        console.error("Failed to fetch connections:", error.response?.data?.error || error.message);
+      }
+      finally {
+        setIsContentLoading(false);
+      }
+    };
+
+    listConnections();
+  }, []); // Empty dependency array ensures this runs once
 
   useEffect(() => {
     setCurrentStep(2)
     console.log(isConnectedMap)
   }, []);
+
+  if(isContentLoading){
+    return <div></div>
+  }
 
   return (
     <main>
