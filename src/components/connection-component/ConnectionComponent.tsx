@@ -10,7 +10,7 @@ export interface ConnectionComponentProps {
 }
 
 export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoading, connection, isConnected, createConnection}) => {
-  const [credentials, setCredentials] = useState({});
+  const [credentials, setCredentials] = useState<any>({});
 
   const handleInput = (e) => {
     const {name, value} = e.target;
