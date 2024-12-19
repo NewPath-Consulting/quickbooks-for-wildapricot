@@ -5,10 +5,11 @@ import {IConnection} from "../../pages/create-connections-page/CreateConnections
 export interface ConnectionComponentProps {
   connection: IConnection,
   isConnected: boolean,
-  createConnection: Function
+  createConnection: Function,
+  isLoading: boolean
 }
 
-export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({connection, isConnected, createConnection}) => {
+export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoading, connection, isConnected, createConnection}) => {
   const [credentials, setCredentials] = useState({});
 
   const handleInput = (e) => {
@@ -98,6 +99,7 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({connect
           <div style={{height: "10px", width: "2px", background: 'rgb(0, 0, 0, 0.2)'}}/>
           <button data-bs-toggle="modal" data-bs-target={`#${connection.accountType}`} className={`d-flex align-items-center fw-bold ${isConnected ? "completed" : "not-completed"}`}>
             <i style={{color: 'white'}} className={`bi ${isConnected ? 'bi-check-circle' : 'bi-link-45deg'} fs-5 me-2`}></i>
+            {/*<span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>*/}
             {isConnected ? "Done" : "Connect"}
           </button>
         </div>

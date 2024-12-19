@@ -120,7 +120,7 @@ export const CreatMakeAccountPage = () => {
 
       <form className={""} onSubmit={handleVerification}>
         {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
-            <i className={'bi bi-exclamation-circle'}></i> {errorMsg}
+            <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
         </div>}
         <div className="form-floating col-sm-12 mb-3">
           <input type="password" value={authData.authToken} name={"authToken"} className="form-control" id="access-token" onChange={handleChange} placeholder="http/"/>

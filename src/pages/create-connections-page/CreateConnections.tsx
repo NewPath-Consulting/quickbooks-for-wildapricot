@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import * as React from "react";
 import {ConnectionComponent} from "../../components/connection-component/ConnectionComponent.tsx";
 import {createConnection, getConnections, verifyConnection} from "../../services/api/makeApi/connectionsService.ts";
+import {toast} from "react-toastify";
 
 export interface IConnection {
   img: string,
@@ -40,7 +41,7 @@ const connectionsList: IConnection[] = [
 
 export const CreateConnectionsPage = () => {
   const {onBoardingData, updateData, setCurrentStep} = useOnBoarding();
-  const [hasError, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const [isConnectedMap, setIsConnectedMap] = useState(() => {
     const initialMap = new Map(
       connectionsList.map((connection) => [connection.accountType, false])
@@ -78,11 +79,18 @@ export const CreateConnectionsPage = () => {
           clearInterval(interval); // Stop monitoring the window
           try{
             const response = await verifyConnection(connectionId);
+
+              setIsConnectedMap(prevMap => {
+                const newMap = new Map(prevMap);
+                newMap.set(connectionBody.accountType, true);
+                return newMap;
+              })
             console.log(response);
             setIsLoading(false)
           }
           catch(e){
             setIsLoading(false)
+            setErrorMsg(e.response.data.error + connectionBody.accountName);
             console.log(e);
           }
         }
@@ -90,6 +98,7 @@ export const CreateConnectionsPage = () => {
     }
     catch(e){
       setIsLoading(false)
+      setErrorMsg(e.response.data.error);
       console.error(e.response.data.error);
     }
   }
@@ -109,8 +118,11 @@ export const CreateConnectionsPage = () => {
         <h2>Connect your Tools</h2>
         <p>Set up your app connections to automate your workflows.</p>
       </header>
+      {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
+          <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
+      </div>}
       <div>
-        {connectionsList.map((connection, index) => <ConnectionComponent key={index} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
+        {connectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoading} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
       </div>
       <button className={"btn-success"} disabled={false} type={"submit"} onClick={() => console.log(isConnectedMap)}>Next</button>
     </main>

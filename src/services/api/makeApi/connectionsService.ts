@@ -11,6 +11,6 @@ export const createConnection = async (body: IConnectionBody, teamId: number): P
   return httpClient.post(endpoints.makeApi.createConnection, body, {params: {teamId}});
 }
 
-export const verifyConnection = async (connectionId: number) => {
+export const verifyConnection = async (connectionId: number): Promise<AxiosResponse<any>> => {
   return httpClient.post(endpoints.makeApi.verifyConnection.replace(":connectionId", String(connectionId)));
 }
