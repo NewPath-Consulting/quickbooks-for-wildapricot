@@ -1,0 +1,19 @@
+
+#wa-content label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #9C9C9C;
+}
+
+#wa-content input{
+    background-color: #f9f9f9;
+}
+
+#wa-content > *{
+    border-bottom: 1px solid var(--border-color);
+    padding: 20px 0;
+}
+
+#wa-content i{
+    color: var(--app-color);
+}

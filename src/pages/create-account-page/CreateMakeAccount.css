@@ -27,6 +27,11 @@ header > h2 {
     margin-bottom: 10px;
 }
 
+header{
+    padding-bottom: 1em;
+    border-bottom: 1px solid var(--border-color);
+}
+
 div[class = "form-group"] button {
     padding: 10px 2em
 }
