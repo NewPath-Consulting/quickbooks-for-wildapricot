@@ -1,9 +1,12 @@
 import './CustomerInformation.css'
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {useEffect} from "react";
+import * as React from "react";
+import {useNavigate} from "react-router-dom";
 
 export const CustomerInformationPage = () => {
   const {onBoardingData, setCurrentStep} = useOnBoarding();
+  const navigate = useNavigate()
 
   useEffect(() => {
     setCurrentStep(3)
@@ -110,7 +113,10 @@ export const CustomerInformationPage = () => {
             </div>
           </div>
         </div>
-        <button className={"mt-4"} type={"submit"}>Next</button>
+        <div className="mt-4">
+          <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/create-connections')}>Back</button>
+          <button className={"btn-success"} disabled={true} type={"submit"} onClick={() => navigate('/customer-information')}>Next</button>
+        </div>
       </form>
 
     </main>

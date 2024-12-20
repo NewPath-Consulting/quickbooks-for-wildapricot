@@ -6,10 +6,11 @@ export interface ConnectionComponentProps {
   connection: IConnection,
   isConnected: boolean,
   createConnection: Function,
-  isLoading: boolean
+  isLoading: boolean,
+  isContentLoading: boolean
 }
 
-export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoading, connection, isConnected, createConnection}) => {
+export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isContentLoading, isLoading, connection, isConnected, createConnection}) => {
   const [credentials, setCredentials] = useState<any>({});
 
   const handleInput = (e) => {
@@ -84,6 +85,15 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoadi
       )
     }
   }
+
+  if(isContentLoading){
+    return (
+      <p className="card-text placeholder-wave  mb-3">
+        <span className="placeholder col-12 rounded-3" style={{padding: "38.5px"}}></span>
+      </p>
+    )
+  }
+
   return (
     <div className={`instruction-container mb-3`}>
       <div className={`instruction-header-container`}>

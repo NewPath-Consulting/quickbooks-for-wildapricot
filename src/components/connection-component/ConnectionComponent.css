@@ -33,6 +33,10 @@
     border-radius: 10px;
 }
 
+.card-text{
+    color: #eeeeee;
+}
+
 p {
     font-size: 12px;
 }
