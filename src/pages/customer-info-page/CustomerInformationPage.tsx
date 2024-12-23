@@ -18,7 +18,7 @@ export interface ICustomerInfo {
 }
 
 export const CustomerInformationPage = () => {
-  const {onBoardingData, setCurrentStep} = useOnBoarding();
+  const {onBoardingData, setCurrentStep, updateData} = useOnBoarding();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<ICustomerInfo>({
@@ -34,6 +34,19 @@ export const CustomerInformationPage = () => {
     displayName: ""
   })
 
+  const [formErrors, setFormErrors] = useState<ICustomerInfo>({
+    address: "",
+    city: "",
+    country: "",
+    displayName: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    organization: "",
+    phoneNumber: "",
+    state: ""
+  })
+
   const handleData = (e) => {
     const {name, value} = e.target;
 
@@ -41,6 +54,12 @@ export const CustomerInformationPage = () => {
       ...formData,
       [name]: value
     });
+
+    setFormErrors({
+      ...formErrors,
+      [name]: ""
+    })
+
   }
 
   useEffect(() => {
@@ -54,6 +73,45 @@ export const CustomerInformationPage = () => {
     })
   }
 
+  const validateForm = () => {
+    const errors: ICustomerInfo = {
+      address: "",
+      city: "",
+      country: "",
+      displayName: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+      organization: "",
+      phoneNumber: "",
+      state: ""
+    };
+    if (!formData.firstName.trim()) errors.firstName = "First name is required.";
+    if (!formData.lastName.trim()) errors.lastName = "Last name is required.";
+    if (!formData.organization.trim()) errors.organization = "Organization is required.";
+    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) errors.email = "Valid email is required.";
+    if (!formData.phoneNumber.trim() || !/^\d+$/.test(formData.phoneNumber)) errors.phoneNumber = "Phone number must be numeric.";
+    if (!formData.city.trim()) errors.city = "City is required.";
+    if (!formData.country.trim()) errors.country = "Country is required.";
+    if (!formData.displayName.trim()) errors.displayName = "Display name is required.";
+    if (!formData.address.trim()) errors.address = "Street Address is required.";
+    if (!formData.state.trim()) errors.state = "State is required.";
+    return errors;
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const errors = validateForm();
+    console.log(errors)
+    if (Object.values(errors).some(value => value.trim() !== "")) {
+      setFormErrors(errors);
+    }
+    else {
+      updateData({customerInfo: formData});
+      console.log(onBoardingData);
+    }
+  };
+
   return (
     <main>
       <header>
@@ -61,7 +119,7 @@ export const CustomerInformationPage = () => {
         <p>Provide your company details to personalize and streamline your integration experience.</p>
       </header>
 
-      <form>
+      <form onSubmit={handleSubmit} className={Object.values(formErrors).some(value => value.trim() !== "") ? 'was-validated' : ''} noValidate={true}>
         <h5 className={'mb-4'}>Wild Apricot Information</h5>
 
         <div className={"form-content"}>
@@ -73,16 +131,25 @@ export const CustomerInformationPage = () => {
             <div className="col-md-6 mb-3">
               <div className="mb-3">
                 <label htmlFor="organization" className=" ">Organization</label>
-                <input type="text" name={'organization'} onChange={handleData} value={formData.organization} className="form-control" id="organization"/>
+                <input type="text" name={'organization'} required onChange={handleData} value={formData.organization} className="form-control  " id="organization"/>
+                <div id="validationServer05Feedback" className="invalid-feedback">
+                  {formErrors.organization}
+                </div>
               </div>
               <div className="row">
                 <div className="col">
                   <label htmlFor="first-name" className=" ">First Name</label>
-                  <input type="text" name={"firstName"} onChange={handleData} value={formData.firstName} className="form-control" id="first-name"/>
+                  <input type="text" name={"firstName"} required onChange={handleData} value={formData.firstName} className="form-control" id="first-name"/>
+                  <div id="validationServer05Feedback" className="invalid-feedback">
+                    {formErrors.firstName}
+                  </div>
                 </div>
                 <div className="col">
                   <label htmlFor="last-name" className=" ">Last Name</label>
-                  <input type="text" name={"lastName"} onChange={handleData} value={formData.lastName} className="form-control" id="last-name"/>
+                  <input type="text" name={"lastName"} required onChange={handleData} value={formData.lastName} className="form-control" id="last-name"/>
+                  <div id="validationServer05Feedback" className="invalid-feedback">
+                    {formErrors.lastName}
+                  </div>
                 </div>
               </div>
             </div>
@@ -95,11 +162,17 @@ export const CustomerInformationPage = () => {
             <div className="col-md-6 mb-3">
               <div className="mb-3">
                 <label htmlFor="email" className=" ">Email Address</label>
-                <input type="text" name={"email"} onChange={handleData} value={formData.email} className="form-control" id="email"/>
+                <input type="text" name={"email"} onChange={handleData} required value={formData.email} className="form-control" id="email"/>
+                <div id="validationServer05Feedback" className="invalid-feedback">
+                  {formErrors.email}
+                </div>
               </div>
               <div className="mb-3">
                 <label htmlFor="phone-number" className=" ">Phone Number</label>
-                <input type="text" name={"phoneNumber"} onChange={handleData} value={formData.phoneNumber} className="form-control" id="phone-number"/>
+                <input type="text" name={"phoneNumber"} required onChange={handleData} value={formData.phoneNumber} className="form-control" id="phone-number"/>
+                <div id="validationServer05Feedback" className="invalid-feedback">
+                  {formErrors.phoneNumber}
+                </div>
               </div>
             </div>
           </div>
@@ -112,21 +185,33 @@ export const CustomerInformationPage = () => {
               <div className="row">
                 <div className="col">
                   <label htmlFor="address" className=" ">Street Address</label>
-                  <input type="text" name={"address"} onChange={handleData} value={formData.address} className="form-control" id="address"/>
+                  <input type="text" name={"address"} required onChange={handleData} value={formData.address} className="form-control" id="address"/>
+                  <div id="validationServer05Feedback" className="invalid-feedback">
+                    {formErrors.address}
+                  </div>
                 </div>
                 <div className="col">
                   <label htmlFor="country" className=" ">Country</label>
-                  <input type="text" name={"country"} onChange={handleData} value={formData.country} className="form-control" id="country"/>
+                  <input type="text" name={"country"} required onChange={handleData} value={formData.country} className="form-control" id="country"/>
+                  <div id="validationServer05Feedback" className="invalid-feedback">
+                    {formErrors.country}
+                  </div>
                 </div>
               </div>
               <div className="row">
                 <div className="col">
                   <label htmlFor="state" className=" ">State</label>
-                  <input type="text" name={"state"} onChange={handleData} value={formData.state} className="form-control" id="state"/>
+                  <input type="text" name={"state"} required={true} onChange={handleData} value={formData.state} className="form-control" id="state"/>
+                  <div id="validationServer05Feedback" className="invalid-feedback">
+                    {formErrors.state}
+                  </div>
                 </div>
                 <div className="col">
                   <label htmlFor="city" className=" ">City</label>
-                  <input type="text" name={"city"} onChange={handleData} value={formData.city} className="form-control" id="city"/>
+                  <input type="text" name={"city"} required={true} onChange={handleData} value={formData.city} className="form-control" id="city"/>
+                  <div id="validationServer05Feedback" className="invalid-feedback">
+                    {formErrors.city}
+                  </div>
                 </div>
               </div>
             </div>
@@ -142,7 +227,10 @@ export const CustomerInformationPage = () => {
             </div>
             <div className="col-md-6 mb-3">
               <div className="col">
-                <input type="text" name={"displayName"} onChange={handleData} className="form-control" value={formData.displayName} id="display-name" placeholder={"Display Name"}/>
+                <input type="text" name={"displayName"} required onChange={handleData} className="form-control" value={formData.displayName} id="display-name" placeholder={"Display Name"}/>
+                <div id="validationServer05Feedback" className="invalid-feedback">
+                  {formErrors.displayName}
+                </div>
               </div>
             </div>
             <div className="col-md-6">
@@ -154,7 +242,7 @@ export const CustomerInformationPage = () => {
         </div>
         <div className="mt-4">
           <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/create-connections')}>Back</button>
-          <button className={"btn-success"} disabled={true} type={"submit"} onClick={() => navigate('/customer-information')}>Next</button>
+          <button className={"btn-success"} disabled={false} type={"submit"} onClick={() => navigate('/customer-information')}>Next</button>
         </div>
       </form>
 
