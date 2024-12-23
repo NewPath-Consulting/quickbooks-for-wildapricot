@@ -16,3 +16,15 @@
 .form-content i{
     color: var(--app-color);
 }
+
+.form-content button {
+    padding: 0.5em;
+    font-size: 12px;
+    background-color: transparent;
+    border: 1px solid var(--app-color);
+    color: var(--app-color);
+}
+.form-content button:hover{
+    background-color: #71DD9310;
+    transition: background-color 0.5s ease-out;
+}

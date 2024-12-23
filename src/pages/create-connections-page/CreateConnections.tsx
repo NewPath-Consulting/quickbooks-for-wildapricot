@@ -4,6 +4,7 @@ import * as React from "react";
 import {ConnectionComponent} from "../../components/connection-component/ConnectionComponent.tsx";
 import {createConnection, getConnections, verifyConnection} from "../../services/api/makeApi/connectionsService.ts";
 import {useNavigate} from "react-router-dom";
+import {teamId} from "../../FirstDraft.tsx";
 
 export interface IConnection {
   img: string,
@@ -66,7 +67,7 @@ export const CreateConnectionsPage = () => {
   const handleConnection = async (connectionBody: IConnectionBody) => {
     setConnectionLoading(connectionBody.accountType, true)
     try{
-      const connectionResponse = await createConnection(connectionBody, 740188);
+      const connectionResponse = await createConnection(connectionBody, teamId);
       const connectionId = connectionResponse.data.id;
       const URL = `https://us1.make.com/api/v2/oauth/auth/${connectionId}`;
       const authWindow = window.open(URL, "_blank", "width=500,height=600");
@@ -109,7 +110,7 @@ export const CreateConnectionsPage = () => {
   useEffect(() => {
     const listConnections = async () => {
       try {
-        const response = await getConnections(740188);
+        const response = await getConnections(teamId);
 
         // Update the context state with fetched connections
         updateData({ connections: response.data });

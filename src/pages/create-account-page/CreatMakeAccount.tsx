@@ -6,6 +6,7 @@ import {setAuth} from "../../services/httpClient.ts";
 import {getUserInfo} from "../../services/api/makeApi/usersService.ts";
 import {useNavigate} from "react-router-dom";
 import {getConnections} from "../../services/api/makeApi/connectionsService.ts";
+import {teamId} from "../../FirstDraft.tsx";
 
 
 const steps: {description: string, img: string}[] = [
@@ -50,7 +51,7 @@ export const CreatMakeAccountPage = () => {
     setAuth(authData.authToken);
     try{
       await getUserInfo();
-      const response = await getConnections(740188);
+      const response = await getConnections(teamId);
 
       updateData({authToken: authData.authToken, baseUrl: authData.baseUrl});
       navigate('create-connections')
