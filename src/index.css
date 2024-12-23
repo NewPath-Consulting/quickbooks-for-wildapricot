@@ -49,6 +49,11 @@ button {
   color: white;
 }
 
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
 
 button:focus,
 button:focus-visible {
@@ -63,9 +68,6 @@ p{
   :root {
     color: #213547;
     background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
   }
   button {
     background-color: var(--app-color);

@@ -102,7 +102,6 @@ export const CustomerInformationPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = validateForm();
-    console.log(errors)
     if (Object.values(errors).some(value => value.trim() !== "")) {
       setFormErrors(errors);
     }
