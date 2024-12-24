@@ -2,6 +2,7 @@ import {useRef, useState} from "react";
 import './ConnectionComponent.css'
 import * as React from "react";
 import {IConnection} from "../../pages/create-connections-page/CreateConnections.tsx";
+import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 export interface ConnectionComponentProps {
   connection: IConnection,
   isConnected: boolean,
@@ -10,8 +11,17 @@ export interface ConnectionComponentProps {
   isContentLoading: boolean
 }
 
+interface ICredentials {
+  apiKeyMG: string,
+  apiKeyWA: string,
+  baseUrl: string,
+  clientId: string,
+  clientSecret: string
+}
+
 export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isContentLoading, isLoading, connection, isConnected, createConnection}) => {
-  const [credentials, setCredentials] = useState<any>({});
+  const {onBoardingData} = useOnBoarding();
+  const [credentials, setCredentials] = useState<ICredentials>({apiKeyMG: "", baseUrl: "", apiKeyWA: onBoardingData.wildApricotAPI, clientId: "", clientSecret: ""});
 
   const handleInput = (e) => {
     const {name, value} = e.target;
@@ -49,11 +59,11 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isConte
         <form>
           <div className="mb-3">
             <label htmlFor="client-id" className="col-form-label">Client Id:</label>
-            <input type="text" name={"clientId"} onChange={handleInput} placeholder={""} className="form-control" id="client-id" />
+            <input type="text" name={"clientId"} value={credentials.clientId} onChange={handleInput} placeholder={""} className="form-control" id="client-id" />
           </div>
           <div className="mb-3">
             <label htmlFor="client-secret" className="col-form-label">Client Secret:</label>
-            <input type="password" name={"clientSecret"} onChange={handleInput} placeholder={""} className="form-control" id="client-secret" />
+            <input type="password" value={credentials.clientSecret} name={"clientSecret"} onChange={handleInput} placeholder={""} className="form-control" id="client-secret" />
           </div>
         </form>
       )
@@ -64,11 +74,11 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isConte
         <form>
           <div className="mb-3">
             <label htmlFor={`api-key-mg`} className="col-form-label">Api Key:</label>
-            <input type="password" name={`apiKeyMG`} onChange={handleInput} placeholder={""} className="form-control" id='api-key-mg'/>
+            <input type="password" value={credentials.apiKeyMG} name={`apiKeyMG`} onChange={handleInput} placeholder={""} className="form-control" id='api-key-mg'/>
           </div>
           <div className="mb-3">
             <label htmlFor={`base-url`} className="col-form-label">Base Url:</label>
-            <input type="text" name={`baseUrl`} onChange={handleInput} placeholder={""} className="form-control" id='base-url'/>
+            <input type="text" value={credentials.baseUrl} name={`baseUrl`} onChange={handleInput} placeholder={""} className="form-control" id='base-url'/>
           </div>
         </form>
       )
@@ -79,7 +89,7 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isConte
         <form>
           <div className="mb-3">
             <label htmlFor={`${connection.accountType == 'wild-apricot' ? "api-key-wa" : "api-key-mg"}`} className="col-form-label">Api Key:</label>
-            <input type="password" name={`${connection.accountType == 'wild-apricot' ? "apiKeyWA" : "apiKeyMG"}`} onChange={handleInput} placeholder={""} className="form-control" id={`${connection.accountType == 'wild-apricot' ? "api-key-wa" : "api-key-mg"}`} />
+            <input type="password" value={credentials.apiKeyWA} name={`${connection.accountType == 'wild-apricot' ? "apiKeyWA" : "apiKeyMG"}`} onChange={handleInput} placeholder={""} className="form-control" id={`${connection.accountType == 'wild-apricot' ? "api-key-wa" : "api-key-mg"}`} />
           </div>
         </form>
       )

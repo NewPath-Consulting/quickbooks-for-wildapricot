@@ -3,6 +3,7 @@ import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {useEffect, useState} from "react";
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
+import {getAccessToken} from "../../services/wildApricotClient.ts";
 
 export interface ICustomerInfo {
   firstName: string,
@@ -31,7 +32,7 @@ export const CustomerInformationPage = () => {
     phoneNumber: "",
     state: "",
     address: "",
-    displayName: ""
+    displayName: "",
   })
 
   const [formErrors, setFormErrors] = useState<ICustomerInfo>({
@@ -84,7 +85,7 @@ export const CustomerInformationPage = () => {
       lastName: "",
       organization: "",
       phoneNumber: "",
-      state: ""
+      state: "",
     };
     if (!formData.firstName.trim()) errors.firstName = "First name is required.";
     if (!formData.lastName.trim()) errors.lastName = "Last name is required.";
@@ -241,7 +242,7 @@ export const CustomerInformationPage = () => {
         </div>
         <div className="mt-4">
           <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/create-connections')}>Back</button>
-          <button className={"btn-success"} disabled={false} type={"submit"} onClick={() => navigate('/customer-information')}>Next</button>
+          <button className={"btn-success"} disabled={false} type={"submit"} onClick={() => getAccessToken(onBoardingData.wildApricotAPI)}>Next</button>
         </div>
       </form>
 

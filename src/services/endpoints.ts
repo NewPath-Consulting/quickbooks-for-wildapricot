@@ -5,6 +5,7 @@ const endpoints = {
     createInvoice: "/quickbooks/invoice",
   },
   wildApricotApi: {
+    getAuthToken: "/auth/token",
     getMembers: "/wild-apricot/members",
     updateMember: "/wild-apricot/members/:id",
   },

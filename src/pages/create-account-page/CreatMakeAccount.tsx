@@ -3,9 +3,9 @@ import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {useEffect, useState} from "react";
 import * as React from "react";
 import {setAuth} from "../../services/httpClient.ts";
-import {getUserInfo} from "../../services/api/makeApi/usersService.ts";
+import {getUserInfo} from "../../services/api/make-api/usersService.ts";
 import {useNavigate} from "react-router-dom";
-import {getConnections} from "../../services/api/makeApi/connectionsService.ts";
+import {getConnections} from "../../services/api/make-api/connectionsService.ts";
 import {teamId} from "../../FirstDraft.tsx";
 
 
@@ -49,6 +49,7 @@ export const CreatMakeAccountPage = () => {
   const handleVerification = async (e) => {
     e.preventDefault()
     setAuth(authData.authToken);
+    console.log(authData.authToken)
     try{
       await getUserInfo();
       const response = await getConnections(teamId);

@@ -2,7 +2,7 @@ import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {useEffect, useState} from "react";
 import * as React from "react";
 import {ConnectionComponent} from "../../components/connection-component/ConnectionComponent.tsx";
-import {createConnection, getConnections, verifyConnection} from "../../services/api/makeApi/connectionsService.ts";
+import {createConnection, getConnections, verifyConnection} from "../../services/api/make-api/connectionsService.ts";
 import {useNavigate} from "react-router-dom";
 import {teamId} from "../../FirstDraft.tsx";
 
@@ -91,6 +91,10 @@ export const CreateConnectionsPage = () => {
               })
             setErrorMsg("");
             setConnectionLoading(connectionBody.accountType, false)
+
+            if(connectionBody.accountType == 'wild-apricot'){
+              localStorage.setItem('wildApricotAPI', connectionBody.apiKey as string)
+            }
           }
           catch(e){
             setConnectionLoading(connectionBody.accountType, false)

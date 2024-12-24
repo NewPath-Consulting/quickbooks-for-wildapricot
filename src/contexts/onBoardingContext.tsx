@@ -1,7 +1,7 @@
 import {createContext, useEffect, useRef, useState} from "react";
 import {ICustomerInformation} from "../typings/ICustomerInformation.ts";
-import {getUserInfo} from "../services/api/makeApi/usersService.ts";
-import {getConnections} from "../services/api/makeApi/connectionsService.ts";
+import {getUserInfo} from "../services/api/make-api/usersService.ts";
+import {getConnections} from "../services/api/make-api/connectionsService.ts";
 import {setAuth} from "../services/httpClient.ts";
 import {ICustomerInfo} from "../pages/customer-info-page/CustomerInformationPage.tsx";
 
@@ -24,12 +24,13 @@ export const OnBoardingProvider = ({children}) => {
   const [onBoardingData, setOnBoardingData] = useState<OnboardingState>(() => {
     const savedBaseUrl = localStorage.getItem("baseUrl") || "";
     const savedAuthToken = localStorage.getItem("authToken") || "";
+    const savedWildApricotAPI = localStorage.getItem("wildApricotAPI") || ""
     return {
       baseUrl: savedBaseUrl,
       authToken: savedAuthToken,
       connections: [],
       customerInfo: {},
-      wildApricotAPI: "va7pv0rmuop5023me31e71kujcwos3"
+      wildApricotAPI: savedWildApricotAPI
     };
   });
 
