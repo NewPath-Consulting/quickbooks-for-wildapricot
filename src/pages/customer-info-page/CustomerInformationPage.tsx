@@ -3,7 +3,7 @@ import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {useEffect, useState} from "react";
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
-import {getAccessToken} from "../../services/wildApricotClient.ts";
+import {getAccessToken} from "../../services/authClient.ts";
 
 export interface ICustomerInfo {
   firstName: string,
@@ -242,7 +242,7 @@ export const CustomerInformationPage = () => {
         </div>
         <div className="mt-4">
           <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/create-connections')}>Back</button>
-          <button className={"btn-success"} disabled={false} type={"submit"} onClick={() => getAccessToken(onBoardingData.wildApricotAPI)}>Next</button>
+          <button className={"btn-success"} disabled={false} type={"submit"}>Next</button>
         </div>
       </form>
 

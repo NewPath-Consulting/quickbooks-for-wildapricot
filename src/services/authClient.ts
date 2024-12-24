@@ -4,12 +4,11 @@ import endpoints from "./endpoints.ts";
 
 const base64Encode = (apiKey: string): string => {
   const credentials = `APIKEY:${apiKey}`;
-  console.log(credentials)
   return btoa(credentials);
 };
 
 
-const wildApricotClient = axios.create({
+const authClient = axios.create({
   baseURL: "https://oauth.wildapricot.org",
   timeout: 10000,
   headers: {
@@ -17,7 +16,7 @@ const wildApricotClient = axios.create({
   }
 })
 
-wildApricotClient.interceptors.request.use(
+authClient.interceptors.request.use(
   (config) => {
     if(config.headers.Authorization){
       const token = base64Encode(config.headers.Authorization);
@@ -32,7 +31,7 @@ wildApricotClient.interceptors.request.use(
 export const getAccessToken = async (token: string) => {
   try {
     console.log(base64Encode(token))
-    const response = await wildApricotClient.post(
+    const response = await authClient.post(
       endpoints.wildApricotApi.getAuthToken,
       new URLSearchParams({
         grant_type: "client_credentials",
@@ -47,7 +46,6 @@ export const getAccessToken = async (token: string) => {
       }
     );
 
-    localStorage.setItem('wa-access-token', response.data.access_token)
     console.log(response)
     return response.data; // The token will be in `response.data`
   } catch (error) {
@@ -56,4 +54,4 @@ export const getAccessToken = async (token: string) => {
   }
 };
 
-export default wildApricotClient;
+export default authClient;
