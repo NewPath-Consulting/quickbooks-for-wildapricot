@@ -93,10 +93,7 @@ export const CreateConnectionsPage = () => {
 
             if(connectionBody.accountType == 'wild-apricot'){
               localStorage.setItem('wildApricotAPI', connectionBody.apiKey as string)
-              const response = await getAccessToken(connectionBody.apiKey as string);
-              const { access_token } = response
-              console.log(access_token);
-              localStorage.setItem('wa-access-token', access_token)
+              await getAccessToken(connectionBody.apiKey as string);
             }
 
             setErrorMsg("");

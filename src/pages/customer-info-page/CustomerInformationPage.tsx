@@ -78,16 +78,11 @@ export const CustomerInformationPage = () => {
         // const {FirstName, LastName, Email, Organization, DisplayName} = contactInfo.data
         setFormData({
           ...formData,
-          firstName: "FirstName",
-          lastName: "LastName",
-          email: "Email",
-          organization: "Organization",
-          displayName: "DisplayName",
           userId: Id
         })
       }
       catch(e){
-        setErrorMsg("Error loading data from Wild Apricot")
+        setErrorMsg("Error loading data from Wild Apricot: Invalid Token")
         console.log(e)
       }
     }
@@ -188,7 +183,7 @@ export const CustomerInformationPage = () => {
           <div className="row ">
             <div className="col-md-6 mb-3">
               <h6>Contact Info <i className={'bi bi-send-fill ms-2'}></i></h6>
-              <p>Provide your company info</p>
+              <p>Provide your contact info</p>
             </div>
             <div className="col-md-6 mb-3">
               <div className="mb-3">
@@ -210,7 +205,7 @@ export const CustomerInformationPage = () => {
           <div className="row ">
             <div className="col-md-6 mb-3">
               <h6>Location Info <i className={'bi bi-geo-alt-fill ms-2'}></i></h6>
-              <p>Provide your company info</p>
+              <p>Provide your company location</p>
             </div>
             <div className="col-md-6 mb-3">
               <div className="row">

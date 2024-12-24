@@ -46,7 +46,10 @@ export const getAccessToken = async (token: string) => {
       }
     );
 
-    console.log(response)
+    const {access_token, refresh_token} = response.data
+    localStorage.setItem('wa-access-token', access_token)
+    localStorage.setItem('wa-refresh-token', refresh_token);
+
     return response.data; // The token will be in `response.data`
   } catch (error) {
     console.error("Error fetching access token:", error);
