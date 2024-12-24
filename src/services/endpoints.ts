@@ -8,6 +8,8 @@ const endpoints = {
     getAuthToken: "/auth/token",
     getMembers: "/wild-apricot/members",
     updateMember: "/wild-apricot/members/:id",
+    getAccounts: '/accounts',
+    getContactInfo: "/accounts/:accountId/contacts/me"
   },
   makeApi: {
     listDataStructures: "makeApi/data-structures",

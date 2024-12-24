@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
 import {getAccessToken} from "../../services/authClient.ts";
+import {getContactInfo, getWildApricotAccounts} from "../../services/api/wild-apricot-api/accountsService.ts";
 
 export interface ICustomerInfo {
   firstName: string,
@@ -15,7 +16,8 @@ export interface ICustomerInfo {
   email: string,
   phoneNumber: string,
   state: string
-  displayName: string
+  displayName: string,
+  userId ?: number
 }
 
 export const CustomerInformationPage = () => {
@@ -33,6 +35,7 @@ export const CustomerInformationPage = () => {
     state: "",
     address: "",
     displayName: "",
+    userId: 0
   })
 
   const [formErrors, setFormErrors] = useState<ICustomerInfo>({
@@ -65,6 +68,28 @@ export const CustomerInformationPage = () => {
 
   useEffect(() => {
     setCurrentStep(3)
+
+    const getAccountInfo = async() => {
+      try{
+        const userInfo = await getWildApricotAccounts();
+        const { Id } = userInfo.data[0]
+        const contactInfo = await getContactInfo(Id);
+        const {FirstName, LastName, Email, Organization, DisplayName} = contactInfo.data
+        setFormData({
+          ...formData,
+          firstName: FirstName,
+          lastName: LastName,
+          email: Email,
+          organization: Organization,
+          displayName: DisplayName
+        })
+      }
+      catch(e){
+        console.log(e)
+      }
+    }
+
+    getAccountInfo();
   }, []);
 
   const appendToDisplayName = (field: string) => {

@@ -90,8 +90,6 @@ export const CreateConnectionsPage = () => {
                 newMap.set(connectionBody.accountType, true);
                 return newMap;
               })
-            setErrorMsg("");
-            setConnectionLoading(connectionBody.accountType, false)
 
             if(connectionBody.accountType == 'wild-apricot'){
               localStorage.setItem('wildApricotAPI', connectionBody.apiKey as string)
@@ -100,6 +98,9 @@ export const CreateConnectionsPage = () => {
               console.log(access_token);
               localStorage.setItem('wa-access-token', access_token)
             }
+
+            setErrorMsg("");
+            setConnectionLoading(connectionBody.accountType, false)
           }
           catch(e){
             setConnectionLoading(connectionBody.accountType, false)
@@ -149,6 +150,15 @@ export const CreateConnectionsPage = () => {
     listConnections();
   }, []); // Empty dependency array ensures this runs once
 
+  const handleNextPage = () => {
+    if(Array.from(isConnectedMap).some(val => !val[1])){
+      setErrorMsg("Connect to all apps to continue")
+    }
+    else{
+      navigate('/customer-information')
+    }
+  }
+
   useEffect(() => {
     setCurrentStep(2)
     console.log(isConnectedMap)
@@ -168,7 +178,7 @@ export const CreateConnectionsPage = () => {
           {connectionsList.map((connection, index) => <ConnectionComponent key={index} isContentLoading={isContentLoading} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
         </div>
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/')}>Back</button>
-        <button className={"btn-success"} disabled={Array.from(isConnectedMap).every(val => !val[1])} type={"submit"} onClick={() => navigate('/customer-information')}>Next</button>
+        <button className={"btn-success"} disabled={Array.from(isConnectedMap).every(val => !val[1])} type={"submit"} onClick={() => handleNextPage()}>Next</button>
       </div>
 
     </main>
