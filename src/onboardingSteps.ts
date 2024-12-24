@@ -23,7 +23,7 @@ export const steps: ISteps[] = [
   {
     stepNumber: 3,
     title: "Customer Information",
-    subTitle: "Information ",
+    subTitle: "Add your information",
     endpoint: "/customer-information"
   },
   {

@@ -23,6 +23,7 @@ export interface ICustomerInfo {
 export const CustomerInformationPage = () => {
   const {onBoardingData, setCurrentStep, updateData} = useOnBoarding();
   const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState("");
 
   const [formData, setFormData] = useState<ICustomerInfo>({
     city: "",
@@ -73,18 +74,20 @@ export const CustomerInformationPage = () => {
       try{
         const userInfo = await getWildApricotAccounts();
         const { Id } = userInfo.data[0]
-        const contactInfo = await getContactInfo(Id);
-        const {FirstName, LastName, Email, Organization, DisplayName} = contactInfo.data
+        // const contactInfo = await getContactInfo(Id);
+        // const {FirstName, LastName, Email, Organization, DisplayName} = contactInfo.data
         setFormData({
           ...formData,
-          firstName: FirstName,
-          lastName: LastName,
-          email: Email,
-          organization: Organization,
-          displayName: DisplayName
+          firstName: "FirstName",
+          lastName: "LastName",
+          email: "Email",
+          organization: "Organization",
+          displayName: "DisplayName",
+          userId: Id
         })
       }
       catch(e){
+        setErrorMsg("Error loading data from Wild Apricot")
         console.log(e)
       }
     }
@@ -143,8 +146,11 @@ export const CustomerInformationPage = () => {
         <h2>Customer Information</h2>
         <p>Provide your company details to personalize and streamline your integration experience.</p>
       </header>
-
+      {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
+          <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
+      </div>}
       <form onSubmit={handleSubmit} className={Object.values(formErrors).some(value => value.trim() !== "") ? 'was-validated' : ''} noValidate={true}>
+
         <h5 className={'mb-4'}>Wild Apricot Information</h5>
 
         <div className={"form-content"}>
