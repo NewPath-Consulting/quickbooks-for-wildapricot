@@ -15,10 +15,10 @@ const Sidebar: React.FC = () => {
               <li className={index + 1 < currentStep ? "completed-step" : index + 1 == currentStep  ? "active-step" : ""} key={index}>
                 {isClickable ?
                   <a className="step-number" href={step.endpoint}>
-                    {index + 1 < currentStep ? <i style={{fontSize: "1.2em", color: "white"}} className={"bi bi-check"}></i> : step.stepNumber}
+                    {index + 1 < currentStep ? <i style={{fontSize: "1.2em", color: "white"}} className={"bi bi-check"}></i> : index + 1}
                   </a> :
                   <span className="step-number">
-                    {index + 1 < currentStep ? <i style={{fontSize: "1.2em", color: "white"}} className={"bi bi-check"}></i> : step.stepNumber}
+                    {index + 1 < currentStep ? <i style={{fontSize: "1.2em", color: "white"}} className={"bi bi-check"}></i> : index + 1}
                   </span>
                 }
                 <div >

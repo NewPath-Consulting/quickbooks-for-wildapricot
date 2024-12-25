@@ -1,7 +1,6 @@
 
 
 export interface ISteps {
-  stepNumber: number,
   title: string,
   subTitle: string,
   endpoint: string
@@ -9,31 +8,36 @@ export interface ISteps {
 
 export const steps: ISteps[] = [
   {
-    stepNumber: 1,
     title: "Create make account",
     subTitle: "Sign up at Make.com",
     endpoint: "/"
   },
   {
-    stepNumber: 2,
     title: "Connections",
     subTitle: "Create your app connections",
     endpoint: "/create-connections"
   },
   {
-    stepNumber: 3,
     title: "Customer Information",
     subTitle: "Add your information",
     endpoint: "/customer-information"
   },
   {
-    stepNumber: 4,
-    title: "Map data",
-    subTitle: "Configure your data",
+    title: "Invoice Configuration",
+    subTitle: "Configure your invoices",
     endpoint: "/"
   },
   {
-    stepNumber: 5,
+    title: "Payment Configuration",
+    subTitle: "Configure your payments",
+    endpoint: "/"
+  },
+  {
+    title: "Donation Configuration",
+    subTitle: "Configure your donations",
+    endpoint: "/"
+  },
+  {
     title: "Run and Test",
     subTitle: "Test you app by running it",
     endpoint: "/"
