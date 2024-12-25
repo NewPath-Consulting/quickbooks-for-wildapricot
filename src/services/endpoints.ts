@@ -3,6 +3,8 @@ const endpoints = {
   quickbooksApi: {
     getInvoice: "/quickbooks/invoice",
     createInvoice: "/quickbooks/invoice",
+    getAccessToken: "/api/quickbooks/connect",
+    refreshAccessToken: "/api/quickbooks/refresh-token"
   },
   wildApricotApi: {
     getAuthToken: "/auth/token",
