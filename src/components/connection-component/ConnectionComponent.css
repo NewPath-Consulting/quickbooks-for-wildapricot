@@ -1,17 +1,31 @@
 
-.instruction-header-container {
-    padding: 1em 1.5em;
+
+.instruction-container button {
+    padding: 0;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #747bff;
+    font-size: 12px;
+}
+
+.instruction-container{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid transparent;
-}
-
-.instruction-header-container button, .modal button {
-    padding: 5px 1em;
+    gap: 10px;
+    padding: 1em 1.5em;
+    border: 2px solid #f1f1f1;
     border-radius: 10px;
+    position: relative;
 }
 
+.instruction-container .button-container {
+    border-top: 2px solid #f1f1f1;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 0.5em 0;
+}
 
 .not-completed {
     background-color: black;
@@ -26,11 +40,6 @@
 
 .instruction-content {
     padding: 1em 1.5em;
-}
-
-.instruction-container{
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
 }
 
 p {

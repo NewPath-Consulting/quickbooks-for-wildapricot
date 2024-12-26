@@ -16,14 +16,14 @@ const connectionsList: IConnection[] = [
   {
     img: "wa-logo.png",
     title: "Wild Apricot",
-    description: "Necessary",
+    description: "Connect to your Wild Apricot account to manage your organization's membership data and events.",
     accountType: "wild-apricot",
     scopes: ["auto"]
   },
   {
     img: "qb-logo.png",
     title: "Quickbooks",
-    description: "Necessary",
+    description: "Connect to QuickBooks to automatically sync your financial transactions and manage billing.",
     accountType: "quickbooks",
     scopes: [
       "com.intuit.quickbooks.accounting",
@@ -34,7 +34,7 @@ const connectionsList: IConnection[] = [
   {
     img: "mg-logo.png",
     title: "Mailgun",
-    description: "Necessary",
+    description: "Link your Mailgun account to handle all email communications with your members.",
     accountType: "mailgun2"
   }
 ]
@@ -156,7 +156,7 @@ export const CreateConnectionsPage = () => {
       {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
           <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
       </div>}
-      <div>
+      <div className={'row mb-0'}>
         {connectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
       </div>
       <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/')}>Back</button>

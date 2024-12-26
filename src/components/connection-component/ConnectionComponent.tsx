@@ -85,25 +85,15 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoadi
     }
   }
   return (
-    <div className={`instruction-container mb-3`}>
-      <div className={`instruction-header-container`}>
-        <div className={"d-flex gap-3 align-items-center"}>
-          <img src={connection.img} className={"rounded-1"} width={40} alt={"predefined images for each step"}/>
-          <div>
-            <strong className={"fw-medium"}>{connection.title}</strong>
-            <p style={{color: "gray"}}>{connection.description}</p>
-          </div>
-        </div>
-        <div className={"d-flex gap-3 align-items-center"}>
-          <p>Learn More <i className={`bi bi-chevron-down`}></i></p>
-          <div style={{height: "10px", width: "2px", background: 'rgb(0, 0, 0, 0.2)'}}/>
-          <button data-bs-toggle="modal" data-bs-target={`#${connection.accountType}`} className={`d-flex align-items-center fw-bold ${isConnected ? "completed" : "not-completed"}`}>
-            {isLoading ? <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span> :
-              <i style={{color: 'white'}} className={`bi ${isConnected ? 'bi-check-circle' : 'bi-link-45deg'} fs-5 me-2`}></i>
-            }
-            {isLoading ? "Connecting" : isConnected ? "Done" : "Connect"}
-          </button>
-        </div>
+    <div className={`instruction-container mb-3 col-md me-3`}>
+
+      <img src={connection.img} className={"rounded-1"} width={40} alt={"predefined images for each step"}/>
+      <strong>{connection.title}</strong>
+      <p style={{color: "gray", }}>{connection.description}</p>
+      <div className={'button-container'}>
+        <button data-bs-toggle="modal" className={"align-self-baseline"} data-bs-target={`#${connection.accountType}`}>
+          <i className={'bi bi-plus me-1'} style={{color: '#747bff'}}></i>Connect
+        </button>
       </div>
 
       <div className="modal fade" id={`${connection.accountType}`} tabIndex="-1" aria-labelledby={`${connection.accountType}Label`} aria-hidden="true">
