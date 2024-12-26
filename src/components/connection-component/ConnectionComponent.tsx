@@ -11,7 +11,7 @@ export interface ConnectionComponentProps {
   isContentLoading: boolean
 }
 
-interface ICredentials {
+export interface ICredentials {
   apiKeyMG: string,
   apiKeyWA: string,
   baseUrl: string,
@@ -32,26 +32,11 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isConte
     })
   }
 
-  const postConnection = () => {
-    const body: IConnectionBody = {
-      accountType: connection.accountType,
-      accountName: connection.title + " Connection"
-    }
 
-    if(connection.accountType == 'wild-apricot'){
-      body.apiKey = credentials.apiKeyWA
-      body.scopes = connection.scopes;
-    }
-    else if(connection.accountType == 'quickbooks'){
-      body.scopes = connection.scopes
-    }
-    else{
-      body.apiKey = credentials.apiKeyMG;
-      body.baseUrl = credentials.baseUrl;
-    }
 
-    createConnection(body);
-  }
+    const postConnection = () => {
+      createConnection(credentials, connection);
+    };
 
   const modalBody = () => {
     if(connection.accountType == 'quickbooks'){

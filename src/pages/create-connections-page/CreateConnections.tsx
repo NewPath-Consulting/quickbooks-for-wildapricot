@@ -1,7 +1,7 @@
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {useEffect, useState} from "react";
 import * as React from "react";
-import {ConnectionComponent} from "../../components/connection-component/ConnectionComponent.tsx";
+import {ConnectionComponent, ICredentials} from "../../components/connection-component/ConnectionComponent.tsx";
 import {createConnection, getConnections, verifyConnection} from "../../services/api/make-api/connectionsService.ts";
 import {useNavigate} from "react-router-dom";
 import {teamId} from "../../FirstDraft.tsx";
@@ -65,54 +65,96 @@ export const CreateConnectionsPage = () => {
     });
   }
 
-  const handleConnection = async (connectionBody: IConnectionBody) => {
-    setConnectionLoading(connectionBody.accountType, true)
-    try{
-      const connectionResponse = await createConnection(connectionBody, teamId);
-      const connectionId = connectionResponse.data.id;
-      const URL = `https://us1.make.com/api/v2/oauth/auth/${connectionId}`;
-      const authWindow = window.open(URL, "_blank", "width=500,height=600");
+  const openAuthWindow = (url: string) => {
+    const authWindow = window.open(url, "_blank", "width=500,height=600");
 
-      if (!authWindow) {
-        alert("Popup blocked! Please allow popups for this site.");
-        return;
-      }
+    if (!authWindow) {
+      alert("Popup blocked! Please allow popups for this site.");
+      throw new Error("Popup blocked");
+    }
 
-      // Monitor the window state
+    return authWindow;
+  };
+
+  const monitorAuthWindow = async (authWindow: Window, connectionId: number, connectionBody: IConnectionBody) => {
+    return new Promise<void>((resolve, reject) => {
       const interval = setInterval(async () => {
         if (authWindow.closed) {
           clearInterval(interval); // Stop monitoring the window
-          try{
+          try {
             const response = await verifyConnection(connectionId);
 
-              setIsConnectedMap(prevMap => {
-                const newMap = new Map(prevMap);
-                newMap.set(connectionBody.accountType, true);
-                return newMap;
-              })
+            setIsConnectedMap((prevMap) => {
+              const newMap = new Map(prevMap);
+              newMap.set(connectionBody.accountType, true);
+              return newMap;
+            });
 
-            if(connectionBody.accountType == 'wild-apricot'){
-              localStorage.setItem('waApiKey', connectionBody.apiKey as string)
+            if (connectionBody.accountType === "wild-apricot") {
+              localStorage.setItem("waApiKey", connectionBody.apiKey as string);
               await getWildApricotAccessToken({apiKey: connectionBody.apiKey as string});
             }
 
-            setErrorMsg("");
-            setConnectionLoading(connectionBody.accountType, false)
-          }
-          catch(e){
-            setConnectionLoading(connectionBody.accountType, false)
-            setErrorMsg(e.response.data.error + connectionBody.accountName);
-            console.log(e);
+            setConnectionLoading(connectionBody.accountType, false);
+            resolve();
+          } catch (error: any) {
+            setConnectionLoading(connectionBody.accountType, false);
+            setErrorMsg(error.response.data.error + connectionBody.accountName);
+            reject(error);
           }
         }
       }, 500);
+    });
+  };
+
+  const buildConnectionBody = (credentials: ICredentials, connection: IConnection): IConnectionBody => {
+    const baseBody = {
+      accountType: connection.accountType,
+      accountName: `${connection.title} Connection`
+    };
+
+    const connectionConfigs = {
+      'wild-apricot': {
+        apiKey: credentials.apiKeyWA,
+        scopes: connection.scopes
+      },
+      'quickbooks': {
+        scopes: connection.scopes,
+        // clientId: credentials.clientId,
+        // clientSecret: credentials.clientSecret
+      },
+      'mailgun2': {
+        apiKey: credentials.apiKeyMG,
+        baseUrl: credentials.baseUrl
+      }
+    };
+
+    return {
+      ...baseBody,
+      ...connectionConfigs[connection.accountType]
+    };
+  };
+
+  const handleConnection = async (credentials: ICredentials, connection: IConnection) => {
+    setConnectionLoading(connection.accountType, true);
+
+    const connectionBody: IConnectionBody = buildConnectionBody(credentials, connection)
+
+    try {
+      const connectionResponse = await createConnection(connectionBody, teamId);
+      const connectionId = connectionResponse.data.id;
+      const URL = `https://us1.make.com/api/v2/oauth/auth/${connectionId}`;
+
+      const authWindow = openAuthWindow(URL);
+      await monitorAuthWindow(authWindow, connectionId, connectionBody);
+
+      setErrorMsg(""); // Clear error message on success
+    } catch (error: any) {
+      setConnectionLoading(connectionBody.accountType, false);
+      setErrorMsg(error.response?.data?.error + connectionBody.accountName || "An error occurred");
+      console.error(error);
     }
-    catch(e){
-      setConnectionLoading(connectionBody.accountType, false)
-      setErrorMsg(e.response.data.error);
-      console.error(e.response.data.error);
-    }
-  }
+  };
 
   useEffect(() => {
     const listConnections = async () => {

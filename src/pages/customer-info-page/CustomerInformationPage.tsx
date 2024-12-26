@@ -3,7 +3,6 @@ import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {useEffect, useState} from "react";
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
-import {getAccessToken} from "../../services/authClient.ts";
 import {getContactInfo, getWildApricotAccounts} from "../../services/api/wild-apricot-api/accountsService.ts";
 
 export interface ICustomerInfo {

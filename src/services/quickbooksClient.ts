@@ -2,7 +2,7 @@ import axios from "axios"
 import {refreshWildApricotAccessToken} from "./api/wild-apricot-api/authService.ts";
 
 
-const wildApricotClient = axios.create({
+const quickbooksClient = axios.create({
   baseURL: "https://api.wildapricot.org/v2.2",
   timeout: 10000,
   headers: {
@@ -10,7 +10,7 @@ const wildApricotClient = axios.create({
   }
 })
 
-wildApricotClient.interceptors.request.use(
+quickbooksClient.interceptors.request.use(
   (config) => {
     config.headers.Authorization = `Bearer ${localStorage.getItem('waAccessToken')}`
     return config
@@ -18,13 +18,13 @@ wildApricotClient.interceptors.request.use(
   (error) => Promise.reject(error)
 )
 
-wildApricotClient.interceptors.response.use(
+quickbooksClient.interceptors.response.use(
   (response) => response, // Pass through successful responses
   async (error) => {
     const originalRequest = error.config;
     console.log(error);
     console.log(originalRequest)
-
+    // If the error is 401 and we haven't already retried
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true; // Mark request as retried
 
@@ -35,7 +35,7 @@ wildApricotClient.interceptors.response.use(
 
         // Update the Authorization header and retry the original request
         originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('waAccessToken')}`;
-        return wildApricotClient(originalRequest); // Retry the original request
+        return quickbooksClient(originalRequest); // Retry the original request
       } catch (refreshError) {
         console.error("Token refresh failed:", refreshError);
         // Optional: Redirect to login or show an error
@@ -48,4 +48,4 @@ wildApricotClient.interceptors.response.use(
   }
 )
 
-export default wildApricotClient;
+export default quickbooksClient;
