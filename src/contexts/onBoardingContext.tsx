@@ -24,7 +24,7 @@ export const OnBoardingProvider = ({children}) => {
   const [onBoardingData, setOnBoardingData] = useState<OnboardingState>(() => {
     const savedBaseUrl = localStorage.getItem("baseUrl") || "";
     const savedAuthToken = localStorage.getItem("authToken") || "";
-    const savedWildApricotAPI = localStorage.getItem("wildApricotAPI") || ""
+    const savedWildApricotAPI = localStorage.getItem("waApiKey") || ""
     return {
       baseUrl: savedBaseUrl,
       authToken: savedAuthToken,

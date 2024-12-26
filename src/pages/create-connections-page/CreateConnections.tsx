@@ -5,7 +5,7 @@ import {ConnectionComponent} from "../../components/connection-component/Connect
 import {createConnection, getConnections, verifyConnection} from "../../services/api/make-api/connectionsService.ts";
 import {useNavigate} from "react-router-dom";
 import {teamId} from "../../FirstDraft.tsx";
-import {getAccessToken} from "../../services/authClient.ts";
+import {getWildApricotAccessToken} from "../../services/api/wild-apricot-api/authService.ts";
 
 export interface IConnection {
   img: string,
@@ -92,8 +92,8 @@ export const CreateConnectionsPage = () => {
               })
 
             if(connectionBody.accountType == 'wild-apricot'){
-              localStorage.setItem('wildApricotAPI', connectionBody.apiKey as string)
-              await getAccessToken(connectionBody.apiKey as string);
+              localStorage.setItem('waApiKey', connectionBody.apiKey as string)
+              await getWildApricotAccessToken({apiKey: connectionBody.apiKey as string});
             }
 
             setErrorMsg("");

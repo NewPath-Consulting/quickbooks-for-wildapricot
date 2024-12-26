@@ -9,7 +9,7 @@ interface IQBAuthResponse {
   expiresIn: number
 }
 
-export const getAccessToken = async (params: IQBAuthBody) => {
+export const getQuickbooksAccessToken = async (params: IQBAuthBody) => {
 
   try{
     const response: AxiosResponse<IQBAuthResponse> = await httpClient.get(endpoints.quickbooksApi.getAccessToken, {params})
@@ -23,7 +23,7 @@ export const getAccessToken = async (params: IQBAuthBody) => {
 
 }
 
-export const refreshAccessToken = async (body: IQBAuthBody)=> {
+export const refreshQuickbooksAccessToken = async (body: IQBAuthBody)=> {
   try {
     const storedRefreshToken = localStorage.getItem("qbRefreshToken");
 

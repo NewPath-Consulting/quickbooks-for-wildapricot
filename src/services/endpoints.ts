@@ -7,7 +7,8 @@ const endpoints = {
     refreshAccessToken: "/api/quickbooks/refresh-token"
   },
   wildApricotApi: {
-    getAuthToken: "/auth/token",
+    getAccessToken: "/api/wild-apricot/connect",
+    refreshAccessToken: "/api/wild-apricot/refresh-token",
     getMembers: "/wild-apricot/members",
     updateMember: "/wild-apricot/members/:id",
     getAccounts: '/accounts',
