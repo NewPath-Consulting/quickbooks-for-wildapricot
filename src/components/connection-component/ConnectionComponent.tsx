@@ -85,14 +85,18 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoadi
     }
   }
   return (
-    <div className={`instruction-container mb-3 col-md me-3`}>
-
-      <img src={connection.img} className={"rounded-1"} width={40} alt={"predefined images for each step"}/>
-      <strong>{connection.title}</strong>
-      <p style={{color: "gray", }}>{connection.description}</p>
-      <div className={'button-container'}>
-        <button data-bs-toggle="modal" className={"align-self-baseline"} data-bs-target={`#${connection.accountType}`}>
-          <i className={'bi bi-plus me-1'} style={{color: '#747bff'}}></i>Connect
+    <div className={`instruction-container mb-3 col-md me-3 ${isConnected ? "completed" : ""}`}>
+      <div className={'header'}>
+        <div>
+          <img src={connection.img} className={"rounded-1"} width={40} alt={"predefined images for each step"}/>
+          {isConnected && <i className={'bi bi-check2-circle float-end fw-bold'} style={{color: 'rgb(141,231,165)'}}></i>}
+        </div>
+        <strong className={'fw-normal'}>{connection.title}</strong>
+        <p style={{color: "gray", }}>{connection.description}</p>
+      </div>
+      <div className={`button-container `} style={{borderColor: `${isConnected ? "rgba(141, 231, 165, 0.44)" : ""}`}}>
+        <button data-bs-toggle="modal" className={"align-self-baseline float-end"} data-bs-target={`#${connection.accountType}`}>
+          {isConnected ? "View Connection" : "Connect"}
         </button>
       </div>
 
@@ -110,7 +114,7 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoadi
               {modalBody()}
             </div>
             <div className="modal-footer">
-              <button onClick={postConnection} data-bs-dismiss="modal" type="button" className="not-completed fw-bold d-flex align-items-center" style={{color: "white"}}>
+              <button onClick={postConnection} data-bs-dismiss="modal" type="button">
                 Connect App
               </button>
             </div>
