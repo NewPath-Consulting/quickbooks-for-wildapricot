@@ -8,7 +8,6 @@ export interface ConnectionComponentProps {
   isConnected: boolean,
   createConnection: Function,
   isLoading: boolean,
-  isContentLoading: boolean
 }
 
 export interface ICredentials {
@@ -19,7 +18,7 @@ export interface ICredentials {
   clientSecret: string
 }
 
-export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isContentLoading, isLoading, connection, isConnected, createConnection}) => {
+export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoading, connection, isConnected, createConnection}) => {
   const {onBoardingData} = useOnBoarding();
   const [credentials, setCredentials] = useState<ICredentials>({apiKeyMG: "", baseUrl: "", apiKeyWA: onBoardingData.wildApricotAPI, clientId: "", clientSecret: ""});
 
@@ -81,13 +80,6 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isConte
     }
   }
 
-  if(isContentLoading){
-    return (
-      <p className="card-text placeholder-wave  mb-3">
-        <span className="placeholder col-12 rounded-3" style={{padding: "38.5px"}}></span>
-      </p>
-    )
-  }
 
   return (
     <div className={'mb-3 col-md-4 col-sm-12'}>

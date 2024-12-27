@@ -214,21 +214,14 @@ export const CreateConnectionsPage = () => {
         {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
             <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
         </div>}
-        <div>
-          {connectionsList.map((connection, index) => <ConnectionComponent key={index} isContentLoading={isContentLoading} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
+        <div className={'row mb-3'}>
+          {connectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
         </div>
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/')}>Back</button>
         <button className={"btn-success"} disabled={Array.from(isConnectedMap).every(val => !val[1])} type={"submit"} onClick={() => handleNextPage()}>Next</button>
       </div>
 
-      {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
-          <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
-      </div>}
-      <div className={'row mb-3'}>
-        {connectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
-      </div>
-      <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/')}>Back</button>
-      <button className={"btn-success"} disabled={Array.from(isConnectedMap).every(val => !val[1])} type={"submit"} onClick={() => navigate('/customer-information')}>Next</button>
+
     </main>
   )
 }
