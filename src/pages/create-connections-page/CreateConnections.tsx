@@ -17,15 +17,16 @@ export interface IConnection {
 const connectionsList: IConnection[] = [
   {
     img: "wa-logo.png",
-    title: "WildApricot",
-    description: "Necessary",
+    title: "Wild Apricot",
+    description: "Connect to your Wild Apricot account to manage your organization's membership data and events.",
     accountType: "wild-apricot",
     scopes: ["auto"]
   },
+
   {
     img: "qb-logo.png",
-    title: "QuickBooks",
-    description: "Necessary",
+    title: "Quickbooks",
+    description: "Connect to QuickBooks to automatically sync your financial transactions and manage billing.",
     accountType: "quickbooks",
     scopes: [
       "com.intuit.quickbooks.accounting",
@@ -36,7 +37,7 @@ const connectionsList: IConnection[] = [
   {
     img: "mg-logo.png",
     title: "Mailgun",
-    description: "Necessary",
+    description: "Link your Mailgun account to handle all email communications with your members.",
     accountType: "mailgun2"
   }
 ]
@@ -220,6 +221,14 @@ export const CreateConnectionsPage = () => {
         <button className={"btn-success"} disabled={Array.from(isConnectedMap).every(val => !val[1])} type={"submit"} onClick={() => handleNextPage()}>Next</button>
       </div>
 
+      {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
+          <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
+      </div>}
+      <div className={'row mb-3'}>
+        {connectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
+      </div>
+      <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/')}>Back</button>
+      <button className={"btn-success"} disabled={Array.from(isConnectedMap).every(val => !val[1])} type={"submit"} onClick={() => navigate('/customer-information')}>Next</button>
     </main>
   )
 }

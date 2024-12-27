@@ -1,40 +1,52 @@
 
-.instruction-header-container {
-    padding: 1em 1.5em;
+
+.instruction-container button {
+    padding: 0;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #ff6464;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.instruction-container{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid transparent;
-}
-
-.instruction-header-container button, .modal button {
-    padding: 5px 1em;
     border-radius: 10px;
+    padding: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
+
+.instruction-container .header{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 1em 1.5em;
+}
+
+.modal button {
+    color: #ff6464;
+    font-size: 14px;
+}
+
+.instruction-container .button-container {
+    border-top: 1px solid #f1f1f1;
+    padding: 0.5em 1.5em;
+}
 
 .not-completed {
     background-color: black;
 }
 
-.completed {
-    background-color: #69c282;
-}
 .expanded {
     border-bottom-color: var(--border-color);
 }
 
 .instruction-content {
     padding: 1em 1.5em;
-}
-
-.instruction-container{
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-}
-
-.card-text{
-    color: #eeeeee;
 }
 
 p {

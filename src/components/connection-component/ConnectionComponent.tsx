@@ -90,44 +90,40 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isConte
   }
 
   return (
-    <div className={`instruction-container mb-3`}>
-      <div className={`instruction-header-container`}>
-        <div className={"d-flex gap-3 align-items-center"}>
-          <img src={connection.img} className={"rounded-1"} width={40} alt={"predefined images for each step"}/>
+    <div className={'mb-3 col-md-4 col-sm-12'}>
+      <div className={`instruction-container ${isConnected ? "completed" : ""}`}>
+        <div className={'header'}>
           <div>
-            <strong className={"fw-medium"}>{connection.title}</strong>
-            <p style={{color: "gray"}}>{connection.description}</p>
+            <img src={connection.img} className={"rounded-1"} width={40} alt={"predefined images for each step"}/>
+            {isConnected && <i className={'bi bi-check2-circle float-end fw-bold'} style={{color: 'rgb(141,231,165)'}}></i>}
           </div>
+          <strong className={'fw-normal'}>{connection.title}</strong>
+          <p style={{color: "gray", }}>{connection.description}</p>
         </div>
-        <div className={"d-flex gap-3 align-items-center"}>
-          <p>Learn More <i className={`bi bi-chevron-down`}></i></p>
-          <div style={{height: "10px", width: "2px", background: 'rgb(0, 0, 0, 0.2)'}}/>
-          <button data-bs-toggle="modal" data-bs-target={`#${connection.accountType}`} className={`d-flex align-items-center fw-bold ${isConnected ? "completed" : "not-completed"}`}>
-            {isLoading ? <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span> :
-              <i style={{color: 'white'}} className={`bi ${isConnected ? 'bi-check-circle' : 'bi-link-45deg'} fs-5 me-2`}></i>
-            }
-            {isLoading ? "Connecting" : isConnected ? "Done" : "Connect"}
+        <div className={`button-container` }>
+          <button data-bs-toggle="modal" className={"align-self-baseline float-end"} data-bs-target={`#${connection.accountType}`}>
+            {isConnected ? "View Connection" : "Connect"}
           </button>
         </div>
-      </div>
 
-      <div className="modal fade" id={`${connection.accountType}`} tabIndex="-1" aria-labelledby={`${connection.accountType}Label`} aria-hidden="true">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">
-                <img src={connection.img} width={30} className={"rounded-1 me-2"} alt={"app logo"}/>
-                {connection.title}
-            </h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              {modalBody()}
-            </div>
-            <div className="modal-footer">
-              <button onClick={postConnection} data-bs-dismiss="modal" type="button" className="not-completed fw-bold d-flex align-items-center" style={{color: "white"}}>
-                Connect App
-              </button>
+        <div className="modal fade" id={`${connection.accountType}`} tabIndex="-1" aria-labelledby={`${connection.accountType}Label`} aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">
+                  <img src={connection.img} width={30} className={"rounded-1 me-2"} alt={"app logo"}/>
+                  {connection.title}
+                </h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                {modalBody()}
+              </div>
+              <div className="modal-footer">
+                <button onClick={postConnection} data-bs-dismiss="modal" type="button">
+                  Connect App
+                </button>
+              </div>
             </div>
           </div>
         </div>
