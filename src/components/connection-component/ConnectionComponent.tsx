@@ -85,38 +85,40 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoadi
     }
   }
   return (
-    <div className={`instruction-container mb-3 col-md me-3 ${isConnected ? "completed" : ""}`}>
-      <div className={'header'}>
-        <div>
-          <img src={connection.img} className={"rounded-1"} width={40} alt={"predefined images for each step"}/>
-          {isConnected && <i className={'bi bi-check2-circle float-end fw-bold'} style={{color: 'rgb(141,231,165)'}}></i>}
+    <div className={'mb-3 col-md-4 col-sm-12'}>
+      <div className={`instruction-container ${isConnected ? "completed" : ""}`}>
+        <div className={'header'}>
+          <div>
+            <img src={connection.img} className={"rounded-1"} width={40} alt={"predefined images for each step"}/>
+            {isConnected && <i className={'bi bi-check2-circle float-end fw-bold'} style={{color: 'rgb(141,231,165)'}}></i>}
+          </div>
+          <strong className={'fw-normal'}>{connection.title}</strong>
+          <p style={{color: "gray", }}>{connection.description}</p>
         </div>
-        <strong className={'fw-normal'}>{connection.title}</strong>
-        <p style={{color: "gray", }}>{connection.description}</p>
-      </div>
-      <div className={`button-container `} style={{borderColor: `${isConnected ? "rgba(141, 231, 165, 0.44)" : ""}`}}>
-        <button data-bs-toggle="modal" className={"align-self-baseline float-end"} data-bs-target={`#${connection.accountType}`}>
-          {isConnected ? "View Connection" : "Connect"}
-        </button>
-      </div>
+        <div className={`button-container` }>
+          <button data-bs-toggle="modal" className={"align-self-baseline float-end"} data-bs-target={`#${connection.accountType}`}>
+            {isConnected ? "View Connection" : "Connect"}
+          </button>
+        </div>
 
-      <div className="modal fade" id={`${connection.accountType}`} tabIndex="-1" aria-labelledby={`${connection.accountType}Label`} aria-hidden="true">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">
-                <img src={connection.img} width={30} className={"rounded-1 me-2"} alt={"app logo"}/>
-                {connection.title}
-            </h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              {modalBody()}
-            </div>
-            <div className="modal-footer">
-              <button onClick={postConnection} data-bs-dismiss="modal" type="button">
-                Connect App
-              </button>
+        <div className="modal fade" id={`${connection.accountType}`} tabIndex="-1" aria-labelledby={`${connection.accountType}Label`} aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">
+                  <img src={connection.img} width={30} className={"rounded-1 me-2"} alt={"app logo"}/>
+                  {connection.title}
+                </h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                {modalBody()}
+              </div>
+              <div className="modal-footer">
+                <button onClick={postConnection} data-bs-dismiss="modal" type="button">
+                  Connect App
+                </button>
+              </div>
             </div>
           </div>
         </div>

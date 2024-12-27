@@ -4,7 +4,7 @@
     padding: 0;
     border-radius: 5px;
     background-color: transparent;
-    color: #6c6c6c;
+    color: #ff6464;
     font-size: 13px;
     font-weight: 600;
 }
@@ -13,10 +13,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 2px solid #f1f1f1;
     border-radius: 10px;
     padding: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
+
 
 .instruction-container .header{
     display: flex;
@@ -27,7 +28,7 @@
 }
 
 .modal button {
-    color: #747bff;
+    color: #ff6464;
     font-size: 14px;
 }
 
@@ -40,10 +41,6 @@
     background-color: black;
 }
 
-.completed {
-    border-color: rgba(141, 231, 165, 0.44);
-    background-color: rgba(141, 231, 165, 0.03);
-}
 .expanded {
     border-bottom-color: var(--border-color);
 }
