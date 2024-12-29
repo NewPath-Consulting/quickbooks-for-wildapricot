@@ -1,5 +1,6 @@
 import axios from "axios"
 import {refreshWildApricotAccessToken} from "./api/wild-apricot-api/authService.ts";
+import {refreshQuickbooksAccessToken} from "./api/quickbooks-api/authService.ts";
 
 
 const quickbooksClient = axios.create({
@@ -29,12 +30,13 @@ quickbooksClient.interceptors.response.use(
       originalRequest._retry = true; // Mark request as retried
 
       try {
-        const apiKey = localStorage.getItem('waApiKey');
-        const refreshToken = localStorage.getItem('waRefreshToken');
-        await refreshWildApricotAccessToken({apiKey, refreshToken})
+        const clientId = localStorage.getItem('qbClientId');
+        const clientSecret = localStorage.getItem('qbClientSecret');
+        const refreshToken = localStorage.getItem('qbRefreshToken');
+        await refreshQuickbooksAccessToken({clientId, clientSecret, refreshToken})
 
         // Update the Authorization header and retry the original request
-        originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('waAccessToken')}`;
+        originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('qbAccessToken')}`;
         return quickbooksClient(originalRequest); // Retry the original request
       } catch (refreshError) {
         console.error("Token refresh failed:", refreshError);

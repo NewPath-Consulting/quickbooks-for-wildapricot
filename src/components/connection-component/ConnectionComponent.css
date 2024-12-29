@@ -41,6 +41,10 @@
     background-color: black;
 }
 
+.completed{
+    background-color: rgba(130, 255, 166, 0.08);
+}
+
 .expanded {
     border-bottom-color: var(--border-color);
 }

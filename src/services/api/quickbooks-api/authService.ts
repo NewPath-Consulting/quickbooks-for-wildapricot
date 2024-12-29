@@ -10,17 +10,7 @@ interface IQBAuthResponse {
 }
 
 export const getQuickbooksAccessToken = async (params: IQBAuthBody) => {
-
-  try{
-    const response: AxiosResponse<IQBAuthResponse> = await httpClient.get(endpoints.quickbooksApi.getAccessToken, {params})
-    const {accessToken, refreshToken} = response;
-    localStorage.setItem("qbAccessToken", accessToken);
-    localStorage.setItem("qbRefreshToken", refreshToken);
-  }
-  catch(e) {
-    throw new Error("Unable to get access token")
-  }
-
+  return httpClient.get(endpoints.quickbooksApi.getAccessToken, {params})
 }
 
 export const refreshQuickbooksAccessToken = async (body: IQBAuthBody)=> {

@@ -6,6 +6,7 @@ import {createConnection, getConnections, verifyConnection} from "../../services
 import {useNavigate} from "react-router-dom";
 import {teamId} from "../../FirstDraft.tsx";
 import {getWildApricotAccessToken} from "../../services/api/wild-apricot-api/authService.ts";
+import {getQuickbooksAccessToken} from "../../services/api/quickbooks-api/authService.ts";
 
 export interface IConnection {
   img: string,
@@ -77,7 +78,7 @@ export const CreateConnectionsPage = () => {
     return authWindow;
   };
 
-  const monitorAuthWindow = async (authWindow: Window, connectionId: number, connectionBody: IConnectionBody) => {
+  const monitorAuthWindow = async (authWindow: Window, connectionId: number, connectionBody: IConnectionBody, credentials: ICredentials) => {
     return new Promise<void>((resolve, reject) => {
       const interval = setInterval(async () => {
         if (authWindow.closed) {
@@ -94,6 +95,13 @@ export const CreateConnectionsPage = () => {
             if (connectionBody.accountType === "wild-apricot") {
               localStorage.setItem("waApiKey", connectionBody.apiKey as string);
               await getWildApricotAccessToken({apiKey: connectionBody.apiKey as string});
+            }
+            else if(connectionBody.accountType === "quickbooks"){
+              localStorage.setItem("qbClientId", credentials.clientId as string);
+              localStorage.setItem("qbClientSecret", credentials.clientSecret as string)
+              const response = await getQuickbooksAccessToken({clientSecret: credentials.clientSecret, clientId: credentials.clientId})
+              const { authUri } = response;
+              window.location.href = authUri;
             }
 
             setConnectionLoading(connectionBody.accountType, false);
@@ -147,7 +155,7 @@ export const CreateConnectionsPage = () => {
       const URL = `https://us1.make.com/api/v2/oauth/auth/${connectionId}`;
 
       const authWindow = openAuthWindow(URL);
-      await monitorAuthWindow(authWindow, connectionId, connectionBody);
+      await monitorAuthWindow(authWindow, connectionId, connectionBody, credentials);
 
       setErrorMsg(""); // Clear error message on success
     } catch (error: any) {

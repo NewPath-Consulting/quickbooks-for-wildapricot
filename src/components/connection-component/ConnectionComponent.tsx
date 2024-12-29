@@ -20,7 +20,7 @@ export interface ICredentials {
 
 export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoading, connection, isConnected, createConnection}) => {
   const {onBoardingData} = useOnBoarding();
-  const [credentials, setCredentials] = useState<ICredentials>({apiKeyMG: "", baseUrl: "", apiKeyWA: onBoardingData.wildApricotAPI, clientId: "", clientSecret: ""});
+  const [credentials, setCredentials] = useState<ICredentials>({apiKeyMG: "", baseUrl: "", apiKeyWA: onBoardingData.wildApricotAPI, clientId: localStorage.getItem("qbClientId") || "", clientSecret: localStorage.getItem("qbClientSecret") || ""});
 
   const handleInput = (e) => {
     const {name, value} = e.target;
@@ -83,7 +83,7 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoadi
 
   return (
     <div className={'mb-3 col-md-4 col-sm-12'}>
-      <div className={`instruction-container ${isConnected ? "completed" : ""}`}>
+      <div className={`instruction-container h-100 ${isConnected ? "completed" : ""}`}>
         <div className={'header'}>
           <div>
             <img src={connection.img} className={"rounded-1"} width={40} alt={"predefined images for each step"}/>
