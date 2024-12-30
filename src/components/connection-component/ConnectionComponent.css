@@ -42,7 +42,20 @@
 }
 
 .completed{
-    background-color: rgba(130, 255, 166, 0.08);
+    /*background-color: rgba(130, 255, 166, 0.08);*/
+}
+
+.instruction-container .header button {
+    border: 1px solid #ff6464;
+    padding: 0.5em 1em;
+    color: #ff6464;
+}
+
+.instruction-container .header button:hover {
+    border: 1px solid #ff6464;
+    padding: 0.5em 1em;
+    color: white;
+    background-color: #ff6464;
 }
 
 .expanded {

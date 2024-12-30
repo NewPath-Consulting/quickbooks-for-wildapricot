@@ -91,6 +91,10 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoadi
           </div>
           <strong className={'fw-normal'}>{connection.title}</strong>
           <p style={{color: "gray", }}>{connection.description}</p>
+          {/*<div>*/}
+          {/*  <button className={'me-2 mb-2'}>Connect</button>*/}
+          {/*  <button>Connect to Make</button>*/}
+          {/*</div>*/}
         </div>
         <div className={`button-container` }>
           <button data-bs-toggle="modal" className={"align-self-baseline float-end"} data-bs-target={`#${connection.accountType}`}>
@@ -110,10 +114,13 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoadi
               </div>
               <div className="modal-body">
                 {modalBody()}
-              </div>
-              <div className="modal-footer">
                 <button onClick={postConnection} data-bs-dismiss="modal" type="button">
                   Connect App
+                </button>
+              </div>
+              <div className="modal-footer">
+                <button data-bs-dismiss="modal" type="button">
+                  Need Help?
                 </button>
               </div>
             </div>
