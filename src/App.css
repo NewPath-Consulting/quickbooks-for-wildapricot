@@ -17,7 +17,7 @@
     overflow-y: auto; /* Allows scrolling if content is long */
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
     .content-area {
         padding: 3em 3em;
     }

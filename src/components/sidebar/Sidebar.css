@@ -8,7 +8,7 @@
     scroll-behavior: auto; /* Smooth scrolling behavior */
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
     .sidebar{
         display: none;
     }
