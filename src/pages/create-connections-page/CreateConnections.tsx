@@ -1,7 +1,7 @@
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {useEffect, useState} from "react";
 import * as React from "react";
-import {ConnectionComponent, ICredentials} from "../../components/connection-component/ConnectionComponent.tsx";
+import {ConnectionComponent} from "../../components/connection-component/ConnectionComponent.tsx";
 import {createConnection, getConnections, verifyConnection} from "../../services/api/make-api/connectionsService.ts";
 import {useNavigate} from "react-router-dom";
 import {teamId} from "../../FirstDraft.tsx";
@@ -13,7 +13,9 @@ export interface IConnection {
   title: string,
   description: string,
   accountType: string,
-  scopes ?: string[]
+  scopes ?: string[],
+  fields: {},
+  secondaryFields ?: {};
 }
 const connectionsList: IConnection[] = [
   {
@@ -21,7 +23,9 @@ const connectionsList: IConnection[] = [
     title: "Wild Apricot",
     description: "Connect to your Wild Apricot account to manage your organization's membership data and events.",
     accountType: "wild-apricot",
-    scopes: ["auto"]
+    scopes: ["auto"],
+    fields: {"API Key": "apiKey"},
+    secondaryFields: {"Client Id": "clientId", "Client Secret": "clientSecret"}
   },
 
   {
@@ -33,13 +37,15 @@ const connectionsList: IConnection[] = [
       "com.intuit.quickbooks.accounting",
     "com.intuit.quickbooks.payment",
     "openid"
-    ]
+    ],
+    fields: {"Client Id": "clientId", "Client Secret": "clientSecret"}
   },
   {
     img: "mg-logo.png",
     title: "Mailgun",
     description: "Link your Mailgun account to handle all email communications with your members.",
-    accountType: "mailgun2"
+    accountType: "mailgun2",
+    fields: {"API Key": "apiKey", "Base Url": "baseUrl"}
   }
 ]
 
@@ -78,7 +84,8 @@ export const CreateConnectionsPage = () => {
     return authWindow;
   };
 
-  const monitorAuthWindow = async (authWindow: Window, connectionId: number, connectionBody: IConnectionBody, credentials: ICredentials) => {
+
+  const monitorAuthWindow = async (authWindow: Window, connectionId: number, connectionBody: IConnectionBody) => {
     return new Promise<void>((resolve, reject) => {
       const interval = setInterval(async () => {
         if (authWindow.closed) {
@@ -92,17 +99,17 @@ export const CreateConnectionsPage = () => {
               return newMap;
             });
 
-            if (connectionBody.accountType === "wild-apricot") {
-              localStorage.setItem("waApiKey", connectionBody.apiKey as string);
-              await getWildApricotAccessToken({apiKey: connectionBody.apiKey as string});
-            }
-            else if(connectionBody.accountType === "quickbooks"){
-              localStorage.setItem("qbClientId", credentials.clientId as string);
-              localStorage.setItem("qbClientSecret", credentials.clientSecret as string)
-              const response = await getQuickbooksAccessToken({clientSecret: credentials.clientSecret, clientId: credentials.clientId})
-              const { authUri } = response;
-              window.location.href = authUri;
-            }
+            // if (connectionBody.accountType === "wild-apricot") {
+            //   localStorage.setItem("waApiKey", connectionBody.apiKey as string);
+            //   await getWildApricotAccessToken({apiKey: connectionBody.apiKey as string});
+            // }
+            // else if(connectionBody.accountType === "quickbooks"){
+            //   localStorage.setItem("qbClientId", connectionBody.clientId as string);
+            //   localStorage.setItem("qbClientSecret", connectionBody.clientSecret as string)
+            //   const response = await getQuickbooksAccessToken({clientSecret: connectionBody.clientSecret as string, clientId: connectionBody.clientId as string})
+            //   const { authUri } = response;
+            //   window.location.href = authUri;
+            // }
 
             setConnectionLoading(connectionBody.accountType, false);
             resolve();
@@ -116,38 +123,19 @@ export const CreateConnectionsPage = () => {
     });
   };
 
-  const buildConnectionBody = (credentials: ICredentials, connection: IConnection): IConnectionBody => {
-    const baseBody = {
-      accountType: connection.accountType,
-      accountName: `${connection.title} Connection`
-    };
+  const createConnectionToNewPath = (fields: {}, connection: IConnection) => {
+    console.log(fields, connection)
+  }
 
-    const connectionConfigs = {
-      'wild-apricot': {
-        apiKey: credentials.apiKeyWA,
-        scopes: connection.scopes
-      },
-      'quickbooks': {
-        scopes: connection.scopes,
-        // clientId: credentials.clientId,
-        // clientSecret: credentials.clientSecret
-      },
-      'mailgun2': {
-        apiKey: credentials.apiKeyMG,
-        baseUrl: credentials.baseUrl
-      }
-    };
-
-    return {
-      ...baseBody,
-      ...connectionConfigs[connection.accountType]
-    };
-  };
-
-  const handleConnection = async (credentials: ICredentials, connection: IConnection) => {
+  const handleConnection = async (credentials: {}, connection: IConnection) => {
     setConnectionLoading(connection.accountType, true);
 
-    const connectionBody: IConnectionBody = buildConnectionBody(credentials, connection)
+    const connectionBody: IConnectionBody = {
+      accountType: connection.accountType,
+      accountName: `${connection.title} Connection`,
+      scopes: connection.scopes,
+      ...credentials
+    };
 
     try {
       const connectionResponse = await createConnection(connectionBody, teamId);
@@ -155,7 +143,7 @@ export const CreateConnectionsPage = () => {
       const URL = `https://us1.make.com/api/v2/oauth/auth/${connectionId}`;
 
       const authWindow = openAuthWindow(URL);
-      await monitorAuthWindow(authWindow, connectionId, connectionBody, credentials);
+      await monitorAuthWindow(authWindow, connectionId, connectionBody);
 
       setErrorMsg(""); // Clear error message on success
     } catch (error: any) {
@@ -207,6 +195,8 @@ export const CreateConnectionsPage = () => {
     }
   }
 
+
+
   useEffect(() => {
     setCurrentStep(2)
     console.log(isConnectedMap)
@@ -223,7 +213,7 @@ export const CreateConnectionsPage = () => {
             <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
         </div>}
         <div className={'row mb-3'}>
-          {connectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
+          {connectionsList.map((connection, index) => <ConnectionComponent createConnectionToNewPath={createConnectionToNewPath} key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
         </div>
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/')}>Back</button>
         <button className={"btn-success"} disabled={Array.from(isConnectedMap).every(val => !val[1])} type={"submit"} onClick={() => handleNextPage()}>Next</button>
