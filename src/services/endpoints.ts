@@ -8,6 +8,7 @@ const endpoints = {
   },
   wildApricotApi: {
     getAccessToken: "/api/wild-apricot/connect",
+    login: "/api/wild-apricot/login",
     refreshAccessToken: "/api/wild-apricot/refresh-token",
     getMembers: "/wild-apricot/members",
     updateMember: "/wild-apricot/members/:id",

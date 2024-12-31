@@ -8,11 +8,12 @@ const OAuthSuccess = () => {
     const params = new URLSearchParams(window.location.search);
     const accessToken = params.get("accessToken");
     const refreshToken = params.get("refreshToken");
+    const appName = params.get("app");
 
     if (accessToken && refreshToken) {
-      localStorage.setItem("qbAccessToken", accessToken);
-      localStorage.setItem("qbRefreshToken", refreshToken);
-
+      localStorage.setItem(`${appName}AccessToken`, accessToken);
+      localStorage.setItem(`${appName}RefreshToken`, refreshToken);
+      console.log("directed...")
       // Redirect to dashboard or desired page
       navigate("/create-connections");
     } else {

@@ -5,7 +5,7 @@ import {ConnectionComponent} from "../../components/connection-component/Connect
 import {createConnection, getConnections, verifyConnection} from "../../services/api/make-api/connectionsService.ts";
 import {useNavigate} from "react-router-dom";
 import {teamId} from "../../FirstDraft.tsx";
-import {getWildApricotAccessToken} from "../../services/api/wild-apricot-api/authService.ts";
+import {getWildApricotAccessToken, wildApricotLogin} from "../../services/api/wild-apricot-api/authService.ts";
 import {getQuickbooksAccessToken} from "../../services/api/quickbooks-api/authService.ts";
 
 export interface IConnection {
@@ -38,7 +38,8 @@ const connectionsList: IConnection[] = [
     "com.intuit.quickbooks.payment",
     "openid"
     ],
-    fields: {"Client Id": "clientId", "Client Secret": "clientSecret"}
+    fields: {},
+    secondaryFields: {"Client Id": "clientId", "Client Secret": "clientSecret"}
   },
   {
     img: "mg-logo.png",
@@ -123,8 +124,30 @@ export const CreateConnectionsPage = () => {
     });
   };
 
-  const createConnectionToNewPath = (fields: {}, connection: IConnection) => {
-    console.log(fields, connection)
+  const createConnectionToNewPath = async (fields, connection: IConnection) => {
+
+    try{
+      if(connection.accountType === "quickbooks"){
+        localStorage.setItem("qbClientId", fields.clientId);
+        localStorage.setItem("qbClientSecret", fields.clientSecret)
+        const response = await getQuickbooksAccessToken({clientSecret: fields.clientSecret, clientId: fields.clientId})
+        const { authUri } = response;
+        window.location.href = authUri;
+      }
+      else if(connection.accountType === "wild-apricot"){
+        localStorage.setItem("waClientId", fields.clientId);
+        localStorage.setItem("waClientSecret", fields.clientSecret);
+        const response = await wildApricotLogin({clientSecret: fields.clientSecret, clientId: fields.clientId})
+        const { ssoUrl } = response;
+        console.log(response, ssoUrl)
+        window.location.href = ssoUrl;
+      }
+      setErrorMsg("")
+    }
+    catch(e){
+      console.log(e)
+      setErrorMsg("Error connecting to app");
+    }
   }
 
   const handleConnection = async (credentials: {}, connection: IConnection) => {
