@@ -73,12 +73,19 @@ export const CustomerInformationPage = () => {
       try{
         const userInfo = await getWildApricotAccounts();
         const { Id } = userInfo.data[0]
-        // const contactInfo = await getContactInfo(Id);
-        // const {FirstName, LastName, Email, Organization, DisplayName} = contactInfo.data
+        const contactInfo = await getContactInfo(Id);
+        const {FirstName, LastName, Email, Organization, DisplayName} = contactInfo.data
         setFormData({
           ...formData,
+          firstName: FirstName,
+          lastName: LastName,
+          email: Email,
+          displayName: DisplayName,
+          organization: Organization || "",
           userId: Id
         })
+
+        console.log(contactInfo.data)
       }
       catch(e){
         setErrorMsg("Error loading data from Wild Apricot: Invalid Token")
