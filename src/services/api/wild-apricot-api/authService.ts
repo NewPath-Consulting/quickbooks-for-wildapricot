@@ -2,7 +2,7 @@ import httpClient from "../../httpClient.ts";
 import endpoints from "../../endpoints.ts";
 import {AxiosResponse} from "axios";
 import {IQBAuthBody} from "../../../typings/IQBAuthBody.ts";
-import {IWAAuthBody, IWALoginBody} from "../../../typings/IWAAuthBody.ts";
+import {IWAAuthBody, IWALoginBody, IWARefreshTokenBody} from "../../../typings/IWAAuthBody.ts";
 
 interface IWAAuthResponse {
   accessToken: string,
@@ -27,7 +27,7 @@ export const wildApricotLogin = async (params: IWALoginBody) => {
   return httpClient.get(endpoints.wildApricotApi.login, {params})
 }
 
-export const refreshWildApricotAccessToken = async (body: IWAAuthBody)=> {
+export const refreshWildApricotAccessToken = async (body: IWARefreshTokenBody)=> {
   try {
 
     if (!body.refreshToken) {
