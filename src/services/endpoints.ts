@@ -4,7 +4,8 @@ const endpoints = {
     getInvoice: "/quickbooks/invoice",
     createInvoice: "/quickbooks/invoice",
     getAccessToken: "/api/quickbooks/connect",
-    refreshAccessToken: "/api/quickbooks/refresh-token"
+    refreshAccessToken: "/api/quickbooks/refresh-token",
+    getAccounts: "/api/quickbooks/query"
   },
   wildApricotApi: {
     getAccessToken: "/api/wild-apricot/connect",

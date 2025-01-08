@@ -2,6 +2,7 @@ import './InvoiceConfig.css'
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
+import {getQueriedAccounts} from "../../services/api/quickbooks-api/accountService.ts";
 
 export const InvoiceConfigPage = () => {
 
@@ -10,6 +11,13 @@ export const InvoiceConfigPage = () => {
 
   useEffect(() => {
     setCurrentStep(4)
+
+    const fetchAccounts = async () => {
+      const response = await getQueriedAccounts();
+      console.log(response)
+    }
+
+    fetchAccounts()
   }, []);
 
   return (
@@ -26,7 +34,7 @@ export const InvoiceConfigPage = () => {
         <div className={'accounts-receivable mb-5'} >
           <h6>QuickBooks Receivable Account for Invoices</h6>
           <p className={'mb-3 mt-2'}>Please select your Accounts Receivable account name below</p>
-          <div className="input-group mb-3" style={{maxWidth: '500px'}}>
+          <div className="input-group mb-3" defaultValue={"Choose Account"} style={{maxWidth: '500px'}}>
             <label className="input-group-text" htmlFor="inputAccountsReceivable"><i className={'bi bi-receipt'}></i></label>
             <select className="form-select" id="inputAccountsReceivable">
               <option selected>Choose Account</option>

@@ -16,9 +16,16 @@ const httpClient = axios.create({
 
 httpClient.interceptors.request.use(
   (config) => {
-    const token = import.meta.env.API_TOKEN;
-    config.headers.Authorization = dynamicToken;
 
+    if(config.url.includes("makeApi")){
+      console.log(config)
+      const token = import.meta.env.API_TOKEN;
+      config.headers.Authorization = dynamicToken;
+    }
+    else if(config.url.includes("quickbooks")){
+      config.headers.Authorization = localStorage.getItem("qbAccessToken");
+      config.headers.realmId = localStorage.getItem("qbRealmId");
+    }
     return config;
   },
   (error) => Promise.reject(error)
