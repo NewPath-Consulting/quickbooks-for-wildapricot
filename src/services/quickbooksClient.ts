@@ -4,7 +4,7 @@ import {refreshQuickbooksAccessToken} from "./api/quickbooks-api/authService.ts"
 
 
 const quickbooksClient = axios.create({
-  baseURL: "https://api.wildapricot.org/v2.2",
+  baseURL: `https://sandbox-quickbooks.api.intuit.com/v3/company/${localStorage.getItem('qbRealmId')}`,
   timeout: 10000,
   headers: {
     "Accept": "application/json",
@@ -13,7 +13,7 @@ const quickbooksClient = axios.create({
 
 quickbooksClient.interceptors.request.use(
   (config) => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('waAccessToken')}`
+    config.headers.Authorization = `Bearer ${localStorage.getItem('qbAccessToken')}`
     return config
   },
   (error) => Promise.reject(error)

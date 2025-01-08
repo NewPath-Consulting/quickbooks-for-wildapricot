@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import app from "../App.tsx";
 
 const OAuthSuccess = () => {
   const navigate = useNavigate();
@@ -8,7 +9,12 @@ const OAuthSuccess = () => {
     const params = new URLSearchParams(window.location.search);
     const accessToken = params.get("accessToken");
     const refreshToken = params.get("refreshToken");
+    const realmId = params.get("realmId");
     const appName = params.get("app");
+
+    if(realmId){
+      localStorage.setItem(`${appName}RealmId`, realmId);
+    }
 
     if (accessToken && refreshToken) {
       localStorage.setItem(`${appName}AccessToken`, accessToken);
