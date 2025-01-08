@@ -137,6 +137,7 @@ export const CustomerInformationPage = () => {
     }
     else {
       updateData({customerInfo: formData});
+      navigate("/invoice-config")
       console.log(onBoardingData);
     }
   };
