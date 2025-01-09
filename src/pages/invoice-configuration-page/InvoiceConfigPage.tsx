@@ -20,7 +20,8 @@ export const InvoiceConfigPage = () => {
         setAccountList(accounts.map((account) => ({name: account.Name, id: account.Id})))
       }
       catch (e){
-        setErrorMsg(e.message)
+        console.log(e)
+        setErrorMsg(e.response.data.error)
       }
     }
 
