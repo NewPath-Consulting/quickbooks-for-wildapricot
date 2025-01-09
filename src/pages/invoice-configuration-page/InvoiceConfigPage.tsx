@@ -5,20 +5,31 @@ import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {getQueriedAccounts} from "../../services/api/quickbooks-api/accountService.ts";
 
 export const InvoiceConfigPage = () => {
-
   const { setCurrentStep } = useOnBoarding()
   const [errorMsg, setErrorMsg] = useState("");
+  const [accountList, setAccountList] = useState([]);
+  const [account, setAccount] = useState("");
 
   useEffect(() => {
     setCurrentStep(4)
 
     const fetchAccounts = async () => {
-      const response = await getQueriedAccounts();
-      console.log(response)
+      try{
+        const response = await getQueriedAccounts();
+        const { accounts } = response
+        setAccountList(accounts.map((account) => ({name: account.Name, id: account.Id})))
+      }
+      catch (e){
+        setErrorMsg(e.message)
+      }
     }
 
     fetchAccounts()
   }, []);
+  
+  const handleAccountSelection = (e) => {
+    setAccount(e.target.value);
+  }
 
   return (
     <main>
@@ -36,11 +47,11 @@ export const InvoiceConfigPage = () => {
           <p className={'mb-3 mt-2'}>Please select your Accounts Receivable account name below</p>
           <div className="input-group mb-3" defaultValue={"Choose Account"} style={{maxWidth: '500px'}}>
             <label className="input-group-text" htmlFor="inputAccountsReceivable"><i className={'bi bi-receipt'}></i></label>
-            <select className="form-select" id="inputAccountsReceivable">
-              <option selected>Choose Account</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select className="form-select" id="inputAccountsReceivable" defaultValue={""} onChange={handleAccountSelection}>
+              <option value={""} disabled={true}>Choose Account</option>
+              {accountList.map(account => {
+                return <option key={account.id} value={account.id}>{account.name}</option>
+              })}
             </select>
           </div>
         </div>

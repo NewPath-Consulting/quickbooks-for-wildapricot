@@ -1,3 +1,7 @@
 strong{
     margin-bottom: 10px;
 }
+
+select {
+    font-size: 14px !important;
+}
