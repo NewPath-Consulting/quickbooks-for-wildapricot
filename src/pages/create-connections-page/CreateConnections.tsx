@@ -20,7 +20,7 @@ export interface IConnection {
 const connectionsList: IConnection[] = [
   {
     img: "wa-logo.png",
-    title: "Wild Apricot",
+    title: "WildApricot",
     description: "Connect to your Wild Apricot account to manage your organization's membership data and events.",
     accountType: "wild-apricot",
     scopes: ["auto"],
@@ -30,7 +30,7 @@ const connectionsList: IConnection[] = [
 
   {
     img: "qb-logo.png",
-    title: "Quickbooks",
+    title: "QuickBooks",
     description: "Connect to QuickBooks to automatically sync your financial transactions and manage billing.",
     accountType: "quickbooks",
     scopes: [
