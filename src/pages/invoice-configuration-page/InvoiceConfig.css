@@ -5,3 +5,31 @@ strong{
 select {
     font-size: 14px !important;
 }
+
+
+.table-header{
+    border: 1px solid #A9A9A9;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #EEEEEE;
+}
+
+.table-body {
+    border: 1px solid #A9A9A9;
+    border-top: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 10px;
+}
+
+
+.row {
+    margin: 0;
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+}

@@ -58,7 +58,51 @@ export const InvoiceConfigPage = () => {
         </div>
         <div className={'accounts-receivable'}>
           <h6>Membership Level Mapping</h6>
-          <p className={'mb-2 mt-2'}>Map the membership levels to one of your products by selecting a product from the drop down</p>
+          <p className={'mb-3 mt-2'}>Map the membership levels to one of your products by selecting a QuickBook product from the drop down</p>
+          <div className={'table'}>
+            <div className={'table-header row'}>
+                <p className={"col-6 fw-bolder"}>Membership level</p>
+                <p className={"col-6 fw-bolder"}>QB Product</p>
+            </div>
+            <div className="table-body">
+              <div className={'row align-items-center'}>
+                <p className={"col-5"}>kswssdniw djqw djwod nq sm wl sdwqd</p>
+                <i className={'bi bi-arrow-right col-1'}></i>
+                <div className={'col-6'}>
+                  <select className="form-select" id="inputAccountsReceivable" defaultValue={""} onChange={handleAccountSelection}>
+                    <option value={""} disabled={true}>Choose Account</option>
+                    {accountList.map(account => {
+                      return <option key={account.id} value={account.id}>{account.name}</option>
+                    })}
+                  </select>
+                </div>
+              </div>
+              <div className={'row align-items-center'}>
+                <p className={"col-5"}>kswssdniw djqw djwod nq sm wl sdwqd</p>
+                <i className={'bi bi-arrow-right col-1'}></i>
+                <div className={'col-6'}>
+                  <select className="form-select" id="inputAccountsReceivable" defaultValue={""} onChange={handleAccountSelection}>
+                    <option value={""} disabled={true}>Choose Account</option>
+                    {accountList.map(account => {
+                      return <option key={account.id} value={account.id}>{account.name}</option>
+                    })}
+                  </select>
+                </div>
+              </div>
+              <div className={'row align-items-center'}>
+                <p className={"col-5"}>kswssdniw djqw djwod nq sm wl sdwqd</p>
+                <i className={'bi bi-arrow-right col-1'}></i>
+                <div className={'col-6'}>
+                  <select className="form-select" id="inputAccountsReceivable" defaultValue={""} onChange={handleAccountSelection}>
+                    <option value={""} disabled={true}>Choose Account</option>
+                    {accountList.map(account => {
+                      return <option key={account.id} value={account.id}>{account.name}</option>
+                    })}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
