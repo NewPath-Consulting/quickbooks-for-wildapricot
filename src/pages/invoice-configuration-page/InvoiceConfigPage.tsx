@@ -5,6 +5,7 @@ import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {getQueriedResults} from "../../services/api/quickbooks-api/accountService.ts";
 import {getMembershipLevels} from "../../services/api/wild-apricot-api/membershipService.ts";
 import {IMembershipLevel} from "../../typings/IContactInformation.ts";
+import {useNavigate} from "react-router-dom";
 
 export const InvoiceConfigPage = () => {
   const { setCurrentStep } = useOnBoarding()
@@ -13,6 +14,7 @@ export const InvoiceConfigPage = () => {
   const [account, setAccount] = useState("");
   const [membershipLevels, setMembershipLevels] = useState([]);
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
 
 
@@ -59,7 +61,6 @@ export const InvoiceConfigPage = () => {
     fetchAccounts()
     fetchProducts()
     listMemberShipLevels()
-    console.log(products)
   }, []);
   
   const handleAccountSelection = (e) => {
@@ -119,6 +120,10 @@ export const InvoiceConfigPage = () => {
               }
             </div>
           </div>
+        </div>
+        <div className="mt-4">
+          <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/customer-information')}>Back</button>
+          <button className={"btn-success"} disabled={false}>Next</button>
         </div>
       </div>
     </main>

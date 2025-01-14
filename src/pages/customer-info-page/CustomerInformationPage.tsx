@@ -80,8 +80,8 @@ export const CustomerInformationPage = () => {
           firstName: FirstName,
           lastName: LastName,
           email: Email,
-          displayName: DisplayName,
           organization: Organization || "",
+          displayName: DisplayName,
           userId: Id
         })
 
@@ -93,7 +93,12 @@ export const CustomerInformationPage = () => {
       }
     }
 
-    getAccountInfo();
+    if(Object.keys(onBoardingData.customerInfo).length === 0){
+      getAccountInfo();
+    }
+    else{
+      setFormData(onBoardingData.customerInfo)
+    }
   }, []);
 
   const appendToDisplayName = (field: string) => {
