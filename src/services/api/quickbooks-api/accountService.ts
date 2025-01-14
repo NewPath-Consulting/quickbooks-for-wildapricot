@@ -4,6 +4,6 @@ import httpClient from "../../httpClient.ts";
 import {AxiosResponse} from "axios";
 
 
-export const getQueriedAccounts = () => {
-  return httpClient.get(endpoints.quickbooksApi.getAccounts)
+export const getQueriedResults = (query: string) => {
+  return httpClient.get(endpoints.quickbooksApi.getAccounts, {params: {query}})
 }
