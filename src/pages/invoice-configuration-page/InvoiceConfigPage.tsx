@@ -8,14 +8,14 @@ import {IMembershipLevel} from "../../typings/IContactInformation.ts";
 import {useNavigate} from "react-router-dom";
 
 export const InvoiceConfigPage = () => {
-  const { setCurrentStep } = useOnBoarding()
+  const { onBoardingData, setCurrentStep } = useOnBoarding()
   const [errorMsg, setErrorMsg] = useState("");
   const [accountList, setAccountList] = useState([]);
   const [account, setAccount] = useState("");
   const [membershipLevels, setMembershipLevels] = useState([]);
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-
+  const accountsReceivableErrorMsg = "Must choose an invoice account"
 
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export const InvoiceConfigPage = () => {
 
     const listMemberShipLevels = async () => {
       try{
-        const membershipLevels = await getMembershipLevels('221748')
+        const membershipLevels = await getMembershipLevels(onBoardingData.customerInfo.userId)
         setMembershipLevels(membershipLevels)
       }
       catch (e){
@@ -65,6 +65,20 @@ export const InvoiceConfigPage = () => {
   
   const handleAccountSelection = (e) => {
     setAccount(e.target.value);
+
+    if(errorMsg === accountsReceivableErrorMsg){
+      setErrorMsg('');
+    }
+  }
+
+  const handleSubmission = () => {
+    if(!account){
+      setErrorMsg(accountsReceivableErrorMsg)
+      console.log('not allowed')
+    }
+    else{
+      navigate('/payment-config')
+    }
   }
 
   return (
@@ -123,7 +137,7 @@ export const InvoiceConfigPage = () => {
         </div>
         <div className="mt-4">
           <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/customer-information')}>Back</button>
-          <button className={"btn-success"} disabled={false}>Next</button>
+          <button className={"btn-success"} disabled={false} onClick={handleSubmission}>Next</button>
         </div>
       </div>
     </main>
