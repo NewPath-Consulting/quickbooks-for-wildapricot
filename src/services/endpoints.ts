@@ -12,6 +12,7 @@ const endpoints = {
     login: "/api/wild-apricot/login",
     refreshAccessToken: "/api/wild-apricot/refresh-token",
     getMembershipLevels: "/accounts/:accountId/membershiplevels",
+    getTenders: "/accounts/:accountId/tenders",
     updateMember: "/wild-apricot/members/:id",
     getAccounts: '/accounts',
     getContactInfo: "/accounts/:accountId/contacts/me"

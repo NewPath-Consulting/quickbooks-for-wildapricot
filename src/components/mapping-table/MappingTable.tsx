@@ -3,10 +3,11 @@ interface MappingTableProps {
   headers: string[]; // Table headers
   data: { id: number; name: string }[]; // Data to map (e.g., membership levels)
   mappingOptions: { id: number; name: string }[]; // Options for dropdown (e.g., products)
-  onMappingChange ?: (dataId: number | string, selectedValue: string) => void; // Callback for selection
+  onMappingChange ?: (dataId: number | string, selectedValue: string) => void; // Callback for selection,
+  dropdownDefaultName: string
 }
 
-export const MappingTable = ({headers, data, mappingOptions}: MappingTableProps) => {
+export const MappingTable = ({headers, data, mappingOptions, dropdownDefaultName}: MappingTableProps) => {
   return (
     <div className="table">
       {/* Table Header */}
@@ -30,7 +31,7 @@ export const MappingTable = ({headers, data, mappingOptions}: MappingTableProps)
                 defaultValue={""}
               >
                 <option value="" disabled>
-                  Choose Product
+                  {dropdownDefaultName}
                 </option>
                 {mappingOptions.map((option) => (
                   <option key={option.id} value={option.id}>

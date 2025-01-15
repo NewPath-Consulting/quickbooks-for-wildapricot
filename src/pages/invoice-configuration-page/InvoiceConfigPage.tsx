@@ -110,7 +110,7 @@ export const InvoiceConfigPage = () => {
         <div className={'accounts-receivable'}>
           <h6>Membership Level Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBook product from the drop down</p>
-          <MappingTable headers={["Membership Level", "QB Products"]} data={membershipLevels} mappingOptions={products}/>
+          <MappingTable headers={["Membership Level", "QB Products"]} data={membershipLevels} mappingOptions={products} dropdownDefaultName={"Choose Product"}/>
         </div>
         <div className="mt-4">
           <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/customer-information')}>Back</button>
