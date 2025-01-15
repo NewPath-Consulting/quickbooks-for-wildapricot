@@ -6,6 +6,7 @@ import {getQueriedResults} from "../../services/api/quickbooks-api/accountServic
 import {getMembershipLevels} from "../../services/api/wild-apricot-api/membershipService.ts";
 import {IMembershipLevel} from "../../typings/IContactInformation.ts";
 import {useNavigate} from "react-router-dom";
+import {MappingTable} from "../../components/mapping-table/MappingTable.tsx";
 
 export const InvoiceConfigPage = () => {
   const { onBoardingData, setCurrentStep } = useOnBoarding()
@@ -49,8 +50,8 @@ export const InvoiceConfigPage = () => {
 
     const listMemberShipLevels = async () => {
       try{
-        const membershipLevels = await getMembershipLevels(onBoardingData.customerInfo.userId)
-        setMembershipLevels(membershipLevels)
+        const membershipLevels = await getMembershipLevels(onBoardingData.customerInfo.userId || '221748')
+        setMembershipLevels(membershipLevels.map(level => ({name: level.Name, id: level.Id})))
       }
       catch (e){
         setMembershipLevels([]);
@@ -72,13 +73,14 @@ export const InvoiceConfigPage = () => {
   }
 
   const handleSubmission = () => {
-    if(!account){
-      setErrorMsg(accountsReceivableErrorMsg)
-      console.log('not allowed')
-    }
-    else{
-      navigate('/payment-config')
-    }
+    // if(!account){
+    //   setErrorMsg(accountsReceivableErrorMsg)
+    //   console.log('not allowed')
+    // }
+    // else{
+    //   navigate('/payment-config')
+    // }
+    navigate('/payment-config')
   }
 
   return (
@@ -108,32 +110,7 @@ export const InvoiceConfigPage = () => {
         <div className={'accounts-receivable'}>
           <h6>Membership Level Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBook product from the drop down</p>
-          <div className={'table'}>
-            <div className={'table-header row'}>
-                <p className={"col-6 fw-bolder"}>Membership level</p>
-                <p className={"col-6 fw-bolder"}>QB Product</p>
-            </div>
-            <div className="table-body">
-              {
-                membershipLevels.map(membershipLevel => {
-                  return (
-                    <div key={membershipLevel.Id} className={'row align-items-center'}>
-                      <p className={"col-5"}>{membershipLevel.Name}</p>
-                      <i className={'bi bi-arrow-right col-1'} style={{color: '#c5c5c5'}}></i>
-                      <div className={'col-6'}>
-                        <select className="form-select" id={`qbProducts-${membershipLevel.Id}`} defaultValue={""}>
-                          <option value={""} disabled={true}>Choose Product</option>
-                          {products.map(product => {
-                            return <option key={product.id} value={product.id}>{product.name}</option>
-                          })}
-                        </select>
-                      </div>
-                    </div>
-                  )
-                })
-              }
-            </div>
-          </div>
+          <MappingTable headers={["Membership Level", "QB Products"]} data={membershipLevels} mappingOptions={products}/>
         </div>
         <div className="mt-4">
           <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/customer-information')}>Back</button>

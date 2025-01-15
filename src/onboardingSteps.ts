@@ -25,12 +25,12 @@ export const steps: ISteps[] = [
   {
     title: "Invoice Configuration",
     subTitle: "Configure your invoices",
-    endpoint: "/"
+    endpoint: "/invoice-config"
   },
   {
     title: "Payment Configuration",
     subTitle: "Configure your payments",
-    endpoint: "/"
+    endpoint: "/payment-config"
   },
   {
     title: "Donation Configuration",
