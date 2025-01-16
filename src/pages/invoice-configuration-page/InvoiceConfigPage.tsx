@@ -7,6 +7,7 @@ import {getMembershipLevels} from "../../services/api/wild-apricot-api/membershi
 import {IMembershipLevel} from "../../typings/IContactInformation.ts";
 import {useNavigate} from "react-router-dom";
 import {MappingTable} from "../../components/mapping-table/MappingTable.tsx";
+import {fetchData} from "../../services/fetchData.ts";
 
 export const InvoiceConfigPage = () => {
   const { onBoardingData, setCurrentStep } = useOnBoarding()
@@ -22,31 +23,8 @@ export const InvoiceConfigPage = () => {
   useEffect(() => {
     setCurrentStep(4)
 
-    const fetchAccounts = async () => {
-      try{
-        const response = await getQueriedResults("select * from account startposition 1 maxresults 15");
-        console.log(response)
-        const { queryResponse } = response
-        setAccountList(queryResponse.Account.map((account) => ({name: account.Name, id: account.Id})))
-      }
-      catch (e){
-        console.log(e)
-        setErrorMsg(e.response.data.error)
-      }
-    }
-
-    const fetchProducts = async () => {
-      try{
-        const response = await getQueriedResults("select * from item startposition 1 maxresults 15");
-        console.log(response)
-        const { queryResponse } = response
-        setProducts(queryResponse.Item.map((account) => ({name: account.Name, id: account.Id})))
-      }
-      catch (e){
-        console.log(e)
-        setErrorMsg(e.response.data.error)
-      }
-    }
+    fetchData("select * from item startposition 1 maxresults 15", setProducts, "Item", setErrorMsg)
+    fetchData("select * from account startposition 1 maxresults 15", setAccountList, "Account", setErrorMsg)
 
     const listMemberShipLevels = async () => {
       try{
@@ -59,8 +37,6 @@ export const InvoiceConfigPage = () => {
       }
     }
 
-    fetchAccounts()
-    fetchProducts()
     listMemberShipLevels()
   }, []);
   
