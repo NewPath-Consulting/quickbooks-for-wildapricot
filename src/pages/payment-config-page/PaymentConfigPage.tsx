@@ -39,7 +39,7 @@ export const PaymentConfigPage = () => {
   }, []);
 
   const handleSubmission = () => {
-
+    navigate('/donation-config')
   }
 
   return (
@@ -55,7 +55,7 @@ export const PaymentConfigPage = () => {
         <h6>Default Payment Mapping</h6>
         <p className={'mb-3 mt-2'}>Map your QuickBooks payment deposit account to your QuickBooks receivables account by selecting each from the dropdowns below</p>
         <div className="row">
-          <div className="col-md-6 mb-2">
+          <div className="col-md-6 mb-3">
             <select
               className="form-select"
               id={`mapping`}
