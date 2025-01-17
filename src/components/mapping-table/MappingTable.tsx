@@ -3,7 +3,7 @@ interface MappingTableProps {
   headers: string[]; // Table headers
   data: { id: number; name: string }[]; // Data to map (e.g., membership levels)
   mappingOptions: { id: number; name: string }[]; // Options for dropdown (e.g., products)
-  onMappingChange ?: (itemName: string, optionId: string, optionName: string) => void; // Callback for selection,
+  onMappingChange : (itemName: string, optionId: string, optionName: string) => void; // Callback for selection,
   dropdownDefaultName: string
 }
 
@@ -14,9 +14,7 @@ export const MappingTable = ({headers, data, mappingOptions, dropdownDefaultName
     const value = selectedOption.value; // option's value
     const name = selectedOption.text;  // option's name (text inside <option>)
 
-    if (onMappingChange) {
-      onMappingChange(itemName, value, name)
-    }
+    onMappingChange(itemName, value, name)
 
   }
 

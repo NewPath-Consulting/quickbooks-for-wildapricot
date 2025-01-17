@@ -13,12 +13,19 @@ interface PaymentMapping {
   QBTenderId: string
 }
 
+interface Account {
+  accountName: string,
+  accountId: string
+}
+
 export const PaymentConfigPage = () => {
   const { onBoardingData, setCurrentStep } = useOnBoarding();
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [qbPaymentMethods, setQBPaymentMethods] = useState([]);
   const [WildApricotTenders, setWildApricotTenders] = useState([]);
   const [accountList, setAccountList] = useState([]);
+  const [qbDepositAccount, setQBDepositAccount] = useState<Account>()
+  const [qbReceivableAccount, setQBReceivableAccount] = useState<Account>()
   const [paymentMappingList, setPaymentMappingList] = useState<PaymentMapping[]>([]);
 
   const navigate = useNavigate()
@@ -32,7 +39,6 @@ export const PaymentConfigPage = () => {
     const listTenders = async () => {
       try{
         const tenders = await getTenders(onBoardingData.customerInfo.userId || '221748')
-        console.log(tenders.data)
         setWildApricotTenders(tenders.data.map(tender => ({name: tender.Name, id: tender.Id})))
       }
       catch (e){
@@ -45,6 +51,19 @@ export const PaymentConfigPage = () => {
   }, []);
 
   const handleSubmission = () => {
+
+    // if(!qbReceivableAccount){
+    //   setErrorMsg("Must choose a receivables account")
+    // }
+    // else if(!qbDepositAccount){
+    //   setErrorMsg("Must choose a deposit account")
+    // }
+    // else if(paymentMappingList.length !== WildApricotTenders.length){
+    //   setErrorMsg("Please map all WildApricot tenders to QuickBooks tenders")
+    // }
+    // else{
+    //   navigate('/donation-config')
+    // }
     navigate('/donation-config')
   }
 
@@ -70,6 +89,21 @@ export const PaymentConfigPage = () => {
     console.log(paymentMappingList, "hello")
   }
 
+  const handleAccountChange = (event, accountType) => {
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const accountId = selectedOption.value; // option's value
+    const accountName = selectedOption.text;  // option's name (text inside <option>)
+
+    if(accountType === 'deposit'){
+      setQBDepositAccount({accountId, accountName})
+    }
+    else {
+      setQBReceivableAccount({accountId, accountName})
+    }
+
+    console.log(qbDepositAccount, qbReceivableAccount)
+  }
+
   return (
     <main>
       <header>
@@ -90,6 +124,7 @@ export const PaymentConfigPage = () => {
                 className="form-select"
                 id={`qb-deposit-account`}
                 defaultValue={""}
+                onChange={(event) => handleAccountChange(event, 'deposit')}
               >
                 <option value="" disabled>
                   Choose QB Payment Deposit Account
@@ -109,6 +144,7 @@ export const PaymentConfigPage = () => {
                 className="form-select"
                 id={`qb-receivable-account`}
                 defaultValue={""}
+                onChange={(event) => handleAccountChange(event, 'receivable')}
               >
                 <option value="" disabled>
                   Choose Receivables Account
