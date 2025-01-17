@@ -28,8 +28,8 @@ export const InvoiceConfigPage = () => {
   useEffect(() => {
     setCurrentStep(4)
 
-    fetchData("select * from item startposition 1 maxresults 15", setProducts, "Item", setErrorMsg)
-    fetchData("select * from account startposition 1 maxresults 15", setAccountList, "Account", setErrorMsg)
+    fetchData("select * from item", setProducts, "Item", setErrorMsg)
+    fetchData("select * from account where AccountType = 'Accounts Receivable'", setAccountList, "Account", setErrorMsg)
 
     const listMemberShipLevels = async () => {
       try{

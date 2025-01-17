@@ -23,7 +23,8 @@ export const PaymentConfigPage = () => {
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [qbPaymentMethods, setQBPaymentMethods] = useState([]);
   const [WildApricotTenders, setWildApricotTenders] = useState([]);
-  const [accountList, setAccountList] = useState([]);
+  const [receivableAccountsList, setReceivableAccountsList] = useState([]);
+  const [depositAccountsList, setDepositAccountsList] = useState([]);
   const [qbDepositAccount, setQBDepositAccount] = useState<Account>()
   const [qbReceivableAccount, setQBReceivableAccount] = useState<Account>()
   const [paymentMappingList, setPaymentMappingList] = useState<PaymentMapping[]>([]);
@@ -33,8 +34,9 @@ export const PaymentConfigPage = () => {
   useEffect(() => {
     setCurrentStep(5)
 
-    fetchData("select * from paymentmethod startposition 1 maxresults 15", setQBPaymentMethods, "PaymentMethod", setErrorMsg)
-    fetchData("select * from account startposition 1 maxresults 15", setAccountList, "Account", setErrorMsg)
+    fetchData("select * from paymentmethod", setQBPaymentMethods, "PaymentMethod", setErrorMsg)
+    fetchData("select * from account where AccountType = 'Accounts Receivable'", setReceivableAccountsList, "Account", setErrorMsg)
+    fetchData("select * from account where AccountType = 'Bank'", setDepositAccountsList, "Account", setErrorMsg)
 
     const listTenders = async () => {
       try{
@@ -129,7 +131,7 @@ export const PaymentConfigPage = () => {
                 <option value="" disabled>
                   Choose QB Payment Deposit Account
                 </option>
-                {accountList.map((option) => (
+                {depositAccountsList.map((option) => (
                   <option key={option.id} value={option.id}>
                     {option.name}
                   </option>
@@ -149,7 +151,7 @@ export const PaymentConfigPage = () => {
                 <option value="" disabled>
                   Choose Receivables Account
                 </option>
-                {accountList.map((option) => (
+                {receivableAccountsList.map((option) => (
                   <option key={option.id} value={option.id}>
                     {option.name}
                   </option>
