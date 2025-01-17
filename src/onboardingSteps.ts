@@ -35,7 +35,7 @@ export const steps: ISteps[] = [
   {
     title: "Donation Configuration",
     subTitle: "Configure your donations",
-    endpoint: "/"
+    endpoint: "/donation-config"
   },
   {
     title: "Run and Test",

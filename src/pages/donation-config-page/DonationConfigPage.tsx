@@ -1,11 +1,17 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 
 
 export const DonationConfigPage = () => {
+  const { setCurrentStep } = useOnBoarding();
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setCurrentStep(6)
+  }, []);
 
   return (
     <main>

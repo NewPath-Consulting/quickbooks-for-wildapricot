@@ -2,12 +2,16 @@ import './InvoiceConfig.css'
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
-import {getQueriedResults} from "../../services/api/quickbooks-api/accountService.ts";
 import {getMembershipLevels} from "../../services/api/wild-apricot-api/membershipService.ts";
-import {IMembershipLevel} from "../../typings/IContactInformation.ts";
 import {useNavigate} from "react-router-dom";
 import {MappingTable} from "../../components/mapping-table/MappingTable.tsx";
 import {fetchData} from "../../services/fetchData.ts";
+
+interface InvoiceMapping {
+  membership: string,
+  product: string,
+  productId: string
+}
 
 export const InvoiceConfigPage = () => {
   const { onBoardingData, setCurrentStep } = useOnBoarding()
@@ -16,6 +20,7 @@ export const InvoiceConfigPage = () => {
   const [account, setAccount] = useState("");
   const [membershipLevels, setMembershipLevels] = useState([]);
   const [products, setProducts] = useState([]);
+  const [invoiceMappingList, setInvoiceMappingList] = useState<InvoiceMapping[]>([]);
   const navigate = useNavigate();
   const accountsReceivableErrorMsg = "Must choose an invoice account"
 
@@ -59,6 +64,10 @@ export const InvoiceConfigPage = () => {
     navigate('/payment-config')
   }
 
+  const handleMapping = (itemName, value, name) => {
+    console.log(itemName, value, name)
+  }
+
   return (
     <main>
       <header>
@@ -86,7 +95,7 @@ export const InvoiceConfigPage = () => {
         <div className={'accounts-receivable'}>
           <h6>Membership Level Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBook product from the drop down</p>
-          <MappingTable headers={["Membership Level", "QB Products"]} data={membershipLevels} mappingOptions={products} dropdownDefaultName={"Choose Product"}/>
+          <MappingTable onMappingChange={handleMapping} headers={["Membership Level", "QB Products"]} data={membershipLevels} mappingOptions={products} dropdownDefaultName={"Choose Product"}/>
         </div>
         <div className="mt-4">
           <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/customer-information')}>Back</button>

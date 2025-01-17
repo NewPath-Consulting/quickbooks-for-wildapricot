@@ -3,11 +3,23 @@ interface MappingTableProps {
   headers: string[]; // Table headers
   data: { id: number; name: string }[]; // Data to map (e.g., membership levels)
   mappingOptions: { id: number; name: string }[]; // Options for dropdown (e.g., products)
-  onMappingChange ?: (dataId: number | string, selectedValue: string) => void; // Callback for selection,
+  onMappingChange ?: (itemName: string, optionId: string, optionName: string) => void; // Callback for selection,
   dropdownDefaultName: string
 }
 
-export const MappingTable = ({headers, data, mappingOptions, dropdownDefaultName}: MappingTableProps) => {
+export const MappingTable = ({headers, data, mappingOptions, dropdownDefaultName, onMappingChange}: MappingTableProps) => {
+
+  const handleMapping = (event, itemName) => {
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const value = selectedOption.value; // option's value
+    const name = selectedOption.text;  // option's name (text inside <option>)
+
+    if (onMappingChange) {
+      onMappingChange(itemName, value, name)
+    }
+
+  }
+
   return (
     <div className="table">
       {/* Table Header */}
@@ -29,6 +41,7 @@ export const MappingTable = ({headers, data, mappingOptions, dropdownDefaultName
                 className="form-select"
                 id={`mapping-${item.id}`}
                 defaultValue={""}
+                onChange={(event) => handleMapping(event, item.name)}
               >
                 <option value="" disabled>
                   {dropdownDefaultName}

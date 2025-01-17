@@ -1,13 +1,17 @@
 import './PaymentConfig.css'
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
-import {useEffect, useState} from "react";
 import * as React from "react";
-import {getQueriedResults} from "../../services/api/quickbooks-api/accountService.ts";
-import {getMembershipLevels} from "../../services/api/wild-apricot-api/membershipService.ts";
+import {useEffect, useState} from "react";
 import {getTenders} from "../../services/api/wild-apricot-api/tenderService.ts";
 import {MappingTable} from "../../components/mapping-table/MappingTable.tsx";
 import {useNavigate} from "react-router-dom";
 import {fetchData} from "../../services/fetchData.ts";
+
+interface PaymentMapping {
+  WATender: string,
+  QBTender: string,
+  QBTenderId: string
+}
 
 export const PaymentConfigPage = () => {
   const { onBoardingData, setCurrentStep } = useOnBoarding();
@@ -15,6 +19,8 @@ export const PaymentConfigPage = () => {
   const [qbPaymentMethods, setQBPaymentMethods] = useState([]);
   const [WildApricotTenders, setWildApricotTenders] = useState([]);
   const [accountList, setAccountList] = useState([]);
+  const [paymentMappingList, setPaymentMappingList] = useState<PaymentMapping[]>([]);
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -42,6 +48,28 @@ export const PaymentConfigPage = () => {
     navigate('/donation-config')
   }
 
+  const handleMapping = (itemName, optionId, optionName) => {
+
+    setPaymentMappingList((prev) => {
+      const foundIndex = prev.findIndex((tender) => tender.WATender === itemName);
+
+      if (foundIndex !== -1) {
+        const updatedList = [...prev];
+        updatedList[foundIndex] = {
+          ...updatedList[foundIndex],
+          QBTender: optionName,
+          QBTenderId: optionId,
+        };
+        return updatedList;
+      }
+
+      // Add a new mapping if it doesn't exist
+      return [...prev, { QBTender: optionName, QBTenderId: optionId, WATender: itemName }];
+    });
+
+    console.log(paymentMappingList, "hello")
+  }
+
   return (
     <main>
       <header>
@@ -55,44 +83,50 @@ export const PaymentConfigPage = () => {
         <h6>Default Payment Mapping</h6>
         <p className={'mb-3 mt-2'}>Map your QuickBooks payment deposit account to your QuickBooks receivables account by selecting each from the dropdowns below</p>
         <div className="row">
-          <div className="col-md-6 mb-3">
-            <select
-              className="form-select"
-              id={`mapping`}
-              defaultValue={""}
-            >
-              <option value="" disabled>
-                Choose QB Payment Deposit Account
-              </option>
-              {accountList.map((option) => (
-                <option key={option.id} value={option.id}>
-                  {option.name}
+          <div className={'col-md-6'}>
+            <div className="input-group mb-3">
+              <label className="input-group-text" htmlFor="qb-deposit-account"><i className={'bi bi-receipt'}></i></label>
+              <select
+                className="form-select"
+                id={`qb-deposit-account`}
+                defaultValue={""}
+              >
+                <option value="" disabled>
+                  Choose QB Payment Deposit Account
                 </option>
-              ))}
-            </select>
+                {accountList.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
           <div className="col-md-6">
-            <select
-              className="form-select"
-              id={`mapping`}
-              defaultValue={""}
-            >
-              <option value="" disabled>
-                Choose Receivables Account
-              </option>
-              {accountList.map((option) => (
-                <option key={option.id} value={option.id}>
-                  {option.name}
+            <div className="input-group">
+              <label className="input-group-text" htmlFor="qb-receivable-account"><i className={'bi bi-receipt'}></i></label>
+              <select
+                className="form-select"
+                id={`qb-receivable-account`}
+                defaultValue={""}
+              >
+                <option value="" disabled>
+                  Choose Receivables Account
                 </option>
-              ))}
-            </select>
+                {accountList.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </div>
       <div className={'payment-mapping'}>
         <h6>Payment Method Mapping</h6>
         <p className={'mb-3'}>Map your WildApricot payment methods to one of your QuickBooks payment methods from the dropdown</p>
-        <MappingTable headers={["WA Tender", "QB Tender"]} data={WildApricotTenders} mappingOptions={qbPaymentMethods} dropdownDefaultName={"Choose Payment Tender"}/>
+        <MappingTable onMappingChange={handleMapping} headers={["WA Tender", "QB Tender"]} data={WildApricotTenders} mappingOptions={qbPaymentMethods} dropdownDefaultName={"Choose Payment Tender"}/>
       </div>
       <div className="mt-4">
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/invoice-config')}>Back</button>
