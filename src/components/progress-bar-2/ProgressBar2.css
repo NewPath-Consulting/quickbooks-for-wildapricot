@@ -1,0 +1,98 @@
+/* Steps Container - Align items horizontally */
+.progress-container-2{
+    display: flex; /* Horizontal layout */
+    justify-content: space-between;
+    position: relative; /* To properly position pseudo-elements */
+    margin-bottom: 20px;
+}
+
+
+.progress-container-2 .step{
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eeeeee;
+    height: 4px;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+.progress-container-2 .step.completed {
+    background-color: var(--app-color);
+}
+
+.progress-container-2 .progress {
+    background: var(--app-color);
+    transition: 0.8s ease;
+    height: 4px;
+    position: absolute;
+    left: 0;
+}
+
+
+
+/* Individual Step Item */
+/*.progress-bar .steps li {*/
+/*    position: relative;*/
+/*    display: flex; !* Aligns number and text horizontally *!*/
+/*    align-items: center;*/
+/*    gap: 10px;*/
+/*    flex-direction: column; !* Keeps the number and text vertically stacked *!*/
+/*    margin-right: 20px;*/
+/*    text-align: center; !* Aligns the step text beneath the number *!*/
+/*}*/
+
+/*!* Step Number Styling *!*/
+/*.progress-bar .step-number {*/
+/*    width: 30px;*/
+/*    height: 30px;*/
+/*    color: #ddd;*/
+/*    border-radius: 50%;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    font-weight: 600;*/
+/*    border: 1px solid #ddd;*/
+/*}*/
+
+/*!* Active Step Styling *!*/
+/*.progress-bar .active-step .step-number {*/
+/*    background-color: white;*/
+/*    color: var(--app-color);*/
+/*    border: 1px solid var(--app-color);*/
+/*}*/
+
+/*.progress-bar .completed-step .step-number {*/
+/*    background-color: var(--app-color);*/
+/*    color: white;*/
+/*    border: 1px solid var(--app-color);*/
+/*}*/
+
+/*!* Line connecting the steps, positioned horizontally *!*/
+/*.progress-bar .step-number::after {*/
+/*    position: absolute;*/
+/*    content: "";*/
+/*    width: 100%;*/
+/*    background-color: rgba(0, 0, 0, 0.2); !* Line color *!*/
+/*    height: 4px; !* Line thickness *!*/
+/*    z-index: 2;*/
+/*    left: 100%;*/
+/*}*/
+
+/*!* Hide the line after the last step *!*/
+/*.progress-bar .steps li:last-child .step-number::after {*/
+/*    display: none;*/
+/*}*/
+
+/*!* Step Text Styling *!*/
+/*.progress-bar .steps li p {*/
+/*    font-size: 0.9rem;*/
+/*    font-weight: 500;*/
+/*    color: rgba(0, 0, 0, 0.7);*/
+/*}*/
+
+/*.progress-bar .steps li .sub-title {*/
+/*    font-size: 0.8rem;*/
+/*    color: rgba(0, 0, 0, 0.5);*/
+/*}*/

@@ -8,11 +8,7 @@
     scroll-behavior: auto; /* Smooth scrolling behavior */
 }
 
-@media (max-width: 900px) {
-    .sidebar{
-        display: none;
-    }
-}
+
 
 /* Custom Scrollbar - Webkit Browsers */
 .sidebar::-webkit-scrollbar {
