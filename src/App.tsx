@@ -9,6 +9,7 @@ import OAuthSuccess from "./pages/OAuthSuccess.tsx";
 import {InvoiceConfigPage} from "./pages/invoice-configuration-page/InvoiceConfigPage.tsx";
 import {PaymentConfigPage} from "./pages/payment-config-page/PaymentConfigPage.tsx";
 import {DonationConfigPage} from "./pages/donation-config-page/DonationConfigPage.tsx";
+import ProgressBar from "./components/progress-bar/ProgressBar.tsx";
 
 //26aba993-f746-44bf-9378-e71a2ffae2e6
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <div className="main-layout">
           <Sidebar/>
           <div className="content-area">
+            <ProgressBar/>
             <Routes>
               <Route path="/" element={<CreatMakeAccountPage />} />
               <Route path="/create-connections" element={<CreateConnectionsPage />} />
