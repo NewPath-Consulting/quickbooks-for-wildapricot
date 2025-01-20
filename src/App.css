@@ -17,9 +17,27 @@
     overflow-y: auto; /* Allows scrolling if content is long */
 }
 
+
+@media (min-width: 900px) {
+    .progress-bar {
+        display: none;
+    }
+}
+
 @media (max-width: 900px) {
     .content-area {
         padding: 3em 3em;
     }
+
+    .sidebar{
+        display: none;
+    }
+
+    .progress-bar{
+        display: block;
+    }
 }
+
+
+
 

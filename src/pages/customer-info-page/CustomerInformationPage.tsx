@@ -279,7 +279,7 @@ export const CustomerInformationPage = () => {
           </div>
         </div>
         <div className="mt-4">
-          <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/create-connections')}>Back</button>
+          <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"button"} onClick={() => navigate('/create-connections')}>Back</button>
           <button className={"btn-success"} disabled={false} type={"submit"}>Next</button>
         </div>
       </form>

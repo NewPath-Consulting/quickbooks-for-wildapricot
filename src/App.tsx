@@ -10,6 +10,7 @@ import {InvoiceConfigPage} from "./pages/invoice-configuration-page/InvoiceConfi
 import {PaymentConfigPage} from "./pages/payment-config-page/PaymentConfigPage.tsx";
 import {DonationConfigPage} from "./pages/donation-config-page/DonationConfigPage.tsx";
 import ProgressBar from "./components/progress-bar/ProgressBar.tsx";
+import ProgressBar2 from "./components/progress-bar-2/ProgressBar2.tsx";
 
 //26aba993-f746-44bf-9378-e71a2ffae2e6
 function App() {
@@ -18,9 +19,11 @@ function App() {
       <div className="app-container">
         <Navbar/>
         <div className="main-layout">
-          <Sidebar/>
+          <Sidebar className={"sidebar"}/>
           <div className="content-area">
-            <ProgressBar/>
+            <div className={"progress-bar"}>
+              <ProgressBar2 />
+            </div>
             <Routes>
               <Route path="/" element={<CreatMakeAccountPage />} />
               <Route path="/create-connections" element={<CreateConnectionsPage />} />

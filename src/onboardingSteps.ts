@@ -41,5 +41,6 @@ export const steps: ISteps[] = [
     title: "Run and Test",
     subTitle: "Test you app by running it",
     endpoint: "/"
-  }
+  },
+
 ]
