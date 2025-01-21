@@ -6,6 +6,10 @@
     margin-bottom: 20px;
 }
 
+.sidebar-container ul {
+    padding: 0;
+}
+
 .progress-container::before{
     content: '';
     width: 100%;

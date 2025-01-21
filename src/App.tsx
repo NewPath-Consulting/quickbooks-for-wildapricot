@@ -22,7 +22,7 @@ function App() {
           <Sidebar className={"sidebar"}/>
           <div className="content-area">
             <div className={"progress-bar"}>
-              <ProgressBar2 />
+              <ProgressBar />
             </div>
             <Routes>
               <Route path="/" element={<CreatMakeAccountPage />} />

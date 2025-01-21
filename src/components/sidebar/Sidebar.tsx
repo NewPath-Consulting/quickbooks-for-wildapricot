@@ -8,6 +8,7 @@ const Sidebar: React.FC = () => {
   return (
     <aside className="sidebar">
       <ul className="steps">
+        <div className={'progress'} style={{height: `${(100/(steps.length-1))*(currentStep-1)}%`}}></div>
         {
           steps.map((step, index) => {
             const isClickable = index + 1 <= currentStep
@@ -22,8 +23,7 @@ const Sidebar: React.FC = () => {
                   </span>
                 }
                 <div >
-                  <p style={{fontSize: "0.9rem", fontWeight: "500", color: `${index + 1 <= currentStep ? "black" : "rgba(0, 0, 0, 0.2)"}`}}>{step.title}</p>
-                  <p style={{fontSize: "0.8rem", color: `${index + 1 <= currentStep ? "rgba(0, 0, 0, 0.6)" : "rgba(0, 0, 0, 0.2)"}`}}>{step.subTitle}</p>
+                  <p className={`step-title ${index + 1 <= currentStep ? 'bold-step-title' : ''}`}>{step.title}</p>
                 </div>
               </li>
             )

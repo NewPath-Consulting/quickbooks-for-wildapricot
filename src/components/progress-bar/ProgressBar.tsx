@@ -13,7 +13,7 @@ const ProgressBar: React.FC = () => {
           const isClickable = index + 1 <= currentStep
 
           return (
-            <div className={`step ${index + 1 < currentStep ? "completed" : index + 1 == currentStep  ? "active" : ""} `} key={index}>{index+1}</div>
+            <div className={`step ${index + 1 < currentStep ? "completed" : index + 1 == currentStep  ? "active" : ""} `}  key={index}>{index+1}</div>
           )
         })
       }

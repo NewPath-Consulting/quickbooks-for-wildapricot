@@ -1,6 +1,10 @@
 /* sidebar Container */
+
+:root {
+    --non-progress-color: rgba(161, 161, 161, 0.2)
+}
+
 .sidebar {
-    width: 300px;
     padding: 3em 20px; /* Provides spacing inside the sidebar */
     border-right: 1px solid #ddd; /* Creates a dividing line on the right */
     height: calc(100vh - 60px); /* Adjusts for navbar height */
@@ -35,7 +39,20 @@
 .sidebar .steps {
     list-style: none; /* Removes default list bullets */
     padding: 0; /* Resets padding */
+    position: relative;
 }
+
+.sidebar .step-title.bold-step-title {
+    color: rgb(0, 0, 0, 0.6);
+}
+
+.sidebar .step-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--non-progress-color)
+}
+
+
 
 /* Individual Step Item */
 .sidebar .steps li {
@@ -50,39 +67,64 @@
 .sidebar .step-number {
     width: 30px; /* Fixed width for circular number */
     height: 30px; /* Fixed height for circular number */
-    color: #ddd; /* Default gray background */
+    color: var(--non-progress-color); /* Default gray background */
     border-radius: 50%; /* Makes it circular */
     display: flex; /* Centers the content */
     align-items: center; /* Vertically aligns number */
     justify-content: center; /* Horizontally aligns number */
     font-weight: 600; /* Makes the number bold */
-    border: 1px solid #ddd;
+    border: 2px solid var(--non-progress-color);
+    z-index: 2;
+    background-color: white;
 }
 
 /* Active Step Styling */
 .sidebar .active-step .step-number {
-    background-color: white; /* White background for active step */
     color: var(--app-color); /* App color for active step number */
-    border: 1px solid var(--app-color); /* Outline for active step */
+    border: 2px solid var(--app-color); /* Outline for active step */
 }
 
 .sidebar .completed-step .step-number {
     background-color: var(--app-color); /* White background for active step */
     color: white; /* App color for active step number */
-    border: 1px solid var(--app-color); /* Outline for active step */
+    border: 2px solid var(--app-color); /* Outline for active step */
+}
+
+.sidebar .steps::before {
+    content: '';
+    height: 100%;
+    width: 4px;
+    background-color: var(--non-progress-color);
+    position: absolute;
+    left: 15px;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.sidebar .progress {
+    content: '';
+    top: 0;
+    width: 4px;
+    background-color: var(--app-color);
+    position: absolute;
+    left: 15px;
+    transform: translateX(-50%);
+    z-index: 1;
+    transition: 0.9s ease;
 }
 
 /* Vertical Line After Each Step */
-.sidebar .steps li::after {
-    position: absolute;
-    content: "";
-    width: 2px;
-    background-color: rgba(0, 0, 0, 0.2);
-    height: 100%;
-    top: 87%;
-    left: 14.5px;
-    z-index: 3;
-}
+/*.sidebar .steps li::after {*/
+/*    position: absolute;*/
+/*    content: "";*/
+/*    width: 4px;*/
+/*    background-color: rgba(0, 0, 0, 0.2);*/
+/*    height: 100%;*/
+/*    top: 87%;*/
+/*    left: 15px;*/
+/*    z-index: 3;*/
+/*    transform: translateX(-50%);*/
+/*}*/
 
 .sidebar .steps li.completed-step::after{
     background-color: var(--app-color); /* Active step line color (green in this case) */
