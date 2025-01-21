@@ -10,10 +10,16 @@ const ProgressBar: React.FC = () => {
       <div className={`progress`} style={{width: `${(100/(steps.length-1))*(currentStep-1)}%`}}></div>
       {
         steps.map((step, index )=> {
-          const isClickable = index + 1 <= currentStep
+          const isClickable = index + 1 < currentStep
 
           return (
-            <div className={`step ${index + 1 < currentStep ? "completed" : index + 1 == currentStep  ? "active" : ""} `}  key={index}>{index+1}</div>
+            isClickable ?
+            <a href={step.endpoint} className={`step ${isClickable ? "completed" : index + 1 == currentStep  ? "active" : ""} `}  key={index}>
+              {
+                isClickable ? <i className={'bi bi-check'} style={{color: 'white'}}></i> : index + 1
+              }
+            </a> :
+            <span className={`step ${isClickable ? "completed" : index + 1 == currentStep  ? "active" : ""} `}  key={index}>{index + 1}</span>
           )
         })
       }

@@ -13,7 +13,7 @@ export const steps: ISteps[] = [
     endpoint: "/"
   },
   {
-    title: "Connections",
+    title: "Create Connections",
     subTitle: "Create your app connections",
     endpoint: "/create-connections"
   },
