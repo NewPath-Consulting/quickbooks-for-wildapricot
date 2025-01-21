@@ -8,7 +8,7 @@ export interface ISteps {
 
 export const steps: ISteps[] = [
   {
-    title: "Create make account",
+    title: "Create Make account",
     subTitle: "Sign up at Make.com",
     endpoint: "/"
   },

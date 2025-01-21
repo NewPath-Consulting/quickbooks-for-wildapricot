@@ -6,7 +6,16 @@
     margin-bottom: 20px;
 }
 
-
+.progress-container-3{
+    text-align: left;
+}
+.progress-container-3 .step-text {
+    letter-spacing: 1px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 5px;
+    display: inline-block;
+}
 .progress-container-2 .step{
     z-index: 2;
     display: flex;

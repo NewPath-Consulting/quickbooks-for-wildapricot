@@ -18,14 +18,15 @@ const Sidebar: React.FC = () => {
                 {isClickable ?
                   <Link className="step-number" to={step.endpoint}>
                     {index + 1 < currentStep ? <i style={{fontSize: "1.2em", color: "white"}} className={"bi bi-check"}></i> : index + 1}
-                    {/*<div className={`progressing ${index + 1 < currentStep ? 'active' : ''}`} />*/}
+                    <div className={`progressing ${index + 1 < currentStep ? 'active' : ''}`} />
                   </Link> :
                   <span className="step-number">
                     {index + 1 < currentStep ? <i style={{fontSize: "1.2em", color: "white"}} className={"bi bi-check"}></i> : index + 1}
                   </span>
                 }
                 <div >
-                  <p className={`step-title ${index + 1 == currentStep ? 'current-step-title' : index + 1 < currentStep ? 'bold-step-title' : ''}`}>{step.title}</p>
+                  <p className={`step-title ${index + 1 <= currentStep ? 'bold-step-title' : ''}`}>{step.title}</p>
+                  <p className={`step-sub-title ${index + 1 <= currentStep ? 'bold-step-title' : ''}`}>{step.subTitle}</p>
                 </div>
               </li>
             )

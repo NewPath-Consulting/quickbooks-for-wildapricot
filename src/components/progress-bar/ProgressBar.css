@@ -17,7 +17,7 @@
     left: 0;
     position: absolute;
     background-color: #eeeeee;
-    height: 4px;
+    height: 2px;
     z-index: 1;
     transform: translateY(-50%);
 }
@@ -52,7 +52,7 @@
     left: 0;
     position: absolute;
     background-color: var(--app-color);
-    height: 4px;
+    height: 2px;
     z-index: 1;
     transition: 0.8s ease;
     transform: translateY(-50%);

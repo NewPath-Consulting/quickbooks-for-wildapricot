@@ -42,20 +42,25 @@
     position: relative;
 }
 
-.sidebar .step-title.bold-step-title {
-    color: rgb(0, 0, 0, 0.6);
+.sidebar .step-title.bold-step-title,  .sidebar .step-sub-title.bold-step-title{
+    color: rgb(0, 0, 0, 0.8);
 }
 
-.sidebar .step-title.current-step-title {
+.sidebar .step-title.current-step-title, .sidebar .step-sub-title.current-step-title  {
     color: var(--app-color);
 }
 
 .sidebar .step-title {
     font-size: 0.9rem;
-    font-weight: 700;
+    font-weight: 400;
     color: var(--non-progress-color)
 }
 
+.sidebar .step-sub-title {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--non-progress-color)
+}
 
 
 /* Individual Step Item */
@@ -64,33 +69,32 @@
     display: flex; /* Aligns number and text horizontally */
     align-items: center; /* Centers items vertically */
     gap: 10px; /* Adds space between number and text */
-    margin-bottom: 60px; /* Spacing between steps */
+    margin-bottom: 50px; /* Spacing between steps */
 }
 
-/*.sidebar .steps li:not(:last-child) .step-number::before {*/
-/*    content: '';*/
-/*    position: absolute;*/
-/*    width: 2px;*/
-/*    height: 45px;*/
-/*    top: 35px;*/
-/*    background-color: var(--non-progress-color);*/
-/*    left: 50%;*/
-/*    transform: translateX(-50%);*/
-/*}*/
-/*.progressing.active {*/
-/*    height: 45px !important; !* Target height when active *!*/
-/*}*/
-/*.sidebar .steps li .step-number .progressing {*/
-/*    content: '';*/
-/*    position: absolute;*/
-/*    width: 2px;*/
-/*    height: 0;*/
-/*    top: 35px;*/
-/*    background-color: var(--app-color);*/
-/*    left: 50%;*/
-/*    transform: translateX(-50%);*/
-/*    transition: 0.5s ease;*/
-/*}*/
+.sidebar .steps li:not(:last-child) .step-number::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 45px;
+    top: 35px;
+    background-color: var(--non-progress-color);
+    left: 50%;
+    transform: translateX(-50%);
+}
+.progressing.active {
+    height: 45px !important; /* Target height when active */
+}
+.sidebar .steps li .step-number .progressing {
+    content: '';
+    position: absolute;
+    width: 2px;
+    top: 35px;
+    background-color: var(--app-color);
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.5s ease;
+}
 
 
 
@@ -122,28 +126,29 @@
     border: 2px solid var(--app-color); /* Outline for active step */
 }
 
-.sidebar .steps::before {
-    content: '';
-    height: 100%;
-    width: 2px;
-    background-color: var(--non-progress-color);
-    position: absolute;
-    left: 15px;
-    transform: translateX(-50%);
-    z-index: 1;
-}
+/*.sidebar .steps::before {*/
+/*    content: '';*/
+/*    height: calc(100% - 60px);*/
+/*    top: 30px;*/
+/*    width: 2px;*/
+/*    background-color: var(--non-progress-color);*/
+/*    position: absolute;*/
+/*    left: 15px;*/
+/*    transform: translateX(-50%);*/
+/*    z-index: 1;*/
+/*}*/
 
-.sidebar .progress {
-    content: '';
-    top: 0;
-    width: 2px;
-    background-color: var(--app-color);
-    position: absolute;
-    left: 15px;
-    transform: translateX(-50%);
-    z-index: 1;
-    transition: 0.9s ease;
-}
+/*.sidebar .progress {*/
+/*    content: '';*/
+/*    top: 2px;*/
+/*    width: 2px;*/
+/*    background-color: var(--app-color);*/
+/*    position: absolute;*/
+/*    left: 15px;*/
+/*    transform: translateX(-50%);*/
+/*    z-index: 1;*/
+/*    transition: 0.9s ease;*/
+/*}*/
 
 /* Vertical Line After Each Step */
 /*.sidebar .steps li::after {*/

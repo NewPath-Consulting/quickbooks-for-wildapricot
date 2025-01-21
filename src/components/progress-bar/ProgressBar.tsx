@@ -1,6 +1,7 @@
 import "./ProgressBar.css";
 import {steps} from "../../onboardingSteps.ts";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
+import {Link} from "react-router-dom";
 
 const ProgressBar: React.FC = () => {
   const { currentStep } = useOnBoarding();
@@ -14,11 +15,11 @@ const ProgressBar: React.FC = () => {
 
           return (
             isClickable ?
-            <a href={step.endpoint} className={`step ${isClickable ? "completed" : index + 1 == currentStep  ? "active" : ""} `}  key={index}>
+            <Link to={step.endpoint} className={`step ${isClickable ? "completed" : index + 1 == currentStep  ? "active" : ""} `}  key={index}>
               {
                 isClickable ? <i className={'bi bi-check'} style={{color: 'white'}}></i> : index + 1
               }
-            </a> :
+            </Link> :
             <span className={`step ${isClickable ? "completed" : index + 1 == currentStep  ? "active" : ""} `}  key={index}>{index + 1}</span>
           )
         })
