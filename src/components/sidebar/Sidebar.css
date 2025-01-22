@@ -82,18 +82,21 @@
     left: 50%;
     transform: translateX(-50%);
 }
-.progressing.active {
-    height: 45px !important; /* Target height when active */
+
+.clickable {
+    cursor: pointer;
 }
+
 .sidebar .steps li .step-number .progressing {
     content: '';
     position: absolute;
     width: 2px;
     top: 35px;
+    height: 0;
     background-color: var(--app-color);
     left: 50%;
     transform: translateX(-50%);
-    transition: 0.5s ease;
+    transition: height 0.5s ease;
 }
 
 
@@ -140,7 +143,7 @@
 
 /*.sidebar .progress {*/
 /*    content: '';*/
-/*    top: 2px;*/
+/*    top: 4px;*/
 /*    width: 2px;*/
 /*    background-color: var(--app-color);*/
 /*    position: absolute;*/

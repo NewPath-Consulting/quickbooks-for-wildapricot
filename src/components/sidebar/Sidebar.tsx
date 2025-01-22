@@ -1,10 +1,11 @@
 import "./Sidebar.css";
 import {steps} from "../../onboardingSteps.ts";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Sidebar: React.FC = () => {
   const { currentStep } = useOnBoarding();
+  const navigate = useNavigate()
 
   return (
     <aside className="sidebar">
@@ -15,15 +16,43 @@ const Sidebar: React.FC = () => {
             const isClickable = index + 1 < currentStep
             return (
               <li className={isClickable ? "completed-step" : index + 1 == currentStep  ? "active-step" : ""} key={index}>
-                {isClickable ?
-                  <Link className="step-number" to={step.endpoint}>
-                    {index + 1 < currentStep ? <i style={{fontSize: "1.2em", color: "white"}} className={"bi bi-check"}></i> : index + 1}
-                    <div className={`progressing ${index + 1 < currentStep ? 'active' : ''}`} />
-                  </Link> :
-                  <span className="step-number">
-                    {index + 1 < currentStep ? <i style={{fontSize: "1.2em", color: "white"}} className={"bi bi-check"}></i> : index + 1}
-                  </span>
-                }
+                {/*{isClickable ?*/}
+                {/*  <Link className="step-number" to={step.endpoint}>*/}
+                {/*    {index + 1 < currentStep ? <i style={{fontSize: "1.2em", color: "white"}} className={"bi bi-check"}></i> : index + 1}*/}
+                {/*    <div className={`progressing`} style={{ height: `${index + 1 < currentStep ? '45px' : '0px'}` }}/>*/}
+                {/*  </Link> :*/}
+                {/*  <span className="step-number">*/}
+                {/*    {index + 1 < currentStep ? <i style={{fontSize: "1.2em", color: "white"}} className={"bi bi-check"}></i> : index + 1}*/}
+                {/*    <div*/}
+                {/*      className="progressing"*/}
+                {/*      style={{*/}
+                {/*        height: `${index + 1 < currentStep ? '45px' : '0px'}`,*/}
+                {/*      }}*/}
+                {/*    />*/}
+                {/*  </span>*/}
+                {/*}*/}
+
+                <div
+                  className={`step-number ${isClickable ? "clickable" : ""}`}
+                  onClick={() => isClickable && step.endpoint && navigate(step.endpoint)} // Use navigate() for routing
+                >
+                  {index + 1 < currentStep ? (
+                    <i
+                      style={{ fontSize: "1.2em", color: "white" }}
+                      className={"bi bi-check"}
+                    ></i>
+                  ) : (
+                    index + 1
+                  )}
+                  {/* Always render the progressing div */}
+                  <div
+                    className="progressing"
+                    style={{
+                      height: `${index + 1 < currentStep ? "45px" : "0px"}`,
+                    }}
+                  />
+                </div>
+
                 <div >
                   <p className={`step-title ${index + 1 <= currentStep ? 'bold-step-title' : ''}`}>{step.title}</p>
                   <p className={`step-sub-title ${index + 1 <= currentStep ? 'bold-step-title' : ''}`}>{step.subTitle}</p>
