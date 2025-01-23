@@ -20,7 +20,6 @@ httpClient.interceptors.request.use(
   (config) => {
 
     if(config.url.includes("makeApi")){
-      console.log(config)
       const token = import.meta.env.API_TOKEN;
       config.headers.Authorization = dynamicToken;
     }

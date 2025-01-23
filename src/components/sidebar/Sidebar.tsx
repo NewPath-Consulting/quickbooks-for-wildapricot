@@ -34,7 +34,7 @@ const Sidebar: React.FC = () => {
 
                 <div
                   className={`step-number ${isClickable ? "clickable" : ""}`}
-                  onClick={() => isClickable && step.endpoint && navigate(step.endpoint)} // Use navigate() for routing
+                  onClick={() => step.endpoint && navigate(step.endpoint)} // Use navigate() for routing
                 >
                   {index + 1 < currentStep ? (
                     <i

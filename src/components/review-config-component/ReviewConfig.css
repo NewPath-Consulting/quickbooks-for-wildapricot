@@ -1,0 +1,36 @@
+
+.review-icon {
+    background-color: rgba(43, 213, 236, 0.13);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.8s ease;
+}
+
+.review-icon:hover {
+    transform: rotate(180deg);
+}
+
+.chevron {
+    transition: transform 0.8s ease;
+}
+
+.spin {
+    transform: rotate(-180deg);
+}
+
+.review-container {
+    box-shadow: 0 4px 8px 1px #eeeeee; /* Glow effect */
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.edit-button {
+    color: black;
+    font-size: 0.8em;
+    background-color: #f1f1f1;
+    padding: 2px 10px;
+}

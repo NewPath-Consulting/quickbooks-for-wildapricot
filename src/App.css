@@ -13,7 +13,7 @@
 
 .content-area {
     flex: 1;
-    padding: 3em 5em;
+    padding: 3em 7em;
     overflow-y: auto; /* Allows scrolling if content is long */
 }
 

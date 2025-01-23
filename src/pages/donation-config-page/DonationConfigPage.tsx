@@ -17,14 +17,14 @@ export const DonationConfigPage = () => {
     <main>
       <header>
         <h2>Donation Configuration</h2>
-        <p>Easily match donation fields from Wild Apricot to QuickBooks for a smooth and accurate integration process.</p>
+        <p>Review your mapping configurations and confirm to start cloning scenarios into your Make.com account</p>
       </header>
       {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
           <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
       </div>}
       <div className="mt-4">
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/payment-config')}>Back</button>
-        <button className={"btn-success"} disabled={false} >Next</button>
+        <button className={"btn-success"} disabled={false} onClick={() => navigate('/clone-scenarios')}>Next</button>
       </div>
     </main>
   )
