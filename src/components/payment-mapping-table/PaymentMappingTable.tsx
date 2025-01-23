@@ -1,4 +1,4 @@
-import './MappingTable.css'
+import './PaymentMappingTable.css'
 import {useState} from "react";
 interface MappingTableProps {
   headers: string[]; // Table headers
@@ -8,17 +8,10 @@ interface MappingTableProps {
   dropdownDefaultName: string
 }
 
-export const MappingTable = ({headers, data, mappingOptions, dropdownDefaultName, onMappingChange}: MappingTableProps) => {
+export const PaymentMappingTable = ({headers, data, mappingOptions, dropdownDefaultName, onMappingChange}: MappingTableProps) => {
 
   const [mappingData, setMappingData] = useState([{waName: '', qbName: '', id: ''}]);
-  const handleMapping = (event, itemName) => {
-    const selectedOption = event.target.options[event.target.selectedIndex];
-    const value = selectedOption.value; // option's value
-    const name = selectedOption.text;  // option's name (text inside <option>)
 
-    onMappingChange(itemName, value, name)
-
-  }
 
   const handleAddMappingRow = () => {
     setMappingData((prev) => [...prev, { waName: "", qbName: "", id: "" }]);
