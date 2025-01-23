@@ -1,0 +1,50 @@
+
+
+.customer-info-section .icon {
+    width:25px;
+    height: 25px;
+    background-color: rgba(43, 213, 236, 0.13);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.review-page-container label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #9C9C9C;
+}
+
+.review-page-container input:disabled {
+    background-color: #f6f6f6;
+}
+
+.review-page-container .text-field p{
+    font-size: 13px;
+}
+
+.icon i {
+    color: rgba(43, 213, 236);
+    font-size: 12px;
+}
+
+.text-field .icon {
+    background-color: rgba(43, 213, 236, 0.13);
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+
+}
+
+.text-field {
+    padding: 10px;
+    border: 2px solid #efefef;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    overflow: hidden;
+    white-space: nowrap;     /* Prevent text from wrapping to the next line */
+
+}
