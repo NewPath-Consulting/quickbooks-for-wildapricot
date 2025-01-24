@@ -5,10 +5,9 @@ interface MappingTableProps {
   data: { id: number; name: string }[]; // Data to map (e.g., membership levels)
   mappingOptions: { id: number; name: string }[]; // Options for dropdown (e.g., products)
   onMappingChange : (itemName: string, optionId: string, optionName: string) => void; // Callback for selection,
-  dropdownDefaultName: string
 }
 
-export const MappingTable = ({headers, data, mappingOptions, dropdownDefaultName, onMappingChange}: MappingTableProps) => {
+export const MappingTable = ({headers, data, mappingOptions, onMappingChange}: MappingTableProps) => {
 
   const [mappingData, setMappingData] = useState([{waName: '', qbName: '', id: ''}]);
   const handleMapping = (event, itemName) => {
@@ -62,6 +61,10 @@ export const MappingTable = ({headers, data, mappingOptions, dropdownDefaultName
   return (
     <div className={'table-container table-wrapper'}>
       <table className="table ">
+        <colgroup>
+          <col style={{ width: "50%" }} />
+          <col style={{ width: "50%" }} />
+        </colgroup>
         <caption><button className={'table-button d-inline'} onClick={() => handleAddMappingRow()}><i className={'bi bi-plus'} ></i>Add Mapping</button></caption>
         <thead className={'table-light'}>
         <tr>
@@ -83,7 +86,7 @@ export const MappingTable = ({headers, data, mappingOptions, dropdownDefaultName
                   onChange={(event) => handleWAFieldChange(index, event.target.value)}
                 >
                   <option value="" disabled>
-                    {dropdownDefaultName}
+                    Choose {headers[0]}
                   </option>
                   {data.map((option) => (
                     <option key={option.id} value={option.id}>
@@ -99,7 +102,7 @@ export const MappingTable = ({headers, data, mappingOptions, dropdownDefaultName
                   onChange={(event) => handleQBFieldChange(index, event)}
                 >
                   <option value="" disabled>
-                    {dropdownDefaultName}
+                    Choose {headers[1]}
                   </option>
                   {mappingOptions.map((option) => (
                     <option key={option.id} value={option.id}>
@@ -107,19 +110,7 @@ export const MappingTable = ({headers, data, mappingOptions, dropdownDefaultName
                     </option>
                   ))}
                 </select></td>
-                <td>@mdo</td>
-                {/*<td><select*/}
-                {/*  className="form-select"*/}
-                {/*>*/}
-                {/*  <option value="" disabled>*/}
-                {/*    {dropdownDefaultName}*/}
-                {/*  </option>*/}
-                {/*  {mappingOptions.map((option) => (*/}
-                {/*    <option key={option.id} value={option.id}>*/}
-                {/*      {option.name}*/}
-                {/*    </option>*/}
-                {/*  ))}*/}
-                {/*</select></td>*/}
+                {headers.length > 2 && <td>@mdo</td>}
               </tr>
             )
           })

@@ -82,20 +82,45 @@ export const InvoiceConfigPage = () => {
         <div className={'accounts-receivable mb-5'} >
           <h6>QuickBooks Receivable Account for Invoices</h6>
           <p className={'mb-3 mt-2'}>Please select your Accounts Receivable account name below</p>
-          <div className="input-group mb-3" defaultValue={"Choose Account"} style={{maxWidth: '500px'}}>
+          <div className="input-group mb-3" defaultValue={"Choose Receivable Account"} style={{maxWidth: '500px'}}>
             <label className="input-group-text" htmlFor="inputAccountsReceivable"><i className={'bi bi-receipt'}></i></label>
             <select className="form-select" id="inputAccountsReceivable" defaultValue={""} onChange={handleAccountSelection}>
-              <option value={""} disabled={true}>Choose Account</option>
+              <option value={""} disabled={true}>Choose Receivable Account</option>
               {accountList.map(account => {
                 return <option key={account.id} value={account.id}>{account.name}</option>
               })}
             </select>
           </div>
         </div>
+        <div className={'quickbooks-class mb-5'} >
+          <h6>QuickBooks Classes</h6>
+          <p className={'mb-3 mt-2'}>Please select weather you want to enable QuickBooks Classes</p>
+          <div className="form-check form-check-inline">
+            <input className="form-check-input" type="radio" checked name="inlineRadioOptions" id="inlineRadio1" value="no" />
+            <label className="form-check-label" htmlFor="inlineRadio1">No</label>
+          </div>
+          <div className="form-check form-check-inline">
+            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="yes"/>
+              <label className="form-check-label" htmlFor="inlineRadio1">Yes</label>
+          </div>
+        </div>
+        <div className={'default product mb-5'} >
+          <h6>Default Membership Level Mapping</h6>
+          <p className={'mb-3 mt-2'}>Please select the QuickBooks product below</p>
+          <div className="input-group mb-3" style={{maxWidth: '500px'}}>
+            <label className="input-group-text" htmlFor="inputAccountsReceivable"><i className={'bi bi-box-seam'}></i></label>
+            <select className="form-select" id="inputAccountsReceivable" defaultValue={""} onChange={handleAccountSelection}>
+              <option value={""} disabled={true}>Choose Default Product</option>
+              {products.map(account => {
+                return <option key={account.id} value={account.id}>{account.name}</option>
+              })}
+            </select>
+          </div>
+        </div>
         <div className={'accounts-receivable'}>
-          <h6>Membership Level Mapping</h6>
+          <h6>Alternate Membership Level Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-          <MappingTable onMappingChange={handleMapping} headers={["Membership Levels", "QB Products"]} data={membershipLevels} mappingOptions={products} dropdownDefaultName={"Choose Product"}/>
+          <MappingTable onMappingChange={handleMapping} headers={["Membership Level", "QB Product", "Income Account"]} data={membershipLevels} mappingOptions={products}/>
         </div>
         <div className="mt-4">
           <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/customer-information')}>Back</button>

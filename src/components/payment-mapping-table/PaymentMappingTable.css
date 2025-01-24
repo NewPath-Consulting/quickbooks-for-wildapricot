@@ -24,7 +24,7 @@ select {
     margin: 0;
 }
 
-.table {
+.table-container {
     display: flex;
     flex-direction: column;
     /*max-width: 700px;*/

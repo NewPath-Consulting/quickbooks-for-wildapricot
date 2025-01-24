@@ -54,7 +54,7 @@ export const PaymentMappingTable = ({headers, data, mappingOptions, dropdownDefa
 
   return (
     <div>
-    <div className="table">
+    <div className="table-container">
       {/* Table Header */}
       <div className="table-header row">
         {headers.map((header, index) => (
