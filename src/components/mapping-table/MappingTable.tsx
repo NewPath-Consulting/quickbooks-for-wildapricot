@@ -2,8 +2,8 @@ import './MappingTable.css'
 import {useState} from "react";
 interface MappingTableProps {
   headers: string[]; // Table headers
-  data: { id: number; name: string }[]; // Data to map (e.g., membership levels)
-  mappingOptions: { id: number; name: string }[]; // Options for dropdown (e.g., products)
+  data: any[]; // Data to map (e.g., membership levels)
+  mappingOptions: any[]; // Options for dropdown (e.g., products)
   onMappingChange : (itemName: string, optionId: string, optionName: string) => void; // Callback for selection,
 }
 
@@ -62,8 +62,7 @@ export const MappingTable = ({headers, data, mappingOptions, onMappingChange}: M
     <div className={'table-container table-wrapper'}>
       <table className="table ">
         <colgroup>
-          <col style={{ width: "50%" }} />
-          <col style={{ width: "50%" }} />
+          <col style={{ width: `${100/headers.length}%` }} />
         </colgroup>
         <caption><button className={'table-button d-inline'} onClick={() => handleAddMappingRow()}><i className={'bi bi-plus'} ></i>Add Mapping</button></caption>
         <thead className={'table-light'}>
@@ -89,7 +88,7 @@ export const MappingTable = ({headers, data, mappingOptions, onMappingChange}: M
                     Choose {headers[0]}
                   </option>
                   {data.map((option) => (
-                    <option key={option.id} value={option.id}>
+                    <option key={option.id} value={option.name}>
                       {option.name}
                     </option>
                   ))}
@@ -105,12 +104,12 @@ export const MappingTable = ({headers, data, mappingOptions, onMappingChange}: M
                     Choose {headers[1]}
                   </option>
                   {mappingOptions.map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.name}
+                    <option key={option.Id} value={option.Id}>
+                      {option.Name}
                     </option>
                   ))}
                 </select></td>
-                {headers.length > 2 && <td>@mdo</td>}
+                {headers.length > 2 && <td>{mappingOptions.find(option => option.Id == item.id)?.IncomeAccountRef.name}</td>}
               </tr>
             )
           })

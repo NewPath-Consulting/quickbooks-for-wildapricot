@@ -133,8 +133,8 @@ export const PaymentConfigPage = () => {
                   Choose QB Payment Deposit Account
                 </option>
                 {depositAccountsList.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.name}
+                  <option key={option.Id} value={option.Id}>
+                    {option.Name}
                   </option>
                 ))}
               </select>
@@ -153,8 +153,8 @@ export const PaymentConfigPage = () => {
                   Choose Receivables Account
                 </option>
                 {receivableAccountsList.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.name}
+                  <option key={option.Id} value={option.Id}>
+                    {option.Name}
                   </option>
                 ))}
               </select>

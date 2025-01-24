@@ -9,7 +9,7 @@ export const fetchData = async (query, setState, responseKey, setErrorMsg) => {
     const data = queryResponse[responseKey];
 
     // Map the data and update the state
-    setState(data.map((item) => ({ name: item.Name, id: item.Id })));
+    setState(data);
   } catch (e) {
     console.log(e);
     setErrorMsg(e.response?.data?.error || "An error occurred");
