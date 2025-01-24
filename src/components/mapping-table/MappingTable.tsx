@@ -60,79 +60,72 @@ export const MappingTable = ({headers, data, mappingOptions, dropdownDefaultName
   }
 
   return (
-    <div>
-    <div className="table">
-      {/* Table Header */}
-      <div className="table-header row">
-        {headers.map((header, index) => (
-          <p key={index} className="col-6 fw-bolder">
-            {header}
-          </p>
-        ))}
-      </div>
-      {/* Table Body */}
-      <div className="table-body">
-        {mappingData.map((item, index) => (
-          <div key={index} className="row align-items-center d-flex flex-wrap">
-            <div className="col-5">
-              <select
-                className="form-select"
-                id={`wa-select-${index}`}
-                value={item.waName}
-                onChange={(event) =>
-                  handleWAFieldChange(index, event.target.value)
-                }
-              >
-                <option value="" disabled>
-                  {dropdownDefaultName}
-                </option>
-                {data.map((option) => (
-                  <option key={option.id} value={option.name}>
-                    {option.name}
+    <div className={'table-container table-wrapper'}>
+      <table className="table ">
+        <caption><button className={'table-button d-inline'} onClick={() => handleAddMappingRow()}><i className={'bi bi-plus'} ></i>Add Mapping</button></caption>
+        <thead className={'table-light'}>
+        <tr>
+          {
+            headers.map((header, index) => {
+              return <th key={index} className={'fw-medium'} scope="col">{header}</th>
+            })
+          }
+        </tr>
+        </thead>
+        <tbody>
+        {
+          mappingData.map((item, index) => {
+            return (
+              <tr>
+                <td className="d-flex border-bottom-0 align-items-center gap-2"> <select
+                  className="form-select"
+                  value={item.waName}
+                  onChange={(event) => handleWAFieldChange(index, event.target.value)}
+                >
+                  <option value="" disabled>
+                    {dropdownDefaultName}
                   </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="col-1 d-flex justify-content-center">
-              <i className="bi bi-arrow-right" style={{ color: "#c5c5c5" }}></i>
-            </div>
-
-            <div className="col-5">
-              <select
-                className="form-select"
-                id={`mapping-${index}`}
-                value={item.id}
-                onChange={(event) =>
-                  handleQBFieldChange(index, event)
-                }
-              >
-                <option value="" disabled>
-                  {dropdownDefaultName}
-                </option>
-                {mappingOptions.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.name}
+                  {data.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name}
+                    </option>
+                  ))}
+                </select>
+                  <i className={'bi bi-arrow-right'}></i>
+                </td>
+                <td> <select
+                  className="form-select"
+                  value={item.id}
+                  onChange={(event) => handleQBFieldChange(index, event)}
+                >
+                  <option value="" disabled>
+                    {dropdownDefaultName}
                   </option>
-                ))}
-              </select>
-            </div>
-            <div className="col-1 d-flex justify-content-center">
-              <button
-                style={{ fontSize: "0.8rem" }}
-                className={'table-button'}
-                onClick={() => handleRemoveRow(index)}
-              >
-                <i className={'bi bi-trash'}></i>
-              </button>
-            </div>
-          </div>
-
-        ))}
-      </div>
-
-    </div>
-      <button className={'table-button'} onClick={() => handleAddMappingRow()}><i className={'bi bi-plus'} ></i>Add Mapping</button>
+                  {mappingOptions.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name}
+                    </option>
+                  ))}
+                </select></td>
+                <td>@mdo</td>
+                {/*<td><select*/}
+                {/*  className="form-select"*/}
+                {/*>*/}
+                {/*  <option value="" disabled>*/}
+                {/*    {dropdownDefaultName}*/}
+                {/*  </option>*/}
+                {/*  {mappingOptions.map((option) => (*/}
+                {/*    <option key={option.id} value={option.id}>*/}
+                {/*      {option.name}*/}
+                {/*    </option>*/}
+                {/*  ))}*/}
+                {/*</select></td>*/}
+              </tr>
+            )
+          })
+        }
+        </tbody>
+      </table>
     </div>
   );
 };
