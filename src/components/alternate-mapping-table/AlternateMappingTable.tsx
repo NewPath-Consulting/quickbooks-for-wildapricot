@@ -87,9 +87,9 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
                   <option value="" disabled>
                     Choose {headers[0]}
                   </option>
-                  {data.map((option) => (
-                    <option key={option.id} value={option.name}>
-                      {option.name}
+                  {data.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
                     </option>
                   ))}
                 </select>

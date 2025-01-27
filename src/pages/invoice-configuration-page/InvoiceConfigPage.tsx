@@ -7,6 +7,8 @@ import {useNavigate} from "react-router-dom";
 import {AlternateMappingTable} from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {fetchData} from "../../services/fetchData.ts";
 import {DefaultMappingTable} from "../../components/default-mapping-table/DefaultMappingTable.tsx";
+import {getEventTags} from "../../services/api/wild-apricot-api/eventsService.ts";
+import {getProductTags} from "../../services/api/wild-apricot-api/storeService.ts";
 
 interface InvoiceMapping {
   membership: string,
@@ -21,9 +23,12 @@ export const InvoiceConfigPage = () => {
   const [account, setAccount] = useState("");
   const [membershipLevels, setMembershipLevels] = useState([]);
   const [products, setProducts] = useState([]);
+  const [hasClasses, setHasClasses] = useState(false)
   const [invoiceMappingList, setInvoiceMappingList] = useState<InvoiceMapping[]>([]);
   const navigate = useNavigate();
   const accountsReceivableErrorMsg = "Must choose an invoice account"
+  const [eventTags, setEventTags] = useState([]);
+  const [productTags, setProductTags] = useState([]);
 
 
   useEffect(() => {
@@ -35,7 +40,29 @@ export const InvoiceConfigPage = () => {
     const listMemberShipLevels = async () => {
       try{
         const membershipLevels = await getMembershipLevels(onBoardingData.customerInfo.userId || '221748')
-        setMembershipLevels(membershipLevels.map(level => ({name: level.Name, id: level.Id})))
+        setMembershipLevels(membershipLevels.map(level => level.Name))
+      }
+      catch (e){
+        setMembershipLevels([]);
+        setErrorMsg(e.response.data.error)
+      }
+    }
+
+    const listEventTags = async () => {
+      try{
+        const eventTags = await getEventTags(onBoardingData.customerInfo.userId || '221748')
+        setEventTags([... new Set(eventTags.data.Events.map(event => event.Tags).flat())])
+      }
+      catch (e){
+        setMembershipLevels([]);
+        setErrorMsg(e.response.data.error)
+      }
+    }
+
+    const listProductTags = async () => {
+      try{
+        const productTags = await getProductTags(onBoardingData.customerInfo.userId || '221748')
+        setProductTags([... new Set(productTags.data.map(productTag => productTag.Tags).flat())])
       }
       catch (e){
         setMembershipLevels([]);
@@ -44,8 +71,13 @@ export const InvoiceConfigPage = () => {
     }
 
     listMemberShipLevels()
+    listEventTags()
+    listProductTags()
   }, []);
-  
+
+  const handleChange = () => {
+    setHasClasses(!hasClasses)
+  }
   const handleAccountSelection = (e) => {
     setAccount(e.target.value);
 
@@ -97,12 +129,12 @@ export const InvoiceConfigPage = () => {
           <h6>QuickBooks Classes</h6>
           <p className={'mb-3 mt-2'}>Please select weather you want to enable QuickBooks Classes</p>
           <div className="form-check form-check-inline">
-            <input className="form-check-input" type="radio" checked name="inlineRadioOptions" id="inlineRadio1" value="no" />
+            <input className="form-check-input" id={"inlineRadio1"} type="radio" name="options" value="no" checked={!hasClasses} onChange={handleChange} />
             <label className="form-check-label" htmlFor="inlineRadio1">No</label>
           </div>
           <div className="form-check form-check-inline">
-            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="yes"/>
-              <label className="form-check-label" htmlFor="inlineRadio2">Yes</label>
+            <input className="form-check-input" id={"inlineRadio2"} type="radio" name="options" value="yes" checked={hasClasses} onChange={handleChange}/>
+              <label className="form-check-label"  htmlFor="inlineRadio2">Yes</label>
           </div>
         </div>
         <div className={'default product'} >
@@ -127,7 +159,7 @@ export const InvoiceConfigPage = () => {
         <div className={'membership-level-table mb-4'}>
           <h6>Alternate Event Registration Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot events to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable onMappingChange={handleMapping} headers={["Event Tag", "QB Product", "Income Account"]} data={membershipLevels} mappingOptions={products}/>
+          <AlternateMappingTable onMappingChange={handleMapping} headers={["Event Tag", "QB Product", "Income Account"]} data={eventTags} mappingOptions={products}/>
         </div>
         <div className={'default product'} >
           <div className={'membership-level-table'}>
@@ -139,7 +171,7 @@ export const InvoiceConfigPage = () => {
         <div className={'membership-level-table'}>
           <h6>Alternate Online Store Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot online stores to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable onMappingChange={handleMapping} headers={["Product Tag", "QB Product", "Income Account"]} data={membershipLevels} mappingOptions={products}/>
+          <AlternateMappingTable onMappingChange={handleMapping} headers={["Product Tag", "QB Product", "Income Account"]} data={productTags} mappingOptions={products}/>
         </div>
         <div className="mt-4">
           <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/customer-information')}>Back</button>
