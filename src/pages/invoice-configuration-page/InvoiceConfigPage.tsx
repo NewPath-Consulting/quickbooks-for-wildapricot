@@ -4,8 +4,9 @@ import {useEffect, useState} from "react";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {getMembershipLevels} from "../../services/api/wild-apricot-api/membershipService.ts";
 import {useNavigate} from "react-router-dom";
-import {MappingTable} from "../../components/mapping-table/MappingTable.tsx";
+import {AlternateMappingTable} from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {fetchData} from "../../services/fetchData.ts";
+import {DefaultMappingTable} from "../../components/default-mapping-table/DefaultMappingTable.tsx";
 
 interface InvoiceMapping {
   membership: string,
@@ -100,37 +101,45 @@ export const InvoiceConfigPage = () => {
             <label className="form-check-label" htmlFor="inlineRadio1">No</label>
           </div>
           <div className="form-check form-check-inline">
-            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="yes"/>
-              <label className="form-check-label" htmlFor="inlineRadio1">Yes</label>
+            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="yes"/>
+              <label className="form-check-label" htmlFor="inlineRadio2">Yes</label>
           </div>
         </div>
-        <div className={'default product mb-5'} >
-          <h6>Default Membership Level Mapping</h6>
-          <p className={'mb-3 mt-2'}>Please select the QuickBooks product below</p>
-          <div className="input-group mb-3" style={{maxWidth: '500px'}}>
-            <label className="input-group-text" htmlFor="inputAccountsReceivable"><i className={'bi bi-box-seam'}></i></label>
-            <select className="form-select" id="inputAccountsReceivable" defaultValue={""} onChange={handleAccountSelection}>
-              <option value={""} disabled={true}>Choose Default Product</option>
-              {products.map(account => {
-                return <option key={account.Id} value={account.Id}>{account.Name}</option>
-              })}
-            </select>
+        <div className={'default product'} >
+          <div className={'membership-level-table'}>
+            <h6>Default Membership Level Mapping</h6>
+            <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
+            <DefaultMappingTable headers={["QB Product", "Income Account"]} data={products} mappingOptions={products}/>
           </div>
         </div>
-        <div className={'membership-level-table'}>
+        <div className={'membership-level-table mb-4'}>
           <h6>Alternate Membership Level Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-          <MappingTable onMappingChange={handleMapping} headers={["Membership Level", "QB Product", "Income Account"]} data={membershipLevels} mappingOptions={products}/>
+          <AlternateMappingTable onMappingChange={handleMapping} headers={["Membership Level", "QB Product", "Income Account"]} data={membershipLevels} mappingOptions={products}/>
         </div>
-        <div className={'membership-level-table'}>
+        <div className={'default product'} >
+          <div className={'membership-level-table'}>
+            <h6>Default Event Registration Mapping</h6>
+            <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
+            <DefaultMappingTable headers={["QB Product", "Income Account"]} data={products} mappingOptions={products}/>
+          </div>
+        </div>
+        <div className={'membership-level-table mb-4'}>
           <h6>Alternate Event Registration Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot events to one of your products by selecting a QuickBooks product from the drop down</p>
-          <MappingTable onMappingChange={handleMapping} headers={["Membership Level", "QB Product", "Income Account"]} data={membershipLevels} mappingOptions={products}/>
+          <AlternateMappingTable onMappingChange={handleMapping} headers={["Event Tag", "QB Product", "Income Account"]} data={membershipLevels} mappingOptions={products}/>
+        </div>
+        <div className={'default product'} >
+          <div className={'membership-level-table'}>
+            <h6>Default Online Store Mapping</h6>
+            <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
+            <DefaultMappingTable headers={["QB Product", "Income Account"]} data={products} mappingOptions={products}/>
+          </div>
         </div>
         <div className={'membership-level-table'}>
           <h6>Alternate Online Store Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot online stores to one of your products by selecting a QuickBooks product from the drop down</p>
-          <MappingTable onMappingChange={handleMapping} headers={["Membership Level", "QB Product", "Income Account"]} data={membershipLevels} mappingOptions={products}/>
+          <AlternateMappingTable onMappingChange={handleMapping} headers={["Product Tag", "QB Product", "Income Account"]} data={membershipLevels} mappingOptions={products}/>
         </div>
         <div className="mt-4">
           <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/customer-information')}>Back</button>

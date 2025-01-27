@@ -1,5 +1,7 @@
 
-
+td {
+    vertical-align: middle;
+}
 
 .table-button {
     font-size: 0.8em;

@@ -3,10 +3,10 @@ import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {getTenders} from "../../services/api/wild-apricot-api/tenderService.ts";
-import {MappingTable} from "../../components/mapping-table/MappingTable.tsx";
+import {AlternateMappingTable} from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {useNavigate} from "react-router-dom";
 import {fetchData} from "../../services/fetchData.ts";
-import {PaymentMappingTable} from "../../components/payment-mapping-table/PaymentMappingTable.tsx";
+import {PaymentMappingTable} from "../../components/payment-alternate-mapping-table/PaymentMappingTable.tsx";
 
 interface PaymentMapping {
   WATender: string,
@@ -165,7 +165,7 @@ export const PaymentConfigPage = () => {
       <div className={'payment-mapping'}>
         <h6>Payment Method Mapping</h6>
         <p className={'mb-3'}>Map your WildApricot payment methods to one of your QuickBooks payment methods from the dropdown</p>
-        <MappingTable onMappingChange={handleMapping} headers={["WA Tender", "QB Tender"]} data={WildApricotTenders} mappingOptions={qbPaymentMethods}/>
+        <AlternateMappingTable onMappingChange={handleMapping} headers={["WA Tender", "QB Tender"]} data={WildApricotTenders} mappingOptions={qbPaymentMethods}/>
       </div>
       <div className="mt-4">
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/invoice-config')}>Back</button>

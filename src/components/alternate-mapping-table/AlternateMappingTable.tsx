@@ -1,4 +1,4 @@
-import './MappingTable.css'
+import './AlternateMappingTable.css'
 import {useState} from "react";
 interface MappingTableProps {
   headers: string[]; // Table headers
@@ -7,7 +7,7 @@ interface MappingTableProps {
   onMappingChange : (itemName: string, optionId: string, optionName: string) => void; // Callback for selection,
 }
 
-export const MappingTable = ({headers, data, mappingOptions, onMappingChange}: MappingTableProps) => {
+export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingChange}: MappingTableProps) => {
 
   const [mappingData, setMappingData] = useState([{waName: '', qbName: '', id: ''}]);
   const handleMapping = (event, itemName) => {
@@ -78,7 +78,7 @@ export const MappingTable = ({headers, data, mappingOptions, onMappingChange}: M
         {
           mappingData.map((item, index) => {
             return (
-              <tr>
+              <tr key={index}>
                 <td className="d-flex border-bottom-0 align-items-center gap-2"> <select
                   className="form-select"
                   value={item.waName}
