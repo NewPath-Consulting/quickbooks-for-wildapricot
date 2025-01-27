@@ -17,3 +17,9 @@ export interface IMembershipLevel{
   Url: string,
   Name: string
 }
+
+export interface IContactField {
+  FieldName: string,
+  Description: string,
+  Access: string
+}

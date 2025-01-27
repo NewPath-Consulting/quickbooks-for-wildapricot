@@ -39,7 +39,7 @@ export const InvoiceConfigPage = () => {
 
     const listMemberShipLevels = async () => {
       try{
-        const membershipLevels = await getMembershipLevels(onBoardingData.customerInfo.userId || '221748')
+        const membershipLevels = await getMembershipLevels('221748')
         setMembershipLevels(membershipLevels.map(level => level.Name))
       }
       catch (e){
@@ -50,7 +50,7 @@ export const InvoiceConfigPage = () => {
 
     const listEventTags = async () => {
       try{
-        const eventTags = await getEventTags(onBoardingData.customerInfo.userId || '221748')
+        const eventTags = await getEventTags('221748')
         setEventTags([... new Set(eventTags.data.Events.map(event => event.Tags).flat())])
       }
       catch (e){
@@ -61,7 +61,7 @@ export const InvoiceConfigPage = () => {
 
     const listProductTags = async () => {
       try{
-        const productTags = await getProductTags(onBoardingData.customerInfo.userId || '221748')
+        const productTags = await getProductTags('221748')
         setProductTags([... new Set(productTags.data.map(productTag => productTag.Tags).flat())])
       }
       catch (e){

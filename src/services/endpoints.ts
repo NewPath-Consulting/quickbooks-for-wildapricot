@@ -17,7 +17,8 @@ const endpoints = {
     getAccounts: '/accounts',
     getContactInfo: "/accounts/:accountId/contacts/me",
     getEventTags: "/accounts/:accountId/events",
-    getProductTags: "/accounts/:accountId/store/products"
+    getProductTags: "/accounts/:accountId/store/products",
+    getContactFields: "accounts/:accountId/contactFields"
   },
   makeApi: {
     listDataStructures: "makeApi/data-structures",
