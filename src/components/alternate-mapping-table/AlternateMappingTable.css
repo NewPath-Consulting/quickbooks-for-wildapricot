@@ -4,7 +4,7 @@ td {
 }
 
 .table-button {
-    font-size: 0.8em;
+    font-size: 0.8rem;
     padding: 0;
     background-color: transparent;
     color: #ff6464;
@@ -23,9 +23,13 @@ th {
     font-size: 80%;
 }
 
-td select, td{
+td select, td input{
     font-size: 12px !important;
     min-width: 150px;
+}
+
+.form-control:disabled {
+    background-color: #f6f6f6;
 }
 
 table {

@@ -62,7 +62,9 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
     <div className={'table-container table-wrapper'}>
       <table className="table ">
         <colgroup>
-          <col style={{ width: `${100/headers.length}%` }} />
+          {headers.map(() => (
+            <col style={{ width: `${100 / (headers.length)}%` }} />
+          ))}
         </colgroup>
         <caption><button className={'table-button d-inline'} onClick={() => handleAddMappingRow()}><i className={'bi bi-plus'} ></i>Add Mapping</button></caption>
         <thead className={'table-light'}>
@@ -72,6 +74,7 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
               return <th key={index} className={'fw-medium'} scope="col">{header}</th>
             })
           }
+          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -79,11 +82,12 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
           mappingData.map((item, index) => {
             return (
               <tr key={index}>
-                <td className="d-flex border-bottom-0 align-items-center gap-2"> <select
+                <td className="">
+                  <select
                   className="form-select"
                   value={item.waName}
                   onChange={(event) => handleWAFieldChange(index, event.target.value)}
-                >
+                  >
                   <option value="" disabled>
                     Choose {headers[0]}
                   </option>
@@ -93,7 +97,7 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
                     </option>
                   ))}
                 </select>
-                  <i className={'bi bi-arrow-right'}></i>
+
                 </td>
                 <td> <select
                   className="form-select"
@@ -109,7 +113,10 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
                     </option>
                   ))}
                 </select></td>
-                {headers.length > 2 && <td>{mappingOptions.find(option => option.Id == item.id)?.IncomeAccountRef.name}</td>}
+                {headers.length > 2 && <td><input disabled value={mappingOptions.find(option => option.Id == item.id)?.IncomeAccountRef.name} className={'form-control'}/></td>}
+                <td>
+                  <button className={'table-button'} onClick={() => handleRemoveRow(index)}><i className={'bi bi-trash'}></i></button>
+                </td>
               </tr>
             )
           })

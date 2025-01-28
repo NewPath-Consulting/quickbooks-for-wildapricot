@@ -52,7 +52,7 @@ export const DefaultMappingTable = ({headers, data, mappingOptions}: MappingTabl
               ))}
             </select>
             </td>
-            <td>{data.find(option => option.Id == defaultField.id)?.IncomeAccountRef.name}</td>
+            <td><input value={data.find(option => option.Id == defaultField.id)?.IncomeAccountRef.name} disabled className={'form-control'}/></td>
           </tr>
         </tbody>
       </table>

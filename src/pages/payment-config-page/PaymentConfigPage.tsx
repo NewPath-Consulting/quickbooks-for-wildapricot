@@ -6,7 +6,6 @@ import {getTenders} from "../../services/api/wild-apricot-api/tenderService.ts";
 import {AlternateMappingTable} from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {useNavigate} from "react-router-dom";
 import {fetchData} from "../../services/fetchData.ts";
-import {PaymentMappingTable} from "../../components/payment-alternate-mapping-table/PaymentMappingTable.tsx";
 
 interface PaymentMapping {
   WATender: string,
