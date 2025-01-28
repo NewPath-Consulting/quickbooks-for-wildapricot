@@ -3,7 +3,7 @@ import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {getTenders} from "../../services/api/wild-apricot-api/tenderService.ts";
-import {MappingTable} from "../../components/mapping-table/MappingTable.tsx";
+import {AlternateMappingTable} from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {useNavigate} from "react-router-dom";
 import {fetchData} from "../../services/fetchData.ts";
 
@@ -41,7 +41,7 @@ export const PaymentConfigPage = () => {
     const listTenders = async () => {
       try{
         const tenders = await getTenders(onBoardingData.customerInfo.userId || '221748')
-        setWildApricotTenders(tenders.data.map(tender => ({name: tender.Name, id: tender.Id})))
+        setWildApricotTenders(tenders.data.map(tender => tender.Name))
       }
       catch (e){
         setWildApricotTenders([]);
@@ -132,8 +132,8 @@ export const PaymentConfigPage = () => {
                   Choose QB Payment Deposit Account
                 </option>
                 {depositAccountsList.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.name}
+                  <option key={option.Id} value={option.Id}>
+                    {option.Name}
                   </option>
                 ))}
               </select>
@@ -152,8 +152,8 @@ export const PaymentConfigPage = () => {
                   Choose Receivables Account
                 </option>
                 {receivableAccountsList.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.name}
+                  <option key={option.Id} value={option.Id}>
+                    {option.Name}
                   </option>
                 ))}
               </select>
@@ -164,7 +164,7 @@ export const PaymentConfigPage = () => {
       <div className={'payment-mapping'}>
         <h6>Payment Method Mapping</h6>
         <p className={'mb-3'}>Map your WildApricot payment methods to one of your QuickBooks payment methods from the dropdown</p>
-        <MappingTable onMappingChange={handleMapping} headers={["WA Tender", "QB Tender"]} data={WildApricotTenders} mappingOptions={qbPaymentMethods} dropdownDefaultName={"Choose Payment Tender"}/>
+        <AlternateMappingTable onMappingChange={handleMapping} headers={["WA Tender", "QB Tender"]} data={WildApricotTenders} mappingOptions={qbPaymentMethods}/>
       </div>
       <div className="mt-4">
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/invoice-config')}>Back</button>

@@ -15,7 +15,10 @@ const endpoints = {
     getTenders: "/accounts/:accountId/tenders",
     updateMember: "/wild-apricot/members/:id",
     getAccounts: '/accounts',
-    getContactInfo: "/accounts/:accountId/contacts/me"
+    getContactInfo: "/accounts/:accountId/contacts/me",
+    getEventTags: "/accounts/:accountId/events",
+    getProductTags: "/accounts/:accountId/store/products",
+    getContactFields: "accounts/:accountId/contactFields"
   },
   makeApi: {
     listDataStructures: "makeApi/data-structures",

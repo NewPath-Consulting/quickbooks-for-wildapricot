@@ -4,6 +4,10 @@
     color: #9C9C9C;
 }
 
+.form-content select {
+    background-color: #F5F5F5;
+}
+
 .form-content input{
     background-color: #f9f9f9;
 }

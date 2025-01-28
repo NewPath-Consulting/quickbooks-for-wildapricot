@@ -1,0 +1,46 @@
+
+td {
+    vertical-align: middle;
+}
+
+.table-button {
+    font-size: 0.8rem;
+    padding: 0;
+    background-color: transparent;
+    color: #ff6464;
+}
+
+
+
+.table-button i {
+    color: #ff6464;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+th {
+    font-size: 80%;
+}
+
+td select, td input{
+    font-size: 12px !important;
+    min-width: 150px;
+}
+
+.form-control:disabled {
+    background-color: #f6f6f6;
+}
+
+table {
+    border: 1px solid grey;
+    border-radius: 20px;
+    overflow-x: hidden ;
+}
+
+thead {
+    background-color: #A9A9A9;
+}
+
