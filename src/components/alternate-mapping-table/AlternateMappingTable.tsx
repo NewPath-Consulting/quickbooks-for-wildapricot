@@ -5,11 +5,12 @@ interface MappingTableProps {
   data: any[]; // Data to map (e.g., membership levels)
   mappingOptions: any[]; // Options for dropdown (e.g., products)
   onMappingChange : (itemName: string, optionId: string, optionName: string) => void; // Callback for selection,
+  classesList ?: any[]
 }
 
-export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingChange}: MappingTableProps) => {
+export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingChange, classesList}: MappingTableProps) => {
 
-  const [mappingData, setMappingData] = useState([{waName: '', qbName: '', id: ''}]);
+  const [mappingData, setMappingData] = useState([{WAFieldName: '', QBFieldName: '', QBFieldID: ''}]);
   const handleMapping = (event, itemName) => {
     const selectedOption = event.target.options[event.target.selectedIndex];
     const value = selectedOption.value; // option's value
@@ -20,13 +21,13 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
   }
 
   const handleAddMappingRow = () => {
-    setMappingData((prev) => [...prev, { waName: "", qbName: "", id: "" }]);
+    setMappingData((prev) => [...prev, { WAFieldName: "", QBFieldName: "", QBFieldID: "" }]);
   };
 
   const handleWAFieldChange = (index: number, value: string) => {
     setMappingData((prev) => {
       const updated = [...prev];
-      updated[index]["waName"] = value;
+      updated[index]["WAFieldName"] = value;
       // You can add logic here if you want to update both value and name
       return updated;
     });
@@ -42,8 +43,8 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
 
     setMappingData((prev) => {
       const updated = [...prev];
-      updated[index]["qbName"] = name;
-      updated[index]["id"] = value;
+      updated[index]["QBFieldName"] = name;
+      updated[index]["QBFieldID"] = value;
       // You can add logic here if you want to update both value and name
       return updated;
     });
@@ -62,8 +63,8 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
     <div className={'table-container table-wrapper'}>
       <table className="table ">
         <colgroup>
-          {headers.map(() => (
-            <col style={{ width: `${100 / (headers.length)}%` }} />
+          {headers.map((header, index) => (
+            <col key={index} style={{ width: `${100 / (headers.length)}%` }} />
           ))}
         </colgroup>
         <caption><button className={'table-button d-inline'} onClick={() => handleAddMappingRow()}><i className={'bi bi-plus'} ></i>Add Mapping</button></caption>
@@ -83,25 +84,27 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
             return (
               <tr key={index}>
                 <td className="">
-                  <select
-                  className="form-select"
-                  value={item.waName}
-                  onChange={(event) => handleWAFieldChange(index, event.target.value)}
-                  >
-                  <option value="" disabled>
-                    Choose {headers[0]}
-                  </option>
-                  {data.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
+                  <div className="select-container">
+                    <select
+                      className="form-select"
+                      value={item.WAFieldName}
+                      onChange={(event) => handleWAFieldChange(index, event.target.value)}
+                    >
+                      <option value="" disabled>
+                        Choose {headers[0]}
+                      </option>
+                      {data.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
                 </td>
                 <td> <select
                   className="form-select"
-                  value={item.id}
+                  value={item.QBFieldID}
                   onChange={(event) => handleQBFieldChange(index, event)}
                 >
                   <option value="" disabled>
@@ -113,7 +116,28 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
                     </option>
                   ))}
                 </select></td>
-                {headers.length > 2 && <td><input disabled value={mappingOptions.find(option => option.Id == item.id)?.IncomeAccountRef.name} className={'form-control'}/></td>}
+
+                {/* Only show this field in Payment Configuration */}
+                {headers.length > 2 && <td><input disabled value={mappingOptions.find(option => option.Id == item.QBFieldID)?.IncomeAccountRef.name} className={'form-control'}/></td>}
+
+                {classesList &&
+                  <td>
+                      <select
+                          className="form-select"
+                          defaultValue={"choose"}
+                      >
+                          <option value="choose" disabled>
+                              Choose {headers[3]}
+                          </option>
+                        {classesList.map((option) => (
+                          <option key={option.Id} value={option.Id}>
+                            {option.Name}
+                          </option>
+                        ))}
+                      </select>
+                  </td>
+                }
+
                 <td>
                   <button className={'table-button'} onClick={() => handleRemoveRow(index)}><i className={'bi bi-trash'}></i></button>
                 </td>

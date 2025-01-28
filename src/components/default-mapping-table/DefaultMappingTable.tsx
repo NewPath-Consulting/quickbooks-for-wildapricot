@@ -4,9 +4,10 @@ interface MappingTableProps {
   data: any[]; // Data to map (e.g., membership levels)
   mappingOptions: any[]; // Options for dropdown (e.g., products)
   onMappingChange ?: (itemName: string, optionId: string, optionName: string) => void; // Callback for selection,
+  classesList ?: any[]
 }
 
-export const DefaultMappingTable = ({headers, data, mappingOptions}: MappingTableProps) => {
+export const DefaultMappingTable = ({headers, data, mappingOptions, classesList}: MappingTableProps) => {
 
   const [defaultField, setDefaultField] = useState({name: '', id: ''});
 
@@ -53,6 +54,23 @@ export const DefaultMappingTable = ({headers, data, mappingOptions}: MappingTabl
             </select>
             </td>
             <td><input value={data.find(option => option.Id == defaultField.id)?.IncomeAccountRef.name} disabled className={'form-control'}/></td>
+            {classesList &&
+                <td>
+                    <select
+                        className="form-select"
+                        defaultValue={"choose"}
+                    >
+                        <option value="choose" disabled>
+                            Choose {headers[2]}
+                        </option>
+                      {classesList.map((option) => (
+                        <option key={option.Id} value={option.Id}>
+                          {option.Name}
+                        </option>
+                      ))}
+                    </select>
+                </td>
+            }
           </tr>
         </tbody>
       </table>

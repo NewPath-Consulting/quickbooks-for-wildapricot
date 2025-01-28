@@ -23,6 +23,7 @@ export const InvoiceConfigPage = () => {
   const [account, setAccount] = useState("");
   const [membershipLevels, setMembershipLevels] = useState([]);
   const [products, setProducts] = useState([]);
+  const [classes, setClasses] = useState([]);
   const [hasClasses, setHasClasses] = useState(false)
   const [invoiceMappingList, setInvoiceMappingList] = useState<InvoiceMapping[]>([]);
   const navigate = useNavigate();
@@ -36,11 +37,12 @@ export const InvoiceConfigPage = () => {
 
     fetchData("select * from item", setProducts, "Item", setErrorMsg)
     fetchData("select * from account where AccountType = 'Accounts Receivable'", setAccountList, "Account", setErrorMsg)
+    fetchData("select * from class", setClasses, "Class", setErrorMsg)
 
     const listMemberShipLevels = async () => {
       try{
         const membershipLevels = await getMembershipLevels('221748')
-        setMembershipLevels(membershipLevels.map(level => level.Name))
+        setMembershipLevels(membershipLevels.map(level => level.Name).sort((a, b) => a.localeCompare(b)))
       }
       catch (e){
         setMembershipLevels([]);
@@ -51,7 +53,7 @@ export const InvoiceConfigPage = () => {
     const listEventTags = async () => {
       try{
         const eventTags = await getEventTags('221748')
-        setEventTags([... new Set(eventTags.data.Events.map(event => event.Tags).flat())])
+        setEventTags([... new Set(eventTags.data.Events.map(event => event.Tags).flat().sort((a, b) => a.localeCompare(b)))])
       }
       catch (e){
         setMembershipLevels([]);
@@ -62,7 +64,7 @@ export const InvoiceConfigPage = () => {
     const listProductTags = async () => {
       try{
         const productTags = await getProductTags('221748')
-        setProductTags([... new Set(productTags.data.map(productTag => productTag.Tags).flat())])
+        setProductTags([... new Set(productTags.data.map(productTag => productTag.Tags).flat().sort((a, b) => a.localeCompare(b)))])
       }
       catch (e){
         setMembershipLevels([]);
@@ -141,37 +143,37 @@ export const InvoiceConfigPage = () => {
           <div className={'membership-level-table'}>
             <h6>Default Membership Level Mapping</h6>
             <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-            <DefaultMappingTable headers={["QB Product", "Income Account"]} data={products} mappingOptions={products}/>
+            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={products} mappingOptions={products}/>
           </div>
         </div>
         <div className={'membership-level-table mb-4'}>
           <h6>Alternate Membership Level Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable onMappingChange={handleMapping} headers={["Membership Level", "QB Product", "Income Account"]} data={membershipLevels} mappingOptions={products}/>
+          <AlternateMappingTable classesList={hasClasses ? classes : undefined} onMappingChange={handleMapping} headers={["Membership Level", "QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={membershipLevels} mappingOptions={products}/>
         </div>
         <div className={'default product'} >
           <div className={'membership-level-table'}>
             <h6>Default Event Registration Mapping</h6>
             <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-            <DefaultMappingTable headers={["QB Product", "Income Account"]} data={products} mappingOptions={products}/>
+            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={products} mappingOptions={products}/>
           </div>
         </div>
         <div className={'membership-level-table mb-4'}>
           <h6>Alternate Event Registration Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot events to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable onMappingChange={handleMapping} headers={["Event Tag", "QB Product", "Income Account"]} data={eventTags} mappingOptions={products}/>
+          <AlternateMappingTable classesList={hasClasses ? classes : undefined} onMappingChange={handleMapping} headers={["Event Tag", "QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={eventTags} mappingOptions={products}/>
         </div>
         <div className={'default product'} >
           <div className={'membership-level-table'}>
             <h6>Default Online Store Mapping</h6>
             <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-            <DefaultMappingTable headers={["QB Product", "Income Account"]} data={products} mappingOptions={products}/>
+            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={products} mappingOptions={products}/>
           </div>
         </div>
         <div className={'membership-level-table'}>
           <h6>Alternate Online Store Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot online stores to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable onMappingChange={handleMapping} headers={["Product Tag", "QB Product", "Income Account"]} data={productTags} mappingOptions={products}/>
+          <AlternateMappingTable classesList={hasClasses ? classes : undefined} onMappingChange={handleMapping} headers={["Product Tag", "QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={productTags} mappingOptions={products}/>
         </div>
         <div className="mt-4">
           <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/customer-information')}>Back</button>

@@ -4,7 +4,6 @@ export const fetchData = async (query, setState, responseKey, setErrorMsg) => {
   try {
     const response = await getQueriedResults(query);
     const { queryResponse } = response;
-
     // Access the data dynamically using the responseKey
     const data = queryResponse[responseKey];
 
