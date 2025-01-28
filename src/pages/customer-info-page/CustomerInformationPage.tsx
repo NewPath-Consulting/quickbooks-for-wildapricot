@@ -75,6 +75,10 @@ export const CustomerInformationPage = () => {
   useEffect(() => {
     setCurrentStep(3)
 
+
+    if(Object.keys(onBoardingData.customerInfo).length !== 0) {
+      setFormData(onBoardingData.customerInfo)
+    }
     const getAccountInfo = async() => {
       try{
         const userInfo = await getWildApricotAccounts();
@@ -91,10 +95,10 @@ export const CustomerInformationPage = () => {
       }
     }
 
+
+
     getAccountInfo().then(response => {
-      if(Object.keys(onBoardingData.customerInfo).length !== 0) {
-        setFormData(onBoardingData.customerInfo)
-      }
+
     });
 
   }, []);
@@ -363,20 +367,23 @@ export const CustomerInformationPage = () => {
           <div className="row ">
             <div className="col-md-6 mb-3">
               <h6>Display Name</h6>
-              <p>Construct name using your Wild Apricot fields below</p>
+              <p>Choose your Display Name by selecting one of your contact fields</p>
             </div>
             <div className="col-md-6 mb-3">
               <div className="col">
-                <input type="text" name={"displayName"} required onChange={handleData} className="form-control" value={formData.displayName} id="display-name" placeholder={"Display Name"}/>
-                <div id="validationServer05Feedback" className="invalid-feedback">
-                  {formErrors.displayName}
+                <div className="input-group" defaultValue={"Choose Field Name"}>
+                  <select className="form-select" onChange={handleChange} value={formData.displayName} id="displayName">
+                    <option value={""} disabled={true}>Choose Field Name</option>
+                    <option value={'{Full Name}'}>FullName</option>
+                    <option value={'{Organization}'}>Organization</option>
+                    <option value={'{Display Name}'}>Display Name</option>
+                    <option value={'{Email}'}>Email</option>
+                    <option value={'{User Id}'}>User ID</option>
+                  </select>
+
                 </div>
+                <p style={{color: 'red'}}>{formErrors.city}</p>
               </div>
-            </div>
-            <div className="col-md-6">
-              <button className={'col me-2 mb-2'} type={'button'} onClick={() => appendToDisplayName(formData.firstName)}>First Name</button>
-              <button className={'col me-2 mb-2'} type={'button'} onClick={() => appendToDisplayName(formData.lastName)}>Last Name</button>
-              <button className={'col me-2 mb-2'} type={'button'} onClick={() => appendToDisplayName(formData.organization)}>Organization</button>
             </div>
           </div>
         </div>
