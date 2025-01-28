@@ -90,11 +90,11 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
                       value={item.WAFieldName}
                       onChange={(event) => handleWAFieldChange(index, event.target.value)}
                     >
-                      <option value="" disabled>
+                      <option value="">
                         Choose {headers[0]}
                       </option>
                       {data.map((option, index) => (
-                        <option key={index} value={option}>
+                        <option disabled={mappingData.some(data => data.WAFieldName === option)} key={index} value={option}>
                           {option}
                         </option>
                       ))}
