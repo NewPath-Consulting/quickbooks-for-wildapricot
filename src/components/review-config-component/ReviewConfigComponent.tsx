@@ -25,9 +25,9 @@ export const ReviewConfigComponent = (props: IReviewConfig) => {
       <div className={'d-flex justify-content-between'}>
         <div className={'d-flex align-items-center gap-2'}>
           <div className={'review-icon'}>
-            <i className={`bi ${img}`} style={{color: '#2bd5ec', fontSize: "20px"}}></i>
+            <i className={`bi ${img}`} style={{color: '#2bec4b', fontSize: "clamp(15px, 2vw, 20px)"}}></i>
           </div>
-          <h6 className={'m-0'}>{title}</h6>
+          <h6 className={'m-0'} style={{fontSize: 'clamp(12px, 2vw, 16px)'}}>{title}</h6>
         </div>
         <div className={'d-flex align-items-center gap-2'}>
           <button className={'edit-button'} onClick={() => navigate(urlLocation)}>Edit</button>

@@ -1,8 +1,8 @@
 
 .review-icon {
-    background-color: rgba(43, 213, 236, 0.13);
-    width: 35px;
-    height: 35px;
+    background-color: rgba(43, 236, 140, 0.13);
+    width: clamp(25px, 4vw, 35px);
+    height: clamp(25px, 4vw, 35px);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -30,7 +30,7 @@
 
 .edit-button {
     color: black;
-    font-size: 0.8em;
+    font-size: clamp(10px, 2vw, 0.8em);
     background-color: #f1f1f1;
     padding: 2px 10px;
 }

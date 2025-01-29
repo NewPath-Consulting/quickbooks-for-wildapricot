@@ -1,0 +1,32 @@
+.review-table-head{
+    background-color: #A9A9A9;
+}
+
+.table td {
+    font-size: 12px;
+}
+
+.td-container {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    justify-content: space-between;
+}
+
+.full-width-arrow {
+    height: 1px;
+    width: 10px;
+    background-color: #b9b9b9;
+    position: relative;
+}
+
+.full-width-arrow::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -9px;
+    border: 6px solid transparent;
+    border-left: 6px solid #b9b9b9;
+
+    transform: translateY(-50%);
+
+}
