@@ -46,7 +46,7 @@ const init = (initialState) => {
 }
 
 export const PaymentConfigPage = () => {
-  const { onBoardingData, setCurrentStep } = useOnBoarding();
+  const { onBoardingData, setCurrentStep, updateData } = useOnBoarding();
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [qbPaymentMethods, setQBPaymentMethods] = useState([]);
   const [WildApricotTenders, setWildApricotTenders] = useState([]);
@@ -54,7 +54,7 @@ export const PaymentConfigPage = () => {
   const [depositAccountsList, setDepositAccountsList] = useState([]);
   const [qbDepositAccount, setQBDepositAccount] = useState<Account>()
   const [qbReceivableAccount, setQBReceivableAccount] = useState<Account>()
-  const [paymentMappingList, dispatch] = useReducer(reducer, [{ WATender: '', QBTender: '', QBTenderId: ''}], init);
+  const [paymentMappingList, dispatch] = useReducer(reducer, onBoardingData.paymentMappingList || [{ WATender: '', QBTender: '', QBTenderId: ''}], init);
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -92,6 +92,7 @@ export const PaymentConfigPage = () => {
     // else{
     //   navigate('/donation-config')
     // }
+    updateData({paymentMappingList})
     navigate('/donation-config')
   }
 

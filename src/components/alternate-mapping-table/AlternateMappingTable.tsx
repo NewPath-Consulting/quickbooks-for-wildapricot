@@ -81,7 +81,7 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
                   value={item[Object.keys(mappingData[index])[2]]}
                   onChange={(event) => handleQBFieldChange(index, event)}
                 >
-                  <option value="" disabled>
+                  <option value="">
                     Choose {headers[1]}
                   </option>
                   {mappingOptions.map((option) => (
