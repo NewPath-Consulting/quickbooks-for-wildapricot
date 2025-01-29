@@ -1,7 +1,7 @@
 import './PaymentConfig.css'
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useEffect, useReducer, useState} from "react";
 import {getTenders} from "../../services/api/wild-apricot-api/tenderService.ts";
 import {AlternateMappingTable} from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {useNavigate} from "react-router-dom";
@@ -18,6 +18,33 @@ interface Account {
   accountId: string
 }
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "ADD_ROW":
+      return [...state, { WATender: '', QBTender: '', QBTenderId: ''}]; // Append new row
+    case "DELETE_ROW":
+      return state.filter((_, index) => index !== action.payload.index); // Remove row at index
+    case "CHANGE_WA_FIELD":
+      return state.map((row, index) =>
+        index === action.payload.index
+          ? { ...row, ["WATender"]: action.payload.value } // Update specific field
+          : row
+      );
+    case "CHANGE_QB_FIELD":
+      return state.map((row, index) =>
+        index === action.payload.index
+          ? { ...row, ["QBTenderId"]: action.payload.value,  ["QBTender"]: action.payload.name} // Update specific field
+          : row
+      );
+    default:
+      return state;
+  }
+}
+
+const init = (initialState) => {
+  return initialState; // Just return the initial state
+}
+
 export const PaymentConfigPage = () => {
   const { onBoardingData, setCurrentStep } = useOnBoarding();
   const [errorMsg, setErrorMsg] = useState<string>('');
@@ -27,8 +54,7 @@ export const PaymentConfigPage = () => {
   const [depositAccountsList, setDepositAccountsList] = useState([]);
   const [qbDepositAccount, setQBDepositAccount] = useState<Account>()
   const [qbReceivableAccount, setQBReceivableAccount] = useState<Account>()
-  const [paymentMappingList, setPaymentMappingList] = useState<PaymentMapping[]>([]);
-
+  const [paymentMappingList, dispatch] = useReducer(reducer, [{ WATender: '', QBTender: '', QBTenderId: ''}], init);
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -69,25 +95,8 @@ export const PaymentConfigPage = () => {
     navigate('/donation-config')
   }
 
-  const handleMapping = (itemName, optionId, optionName) => {
-
-    setPaymentMappingList((prev) => {
-      const foundIndex = prev.findIndex((tender) => tender.WATender === itemName);
-
-      if (foundIndex !== -1) {
-        const updatedList = [...prev];
-        updatedList[foundIndex] = {
-          ...updatedList[foundIndex],
-          QBTender: optionName,
-          QBTenderId: optionId,
-        };
-        return updatedList;
-      }
-
-      // Add a new mapping if it doesn't exist
-      return [...prev, { QBTender: optionName, QBTenderId: optionId, WATender: itemName }];
-    });
-
+  const handleMapping = (type, payload) => {
+    dispatch({type, payload})
     console.log(paymentMappingList, "hello")
   }
 
@@ -164,7 +173,7 @@ export const PaymentConfigPage = () => {
       <div className={'payment-mapping'}>
         <h6>Payment Method Mapping</h6>
         <p className={'mb-3'}>Map your WildApricot payment methods to one of your QuickBooks payment methods from the dropdown</p>
-        <AlternateMappingTable onMappingChange={handleMapping} headers={["WA Tender", "QB Tender"]} data={WildApricotTenders} mappingOptions={qbPaymentMethods}/>
+        <AlternateMappingTable mappingData={paymentMappingList} onMappingChange={handleMapping} headers={["WA Tender", "QB Tender"]} data={WildApricotTenders} mappingOptions={qbPaymentMethods}/>
       </div>
       <div className="mt-4">
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/invoice-config')}>Back</button>

@@ -4,36 +4,20 @@ interface MappingTableProps {
   headers: string[]; // Table headers
   data: any[]; // Data to map (e.g., membership levels)
   mappingOptions: any[]; // Options for dropdown (e.g., products)
-  onMappingChange : (itemName: string, optionId: string, optionName: string) => void; // Callback for selection,
-  classesList ?: any[]
+  onMappingChange : (actionType: string, actionPayload: {}) => void; // Callback for selection,
+  classesList ?: any[];
+  mappingData : any[]
 }
 
-export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingChange, classesList}: MappingTableProps) => {
-
-  const [mappingData, setMappingData] = useState([{WAFieldName: '', QBFieldName: '', QBFieldID: ''}]);
-  const handleMapping = (event, itemName) => {
-    const selectedOption = event.target.options[event.target.selectedIndex];
-    const value = selectedOption.value; // option's value
-    const name = selectedOption.text;  // option's name (text inside <option>)
-
-    onMappingChange(itemName, value, name)
-
-  }
+export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingChange, classesList, mappingData}: MappingTableProps) => {
 
   const handleAddMappingRow = () => {
-    setMappingData((prev) => [...prev, { WAFieldName: "", QBFieldName: "", QBFieldID: "" }]);
+    onMappingChange("ADD_ROW", {})
   };
 
   const handleWAFieldChange = (index: number, value: string) => {
-    setMappingData((prev) => {
-      const updated = [...prev];
-      updated[index]["WAFieldName"] = value;
-      // You can add logic here if you want to update both value and name
-      return updated;
-    });
 
-    console.log(mappingData)
-
+    onMappingChange("CHANGE_WA_FIELD", {index, value})
   };
 
   const handleQBFieldChange = (index: number, event) => {
@@ -41,22 +25,12 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
     const value = selectedOption.value; // option's value
     const name = selectedOption.text;  // option's name (text inside <option>)
 
-    setMappingData((prev) => {
-      const updated = [...prev];
-      updated[index]["QBFieldName"] = name;
-      updated[index]["QBFieldID"] = value;
-      // You can add logic here if you want to update both value and name
-      return updated;
-    });
-
-    console.log(mappingData)
+    onMappingChange("CHANGE_QB_FIELD", {index, value, name})
 
   };
 
   const handleRemoveRow = (index: number) => {
-    setMappingData((prev) => {
-      return  [...prev].filter((data, i) => i !== index)
-    })
+    onMappingChange("DELETE_ROW", {index})
   }
 
   return (
@@ -87,14 +61,14 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
                   <div className="select-container">
                     <select
                       className="form-select"
-                      value={item.WAFieldName}
+                      value={item[Object.keys(mappingData[index])[0]]}
                       onChange={(event) => handleWAFieldChange(index, event.target.value)}
                     >
                       <option value="">
                         Choose {headers[0]}
                       </option>
-                      {data.map((option, index) => (
-                        <option disabled={mappingData.some(data => data.WAFieldName === option)} key={index} value={option}>
+                      {data.map((option, i) => (
+                        <option disabled={mappingData.some(data => data[Object.keys(mappingData[index])[0]] === option)} key={i} value={option}>
                           {option}
                         </option>
                       ))}
@@ -104,7 +78,7 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
                 </td>
                 <td> <select
                   className="form-select"
-                  value={item.QBFieldID}
+                  value={item[Object.keys(mappingData[index])[2]]}
                   onChange={(event) => handleQBFieldChange(index, event)}
                 >
                   <option value="" disabled>
@@ -118,7 +92,7 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
                 </select></td>
 
                 {/* Only show this field in Payment Configuration */}
-                {headers.length > 2 && <td><input disabled value={mappingOptions.find(option => option.Id == item.QBFieldID)?.IncomeAccountRef.name} className={'form-control'}/></td>}
+                {headers.length > 2 && <td><input disabled value={mappingOptions.find(option => option.Id == item[Object.keys(mappingData[index])[2]])?.IncomeAccountRef.name || ""} className={'form-control'}/></td>}
 
                 {classesList &&
                   <td>
