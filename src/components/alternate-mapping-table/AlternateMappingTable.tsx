@@ -16,7 +16,6 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
   };
 
   const handleWAFieldChange = (index: number, value: string) => {
-
     onMappingChange("CHANGE_WA_FIELD", {index, value})
   };
 
@@ -24,9 +23,16 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
     const selectedOption = event.target.options[event.target.selectedIndex];
     const value = selectedOption.value; // option's value
     const name = selectedOption.text;  // option's name (text inside <option>)
+    const incomeAccount = mappingOptions.find(option => option.Id == value)?.IncomeAccountRef?.name
+    onMappingChange("CHANGE_QB_FIELD", {index, value, name, incomeAccount})
+  };
 
-    onMappingChange("CHANGE_QB_FIELD", {index, value, name})
+  const handleClassChange = (index: number, event) => {
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const value = selectedOption.value; // option's value
+    const name = selectedOption.text;  // option's name (text inside <option>)
 
+    onMappingChange("CHANGE_CLASS", {index, value, name})
   };
 
   const handleRemoveRow = (index: number) => {
@@ -91,16 +97,17 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
                   ))}
                 </select></td>
 
-                {/* Only show this field in Payment Configuration */}
-                {headers.length > 2 && <td><input disabled value={mappingOptions.find(option => option.Id == item[Object.keys(mappingData[index])[2]])?.IncomeAccountRef.name || ""} className={'form-control'}/></td>}
+                {/* Only show this field in Invoice Configuration */}
+                {headers.length > 2 && <td><input disabled value={item[Object.keys(mappingData[index])[3]] || ""} className={'form-control'}/></td>}
 
                 {classesList &&
                   <td>
                       <select
                           className="form-select"
-                          defaultValue={"choose"}
+                          value={item[Object.keys(mappingData[index])[5]] || ""}
+                          onChange={(event) => handleClassChange(index, event)}
                       >
-                          <option value="choose" disabled>
+                          <option value="" disabled>
                               Choose {headers[3]}
                           </option>
                         {classesList.map((option) => (

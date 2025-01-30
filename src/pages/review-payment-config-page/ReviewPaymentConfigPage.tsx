@@ -18,9 +18,11 @@ export const ReviewPaymentConfigPage = () => {
           <tbody>
           <tr>
             <td>
-              Accounts Receivable (A/R)
+              {onBoardingData.qbReceivableAccount?.accountName}
             </td>
-            <td>Checking</td>
+            <td>
+              {onBoardingData.qbDepositAccount?.accountName}
+            </td>
           </tr>
           </tbody>
         </table>
@@ -34,33 +36,22 @@ export const ReviewPaymentConfigPage = () => {
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>
-            <div className="td-container">
-              Cash
-              <i className={'bi bi-arrow-right'}></i>
-            </div>
-          </td>
-          <td>Cash</td>
-        </tr>
-        <tr>
-          <td>
-            <div className="td-container">
-              Cash
-              <i className={'bi bi-arrow-right'}></i>
-            </div>
-          </td>
-          <td>Cash</td>
-        </tr>
-        <tr>
-          <td>
-            <div className="td-container">
-              Cash
-              <i className={'bi bi-arrow-right'}></i>
-            </div>
-          </td>
-          <td>Cash</td>
-        </tr>
+        {
+          onBoardingData.paymentMappingList &&
+          onBoardingData?.paymentMappingList.map((value, index) => {
+            return (
+              <tr key={index}>
+                <td>
+                  <div className="td-container">
+                    {value.WATender}
+                    <i className={'bi bi-arrow-right'}></i>
+                  </div>
+                </td>
+                <td>{value.QBTender}</td>
+            </tr>
+            )
+          })
+        }
         </tbody>
       </table>
 

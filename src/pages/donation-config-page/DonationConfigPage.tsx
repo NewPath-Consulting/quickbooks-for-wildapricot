@@ -5,12 +5,13 @@ import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 
 
 export const DonationConfigPage = () => {
-  const { setCurrentStep } = useOnBoarding();
+  const { setCurrentStep, onBoardingData } = useOnBoarding();
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     setCurrentStep(6)
+    console.log(onBoardingData)
   }, []);
 
   return (

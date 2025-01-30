@@ -18,6 +18,8 @@ interface Account {
   accountId: string
 }
 
+
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_ROW":
@@ -41,10 +43,6 @@ const reducer = (state, action) => {
   }
 }
 
-const init = (initialState) => {
-  return initialState; // Just return the initial state
-}
-
 export const PaymentConfigPage = () => {
   const { onBoardingData, setCurrentStep, updateData } = useOnBoarding();
   const [errorMsg, setErrorMsg] = useState<string>('');
@@ -52,14 +50,13 @@ export const PaymentConfigPage = () => {
   const [WildApricotTenders, setWildApricotTenders] = useState([]);
   const [receivableAccountsList, setReceivableAccountsList] = useState([]);
   const [depositAccountsList, setDepositAccountsList] = useState([]);
-  const [qbDepositAccount, setQBDepositAccount] = useState<Account>()
-  const [qbReceivableAccount, setQBReceivableAccount] = useState<Account>()
-  const [paymentMappingList, dispatch] = useReducer(reducer, onBoardingData.paymentMappingList || [{ WATender: '', QBTender: '', QBTenderId: ''}], init);
+  const [qbDepositAccount, setQBDepositAccount] = useState<Account>(onBoardingData.qbDepositAccount ?? {accountId: "", accountName: ""})
+  const [qbReceivableAccount, setQBReceivableAccount] = useState<Account>(onBoardingData.qbReceivableAccount  ?? {accountId: "", accountName: ""})
+  const [paymentMappingList, dispatch] = useReducer(reducer, onBoardingData.paymentMappingList ?? [{ WATender: '', QBTender: '', QBTenderId: ''}]);
   const navigate = useNavigate()
 
   useEffect(() => {
     setCurrentStep(5)
-
     fetchData("select * from paymentmethod", setQBPaymentMethods, "PaymentMethod", setErrorMsg)
     fetchData("select * from account where AccountType = 'Accounts Receivable'", setReceivableAccountsList, "Account", setErrorMsg)
     fetchData("select * from account where AccountType = 'Bank'", setDepositAccountsList, "Account", setErrorMsg)
@@ -78,6 +75,14 @@ export const PaymentConfigPage = () => {
     listTenders()
   }, []);
 
+  useEffect(() => {
+    updateData({
+      paymentMappingList,
+      qbDepositAccount,
+      qbReceivableAccount
+    });
+  }, [paymentMappingList, qbDepositAccount, qbReceivableAccount]);
+
   const handleSubmission = () => {
 
     // if(!qbReceivableAccount){
@@ -92,7 +97,7 @@ export const PaymentConfigPage = () => {
     // else{
     //   navigate('/donation-config')
     // }
-    updateData({paymentMappingList})
+    updateData({paymentMappingList, qbDepositAccount, qbReceivableAccount})
     navigate('/donation-config')
   }
 
@@ -135,10 +140,10 @@ export const PaymentConfigPage = () => {
               <select
                 className="form-select"
                 id={`qb-deposit-account`}
-                defaultValue={""}
+                value={qbDepositAccount.accountId}
                 onChange={(event) => handleAccountChange(event, 'deposit')}
               >
-                <option value="" disabled>
+                <option value="">
                   Choose QB Payment Deposit Account
                 </option>
                 {depositAccountsList.map((option) => (
@@ -155,10 +160,10 @@ export const PaymentConfigPage = () => {
               <select
                 className="form-select"
                 id={`qb-receivable-account`}
-                defaultValue={""}
+                value={qbReceivableAccount.accountId}
                 onChange={(event) => handleAccountChange(event, 'receivable')}
               >
-                <option value="" disabled>
+                <option value="">
                   Choose Receivables Account
                 </option>
                 {receivableAccountsList.map((option) => (

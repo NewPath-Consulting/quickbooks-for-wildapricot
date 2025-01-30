@@ -11,15 +11,16 @@ import {getEventTags} from "../../services/api/wild-apricot-api/eventsService.ts
 import {getProductTags} from "../../services/api/wild-apricot-api/storeService.ts";
 
 interface InvoiceMapping {
-  membership: string,
-  product: string,
-  productId: string
+  WAField: string,
+  QBProduct: string,
+  QBProductId: string,
+  IncomeAccount: string
 }
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_ROW":
-      return [...state, { WAFieldName: '', QBProduct: '', QBProductId: ''}]; // Append new row
+      return [...state, { WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]; // Append new row
     case "DELETE_ROW":
       return state.filter((_, index) => index !== action.payload.index); // Remove row at index
     case "CHANGE_WA_FIELD":
@@ -31,7 +32,13 @@ const reducer = (state, action) => {
     case "CHANGE_QB_FIELD":
       return state.map((row, index) =>
         index === action.payload.index
-          ? { ...row, ["QBProductId"]: action.payload.value,  ["QBProduct"]: action.payload.name} // Update specific field
+          ? { ...row, ["QBProductId"]: action.payload.value,  ["QBProduct"]: action.payload.name, ["IncomeAccount"]: action.payload.incomeAccount} // Update specific field
+          : row
+      );
+    case "CHANGE_CLASS":
+      return state.map((row, index) =>
+        index === action.payload.index
+          ? { ...row, ["classId"]: action.payload.value,  ["class"]: action.payload.name} // Update specific field
           : row
       );
     default:
@@ -39,27 +46,22 @@ const reducer = (state, action) => {
   }
 }
 
-const init = (initialState) => {
-  return initialState; // Just return the initial state
-}
-
 export const InvoiceConfigPage = () => {
-  const { onBoardingData, setCurrentStep } = useOnBoarding()
+  const { onBoardingData, setCurrentStep, updateData } = useOnBoarding()
   const [errorMsg, setErrorMsg] = useState("");
   const [accountList, setAccountList] = useState([]);
   const [account, setAccount] = useState("");
   const [membershipLevels, setMembershipLevels] = useState([]);
   const [products, setProducts] = useState([]);
   const [classes, setClasses] = useState([]);
-  const [hasClasses, setHasClasses] = useState(false)
+  const [hasClasses, setHasClasses] = useState(onBoardingData.hasClasses || false)
   const navigate = useNavigate();
   const accountsReceivableErrorMsg = "Must choose an invoice account"
   const [eventTags, setEventTags] = useState([]);
   const [productTags, setProductTags] = useState([]);
-  const [membershipLevelMappingList, dispatchMembershipMapping] = useReducer(reducer, [{ WAFieldName: '', QBProduct: '', QBProductId: ''}], init);
-  const [eventMappingList, dispatchEventMapping] = useReducer(reducer, [{ WAFieldName: '', QBProduct: '', QBProductId: ''}], init);
-  const [onlineStoreMappingList, dispatchOnlineStoreMapping] = useReducer(reducer, [{ WAFieldName: '', QBProduct: '', QBProductId: ''}], init);
-
+  const [membershipLevelMappingList, dispatchMembershipMapping] = useReducer(reducer, onBoardingData.membershipLevelMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
+  const [eventMappingList, dispatchEventMapping] = useReducer(reducer, onBoardingData.eventMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
+  const [onlineStoreMappingList, dispatchOnlineStoreMapping] = useReducer(reducer, onBoardingData.onlineStoreMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
 
 
   useEffect(() => {
@@ -107,7 +109,16 @@ export const InvoiceConfigPage = () => {
     listProductTags()
   }, []);
 
+  useEffect(() => {
+    updateData({
+      membershipLevelMappingList,
+      eventMappingList,
+      onlineStoreMappingList
+    });
+  }, [membershipLevelMappingList, eventMappingList, onlineStoreMappingList]);
+
   const handleChange = () => {
+    updateData({hasClasses: !hasClasses})
     setHasClasses(!hasClasses)
   }
   const handleAccountSelection = (e) => {
@@ -117,6 +128,8 @@ export const InvoiceConfigPage = () => {
       setErrorMsg('');
     }
   }
+
+
 
   const handleSubmission = () => {
     // if(!account){

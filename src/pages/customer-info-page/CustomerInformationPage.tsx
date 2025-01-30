@@ -138,6 +138,11 @@ export const CustomerInformationPage = () => {
     return errors;
   }
 
+
+  useEffect(() => {
+    updateData({customerInfo: formData});
+  }, [formData]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(onBoardingData)
@@ -152,7 +157,6 @@ export const CustomerInformationPage = () => {
     //   navigate("/invoice-config")
     //   console.log(onBoardingData);
     // }
-    updateData({customerInfo: formData});
     navigate("/invoice-config")
   };
 
