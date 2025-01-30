@@ -50,7 +50,7 @@ export const DefaultMappingTable = ({headers, QBProducts, classesList, onMapping
               value={defaultData.QBProductId}
               onChange={(event) => handleProductSelection(event)}
             >
-              <option value="" disabled>
+              <option value="">
                 Choose {headers[0]}
               </option>
               {QBProducts.map((option) => (

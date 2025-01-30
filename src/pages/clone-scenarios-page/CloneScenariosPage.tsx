@@ -7,6 +7,7 @@ import {CustomerInformationPage} from "../customer-info-page/CustomerInformation
 import {ReviewCustomerInfoPage} from "../review-customer-info-page/ReviewCustomerInfoPage.tsx";
 import {useNavigate} from "react-router-dom";
 import {ReviewPaymentConfigPage} from "../review-payment-config-page/ReviewPaymentConfigPage.tsx";
+import {ReviewInvoiceConfigPage} from "../review-invoice-config-page/ReviewInvoiceConfigPage.tsx";
 
 
 export const CloneScenariosPage = () => {
@@ -38,6 +39,7 @@ export const CloneScenariosPage = () => {
         </ReviewConfigComponent>
 
         <ReviewConfigComponent img={'bi-file-text'} title={'Invoice Configuration'} urlLocation={'/invoice-config'}>
+          <ReviewInvoiceConfigPage/>
         </ReviewConfigComponent>
       </div>
       <div className="mt-4">
