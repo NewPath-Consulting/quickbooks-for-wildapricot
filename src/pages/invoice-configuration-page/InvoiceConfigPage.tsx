@@ -63,9 +63,9 @@ export const InvoiceConfigPage = () => {
   const accountsReceivableErrorMsg = "Must choose an invoice account"
   const [eventTags, setEventTags] = useState([]);
   const [productTags, setProductTags] = useState([]);
-  const [defaultMembershipProduct, setDefaultMembershipProduct] = useState<InvoiceMapping>({QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
-  const [defaultEventProduct, setDefaultEventProduct] = useState<InvoiceMapping>({QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
-  const [defaultStoreProduct, setDefaultStoreProduct] = useState<InvoiceMapping>({QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
+  const [defaultMembershipProduct, setDefaultMembershipProduct] = useState<InvoiceMapping>(onBoardingData.defaultMembershipProduct ?? {QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
+  const [defaultEventProduct, setDefaultEventProduct] = useState<InvoiceMapping>(onBoardingData.defaultEventProduct ?? {QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
+  const [defaultStoreProduct, setDefaultStoreProduct] = useState<InvoiceMapping>(onBoardingData.defaultStoreProduct ?? {QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
 
   const [membershipLevelMappingList, dispatchMembershipMapping] = useReducer(reducer, onBoardingData.membershipLevelMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
   const [eventMappingList, dispatchEventMapping] = useReducer(reducer, onBoardingData.eventMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
@@ -269,7 +269,7 @@ export const InvoiceConfigPage = () => {
         <div className={'online-store-table'}>
           <h6>Alternate Online Store Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot online stores to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable classesList={hasClasses ? classes : undefined} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "store")} headers={["Product Tag", "QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={productTags} mappingOptions={products} mappingData={onlineStoreMappingList}/>
+          <AlternateMappingTable classesList={hasClasses ? classes : undefined} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "store")} headers={["Product Tag", "QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={["Delivery", ...productTags]} mappingOptions={products} mappingData={onlineStoreMappingList}/>
         </div>
         <div className="mt-4">
           <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/customer-information')}>Back</button>

@@ -56,10 +56,11 @@ export const PaymentConfigPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    setCurrentStep(5)
+    setCurrentStep(5);
+
     fetchData("select * from paymentmethod", setQBPaymentMethods, "PaymentMethod", setErrorMsg)
     fetchData("select * from account where AccountType = 'Accounts Receivable'", setReceivableAccountsList, "Account", setErrorMsg)
-    fetchData("select * from account where AccountType = 'Bank'", setDepositAccountsList, "Account", setErrorMsg)
+    fetchData("select * from account where AccountType IN ('Other Current Asset', 'Bank')", setDepositAccountsList, "Account", setErrorMsg)
 
     const listTenders = async () => {
       try{
