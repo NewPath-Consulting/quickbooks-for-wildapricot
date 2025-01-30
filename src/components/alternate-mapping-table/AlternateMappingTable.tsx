@@ -1,6 +1,6 @@
 import './AlternateMappingTable.css'
 import {useState} from "react";
-interface MappingTableProps {
+interface AlternateMappingTableProps {
   headers: string[]; // Table headers
   data: any[]; // Data to map (e.g., membership levels)
   mappingOptions: any[]; // Options for dropdown (e.g., products)
@@ -9,7 +9,7 @@ interface MappingTableProps {
   mappingData : any[]
 }
 
-export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingChange, classesList, mappingData}: MappingTableProps) => {
+export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingChange, classesList, mappingData}: AlternateMappingTableProps) => {
 
   const handleAddMappingRow = () => {
     onMappingChange("ADD_ROW", {})

@@ -1,24 +1,31 @@
 import {useState} from "react";
-interface MappingTableProps {
+import {InvoiceMapping} from "../../pages/invoice-configuration-page/InvoiceConfigPage.tsx";
+interface DefaultMappingTableProps {
   headers: string[]; // Table headers
-  data: any[]; // Data to map (e.g., membership levels)
-  mappingOptions: any[]; // Options for dropdown (e.g., products)
-  onMappingChange ?: (itemName: string, optionId: string, optionName: string) => void; // Callback for selection,
-  classesList ?: any[]
+  QBProducts: any[]; // Data to map (e.g., membership levels)
+  onMappingChange : (fields: InvoiceMapping) => void; // Callback for selection,
+  classesList ?: any[];
+  defaultData: InvoiceMapping
 }
 
-export const DefaultMappingTable = ({headers, data, mappingOptions, classesList}: MappingTableProps) => {
+export const DefaultMappingTable = ({headers, QBProducts, classesList, onMappingChange, defaultData}: DefaultMappingTableProps) => {
 
-  const [defaultField, setDefaultField] = useState({name: '', id: ''});
-
-  const handleSelection = (event) => {
+  const handleProductSelection = (event) => {
     const selectedOption = event.target.options[event.target.selectedIndex];
     const id = selectedOption.value; // option's value
     const name = selectedOption.text;  // option's name (text inside <option>)
 
-    setDefaultField({name, id})
+    const IncomeAccount = QBProducts.find(option => option.Id == id)?.IncomeAccountRef?.name
 
-    console.log(defaultField)
+    onMappingChange({QBProductId: id, QBProduct: name, IncomeAccount})
+  }
+
+  const handleClassSelection = (event) => {
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const id = selectedOption.value; // option's value
+    const name = selectedOption.text;  // option's name (text inside <option>)
+
+    onMappingChange({classId: id, class: name})
   }
 
   return (
@@ -40,27 +47,28 @@ export const DefaultMappingTable = ({headers, data, mappingOptions, classesList}
           <tr>
             <td className="d-flex border-bottom-0 align-items-center gap-2"> <select
               className="form-select"
-              value={defaultField.id}
-              onChange={(event) => handleSelection(event)}
+              value={defaultData.QBProductId}
+              onChange={(event) => handleProductSelection(event)}
             >
               <option value="" disabled>
                 Choose {headers[0]}
               </option>
-              {data.map((option) => (
+              {QBProducts.map((option) => (
                 <option key={option.Id} value={option.Id}>
                   {option.Name}
                 </option>
               ))}
             </select>
             </td>
-            <td><input value={data.find(option => option.Id == defaultField.id)?.IncomeAccountRef.name || ""} disabled className={'form-control'}/></td>
+            <td><input value={defaultData.IncomeAccount || ""} disabled className={'form-control'}/></td>
             {classesList &&
                 <td>
                     <select
                         className="form-select"
-                        defaultValue={"choose"}
+                        value={defaultData.classId || ""}
+                        onChange={handleClassSelection}
                     >
-                        <option value="choose" disabled>
+                        <option value="" disabled>
                             Choose {headers[2]}
                         </option>
                       {classesList.map((option) => (

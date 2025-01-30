@@ -10,11 +10,13 @@ import {DefaultMappingTable} from "../../components/default-mapping-table/Defaul
 import {getEventTags} from "../../services/api/wild-apricot-api/eventsService.ts";
 import {getProductTags} from "../../services/api/wild-apricot-api/storeService.ts";
 
-interface InvoiceMapping {
-  WAField: string,
-  QBProduct: string,
-  QBProductId: string,
-  IncomeAccount: string
+export interface InvoiceMapping {
+  WAField ?: string,
+  QBProduct ?: string,
+  QBProductId ?: string,
+  IncomeAccount ?: string,
+  class ?: string,
+  classId ?: string
 }
 
 const reducer = (state, action) => {
@@ -48,6 +50,9 @@ const reducer = (state, action) => {
 
 export const InvoiceConfigPage = () => {
   const { onBoardingData, setCurrentStep, updateData } = useOnBoarding()
+
+  const navigate = useNavigate();
+
   const [errorMsg, setErrorMsg] = useState("");
   const [accountList, setAccountList] = useState([]);
   const [account, setAccount] = useState("");
@@ -55,10 +60,13 @@ export const InvoiceConfigPage = () => {
   const [products, setProducts] = useState([]);
   const [classes, setClasses] = useState([]);
   const [hasClasses, setHasClasses] = useState(onBoardingData.hasClasses || false)
-  const navigate = useNavigate();
   const accountsReceivableErrorMsg = "Must choose an invoice account"
   const [eventTags, setEventTags] = useState([]);
   const [productTags, setProductTags] = useState([]);
+  const [defaultMembershipProduct, setDefaultMembershipProduct] = useState<InvoiceMapping>({QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
+  const [defaultEventProduct, setDefaultEventProduct] = useState<InvoiceMapping>({QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
+  const [defaultStoreProduct, setDefaultStoreProduct] = useState<InvoiceMapping>({QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
+
   const [membershipLevelMappingList, dispatchMembershipMapping] = useReducer(reducer, onBoardingData.membershipLevelMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
   const [eventMappingList, dispatchEventMapping] = useReducer(reducer, onBoardingData.eventMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
   const [onlineStoreMappingList, dispatchOnlineStoreMapping] = useReducer(reducer, onBoardingData.onlineStoreMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
@@ -113,9 +121,12 @@ export const InvoiceConfigPage = () => {
     updateData({
       membershipLevelMappingList,
       eventMappingList,
-      onlineStoreMappingList
+      onlineStoreMappingList,
+      defaultEventProduct,
+      defaultMembershipProduct,
+      defaultStoreProduct
     });
-  }, [membershipLevelMappingList, eventMappingList, onlineStoreMappingList]);
+  }, [membershipLevelMappingList, eventMappingList, onlineStoreMappingList,defaultEventProduct, defaultMembershipProduct, defaultStoreProduct]);
 
   const handleChange = () => {
     updateData({hasClasses: !hasClasses})
@@ -142,6 +153,11 @@ export const InvoiceConfigPage = () => {
     navigate('/payment-config')
   }
 
+  useEffect(() => {
+    console.log(defaultStoreProduct, defaultEventProduct, defaultMembershipProduct)
+
+  }, [defaultStoreProduct, defaultEventProduct, defaultMembershipProduct]);
+
   const handleMapping = (type, payload, fieldName) => {
     switch(fieldName) {
       case "membership":
@@ -156,7 +172,31 @@ export const InvoiceConfigPage = () => {
       default:
         throw new Error("No field name found")
     }
+  }
 
+  const handleDefaultMapping = (payload: InvoiceMapping, fieldName) => {
+    switch(fieldName) {
+      case "membership":
+        setDefaultMembershipProduct(prev => ({
+          ...prev,
+          ...payload, // Modify only QBProduct
+        }))
+        break;
+      case "event":
+        setDefaultEventProduct(prev => ({
+          ...prev,
+          ...payload, // Modify only QBProduct
+        }))
+        break;
+      case "store":
+        setDefaultStoreProduct(prev => ({
+          ...prev,
+          ...payload, // Modify only QBProduct
+        }))
+        break;
+      default:
+        throw new Error("No field name found")
+    }
   }
 
   return (
@@ -199,7 +239,7 @@ export const InvoiceConfigPage = () => {
           <div className={'membership-level-table'}>
             <h6>Default Membership Level Mapping</h6>
             <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={products} mappingOptions={products}/>
+            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]}  defaultData={defaultMembershipProduct} QBProducts={products} mappingOptions={products} onMappingChange={(payload) => handleDefaultMapping(payload, "membership")}/>
           </div>
         </div>
         <div className={'membership-level-table mb-4'}>
@@ -208,25 +248,25 @@ export const InvoiceConfigPage = () => {
           <AlternateMappingTable mappingData={membershipLevelMappingList} classesList={hasClasses ? classes : undefined} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "membership")} headers={["Membership Level", "QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={membershipLevels} mappingOptions={products}/>
         </div>
         <div className={'default product'} >
-          <div className={'membership-level-table'}>
+          <div className={'event-registration-table'}>
             <h6>Default Event Registration Mapping</h6>
             <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={products} mappingOptions={products}/>
+            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} QBProducts={products} mappingOptions={products} defaultData={defaultEventProduct} onMappingChange={(payload) => handleDefaultMapping(payload, "event")}/>
           </div>
         </div>
-        <div className={'membership-level-table mb-4'}>
+        <div className={'event-registration-table mb-4'}>
           <h6>Alternate Event Registration Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot events to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable classesList={hasClasses ? classes : undefined} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "event")} headers={["Event Tag", "QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={eventTags} mappingOptions={products} mappingData={eventMappingList}/>
+          <AlternateMappingTable classesList={hasClasses ? classes : undefined} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "event")}  headers={["Event Tag", "QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={eventTags} mappingOptions={products} mappingData={eventMappingList}/>
         </div>
         <div className={'default product'} >
-          <div className={'membership-level-table'}>
+          <div className={'online-store-table'}>
             <h6>Default Online Store Mapping</h6>
             <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={products} mappingOptions={products}/>
+            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} defaultData={defaultStoreProduct} QBProducts={products} mappingOptions={products} onMappingChange={(payload) => handleDefaultMapping(payload, "store")}/>
           </div>
         </div>
-        <div className={'membership-level-table'}>
+        <div className={'online-store-table'}>
           <h6>Alternate Online Store Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot online stores to one of your products by selecting a QuickBooks product from the drop down</p>
           <AlternateMappingTable classesList={hasClasses ? classes : undefined} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "store")} headers={["Product Tag", "QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={productTags} mappingOptions={products} mappingData={onlineStoreMappingList}/>
