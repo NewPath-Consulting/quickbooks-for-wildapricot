@@ -70,10 +70,10 @@ export const ReviewDefaultMappingTable = ({defaultFields, headers}) => {
         </tr>
         </thead>
         <tbody>
-        <tr>
+        {(defaultFields?.QBProduct || defaultFields?.IncomeAccount) && <tr>
           <td>{defaultFields?.QBProduct || ""}</td>
           <td>{defaultFields?.IncomeAccount || ""}</td>
-        </tr>
+        </tr>}
         </tbody>
       </table>
     </div>
@@ -90,6 +90,15 @@ export const ReviewInvoiceConfigPage = () => {
 
   return (
     <div className={'pt-4 pb-3 ps-1 review-page-container'}>
+      <div className="mb-2">
+        <p className="mb-2 fw-regular" style={{fontSize: '0.9em'}}>QB Receivable Account</p>
+        <div className="col-lg-3 col-md-6 col-sm-12">
+          <div className="input-group input-group-sm mb-3">
+            <span className="input-group-text" id="basic-addon1">@</span>
+            <input type="text" style={{fontSize: '12px'}} className="form-control" disabled value={onBoardingData.accountReceivable?.accountName || ""} placeholder="Username" aria-label="accounts-receivable"/>
+          </div>
+        </div>
+      </div>
       <div className={'mb-2'}>
         <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Default Membership Level Mapping</p>
         <ReviewDefaultMappingTable defaultFields={onBoardingData.defaultMembershipProduct} headers={["QB Product", "Income Account"]}/>
@@ -113,6 +122,10 @@ export const ReviewInvoiceConfigPage = () => {
       <div className={'mb-2'}>
         <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Alternate Online Store Mapping</p>
         <ReviewMappingTable mappingList={onBoardingData.onlineStoreMappingList} headers={["Product Tag", "QB Product", "Income Account"]} />
+      </div>
+      <div className={'mb-2'}>
+        <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Manual Invoice Mapping</p>
+        <ReviewDefaultMappingTable defaultFields={onBoardingData.manualInvoiceMapping} headers={["QB Product", "Income Account"]}/>
       </div>
     </div>
   )
