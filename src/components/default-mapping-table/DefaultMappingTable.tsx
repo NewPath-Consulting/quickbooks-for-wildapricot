@@ -29,7 +29,7 @@ export const DefaultMappingTable = ({headers, QBProducts, classesList, onMapping
   }
 
   return (
-    <div className={'table-container table-wrapper'}>
+    <div className={'table-container table-wrapper mb-2'}>
       <table className="table ">
         <colgroup>
           <col style={{ width: `${100/headers.length}%` }} />

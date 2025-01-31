@@ -25,14 +25,14 @@ export const ReviewPaymentConfigPage = () => {
             </tr>
             </thead>
             <tbody>
-            <tr>
+            {(onBoardingData.accountReceivable?.accountName || onBoardingData.qbDepositAccount?.accountName) && <tr>
               <td>
                 {onBoardingData.accountReceivable?.accountName || ""}
               </td>
               <td>
                 {onBoardingData.qbDepositAccount?.accountName || ""}
               </td>
-            </tr>
+            </tr>}
             </tbody>
           </table>
         </div>
