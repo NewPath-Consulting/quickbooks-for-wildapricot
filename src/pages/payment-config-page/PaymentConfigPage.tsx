@@ -45,21 +45,21 @@ const reducer = (state, action) => {
 
 export const PaymentConfigPage = () => {
   const { onBoardingData, setCurrentStep, updateData } = useOnBoarding();
+
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [qbPaymentMethods, setQBPaymentMethods] = useState([]);
   const [WildApricotTenders, setWildApricotTenders] = useState([]);
-  const [receivableAccountsList, setReceivableAccountsList] = useState([]);
   const [depositAccountsList, setDepositAccountsList] = useState([]);
   const [qbDepositAccount, setQBDepositAccount] = useState<Account>(onBoardingData.qbDepositAccount ?? {accountId: "", accountName: ""})
-  const [qbReceivableAccount, setQBReceivableAccount] = useState<Account>(onBoardingData.qbReceivableAccount  ?? {accountId: "", accountName: ""})
+
   const [paymentMappingList, dispatch] = useReducer(reducer, onBoardingData.paymentMappingList ?? [{ WATender: '', QBTender: '', QBTenderId: ''}]);
+
   const navigate = useNavigate()
 
   useEffect(() => {
     setCurrentStep(5);
 
     fetchData("select * from paymentmethod", setQBPaymentMethods, "PaymentMethod", setErrorMsg)
-    fetchData("select * from account where AccountType = 'Accounts Receivable'", setReceivableAccountsList, "Account", setErrorMsg)
     fetchData("select * from account where AccountType IN ('Other Current Asset', 'Bank')", setDepositAccountsList, "Account", setErrorMsg)
 
     const listTenders = async () => {
@@ -80,9 +80,8 @@ export const PaymentConfigPage = () => {
     updateData({
       paymentMappingList,
       qbDepositAccount,
-      qbReceivableAccount
     });
-  }, [paymentMappingList, qbDepositAccount, qbReceivableAccount]);
+  }, [paymentMappingList, qbDepositAccount]);
 
   const handleSubmission = () => {
 
@@ -98,7 +97,6 @@ export const PaymentConfigPage = () => {
     // else{
     //   navigate('/donation-config')
     // }
-    updateData({paymentMappingList, qbDepositAccount, qbReceivableAccount})
     navigate('/donation-config')
   }
 
@@ -107,19 +105,13 @@ export const PaymentConfigPage = () => {
     console.log(paymentMappingList, "hello")
   }
 
-  const handleAccountChange = (event, accountType) => {
+  const handleAccountChange = (event) => {
     const selectedOption = event.target.options[event.target.selectedIndex];
     const accountId = selectedOption.value; // option's value
     const accountName = selectedOption.text;  // option's name (text inside <option>)
 
-    if(accountType === 'deposit'){
-      setQBDepositAccount({accountId, accountName})
-    }
-    else {
-      setQBReceivableAccount({accountId, accountName})
-    }
+    setQBDepositAccount({accountId, accountName})
 
-    console.log(qbDepositAccount, qbReceivableAccount)
   }
 
   return (
@@ -142,32 +134,12 @@ export const PaymentConfigPage = () => {
                 className="form-select"
                 id={`qb-deposit-account`}
                 value={qbDepositAccount.accountId}
-                onChange={(event) => handleAccountChange(event, 'deposit')}
+                onChange={handleAccountChange}
               >
                 <option value="">
                   Choose QB Payment Deposit Account
                 </option>
                 {depositAccountsList.map((option) => (
-                  <option key={option.Id} value={option.Id}>
-                    {option.Name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="input-group">
-              <label className="input-group-text" htmlFor="qb-receivable-account"><i className={'bi bi-receipt'}></i></label>
-              <select
-                className="form-select"
-                id={`qb-receivable-account`}
-                value={qbReceivableAccount.accountId}
-                onChange={(event) => handleAccountChange(event, 'receivable')}
-              >
-                <option value="">
-                  Choose Receivables Account
-                </option>
-                {receivableAccountsList.map((option) => (
                   <option key={option.Id} value={option.Id}>
                     {option.Name}
                   </option>

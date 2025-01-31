@@ -27,7 +27,7 @@ export const ReviewPaymentConfigPage = () => {
             <tbody>
             <tr>
               <td>
-                {onBoardingData.qbReceivableAccount?.accountName || ""}
+                {onBoardingData.accountReceivable?.accountName || ""}
               </td>
               <td>
                 {onBoardingData.qbDepositAccount?.accountName || ""}

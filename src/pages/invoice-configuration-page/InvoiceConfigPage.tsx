@@ -55,7 +55,7 @@ export const InvoiceConfigPage = () => {
 
   const [errorMsg, setErrorMsg] = useState("");
   const [accountList, setAccountList] = useState([]);
-  const [account, setAccount] = useState("");
+  const [accountReceivable, setAccountReceivable] = useState(onBoardingData.accountReceivable ?? {accountId: "", accountName: ""});
   const [membershipLevels, setMembershipLevels] = useState([]);
   const [products, setProducts] = useState([]);
   const [classes, setClasses] = useState([]);
@@ -124,23 +124,28 @@ export const InvoiceConfigPage = () => {
       onlineStoreMappingList,
       defaultEventProduct,
       defaultMembershipProduct,
-      defaultStoreProduct
+      defaultStoreProduct,
+      accountReceivable
     });
-  }, [membershipLevelMappingList, eventMappingList, onlineStoreMappingList,defaultEventProduct, defaultMembershipProduct, defaultStoreProduct]);
+
+    console.log(onBoardingData)
+  }, [membershipLevelMappingList, eventMappingList, onlineStoreMappingList,defaultEventProduct, defaultMembershipProduct, defaultStoreProduct, accountReceivable]);
 
   const handleChange = () => {
     updateData({hasClasses: !hasClasses})
     setHasClasses(!hasClasses)
   }
-  const handleAccountSelection = (e) => {
-    setAccount(e.target.value);
+  const handleAccountSelection = (event) => {
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const accountId = selectedOption.value; // option's value
+    const accountName = selectedOption.text;  // option's name (text inside <option>)
+
+    setAccountReceivable({accountId, accountName});
 
     if(errorMsg === accountsReceivableErrorMsg){
       setErrorMsg('');
     }
   }
-
-
 
   const handleSubmission = () => {
     // if(!account){
@@ -152,11 +157,6 @@ export const InvoiceConfigPage = () => {
     // }
     navigate('/payment-config')
   }
-
-  useEffect(() => {
-    console.log(defaultStoreProduct, defaultEventProduct, defaultMembershipProduct)
-
-  }, [defaultStoreProduct, defaultEventProduct, defaultMembershipProduct]);
 
   const handleMapping = (type, payload, fieldName) => {
     switch(fieldName) {
@@ -213,10 +213,10 @@ export const InvoiceConfigPage = () => {
         <div className={'accounts-receivable mb-5'} >
           <h6>QuickBooks Receivable Account for Invoices</h6>
           <p className={'mb-3 mt-2'}>Please select your Accounts Receivable account name below</p>
-          <div className="input-group mb-3" defaultValue={"Choose Receivable Account"} style={{maxWidth: '500px'}}>
+          <div className="input-group mb-3" style={{maxWidth: '500px'}}>
             <label className="input-group-text" htmlFor="inputAccountsReceivable"><i className={'bi bi-receipt'}></i></label>
-            <select className="form-select" id="inputAccountsReceivable" defaultValue={""} onChange={handleAccountSelection}>
-              <option value={""} disabled={true}>Choose Receivable Account</option>
+            <select className="form-select" id="inputAccountsReceivable" value={accountReceivable.accountId} onChange={handleAccountSelection}>
+              <option value={""}>Choose Receivable Account</option>
               {accountList.map(account => {
                 return <option key={account.Id} value={account.Id}>{account.Name}</option>
               })}

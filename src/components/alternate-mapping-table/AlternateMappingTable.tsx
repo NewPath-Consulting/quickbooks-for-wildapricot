@@ -1,5 +1,5 @@
 import './AlternateMappingTable.css'
-import {useState} from "react";
+import {useLayoutEffect, useState} from "react";
 interface AlternateMappingTableProps {
   headers: string[]; // Table headers
   data: any[]; // Data to map (e.g., membership levels)
@@ -34,6 +34,7 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
 
     onMappingChange("CHANGE_CLASS", {index, value, name})
   };
+
 
   const handleRemoveRow = (index: number) => {
     onMappingChange("DELETE_ROW", {index})
@@ -84,7 +85,7 @@ export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingC
                 </td>
                 <td> <select
                   className="form-select"
-                  value={item[Object.keys(mappingData[index])[2]]}
+                  value={item[Object.keys(mappingData[index])[2]] || ""}
                   onChange={(event) => handleQBFieldChange(index, event)}
                 >
                   <option value="">
