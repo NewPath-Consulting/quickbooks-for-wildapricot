@@ -1,14 +1,14 @@
 import {useState} from "react";
 import {InvoiceMapping} from "../../pages/invoice-configuration-page/InvoiceConfigPage.tsx";
-interface DefaultMappingTableProps {
+export interface DefaultMappingTableProps<T extends InvoiceMapping> {
   headers: string[]; // Table headers
   QBProducts: any[]; // Data to map (e.g., membership levels)
-  onMappingChange : (fields: InvoiceMapping) => void; // Callback for selection,
+  onMappingChange : (fields: T) => void; // Callback for selection,
   classesList ?: any[];
-  defaultData: InvoiceMapping
+  defaultData: T
 }
 
-export const DefaultMappingTable = ({headers, QBProducts, classesList, onMappingChange, defaultData}: DefaultMappingTableProps) => {
+export const DefaultMappingTable = <T extends InvoiceMapping> ({headers, QBProducts, classesList, onMappingChange, defaultData, children}: DefaultMappingTableProps<T>) => {
 
   const handleProductSelection = (event) => {
     const selectedOption = event.target.options[event.target.selectedIndex];
@@ -45,13 +45,14 @@ export const DefaultMappingTable = ({headers, QBProducts, classesList, onMapping
         </thead>
         <tbody>
           <tr>
-            <td className="d-flex border-bottom-0 align-items-center gap-2"> <select
+            {children}
+            <td> <select
               className="form-select"
               value={defaultData.QBProductId}
               onChange={(event) => handleProductSelection(event)}
             >
               <option value="">
-                Choose {headers[0]}
+                Choose QB Product
               </option>
               {QBProducts.map((option) => (
                 <option key={option.Id} value={option.Id}>
@@ -69,7 +70,7 @@ export const DefaultMappingTable = ({headers, QBProducts, classesList, onMapping
                         onChange={handleClassSelection}
                     >
                         <option value="" disabled>
-                            Choose {headers[2]}
+                            Choose Class
                         </option>
                       {classesList.map((option) => (
                         <option key={option.Id} value={option.Id}>

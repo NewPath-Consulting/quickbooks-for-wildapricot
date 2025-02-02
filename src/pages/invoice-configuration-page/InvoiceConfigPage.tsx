@@ -97,7 +97,7 @@ export const InvoiceConfigPage = () => {
         setEventTags([... new Set(eventTags.data.Events.map(event => event.Tags).flat().sort((a, b) => a.localeCompare(b)))])
       }
       catch (e){
-        setMembershipLevels([]);
+        setEventTags([]);
         setErrorMsg(e.response.data.error)
       }
     }
@@ -108,7 +108,7 @@ export const InvoiceConfigPage = () => {
         setProductTags([... new Set(productTags.data.map(productTag => productTag.Tags).flat().sort((a, b) => a.localeCompare(b)))])
       }
       catch (e){
-        setMembershipLevels([]);
+        setProductTags([]);
         setErrorMsg(e.response.data.error)
       }
     }
@@ -247,7 +247,7 @@ export const InvoiceConfigPage = () => {
           <div className={'membership-level-table'}>
             <h6>Default Membership Level Mapping</h6>
             <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]}  defaultData={defaultMembershipProduct} QBProducts={products} onMappingChange={(payload) => handleDefaultMapping(payload, "membership")}/>
+            <DefaultMappingTable<InvoiceMapping> classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]}  defaultData={defaultMembershipProduct} QBProducts={products} onMappingChange={(payload) => handleDefaultMapping(payload, "membership")}/>
           </div>
         </div>
         <div className={'membership-level-table mb-4'}>
@@ -259,7 +259,7 @@ export const InvoiceConfigPage = () => {
           <div className={'event-registration-table'}>
             <h6>Default Event Registration Mapping</h6>
             <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} QBProducts={products} defaultData={defaultEventProduct} onMappingChange={(payload) => handleDefaultMapping(payload, "event")}/>
+            <DefaultMappingTable<InvoiceMapping> classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} QBProducts={products} defaultData={defaultEventProduct} onMappingChange={(payload) => handleDefaultMapping(payload, "event")}/>
           </div>
         </div>
         <div className={'event-registration-table mb-4'}>
@@ -271,7 +271,7 @@ export const InvoiceConfigPage = () => {
           <div className={'online-store-table'}>
             <h6>Default Online Store Mapping</h6>
             <p className={'mb-3 mt-2'}>Map your WildApricot product tags to one of your QuickBooks products by selecting a QuickBooks product from the drop down</p>
-            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} defaultData={defaultStoreProduct} QBProducts={products} onMappingChange={(payload) => handleDefaultMapping(payload, "store")}/>
+            <DefaultMappingTable<InvoiceMapping> classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} defaultData={defaultStoreProduct} QBProducts={products} onMappingChange={(payload) => handleDefaultMapping(payload, "store")}/>
           </div>
         </div>
         <div className={'online-store-table'}>
@@ -283,7 +283,7 @@ export const InvoiceConfigPage = () => {
           <div className={'manual-invoice-table'}>
             <h6>Manual Invoice Mapping</h6>
             <p className={'mb-3 mt-2'}>This section is used to map your manually created invoices to a QuickBooks product.</p>
-            <DefaultMappingTable classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} defaultData={manualInvoiceMapping} QBProducts={products} onMappingChange={(payload) => handleDefaultMapping(payload, "manual")}/>
+            <DefaultMappingTable<InvoiceMapping> classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} defaultData={manualInvoiceMapping} QBProducts={products} onMappingChange={(payload) => handleDefaultMapping(payload, "manual")}/>
           </div>
         </div>
         <div className="mt-4">

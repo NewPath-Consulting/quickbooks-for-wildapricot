@@ -2,17 +2,131 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
+import {
+  DefaultMappingTable,
+  DefaultMappingTableProps
+} from "../../components/default-mapping-table/DefaultMappingTable.tsx";
+import {fetchData} from "../../services/fetchData.ts";
+import {InvoiceMapping} from "../invoice-configuration-page/InvoiceConfigPage.tsx";
+import {getDonationFields} from "../../services/api/wild-apricot-api/donationsService.ts";
 
+interface DonationMapping extends InvoiceMapping {
+  depositAccount: string,
+  depositAccountId: string
+}
+
+interface DepositDefaultMappingProps extends DefaultMappingTableProps<DonationMapping> {
+  depositAccountList: any[]
+}
+const ExtendedMappingTable = (props: DepositDefaultMappingProps) => {
+  // Function for the new column
+  const handleAccountChange = (event) => {
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const id = selectedOption.value; // option's value
+    const name = selectedOption.text;  // option's name (text inside <option>)
+
+    props.onMappingChange({depositAccountId: id, depositAccount: name})
+  };
+
+  return (
+    <DefaultMappingTable {...props}>
+      <td>
+        <select
+          className="form-select"
+          id={`qb-deposit-account`}
+          value={props.defaultData.depositAccountId}
+          onChange={handleAccountChange}
+        >
+          <option value="">
+            Choose Deposit Account
+          </option>
+          {props.depositAccountList.map((option) => (
+            <option key={option.Id} value={option.Id}>
+              {option.Name}
+            </option>
+          ))}
+        </select>
+      </td>
+    </DefaultMappingTable>
+  );
+};
+
+interface DonationFieldName {
+  Id: string,
+  FieldName: string,
+  AllowedValues: {Id: number, Label: string, Value: number}[]
+}
 
 export const DonationConfigPage = () => {
   const { setCurrentStep, onBoardingData } = useOnBoarding();
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [classes, setClasses] = useState([]);
+  const [accountList, setAccountList] = useState([]);
+  const [donationFields, setDonationFields] = useState([]);
+  const [donationCampaignName, setDonationCampaignName] = useState<DonationFieldName>({
+    AllowedValues: [],
+    FieldName: "",
+    Id: ""
+  })
+
+  const [donationCommentName, setDonationCommentName] = useState<DonationFieldName>({
+    AllowedValues: [],
+    FieldName: "",
+    Id: ""
+  })
+
+  const [defaultDonationMapping, setDefaultDonationMapping] = useState<DonationMapping>({
+    depositAccount: "",
+    depositAccountId: "",
+    QBProduct: "", QBProductId: "",
+    IncomeAccount: "",
+    class: "",
+    classId: ""
+  });
 
   useEffect(() => {
     setCurrentStep(6)
+
+    fetchData("select * from item", setProducts, "Item", setErrorMsg)
+    fetchData("select * from class", setClasses, "Class", setErrorMsg)
+    fetchData("select * from account where AccountType = 'Bank'", setAccountList, "Account", setErrorMsg)
+
+    const listDonationFields = async () => {
+      try{
+        const donationFields = await getDonationFields('221748')
+        setDonationFields(donationFields.data)
+      }
+      catch (e){
+        setDonationFields([]);
+        setErrorMsg(e.response.data.error)
+      }
+    }
+
+    listDonationFields();
+
     console.log(onBoardingData)
   }, []);
+
+  const handleChange = (fields) => {
+    setDefaultDonationMapping(prev => ({
+      ...prev,
+        ...fields
+    }))
+
+    console.log(defaultDonationMapping)
+  }
+
+  const handleFieldNameChange = (e, fieldName) => {
+    const donationObj = donationFields.find(field => field.Id == e.target.value) ?? {
+      AllowedValues: [],
+      FieldName: "",
+      Id: ""
+    };
+
+    (fieldName === 'campaign' ? setDonationCampaignName : setDonationCommentName)(donationObj);
+  };
 
   return (
     <main>
@@ -23,6 +137,53 @@ export const DonationConfigPage = () => {
       {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
           <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
       </div>}
+      <div className={'generic-default-donation'}>
+        <h6>Donation General Mapping</h6>
+        <p className={'mb-3 mt-2'}>Choose your QuickBooks fields below where default mapping will occur</p>
+        <div className="row">
+          <div className="col-md-6 col-sm-12 mb-3">
+            <select
+              className="form-select"
+              id={`wa-campaign`}
+              value={donationCampaignName.Id || ""}
+              onChange={(e) => handleFieldNameChange(e, "campaign")}
+            >
+              <option value="">
+                Choose Donation Campaign Field Name
+              </option>
+              {donationFields.map((option) => (
+                <option key={option.Id} value={option.Id}>
+                  {option.FieldName}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="col-md-6 col-sm-12">
+            <select
+              className="form-select"
+              id={`wa-comment`}
+              value={donationCommentName.Id || ""}
+              onChange={(e) => handleFieldNameChange(e, "comment")}
+            >
+              <option value="">
+                Choose Donation Comment Field Name
+              </option>
+              {donationFields.map((option) => (
+                <option key={option.Id} value={option.Id}>
+                  {option.FieldName}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div className={'default product'} >
+        <div className={'default-donation-table'}>
+          <h6>Default Donation Mapping</h6>
+          <p className={'mb-3 mt-2'}>Choose your QuickBooks fields below where default mapping will occur</p>
+          <ExtendedMappingTable<DonationMapping> classesList={onBoardingData.hasClasses ? classes : undefined} headers={["Deposit Account", "QB Product", "Income Account", ...(onBoardingData.hasClasses ? ["Class"] : [])]} QBProducts={products} onMappingChange={handleChange} defaultData={defaultDonationMapping} depositAccountList={accountList}/>
+        </div>
+      </div>
       <div className="mt-4">
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/payment-config')}>Back</button>
         <button className={"btn-success"} disabled={false} onClick={() => navigate('/clone-scenarios')}>Next</button>
