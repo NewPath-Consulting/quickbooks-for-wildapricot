@@ -6,7 +6,8 @@ export interface TableColumn {
   type: string,
   key: string,
   options ?: string,
-  disabled?: boolean
+  disabled?: boolean,
+  disableUsed?: boolean
 }
 
 export interface TableColumns {
@@ -26,6 +27,7 @@ export const tableColumns: TableColumns = {
       type: 'select',
       key: 'WAFieldName',
       options: 'membershipLevels', // Your WA options
+      disableUsed: true
     },
     {
       id: 'qb',
@@ -49,6 +51,7 @@ export const tableColumns: TableColumns = {
       type: 'select',
       key: 'WAFieldName',
       options: 'eventTags', // Your WA options
+      disableUsed: true
     },
     {
       id: 'qb',
@@ -72,6 +75,7 @@ export const tableColumns: TableColumns = {
       type: 'select',
       key: 'WAFieldName',
       options: 'productTags', // Your WA options
+      disableUsed: true
     },
     {
       id: 'qb',
@@ -104,6 +108,7 @@ export const tableColumns: TableColumns = {
       type: 'select',
       key: 'WATender',
       options: 'WildApricotTenders', // Your WA options
+      disableUsed: true
     },
     {
       id: 'qb',
@@ -119,7 +124,8 @@ export const tableColumns: TableColumns = {
       header: 'Campaign Name',
       type: 'select',
       key: 'WAFieldName',
-      options: 'campaignOptions', // Your WA options
+      options: 'campaignOptions', // Your WA options,
+      disableUsed: true
     },
     {
       id: 'deposit',

@@ -55,7 +55,7 @@ const AlternateMappingTable = ({
               <option
                 key={option.Id || option || ""}
                 value={option.Id || option || ""}
-                disabled={column.disableUsed || mappingData.some(
+                disabled={column.disableUsed && mappingData.some(
                   data => data[column.key] === (option.Id || option || "")
                 )}
               >
