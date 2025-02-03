@@ -26,31 +26,31 @@ export const ReviewInvoiceConfigPage = () => {
       </div>
       <div className={'mb-2'}>
         <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Default Membership Level Mapping</p>
-        <ReviewDefaultMappingTable defaultFields={onBoardingData.defaultMembershipProduct} headers={["QB Product", "Income Account"]} columns={["QBProduct", "IncomeAccount"]}/>
+        <ReviewDefaultMappingTable defaultFields={onBoardingData.defaultMembershipProduct} headers={["QB Product", "Income Account", ...(onBoardingData.hasClasses ? ["Class"] : [])]} columns={["QBProduct", "IncomeAccount", ...(onBoardingData.hasClasses ? ["class"] : [])]}/>
       </div>
       <div className={'mb-2'}>
         <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Alternate Membership Level Mapping</p>
-        <ReviewMappingTable mappingList={onBoardingData.membershipLevelMappingList} headers={["Membership Level", "QB Product", "Income Account"]}  columns={["WAFieldName", "QBProduct", "IncomeAccount"]}/>
+        <ReviewMappingTable mappingList={onBoardingData.membershipLevelMappingList} headers={["Membership Level", "QB Product", "Income Account", ...(onBoardingData.hasClasses ? ["Class"] : [])]}  columns={["WAFieldName", "QBProduct", "IncomeAccount", ...(onBoardingData.hasClasses ? ["class"] : [])]}/>
       </div>
       <div className={'mb-2'}>
         <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Default Event Mapping</p>
-        <ReviewDefaultMappingTable defaultFields={onBoardingData.defaultEventProduct} headers={["QB Product", "Income Account"]} columns={["QBProduct", "IncomeAccount"]}/>
+        <ReviewDefaultMappingTable defaultFields={onBoardingData.defaultEventProduct} headers={["QB Product", "Income Account", ...(onBoardingData.hasClasses ? ["Class"] : [])]} columns={["QBProduct", "IncomeAccount", ...(onBoardingData.hasClasses ? ["class"] : [])]}/>
       </div>
       <div className={'mb-2'}>
         <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Alternate Event Mapping</p>
-        <ReviewMappingTable mappingList={onBoardingData.eventMappingList} headers={["Event Tag", "QB Product", "Income Account"]} columns={["WAFieldName", "QBProduct", "IncomeAccount"]} />
+        <ReviewMappingTable mappingList={onBoardingData.eventMappingList} headers={["Event Tag", "QB Product", "Income Account", ...(onBoardingData.hasClasses ? ["Class"] : [])]} columns={["WAFieldName", "QBProduct", "IncomeAccount", ...(onBoardingData.hasClasses ? ["class"] : [])]} />
       </div>
       <div className={'mb-2'}>
         <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Default Online Store Mapping</p>
-        <ReviewDefaultMappingTable defaultFields={onBoardingData.defaultStoreProduct} headers={["QB Product", "Income Account"]} columns={["QBProduct", "IncomeAccount"]}/>
+        <ReviewDefaultMappingTable defaultFields={onBoardingData.defaultStoreProduct} headers={["QB Product", "Income Account", ...(onBoardingData.hasClasses ? ["Class"] : [])]} columns={["QBProduct", "IncomeAccount", ...(onBoardingData.hasClasses ? ["class"] : [])]}/>
       </div>
       <div className={'mb-2'}>
         <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Alternate Online Store Mapping</p>
-        <ReviewMappingTable mappingList={onBoardingData.onlineStoreMappingList} headers={["Product Tag", "QB Product", "Income Account"]} columns={["WAFieldName", "QBProduct", "IncomeAccount"]}/>
+        <ReviewMappingTable mappingList={onBoardingData.onlineStoreMappingList} headers={["Product Tag", "QB Product", "Income Account", ...(onBoardingData.hasClasses ? ["Class"] : [])]} columns={["WAFieldName", "QBProduct", "IncomeAccount", ...(onBoardingData.hasClasses ? ["class"] : [])]}/>
       </div>
       <div className={'mb-2'}>
         <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Manual Invoice Mapping</p>
-        <ReviewDefaultMappingTable defaultFields={onBoardingData.manualInvoiceMapping} headers={["QB Product", "Income Account"]} columns={["QBProduct", "IncomeAccount"]}/>
+        <ReviewDefaultMappingTable defaultFields={onBoardingData.manualInvoiceMapping} headers={["QB Product", "Income Account", ...(onBoardingData.hasClasses ? ["Class"] : [])]} columns={["QBProduct", "IncomeAccount", ...(onBoardingData.hasClasses ? ["class"] : [])]}/>
       </div>
     </div>
   )

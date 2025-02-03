@@ -205,7 +205,7 @@ export const DonationConfigPage = () => {
         <div className={'default-donation-table'}>
           <h6>Donation Mapping</h6>
           <p className={'mb-3 mt-2'}>Choose your QuickBooks fields below where default mapping will occur</p>
-          <AlternateMappingTable columns={tableColumns.donations} data={{accountList, products, campaignOptions: donationCampaignName.AllowedValues}} mappingData={donationMappingList} onMappingChange={(type, payload) => dispatchDonationMappingList({type, payload})}/>
+          <AlternateMappingTable columns={[...tableColumns.donations, ...(onBoardingData.hasClasses ? tableColumns.classes : [])]} data={{accountList, products, campaignOptions: donationCampaignName.AllowedValues, classes}} mappingData={donationMappingList} onMappingChange={(type, payload) => dispatchDonationMappingList({type, payload})}/>
         </div>
       </div>
       <div className="mt-4">

@@ -35,11 +35,11 @@ export const ReviewDonationConfigPage = () => {
       </div>
       <div className={'mb-2'}>
         <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Default Donation Mapping</p>
-        <ReviewDefaultMappingTable defaultFields={onBoardingData.defaultDonationMapping} headers={["Deposit Account", "QB Product", "Income Account"]} columns={["depositAccount", "QBProduct", "IncomeAccount"]}/>
+        <ReviewDefaultMappingTable defaultFields={onBoardingData.defaultDonationMapping} headers={["Deposit Account", "QB Product", "Income Account", ...(onBoardingData.hasClasses ? ["Class"] : [])]} columns={["depositAccount", "QBProduct", "IncomeAccount", ...(onBoardingData.hasClasses ? ["class"] : [])]}/>
       </div>
       <div className={'mb-2'}>
         <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Alternate Donation Mapping</p>
-        <ReviewMappingTable columns={["WAFieldName", "depositAccount", "QBProduct", "IncomeAccount"]} mappingList={onBoardingData.donationMappingList} headers={["Campaign Name", "Deposit Account", "QB Product", "Income Account"]} />
+        <ReviewMappingTable mappingList={onBoardingData.donationMappingList} headers={["Campaign Name", "Deposit Account", "QB Product", "Income Account", ...(onBoardingData.hasClasses ? ["Class"] : [])]} columns={["WAFieldName", "depositAccount", "QBProduct", "IncomeAccount", ...(onBoardingData.hasClasses ? ["class"] : [])]} />
       </div>
     </div>
   )
