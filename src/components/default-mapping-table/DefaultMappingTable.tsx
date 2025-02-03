@@ -32,7 +32,11 @@ export const DefaultMappingTable = <T extends InvoiceMapping> ({headers, QBProdu
     <div className={'table-container table-wrapper mb-2'}>
       <table className="table ">
         <colgroup>
-          <col style={{ width: `${100/headers.length}%` }} />
+          <>
+            {headers.map((_, index) => (
+              <col key={index} style={{ width: `${100 / (headers.length)}%` }} />
+            ))}
+          </>
         </colgroup>
         <thead className={'table-light'}>
         <tr>

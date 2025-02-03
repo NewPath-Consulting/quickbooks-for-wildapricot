@@ -95,7 +95,7 @@ const AlternateMappingTable = ({
             className="table-button d-inline"
             onClick={() => onMappingChange("ADD_ROW", {})}
           >
-            <i className="bi bi-plus"></i>Add Mapping
+            <i className="bi bi-plus"></i>Add Mapping Row
           </button>
         </caption>
 

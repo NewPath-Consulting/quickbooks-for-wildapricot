@@ -61,7 +61,7 @@ interface DonationFieldName {
 }
 
 export const DonationConfigPage = () => {
-  const { setCurrentStep, onBoardingData } = useOnBoarding();
+  const { setCurrentStep, onBoardingData, updateData } = useOnBoarding();
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -142,8 +142,8 @@ export const DonationConfigPage = () => {
   };
 
   useEffect(() => {
-    console.log(donationMappingList)
-  }, [donationMappingList]);
+    updateData({donationMappingList, defaultDonationMapping})
+  }, [donationMappingList, defaultDonationMapping]);
 
   return (
     <main>
