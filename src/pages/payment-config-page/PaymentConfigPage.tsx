@@ -3,24 +3,15 @@ import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import * as React from "react";
 import {useEffect, useReducer, useState} from "react";
 import {getTenders} from "../../services/api/wild-apricot-api/tenderService.ts";
-import {AlternateMappingTable} from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {useNavigate} from "react-router-dom";
 import {fetchData} from "../../services/fetchData.ts";
 import AlternateMappingTable from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {tableColumns} from "../../components/alternate-mapping-table/tableColumns.ts";
 
-interface PaymentMapping {
-  WATender: string,
-  QBTender: string,
-  QBTenderId: string
-}
-
 interface Account {
   accountName: string,
   accountId: string
 }
-
-
 
 const reducer = (state, action) => {
   switch (action.type) {

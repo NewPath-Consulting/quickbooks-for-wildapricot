@@ -10,6 +10,7 @@ import {getEventTags} from "../../services/api/wild-apricot-api/eventsService.ts
 import {getProductTags} from "../../services/api/wild-apricot-api/storeService.ts";
 import {tableColumns} from "../../components/alternate-mapping-table/tableColumns.ts";
 import AlternateMappingTable from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
+import {invoiceTableReducer} from "../../hooks/tableReducer.ts";
 
 export interface InvoiceMapping {
   WAField ?: string,
@@ -18,35 +19,6 @@ export interface InvoiceMapping {
   IncomeAccount ?: string,
   class ?: string,
   classId ?: string
-}
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "ADD_ROW":
-      return [...state, { WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]; // Append new row
-    case "DELETE_ROW":
-      return state.filter((_, index) => index !== action.payload.index); // Remove row at index
-    case "CHANGE_WA_FIELD":
-      return state.map((row, index) =>
-        index === action.payload.index
-          ? { ...row, ["WAFieldName"]: action.payload.value } // Update specific field
-          : row
-      );
-    case "CHANGE_QB_FIELD":
-      return state.map((row, index) =>
-        index === action.payload.index
-          ? { ...row, ["QBProductId"]: action.payload.value,  ["QBProduct"]: action.payload.name, ["IncomeAccount"]: action.payload.incomeAccount} // Update specific field
-          : row
-      );
-    case "CHANGE_CLASS_FIELD":
-      return state.map((row, index) =>
-        index === action.payload.index
-          ? { ...row, ["classId"]: action.payload.value,  ["class"]: action.payload.name} // Update specific field
-          : row
-      );
-    default:
-      return state;
-  }
 }
 
 export const InvoiceConfigPage = () => {
@@ -69,9 +41,9 @@ export const InvoiceConfigPage = () => {
   const [defaultStoreProduct, setDefaultStoreProduct] = useState<InvoiceMapping>(onBoardingData.defaultStoreProduct ?? {QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
   const [manualInvoiceMapping, setManualInvoiceMapping] = useState<InvoiceMapping>(onBoardingData.manualInvoiceMapping ?? {QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
 
-  const [membershipLevelMappingList, dispatchMembershipMapping] = useReducer(reducer, onBoardingData.membershipLevelMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
-  const [eventMappingList, dispatchEventMapping] = useReducer(reducer, onBoardingData.eventMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
-  const [onlineStoreMappingList, dispatchOnlineStoreMapping] = useReducer(reducer, onBoardingData.onlineStoreMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
+  const [membershipLevelMappingList, dispatchMembershipMapping] = useReducer(invoiceTableReducer, onBoardingData.membershipLevelMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
+  const [eventMappingList, dispatchEventMapping] = useReducer(invoiceTableReducer, onBoardingData.eventMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
+  const [onlineStoreMappingList, dispatchOnlineStoreMapping] = useReducer(invoiceTableReducer, onBoardingData.onlineStoreMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
 
 
   useEffect(() => {

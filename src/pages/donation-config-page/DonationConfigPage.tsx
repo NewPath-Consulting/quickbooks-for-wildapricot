@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useEffect, useReducer, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {
@@ -9,6 +9,9 @@ import {
 import {fetchData} from "../../services/fetchData.ts";
 import {InvoiceMapping} from "../invoice-configuration-page/InvoiceConfigPage.tsx";
 import {getDonationFields} from "../../services/api/wild-apricot-api/donationsService.ts";
+import AlternateMappingTable from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
+import {tableColumns} from "../../components/alternate-mapping-table/tableColumns.ts";
+import {donationTableReducer} from "../../hooks/tableReducer.ts";
 
 interface DonationMapping extends InvoiceMapping {
   depositAccount: string,
@@ -87,6 +90,8 @@ export const DonationConfigPage = () => {
     classId: ""
   });
 
+  const [donationMappingList, dispatchDonationMappingList] = useReducer(donationTableReducer, onBoardingData.donationMappingList ?? [{ depositAccount: "", depositAccountId: "", WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}])
+
   useEffect(() => {
     setCurrentStep(6)
 
@@ -120,14 +125,25 @@ export const DonationConfigPage = () => {
   }
 
   const handleFieldNameChange = (e, fieldName) => {
-    const donationObj = donationFields.find(field => field.Id == e.target.value) ?? {
+    const donationObj = donationFields.find(field => field.Id == e.target.value)?? {
       AllowedValues: [],
       FieldName: "",
       Id: ""
     };
 
+    donationObj.AllowedValues = donationObj.AllowedValues.filter(({Label}) => Label != null).map(({ Id, Label }) => {
+
+      if(Label != null) {
+        return Label
+      }
+    });
+
     (fieldName === 'campaign' ? setDonationCampaignName : setDonationCommentName)(donationObj);
   };
+
+  useEffect(() => {
+    console.log(donationMappingList)
+  }, [donationMappingList]);
 
   return (
     <main>
@@ -183,6 +199,13 @@ export const DonationConfigPage = () => {
           <h6>Default Donation Mapping</h6>
           <p className={'mb-3 mt-2'}>Choose your QuickBooks fields below where default mapping will occur</p>
           <ExtendedMappingTable<DonationMapping> classesList={onBoardingData.hasClasses ? classes : undefined} headers={["Deposit Account", "QB Product", "Income Account", ...(onBoardingData.hasClasses ? ["Class"] : [])]} QBProducts={products} onMappingChange={handleChange} defaultData={defaultDonationMapping} depositAccountList={accountList}/>
+        </div>
+      </div>
+      <div className={'default product'} >
+        <div className={'default-donation-table'}>
+          <h6>Donation Mapping</h6>
+          <p className={'mb-3 mt-2'}>Choose your QuickBooks fields below where default mapping will occur</p>
+          <AlternateMappingTable columns={tableColumns.donations} data={{accountList, products, campaignOptions: donationCampaignName.AllowedValues}} mappingData={donationMappingList} onMappingChange={(type, payload) => dispatchDonationMappingList({type, payload})}/>
         </div>
       </div>
       <div className="mt-4">

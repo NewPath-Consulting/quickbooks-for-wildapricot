@@ -116,10 +116,17 @@ export const tableColumns: TableColumns = {
   donations: [
     {
       id: 'wa',
-      header: 'Event Tags',
+      header: 'Campaign Name',
       type: 'select',
       key: 'WAFieldName',
-      options: 'eventTags', // Your WA options
+      options: 'campaignOptions', // Your WA options
+    },
+    {
+      id: 'deposit',
+      header: 'Deposit Account',
+      type: 'select',
+      key: 'depositAccountId',
+      options: 'accountList' // Your QB options
     },
     {
       id: 'qb',

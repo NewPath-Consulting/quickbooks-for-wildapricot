@@ -53,13 +53,13 @@ const AlternateMappingTable = ({
             <option value="">Choose {column.header}</option>
             {data[column.options].map((option) => (
               <option
-                key={option.Id || option}
-                value={option.Id || option}
-                disabled={column.disableUsed && mappingData.some(
-                  data => data[column.key] === (option.Id || option)
+                key={option.Id || option || ""}
+                value={option.Id || option || ""}
+                disabled={column.disableUsed || mappingData.some(
+                  data => data[column.key] === (option.Id || option || "")
                 )}
               >
-                {option.Name || option}
+                {option.Name || option || ""}
               </option>
             ))}
           </select>
@@ -123,7 +123,10 @@ const AlternateMappingTable = ({
             <td>
               <button
                 className="table-button"
-                onClick={() => onMappingChange("DELETE_ROW", { index: rowIndex })}
+                onClick={() => {
+                  console.log({index: rowIndex})
+                  return onMappingChange("DELETE_ROW", {index: rowIndex})
+                }}
               >
                 <i className="bi bi-trash"></i>
               </button>
