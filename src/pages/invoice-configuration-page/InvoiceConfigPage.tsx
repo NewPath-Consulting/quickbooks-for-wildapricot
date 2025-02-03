@@ -4,11 +4,12 @@ import {useEffect, useReducer, useState} from "react";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {getMembershipLevels} from "../../services/api/wild-apricot-api/membershipService.ts";
 import {useNavigate} from "react-router-dom";
-import {AlternateMappingTable} from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {fetchData} from "../../services/fetchData.ts";
 import {DefaultMappingTable} from "../../components/default-mapping-table/DefaultMappingTable.tsx";
 import {getEventTags} from "../../services/api/wild-apricot-api/eventsService.ts";
 import {getProductTags} from "../../services/api/wild-apricot-api/storeService.ts";
+import {tableColumns} from "../../components/alternate-mapping-table/tableColumns.ts";
+import AlternateMappingTable from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 
 export interface InvoiceMapping {
   WAField ?: string,
@@ -37,7 +38,7 @@ const reducer = (state, action) => {
           ? { ...row, ["QBProductId"]: action.payload.value,  ["QBProduct"]: action.payload.name, ["IncomeAccount"]: action.payload.incomeAccount} // Update specific field
           : row
       );
-    case "CHANGE_CLASS":
+    case "CHANGE_CLASS_FIELD":
       return state.map((row, index) =>
         index === action.payload.index
           ? { ...row, ["classId"]: action.payload.value,  ["class"]: action.payload.name} // Update specific field
@@ -80,42 +81,45 @@ export const InvoiceConfigPage = () => {
     fetchData("select * from account where AccountType = 'Accounts Receivable'", setAccountList, "Account", setErrorMsg)
     fetchData("select * from class", setClasses, "Class", setErrorMsg)
 
-    const listMemberShipLevels = async () => {
-      try{
-        const membershipLevels = await getMembershipLevels('221748')
-        setMembershipLevels(membershipLevels.map(level => level.Name).sort((a, b) => a.localeCompare(b)))
+    const fetchWithErrorHandling = async (
+      fetchFn: () => Promise<any>,
+      setter: (data: any[]) => void
+    ) => {
+      try {
+        const result = await fetchFn();
+        setter(result);
+      } catch (e) {
+        setter([]);
+        setErrorMsg(e.response.data.error);
       }
-      catch (e){
-        setMembershipLevels([]);
-        setErrorMsg(e.response.data.error)
-      }
-    }
+    };
 
-    const listEventTags = async () => {
-      try{
-        const eventTags = await getEventTags('221748')
-        setEventTags([... new Set(eventTags.data.Events.map(event => event.Tags).flat().sort((a, b) => a.localeCompare(b)))])
-      }
-      catch (e){
-        setEventTags([]);
-        setErrorMsg(e.response.data.error)
-      }
-    }
-
-    const listProductTags = async () => {
-      try{
-        const productTags = await getProductTags('221748')
-        setProductTags([... new Set(productTags.data.map(productTag => productTag.Tags).flat().sort((a, b) => a.localeCompare(b)))])
-      }
-      catch (e){
-        setProductTags([]);
-        setErrorMsg(e.response.data.error)
-      }
-    }
-
-    listMemberShipLevels()
-    listEventTags()
-    listProductTags()
+    // Fetch all WA data in parallel
+    Promise.all([
+      fetchWithErrorHandling(
+        async () => {
+          const response = await getMembershipLevels('221748');
+          return response.map(level => level.Name).sort((a, b) => a.localeCompare(b));
+        },
+        setMembershipLevels
+      ),
+      fetchWithErrorHandling(
+        async () => {
+          const response = await getEventTags('221748');
+          return [...new Set(response.data.Events.map(event => event.Tags).flat())]
+            .sort((a, b) => a.localeCompare(b));
+        },
+        setEventTags
+      ),
+      fetchWithErrorHandling(
+        async () => {
+          const response = await getProductTags('221748');
+          return [...new Set(response.data.map(productTag => productTag.Tags).flat())]
+            .sort((a, b) => a.localeCompare(b));
+        },
+        setProductTags
+      )
+    ]);
   }, []);
 
   useEffect(() => {
@@ -150,13 +154,6 @@ export const InvoiceConfigPage = () => {
   }
 
   const handleSubmission = () => {
-    // if(!account){
-    //   setErrorMsg(accountsReceivableErrorMsg)
-    //   console.log('not allowed')
-    // }
-    // else{
-    //   navigate('/payment-config')
-    // }
     navigate('/payment-config')
   }
 
@@ -253,7 +250,7 @@ export const InvoiceConfigPage = () => {
         <div className={'membership-level-table mb-4'}>
           <h6>Alternate Membership Level Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable mappingData={membershipLevelMappingList} classesList={hasClasses ? classes : undefined} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "membership")} headers={["Membership Level", "QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={membershipLevels} mappingOptions={products}/>
+          <AlternateMappingTable columns={[...tableColumns.membershipLevels, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "membership")} mappingData={membershipLevelMappingList} data={{products, membershipLevels, classes}}/>
         </div>
         <div className={'default product'} >
           <div className={'event-registration-table'}>
@@ -265,7 +262,7 @@ export const InvoiceConfigPage = () => {
         <div className={'event-registration-table mb-4'}>
           <h6>Alternate Event Registration Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot events to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable classesList={hasClasses ? classes : undefined} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "event")}  headers={["Event Tag", "QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={eventTags} mappingOptions={products} mappingData={eventMappingList}/>
+          <AlternateMappingTable columns={[...tableColumns.events, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "event")} mappingData={eventMappingList} data={{products, eventTags, classes}}/>
         </div>
         <div className={'default product'} >
           <div className={'online-store-table'}>
@@ -277,7 +274,7 @@ export const InvoiceConfigPage = () => {
         <div className={'online-store-table'}>
           <h6>Alternate Online Store Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot online stores to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable classesList={hasClasses ? classes : undefined} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "store")} headers={["Product Tag", "QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} data={["Delivery", ...productTags]} mappingOptions={products} mappingData={onlineStoreMappingList}/>
+          <AlternateMappingTable columns={[...tableColumns.onlineStore, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "store")} mappingData={onlineStoreMappingList} data={{products, productTags, classes}}/>
         </div>
         <div className={'default product'} >
           <div className={'manual-invoice-table'}>

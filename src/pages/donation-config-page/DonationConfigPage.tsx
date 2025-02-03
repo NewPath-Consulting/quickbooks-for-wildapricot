@@ -80,7 +80,8 @@ export const DonationConfigPage = () => {
   const [defaultDonationMapping, setDefaultDonationMapping] = useState<DonationMapping>({
     depositAccount: "",
     depositAccountId: "",
-    QBProduct: "", QBProductId: "",
+    QBProduct: "",
+    QBProductId: "",
     IncomeAccount: "",
     class: "",
     classId: ""

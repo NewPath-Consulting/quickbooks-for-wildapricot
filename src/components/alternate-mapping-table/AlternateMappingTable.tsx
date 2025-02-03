@@ -1,134 +1,139 @@
+import {TableColumn} from "./tableColumns.ts";
 import './AlternateMappingTable.css'
-import {useLayoutEffect, useState} from "react";
-interface AlternateMappingTableProps {
-  headers: string[]; // Table headers
-  data: any[]; // Data to map (e.g., membership levels)
-  mappingOptions: any[]; // Options for dropdown (e.g., products)
-  onMappingChange : (actionType: string, actionPayload: {}) => void; // Callback for selection,
-  classesList ?: any[];
-  mappingData : any[]
+
+export interface IAlternateMappingTableProps {
+  columns: TableColumn[],
+  data: any,
+  mappingData: any[],
+  onMappingChange: (actionType: string, actionPayload: {}) => void;
 }
 
-export const AlternateMappingTable = ({headers, data, mappingOptions, onMappingChange, classesList, mappingData}: AlternateMappingTableProps) => {
-
-  const handleAddMappingRow = () => {
-    onMappingChange("ADD_ROW", {})
-  };
-
-  const handleWAFieldChange = (index: number, value: string) => {
-    onMappingChange("CHANGE_WA_FIELD", {index, value})
-  };
-
-  const handleQBFieldChange = (index: number, event) => {
+const AlternateMappingTable = ({
+                                columns,
+                                data,
+                                mappingData,
+                                onMappingChange
+                              }: IAlternateMappingTableProps) => {
+  const handleFieldChange = (index, columnId, options, event) => {
     const selectedOption = event.target.options[event.target.selectedIndex];
-    const value = selectedOption.value; // option's value
-    const name = selectedOption.text;  // option's name (text inside <option>)
-    const incomeAccount = mappingOptions.find(option => option.Id == value)?.IncomeAccountRef?.name
-    onMappingChange("CHANGE_QB_FIELD", {index, value, name, incomeAccount})
+    const value = selectedOption.value;
+    const name = selectedOption.text;
+
+    // Handle special case for QB field
+    if (columnId === 'qb') {
+      const incomeAccount = data[options].find(
+        option => option.Id === value
+      )?.IncomeAccountRef?.name;
+
+      onMappingChange(`CHANGE_${columnId.toUpperCase()}_FIELD`, {
+        index,
+        value,
+        name,
+        incomeAccount
+      });
+    } else {
+      onMappingChange(`CHANGE_${columnId.toUpperCase()}_FIELD`, {
+        index,
+        value,
+        name
+      });
+    }
   };
 
-  const handleClassChange = (index: number, event) => {
-    const selectedOption = event.target.options[event.target.selectedIndex];
-    const value = selectedOption.value; // option's value
-    const name = selectedOption.text;  // option's name (text inside <option>)
+  const renderCell = (column, rowData, rowIndex) => {
+    switch (column.type) {
+      case 'select':
+        return (
+          <select
+            className="form-select"
+            value={rowData[column.key] || ""}
+            onChange={(e) => handleFieldChange(rowIndex, column.id, column.options, e)}
+            disabled={column.disabled}
+          >
+            <option value="">Choose {column.header}</option>
+            {data[column.options].map((option) => (
+              <option
+                key={option.Id || option}
+                value={option.Id || option}
+                disabled={column.disableUsed && mappingData.some(
+                  data => data[column.key] === (option.Id || option)
+                )}
+              >
+                {option.Name || option}
+              </option>
+            ))}
+          </select>
+        );
 
-    onMappingChange("CHANGE_CLASS", {index, value, name})
+      case 'input':
+        return (
+          <input
+            className="form-control"
+            value={rowData[column.key] || ""}
+            disabled={column.disabled}
+          />
+        );
+
+      default:
+        return null;
+    }
   };
-
-
-  const handleRemoveRow = (index: number) => {
-    onMappingChange("DELETE_ROW", {index})
-  }
 
   return (
-    <div className={'table-container table-wrapper'}>
-      <table className="table ">
+    <div className="table-container table-wrapper">
+      <table className="table">
         <colgroup>
-          {headers.map((header, index) => (
-            <col key={index} style={{ width: `${100 / (headers.length)}%` }} />
-          ))}
+          <>
+            {columns.map((_, index) => (
+              <col key={index} style={{ width: `${100 / (columns.length)}%` }} />
+            ))}
+          </>
         </colgroup>
-        <caption><button className={'table-button d-inline'} onClick={() => handleAddMappingRow()}><i className={'bi bi-plus'} ></i>Add Mapping</button></caption>
-        <thead className={'table-light'}>
+
+        <caption>
+          <button
+            className="table-button d-inline"
+            onClick={() => onMappingChange("ADD_ROW", {})}
+          >
+            <i className="bi bi-plus"></i>Add Mapping
+          </button>
+        </caption>
+
+        <thead className="table-light">
         <tr>
-          {
-            headers.map((header, index) => {
-              return <th key={index} className={'fw-medium'} scope="col">{header}</th>
-            })
-          }
+          {columns.map((column, index) => (
+            <th key={index} className="fw-medium" scope="col">
+              {column.header}
+            </th>
+          ))}
           <th></th>
         </tr>
         </thead>
+
         <tbody>
-        {
-          mappingData.map((item, index) => {
-            return (
-              <tr key={index}>
-                <td className="">
-                  <div className="select-container">
-                    <select
-                      className="form-select"
-                      value={item[Object.keys(mappingData[index])[0]]}
-                      onChange={(event) => handleWAFieldChange(index, event.target.value)}
-                    >
-                      <option value="">
-                        Choose {headers[0]}
-                      </option>
-                      {data.map((option, i) => (
-                        <option disabled={mappingData.some(data => data[Object.keys(mappingData[index])[0]] === option)} key={i} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                </td>
-                <td> <select
-                  className="form-select"
-                  value={item[Object.keys(mappingData[index])[2]] || ""}
-                  onChange={(event) => handleQBFieldChange(index, event)}
-                >
-                  <option value="">
-                    Choose {headers[1]}
-                  </option>
-                  {mappingOptions.map((option) => (
-                    <option key={option.Id} value={option.Id}>
-                      {option.Name}
-                    </option>
-                  ))}
-                </select></td>
-
-                {/* Only show this field in Invoice Configuration */}
-                {headers.length > 2 && <td><input disabled value={item[Object.keys(mappingData[index])[3]] || ""} className={'form-control'}/></td>}
-
-                {classesList &&
-                  <td>
-                      <select
-                          className="form-select"
-                          value={item[Object.keys(mappingData[index])[5]] || ""}
-                          onChange={(event) => handleClassChange(index, event)}
-                      >
-                          <option value="" disabled>
-                              Choose {headers[3]}
-                          </option>
-                        {classesList.map((option) => (
-                          <option key={option.Id} value={option.Id}>
-                            {option.Name}
-                          </option>
-                        ))}
-                      </select>
-                  </td>
-                }
-
-                <td>
-                  <button className={'table-button'} onClick={() => handleRemoveRow(index)}><i className={'bi bi-trash'}></i></button>
-                </td>
-              </tr>
-            )
-          })
-        }
+        {mappingData.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {columns.map((column, colIndex) => (
+              <td key={colIndex}>
+                <div className="select-container">
+                  {renderCell(column, row, rowIndex)}
+                </div>
+              </td>
+            ))}
+            <td>
+              <button
+                className="table-button"
+                onClick={() => onMappingChange("DELETE_ROW", { index: rowIndex })}
+              >
+                <i className="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        ))}
         </tbody>
       </table>
     </div>
   );
 };
+
+export default AlternateMappingTable;
