@@ -1,6 +1,7 @@
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import './ReviewPaymentConfig.css'
 import {useEffect} from "react";
+import {ReviewMappingTable} from "../../components/review-mapping-table/ReviewMappingTable.tsx";
 
 export const ReviewPaymentConfigPage = () => {
   const { onBoardingData } = useOnBoarding()
@@ -38,41 +39,7 @@ export const ReviewPaymentConfigPage = () => {
         </div>
       </div>
       <p className={'mb-2 fw-regular'} style={{fontSize: '0.9em'}}>Payment Alternate Mapping</p>
-      <div className={'overflow-x-auto'}>
-        <table className={'table table-striped'}>
-          <colgroup>
-            <col width={'50%'}/>
-            <col width={'50%'}/>
-          </colgroup>
-          <thead>
-          <tr>
-            <th>WA Tender</th>
-            <th>QB Tender</th>
-          </tr>
-          </thead>
-          <tbody>
-          {
-            onBoardingData.paymentMappingList &&
-            onBoardingData.paymentMappingList.map((value, index) => {
-              if(value.WATender && value.QBTender){
-                return (
-                  <tr key={index}>
-                    <td>
-                      <div className="td-container">
-                        {value.WATender}
-                        <i className={'bi bi-arrow-right'}></i>
-                      </div>
-                    </td>
-                    <td>{value.QBTender}</td>
-                  </tr>
-                )
-              }
-            })
-          }
-          </tbody>
-        </table>
-      </div>
-
+      <ReviewMappingTable mappingList={onBoardingData.paymentMappingList} headers={["WA Tender", "QB Tender"]} columns={["WATender", "QBTender"]}/>
     </div>
   )
 }

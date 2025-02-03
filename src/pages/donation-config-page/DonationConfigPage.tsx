@@ -68,19 +68,19 @@ export const DonationConfigPage = () => {
   const [classes, setClasses] = useState([]);
   const [accountList, setAccountList] = useState([]);
   const [donationFields, setDonationFields] = useState([]);
-  const [donationCampaignName, setDonationCampaignName] = useState<DonationFieldName>({
+  const [donationCampaignName, setDonationCampaignName] = useState<DonationFieldName>(onBoardingData.donationCampaignName ??{
     AllowedValues: [],
     FieldName: "",
     Id: ""
   })
 
-  const [donationCommentName, setDonationCommentName] = useState<DonationFieldName>({
+  const [donationCommentName, setDonationCommentName] = useState<DonationFieldName>(onBoardingData.donationCommentName ??{
     AllowedValues: [],
     FieldName: "",
     Id: ""
   })
 
-  const [defaultDonationMapping, setDefaultDonationMapping] = useState<DonationMapping>({
+  const [defaultDonationMapping, setDefaultDonationMapping] = useState<DonationMapping>(onBoardingData.defaultDonationMapping ?? {
     depositAccount: "",
     depositAccountId: "",
     QBProduct: "",
@@ -142,8 +142,8 @@ export const DonationConfigPage = () => {
   };
 
   useEffect(() => {
-    updateData({donationMappingList, defaultDonationMapping})
-  }, [donationMappingList, defaultDonationMapping]);
+    updateData({donationMappingList, defaultDonationMapping, donationCampaignName, donationCommentName})
+  }, [donationMappingList, defaultDonationMapping, donationCampaignName, donationCommentName]);
 
   return (
     <main>
