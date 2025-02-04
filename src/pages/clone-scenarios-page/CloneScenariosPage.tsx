@@ -16,6 +16,7 @@ import {
   formatPaymentConfig
 } from "../../utils/formatter.ts";
 import {InvoiceConfiguration} from "../../typings/InvoiceConfiguration.ts";
+import {configurations} from "../../configurations.ts";
 
 
 export const CloneScenariosPage = () => {
@@ -67,8 +68,10 @@ export const CloneScenariosPage = () => {
       }
     ]
 
-    console.log({
-      "data": {
+    setData(
+      {
+        ...configurations,
+        "Config Last Updates": new Date().toDateString(),
         ...formatCustomerInfo(onBoardingData.customerInfo),
         ...formatPaymentConfig(onBoardingData.paymentMappingList, onBoardingData.accountReceivable, onBoardingData.qbDepositAccount),
         ...formatDonationConfig({
@@ -78,21 +81,6 @@ export const CloneScenariosPage = () => {
           campaignName: onBoardingData.donationCampaignName
         }),
         ...formatInvoiceConfig(invoiceConfigurations)
-      }
-    })
-
-    setData({
-      "data": {
-        ...formatCustomerInfo(onBoardingData.customerInfo),
-        ...formatPaymentConfig(onBoardingData.paymentMappingList, onBoardingData.accountReceivable, onBoardingData.qbDepositAccount),
-        ...formatDonationConfig({
-          defaultDonationConfig: onBoardingData.defaultDonationMapping,
-          alternateDonationConfig: onBoardingData.donationMappingList,
-          commentName: onBoardingData.donationCommentName,
-          campaignName: onBoardingData.donationCampaignName
-        }),
-        ...formatInvoiceConfig(invoiceConfigurations)
-      }
     })
   }, [onBoardingData]);
 
@@ -121,6 +109,7 @@ export const CloneScenariosPage = () => {
           <ReviewDonationConfigPage/>
         </ReviewConfigComponent>
       </div>
+      <FirstDraft />
       <div className="mt-4">
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/donation-config')}>Back</button>
         <button className={"btn-success"} disabled={false} onClick={() => navigate('/clone-scenarios')}>Next</button>
