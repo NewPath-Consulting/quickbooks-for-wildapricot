@@ -23,14 +23,16 @@ export const ReviewPaymentConfigPage = () => {
             </tr>
             </thead>
             <tbody>
-            {(onBoardingData.accountReceivable?.accountName || onBoardingData.qbDepositAccount?.accountName) && <tr>
-              <td>
-                {onBoardingData.accountReceivable?.accountName || ""}
-              </td>
-              <td>
-                {onBoardingData.qbDepositAccount?.accountName || ""}
-              </td>
-            </tr>}
+            {(onBoardingData.accountReceivable?.accountName || onBoardingData.qbDepositAccount?.accountName) ? (
+              <tr>
+                <td>{onBoardingData.accountReceivable?.accountName || ""}</td>
+                <td>{onBoardingData.qbDepositAccount?.accountName || ""}</td>
+              </tr>
+            ) : (
+              <tr>
+
+              </tr>
+            )}
             </tbody>
           </table>
         </div>

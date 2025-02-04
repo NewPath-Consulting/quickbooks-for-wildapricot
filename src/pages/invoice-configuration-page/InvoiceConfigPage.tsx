@@ -293,7 +293,7 @@ export const InvoiceConfigPage = () => {
         <div className={'online-store-table'}>
           <h6>Alternate Online Store Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot online stores to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable columns={[...tableColumns.onlineStore, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "store")} mappingData={onlineStoreMappingList} data={{products, productTags, classes}}/>
+          <AlternateMappingTable columns={[...tableColumns.onlineStore, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "store")} mappingData={onlineStoreMappingList} data={{products, productTags: ["Delivery", ...productTags], classes}}/>
         </div>
         <div className={'default product'} >
           <div className={'manual-invoice-table'}>
