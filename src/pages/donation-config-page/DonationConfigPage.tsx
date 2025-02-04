@@ -13,9 +13,9 @@ import AlternateMappingTable from "../../components/alternate-mapping-table/Alte
 import {tableColumns} from "../../components/alternate-mapping-table/tableColumns.ts";
 import {donationTableReducer} from "../../hooks/tableReducer.ts";
 
-interface DonationMapping extends InvoiceMapping {
+export interface DonationMapping extends InvoiceMapping {
   depositAccount: string,
-  depositAccountId: string
+  depositAccountId: string,
 }
 
 interface DepositDefaultMappingProps extends DefaultMappingTableProps<DonationMapping> {
@@ -54,7 +54,7 @@ const ExtendedMappingTable = (props: DepositDefaultMappingProps) => {
   );
 };
 
-interface DonationFieldName {
+export interface DonationFieldName {
   Id: string,
   FieldName: string,
   AllowedValues: {Id: number, Label: string, Value: number}[]
@@ -112,7 +112,6 @@ export const DonationConfigPage = () => {
 
     listDonationFields();
 
-    console.log(onBoardingData)
   }, []);
 
   const handleChange = (fields) => {

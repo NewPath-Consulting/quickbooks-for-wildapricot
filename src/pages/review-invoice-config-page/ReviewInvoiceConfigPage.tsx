@@ -9,10 +9,6 @@ import {
 export const ReviewInvoiceConfigPage = () => {
   const { onBoardingData } = useOnBoarding()
 
-  useEffect(() => {
-    console.log(onBoardingData)
-  }, [onBoardingData]);
-
   return (
     <div className={'pt-4 pb-3 ps-1 review-page-container'}>
       <div className="mb-2">

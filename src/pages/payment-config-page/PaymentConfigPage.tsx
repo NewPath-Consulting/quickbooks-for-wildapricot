@@ -8,7 +8,13 @@ import {fetchData} from "../../services/fetchData.ts";
 import AlternateMappingTable from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {tableColumns} from "../../components/alternate-mapping-table/tableColumns.ts";
 
-interface Account {
+export interface PaymentConfig {
+  WATender: string,
+  QBTender: string,
+  QBTenderId: string
+}
+
+export interface Account {
   accountName: string,
   accountId: string
 }

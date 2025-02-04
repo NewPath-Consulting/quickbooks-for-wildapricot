@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useEffect} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {FirstDraft} from "../../FirstDraft.tsx";
 import {ReviewConfigComponent} from "../../components/review-config-component/ReviewConfigComponent.tsx";
@@ -9,17 +9,92 @@ import {useNavigate} from "react-router-dom";
 import {ReviewPaymentConfigPage} from "../review-payment-config-page/ReviewPaymentConfigPage.tsx";
 import {ReviewInvoiceConfigPage} from "../review-invoice-config-page/ReviewInvoiceConfigPage.tsx";
 import {ReviewDonationConfigPage} from "../review-donation-config-page/ReviewDonationConfigPage.tsx";
+import {
+  formatCustomerInfo,
+  formatDonationConfig,
+  formatInvoiceConfig,
+  formatPaymentConfig
+} from "../../utils/formatter.ts";
+import {InvoiceConfiguration} from "../../typings/InvoiceConfiguration.ts";
 
 
 export const CloneScenariosPage = () => {
 
-  const { setCurrentStep } = useOnBoarding();
+  const { setCurrentStep, onBoardingData } = useOnBoarding();
   const navigate = useNavigate();
+
+  const [data, setData] = useState({});
 
   useEffect(() => {
     setCurrentStep(7)
-  }, []);
 
+    const invoiceConfigurations: InvoiceConfiguration[] = [
+      {
+        invoiceOrderType: "MembershipApplication",
+        defaultInvoiceMapping: onBoardingData.defaultMembershipProduct,
+        alternateInvoiceMapping: onBoardingData.membershipLevelMappingList,
+        accountReceivable: onBoardingData.accountReceivable
+      },
+      {
+        invoiceOrderType: "MembershipRenewal",
+        defaultInvoiceMapping: onBoardingData.defaultMembershipProduct,
+        alternateInvoiceMapping: onBoardingData.membershipLevelMappingList,
+        accountReceivable: onBoardingData.accountReceivable
+      },
+      {
+        invoiceOrderType: "MembershipLevelChange",
+        defaultInvoiceMapping: onBoardingData.defaultMembershipProduct,
+        alternateInvoiceMapping: onBoardingData.membershipLevelMappingList,
+        accountReceivable: onBoardingData.accountReceivable
+      },
+      {
+        invoiceOrderType: "EventRegistration",
+        defaultInvoiceMapping: onBoardingData.defaultEventProduct,
+        alternateInvoiceMapping: onBoardingData.eventMappingList,
+        accountReceivable: onBoardingData.accountReceivable
+      },
+      {
+        invoiceOrderType: "OnlineStore",
+        defaultInvoiceMapping: onBoardingData.defaultStoreProduct,
+        alternateInvoiceMapping: onBoardingData.onlineStoreMappingList,
+        accountReceivable: onBoardingData.accountReceivable
+      },
+      {
+        invoiceOrderType: "Undefined",
+        defaultInvoiceMapping: onBoardingData.manualInvoiceMapping,
+        alternateInvoiceMapping: [],
+        accountReceivable: onBoardingData.accountReceivable
+      }
+    ]
+
+    console.log({
+      "data": {
+        ...formatCustomerInfo(onBoardingData.customerInfo),
+        ...formatPaymentConfig(onBoardingData.paymentMappingList, onBoardingData.accountReceivable, onBoardingData.qbDepositAccount),
+        ...formatDonationConfig({
+          defaultDonationConfig: onBoardingData.defaultDonationMapping,
+          alternateDonationConfig: onBoardingData.donationMappingList,
+          commentName: onBoardingData.donationCommentName,
+          campaignName: onBoardingData.donationCampaignName
+        }),
+        ...formatInvoiceConfig(invoiceConfigurations)
+      }
+    })
+
+    setData({
+      "data": {
+        ...formatCustomerInfo(onBoardingData.customerInfo),
+        ...formatPaymentConfig(onBoardingData.paymentMappingList, onBoardingData.accountReceivable, onBoardingData.qbDepositAccount),
+        ...formatDonationConfig({
+          defaultDonationConfig: onBoardingData.defaultDonationMapping,
+          alternateDonationConfig: onBoardingData.donationMappingList,
+          commentName: onBoardingData.donationCommentName,
+          campaignName: onBoardingData.donationCampaignName
+        }),
+        ...formatInvoiceConfig(invoiceConfigurations)
+      }
+    })
+  }, [onBoardingData]);
 
   return (
     <main>

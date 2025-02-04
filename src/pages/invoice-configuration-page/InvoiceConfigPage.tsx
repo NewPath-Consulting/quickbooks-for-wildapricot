@@ -1,6 +1,6 @@
 import './InvoiceConfig.css'
 import * as React from "react";
-import {useEffect, useReducer, useState} from "react";
+import {useCallback, useEffect, useMemo, useReducer, useRef, useState} from "react";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {getMembershipLevels} from "../../services/api/wild-apricot-api/membershipService.ts";
 import {useNavigate} from "react-router-dom";
@@ -11,9 +11,8 @@ import {getProductTags} from "../../services/api/wild-apricot-api/storeService.t
 import {tableColumns} from "../../components/alternate-mapping-table/tableColumns.ts";
 import AlternateMappingTable from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {invoiceTableReducer} from "../../hooks/tableReducer.ts";
-
 export interface InvoiceMapping {
-  WAField ?: string,
+  WAFieldName ?: string,
   QBProduct ?: string,
   QBProductId ?: string,
   IncomeAccount ?: string,
@@ -36,6 +35,7 @@ export const InvoiceConfigPage = () => {
   const accountsReceivableErrorMsg = "Must choose an invoice account"
   const [eventTags, setEventTags] = useState([]);
   const [productTags, setProductTags] = useState([]);
+
   const [defaultMembershipProduct, setDefaultMembershipProduct] = useState<InvoiceMapping>(onBoardingData.defaultMembershipProduct ?? {QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
   const [defaultEventProduct, setDefaultEventProduct] = useState<InvoiceMapping>(onBoardingData.defaultEventProduct ?? {QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
   const [defaultStoreProduct, setDefaultStoreProduct] = useState<InvoiceMapping>(onBoardingData.defaultStoreProduct ?? {QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
@@ -44,6 +44,8 @@ export const InvoiceConfigPage = () => {
   const [membershipLevelMappingList, dispatchMembershipMapping] = useReducer(invoiceTableReducer, onBoardingData.membershipLevelMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
   const [eventMappingList, dispatchEventMapping] = useReducer(invoiceTableReducer, onBoardingData.eventMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
   const [onlineStoreMappingList, dispatchOnlineStoreMapping] = useReducer(invoiceTableReducer, onBoardingData.onlineStoreMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
+
+  const latestDataRef = useRef({}); // Ref to store latest data
 
 
   useEffect(() => {
@@ -94,8 +96,40 @@ export const InvoiceConfigPage = () => {
     ]);
   }, []);
 
-  useEffect(() => {
+  const invoiceConfigurations = useMemo(() => [
+    {
+      invoiceOrderType: "Membership",
+      defaultInvoiceMapping: defaultMembershipProduct,
+      alternateInvoiceMapping: membershipLevelMappingList
+    },
+    {
+      invoiceOrderType: "Events",
+      defaultInvoiceMapping: defaultEventProduct,
+      alternateInvoiceMapping: eventMappingList
+    },
+    {
+      invoiceOrderType: "Online Store",
+      defaultInvoiceMapping: defaultStoreProduct,
+      alternateInvoiceMapping: onlineStoreMappingList
+    },
+    {
+      invoiceOrderType: "Manual Invoice",
+      defaultInvoiceMapping: manualInvoiceMapping,
+      alternateInvoiceMapping: []
+    }
+  ], [
+    defaultMembershipProduct,
+    membershipLevelMappingList,
+    defaultEventProduct,
+    eventMappingList,
+    defaultStoreProduct,
+    onlineStoreMappingList,
+    manualInvoiceMapping
+  ]);
+
+  const updateInvoiceData = useCallback(() => {
     updateData({
+      invoiceConfigurations,
       membershipLevelMappingList,
       eventMappingList,
       onlineStoreMappingList,
@@ -106,8 +140,21 @@ export const InvoiceConfigPage = () => {
       manualInvoiceMapping
     });
 
-    console.log(onBoardingData)
-  }, [membershipLevelMappingList, eventMappingList, onlineStoreMappingList,defaultEventProduct, defaultMembershipProduct, defaultStoreProduct, accountReceivable, manualInvoiceMapping]);
+  }, [
+    invoiceConfigurations,
+    membershipLevelMappingList,
+    eventMappingList,
+    onlineStoreMappingList,
+    defaultEventProduct,
+    defaultMembershipProduct,
+    defaultStoreProduct,
+    accountReceivable,
+    manualInvoiceMapping
+  ]);
+
+  useEffect(() => {
+    updateInvoiceData();
+  }, [updateInvoiceData]);
 
   const handleChange = () => {
     updateData({hasClasses: !hasClasses})
