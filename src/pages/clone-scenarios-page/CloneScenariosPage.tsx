@@ -19,6 +19,7 @@ import {InvoiceConfiguration} from "../../typings/InvoiceConfiguration.ts";
 import {configurations} from "../../configurations.ts";
 import {createDataRecord} from "../../services/api/make-api/dataStructuresService.ts";
 import {cloneConfiguration} from "../../utils/handleCloneConfiguration.ts";
+import {BlurryOverlay} from "../../components/cloning-animation/BlurryOverlay.tsx";
 
 
 export const CloneScenariosPage = () => {
@@ -93,7 +94,8 @@ export const CloneScenariosPage = () => {
   const handleCloneConfiguration = async () => {
     try {
       setIsLoading(true);
-      setErrorMsg(null);
+      setErrorMsg('');
+      setSuccessMsg('');
 
       const response = await cloneConfiguration(data);
 
@@ -110,6 +112,7 @@ export const CloneScenariosPage = () => {
 
   return (
     <main>
+      {/*<BlurryOverlay isLoading={true}/>*/}
       <header>
         <h2>Review and Clone</h2>
         <p>Review all of your data and configurations before automating the integration process. </p>

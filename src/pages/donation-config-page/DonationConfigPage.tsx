@@ -130,14 +130,16 @@ export const DonationConfigPage = () => {
       Id: ""
     };
 
-    donationObj.AllowedValues = donationObj.AllowedValues.filter(({Label}) => Label != null).map(({ Id, Label }) => {
-
-      if(Label != null) {
-        return Label
-      }
+    donationObj.AllowedValues = donationObj.AllowedValues.filter(({Label}) => {
+      console.log(Label)
+      return Label != null
+    }).map(val => {
+      return val
     });
 
     (fieldName === 'campaign' ? setDonationCampaignName : setDonationCommentName)(donationObj);
+
+    console.log(donationObj)
   };
 
   useEffect(() => {
@@ -204,7 +206,7 @@ export const DonationConfigPage = () => {
         <div className={'default-donation-table'}>
           <h6>Donation Mapping</h6>
           <p className={'mb-3 mt-2'}>Choose your QuickBooks fields below where default mapping will occur</p>
-          <AlternateMappingTable columns={[...tableColumns.donations, ...(onBoardingData.hasClasses ? tableColumns.classes : [])]} data={{accountList, products, campaignOptions: donationCampaignName.AllowedValues, classes}} mappingData={donationMappingList} onMappingChange={(type, payload) => dispatchDonationMappingList({type, payload})}/>
+          <AlternateMappingTable columns={[...tableColumns.donations, ...(onBoardingData.hasClasses ? tableColumns.classes : [])]} data={{accountList, products, campaignOptions: donationCampaignName.AllowedValues.map(val => val.Label), classes}} mappingData={donationMappingList} onMappingChange={(type, payload) => dispatchDonationMappingList({type, payload})}/>
         </div>
       </div>
       <div className="mt-4">
