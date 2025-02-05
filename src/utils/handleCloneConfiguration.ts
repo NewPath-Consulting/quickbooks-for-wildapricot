@@ -7,9 +7,9 @@ import {
 import {teamId} from "../FirstDraft.tsx";
 import {createScenario, getScenarioBlueprint, getScenarios} from "../services/api/make-api/scenariosService.ts";
 import {setConnectionValue, setDataStoreValue, setJSONValue} from "./setParameters.ts";
-import {data} from "react-router-dom";
+import {getConnections} from "../services/api/make-api/connectionsService.ts";
 
-export const cloneConfiguration = async () => {
+export const cloneConfiguration = async (data) => {
   // Track resources created to enable potential rollback
   const createdResources = {
     dataStructures: [],
@@ -32,7 +32,7 @@ export const cloneConfiguration = async () => {
     }
 
     // Step 3: Post Data Record
-    const dataRecordId = await postDataRecordStep(createdResources);
+    const dataRecordId = await postDataRecordStep(createdResources, data);
     if (!dataRecordId) {
       throw new Error("Data Record Creation Failed");
     }
@@ -60,9 +60,10 @@ const cloneDataStructures = async (createdResources) => {
   let firstDataStructureId = null;
 
   try {
-    const dataStructures = await getDataStructures(297);
+    const response = await getDataStructures(297);
+    const dataStructures = response.data
 
-    for (let i = 0; i < dataStructures.data.length; i++) {
+    for (let i = 0; i < 9; i++) {
       try {
         const dataStructureDetails = await createDataStructure({
           spec: dataStructures[i].spec,
@@ -112,19 +113,18 @@ const createDataStoreStep = async (dataStructureId, createdResources) => {
   }
 };
 
-const postDataRecordStep = async (createdResources) => {
+const postDataRecordStep = async (createdResources, data) => {
   try {
     const response = await createDataRecord({
-      id: 63007,
-      data: {
-        // Your existing data record creation logic
-      }
+      id: createdResources.dataStore,
+      data
     });
 
     // Track created data record
-    createdResources.dataRecord = response.data.id;
+    createdResources.dataRecord = response.data.key;
 
-    return response.data.id;
+    console.log(response.data)
+    return response.data.key;
   } catch (error) {
     console.error("Data Record Creation Failed:", error);
     throw error;
@@ -134,28 +134,27 @@ const postDataRecordStep = async (createdResources) => {
 const cloneScenariosStep = async (dataStructureMap, createdResources) => {
   try {
     const scenarios = await getScenarios(297, 188054);
+    const connection = await getConnections(teamId)
 
-    for (const scenario of scenarios) {
+    for (const scenario of scenarios.data) {
       try {
-        if (scenario.id === 3004248) {
-          const blueprintResponse = await getScenarioBlueprint(scenario.id);
-          const blueprint = blueprintResponse.data;
+        const blueprintResponse = await getScenarioBlueprint(scenario.id);
+        const blueprint = blueprintResponse.data.data;
 
-          // Modify blueprint with new mappings
-          setConnectionValue(blueprint, "__IMTCONN__", onBoardingData.connections);
-          setDataStoreValue(blueprint, 63007);
-          setJSONValue(blueprint, dataStructureMap);
+        // Modify blueprint with new mappings
+        setConnectionValue(blueprint, "__IMTCONN__", connection.data.data);
+        setDataStoreValue(blueprint, createdResources.dataStore);
+        setJSONValue(blueprint, dataStructureMap);
 
-          // Create scenario
-          const createdScenario = await createScenario({
-            scheduling: "{ \"type\": \"indefinitely\", \"interval\": 900 }",
-            teamId: teamId,
-            blueprint: JSON.stringify(blueprint)
-          });
+        // Create scenario
+        const createdScenario = await createScenario({
+          scheduling: "{ \"type\": \"indefinitely\", \"interval\": 900 }",
+          teamId: teamId,
+          blueprint: JSON.stringify(blueprint)
+        });
 
-          // Track created scenarios
-          createdResources.scenarios.push(createdScenario.data.id);
-        }
+        // Track created scenarios
+        createdResources.scenarios.push(createdScenario.data.id);
       } catch (scenarioError) {
         console.error(`Failed to clone scenario:`, scenarioError);
         // Fail fast - stop entire process if any scenario fails

@@ -95,8 +95,9 @@ export const CloneScenariosPage = () => {
       setIsLoading(true);
       setErrorMsg(null);
 
-      await cloneConfiguration();
+      const response = await cloneConfiguration(data);
 
+      console.log(response)
       // Success handling
       setSuccessMsg("Configuration cloned successfully!");
     } catch (error) {
@@ -140,7 +141,7 @@ export const CloneScenariosPage = () => {
       </div>
       <div className="mt-4">
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/donation-config')}>Back</button>
-        <button className={"btn-success"} disabled={false} onClick={() => {}}>Clone</button>
+        <button className={"btn-success"} disabled={false} onClick={handleCloneConfiguration}>{isLoading ? "Cloning..." : "Clone"}</button>
       </div>
     </main>
   )

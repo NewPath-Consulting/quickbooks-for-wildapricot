@@ -2,6 +2,7 @@
 export interface IDataStructureBody {
   teamId: number,
   name: string,
+  id?: number,
   spec: Object
 }
 
