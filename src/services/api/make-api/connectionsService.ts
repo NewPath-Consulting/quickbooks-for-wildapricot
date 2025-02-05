@@ -2,7 +2,11 @@ import httpClient from "../../httpClient.ts";
 import endpoints from "../../endpoints.ts";
 import {AxiosResponse} from "axios";
 
-export const getConnections = async (teamId: number): Promise<AxiosResponse<IConnectionResponse[]>> => {
+interface ConnectionData {
+  data: IConnectionResponse[]
+}
+
+export const getConnections = async (teamId: number): Promise<AxiosResponse<ConnectionData>> => {
   return httpClient.get(endpoints.makeApi.listConnections, {params: {teamId}})
 }
 

@@ -23,7 +23,7 @@ export const refreshQuickbooksAccessToken = async (body: IQBAuthBody)=> {
 
     const response: AxiosResponse<IQBAuthResponse> = await httpClient.post(endpoints.quickbooksApi.refreshAccessToken, body);
 
-    const {accessToken, refreshToken} = response;
+    const {accessToken, refreshToken} = response.data;
 
     // Update storage with new tokens
     localStorage.setItem("qbAccessToken", accessToken);

@@ -17,6 +17,8 @@ import {
 } from "../../utils/formatter.ts";
 import {InvoiceConfiguration} from "../../typings/InvoiceConfiguration.ts";
 import {configurations} from "../../configurations.ts";
+import {createDataRecord} from "../../services/api/make-api/dataStructuresService.ts";
+import {cloneConfiguration} from "../../utils/handleCloneConfiguration.ts";
 
 
 export const CloneScenariosPage = () => {
@@ -25,6 +27,9 @@ export const CloneScenariosPage = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState({});
+  const [errorMsg, setErrorMsg] = useState<string>('');
+  const [successMsg, setSuccessMsg] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
     setCurrentStep(7)
@@ -71,7 +76,7 @@ export const CloneScenariosPage = () => {
     setData(
       {
         ...configurations,
-        "Config Last Updates": new Date().toDateString(),
+        "Config Last Updated": new Date(),
         ...formatCustomerInfo(onBoardingData.customerInfo),
         ...formatPaymentConfig(onBoardingData.paymentMappingList, onBoardingData.accountReceivable, onBoardingData.qbDepositAccount),
         ...formatDonationConfig({
@@ -82,7 +87,25 @@ export const CloneScenariosPage = () => {
         }),
         ...formatInvoiceConfig(invoiceConfigurations)
     })
+
   }, [onBoardingData]);
+
+  const handleCloneConfiguration = async () => {
+    try {
+      setIsLoading(true);
+      setErrorMsg(null);
+
+      await cloneConfiguration();
+
+      // Success handling
+      setSuccessMsg("Configuration cloned successfully!");
+    } catch (error) {
+      // Error handling
+      setErrorMsg(error.message || "Configuration cloning failed");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <main>
@@ -90,6 +113,12 @@ export const CloneScenariosPage = () => {
         <h2>Review and Clone</h2>
         <p>Review all of your data and configurations before automating the integration process. </p>
       </header>
+      {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
+          <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
+      </div>}
+      {successMsg && <div style={{fontSize:'13px'}} className="alert alert-success" role="alert">
+          <i style={{color: "#245815"}} className={'bi bi-check-circle'}></i> {successMsg}
+      </div>}
       <div className={''}>
         <ReviewConfigComponent img={'bi-link-45deg'} title={'Connections'} urlLocation={'/create-connections'}>
         </ReviewConfigComponent>
@@ -109,10 +138,9 @@ export const CloneScenariosPage = () => {
           <ReviewDonationConfigPage/>
         </ReviewConfigComponent>
       </div>
-      <FirstDraft />
       <div className="mt-4">
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/donation-config')}>Back</button>
-        <button className={"btn-success"} disabled={false} onClick={() => navigate('/clone-scenarios')}>Next</button>
+        <button className={"btn-success"} disabled={false} onClick={() => {}}>Clone</button>
       </div>
     </main>
   )

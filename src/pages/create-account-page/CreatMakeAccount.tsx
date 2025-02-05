@@ -52,7 +52,6 @@ export const CreatMakeAccountPage = () => {
     console.log(authData.authToken)
     try{
       await getUserInfo();
-      const response = await getConnections(teamId);
 
       updateData({authToken: authData.authToken, baseUrl: authData.baseUrl});
       navigate('create-connections')

@@ -131,14 +131,14 @@ export const CreateConnectionsPage = () => {
         localStorage.setItem("qbClientId", fields.clientId);
         localStorage.setItem("qbClientSecret", fields.clientSecret)
         const response = await getQuickbooksAccessToken({clientSecret: fields.clientSecret, clientId: fields.clientId})
-        const { authUri } = response;
+        const { authUri } = response.data;
         window.location.href = authUri;
       }
       else if(connection.accountType === "wild-apricot"){
         localStorage.setItem("waClientId", fields.clientId);
         localStorage.setItem("waClientSecret", fields.clientSecret);
         const response = await wildApricotLogin({clientSecret: fields.clientSecret, clientId: fields.clientId})
-        const { ssoUrl } = response;
+        const { ssoUrl } = response.data;
         console.log(response, ssoUrl)
         window.location.href = ssoUrl;
       }
@@ -181,14 +181,15 @@ export const CreateConnectionsPage = () => {
       try {
         const response = await getConnections(teamId);
 
+        console.log(response)
         // Update the context state with fetched connections
-        updateData({ connections: response.data });
+        updateData({ connections: response.data.data });
 
         // Update `isConnectedMap` directly using `response.data`
         setIsConnectedMap((prevMap) => {
           const newMap = new Map(prevMap);
 
-          for (const connection of response.data) {
+          for (const connection of response.data.data) {
             if (newMap.has(connection.accountName)) {
               newMap.set(connection.accountName, true);
             }

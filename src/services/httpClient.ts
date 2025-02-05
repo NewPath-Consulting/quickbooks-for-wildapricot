@@ -33,7 +33,7 @@ httpClient.interceptors.request.use(
 );
 
 httpClient.interceptors.response.use(
-  (response) => response.data,
+  (response) => response,
   async (error) => {
     const originalRequest = error.config;
     // If the error is 401 and we haven't already retried

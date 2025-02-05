@@ -14,7 +14,7 @@ export const getWildApricotAccessToken = async (body: IWAAuthBody) => {
 
   try{
     const response: AxiosResponse<IWAAuthResponse> = await httpClient.post(endpoints.wildApricotApi.getAccessToken, body)
-    const {accessToken, refreshToken} = response;
+    const {accessToken, refreshToken} = response.data;
     localStorage.setItem("waAccessToken", accessToken);
     localStorage.setItem("waRefreshToken", refreshToken);
   }
@@ -36,7 +36,7 @@ export const refreshWildApricotAccessToken = async (body: IWARefreshTokenBody)=>
 
     const response: AxiosResponse<IWAAuthResponse> = await httpClient.post(endpoints.wildApricotApi.refreshAccessToken, body);
 
-    const {accessToken, refreshToken} = response;
+    const {accessToken, refreshToken} = response.data;
 
     // Update storage with new tokens
     localStorage.setItem("waAccessToken", accessToken);
