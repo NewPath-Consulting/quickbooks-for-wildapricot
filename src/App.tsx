@@ -18,7 +18,9 @@ function App() {
   return (
     <Router >
       <div className="app-container">
-        <Navbar/>
+        <div className={"navbar"}>
+          <Navbar/>
+        </div>
         <div className="main-layout">
           <Sidebar className={"sidebar"}/>
           <div className="content-area">

@@ -9,6 +9,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside className="sidebar">
+      <img className={''} style={{margin: "1.2em 20px 1.9em 0.7em"}} width={100} height={22} src={"logo.png"} alt={"NewPaths logo"}/>
       <ul className="steps">
         <div className={'progress'} style={{height: `${(100/(steps.length-1))*(currentStep-1)}%`}}></div>
         {
