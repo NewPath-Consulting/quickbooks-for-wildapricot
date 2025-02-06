@@ -1,0 +1,40 @@
+.custom-spinner {
+    width: 100px;
+    height: 100px;
+    border: 4px solid #71DD9340;
+    border-top: 4px solid var(--app-color);
+    border-radius: 50%;
+    animation: spinScale 1.5s linear infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+@keyframes spinScale {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.7); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes counterSpinScale {
+    0% { transform: rotate(0deg) }
+    50% { transform: rotate(-180deg) } /* 1/1.7 ≈ 0.588 */
+    100% { transform: rotate(-360deg) }
+}
+
+.blur-container {
+    background: linear-gradient(to right, #ffffe3, white, #f1ffeb);
+}
+
+.inner-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--app-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1; /* Make sure it's above the spinner */
+    animation: counterSpinScale 1.5s linear infinite;
+}

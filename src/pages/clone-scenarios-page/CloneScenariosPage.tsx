@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {FirstDraft} from "../../FirstDraft.tsx";
 import {ReviewConfigComponent} from "../../components/review-config-component/ReviewConfigComponent.tsx";
@@ -31,6 +31,14 @@ export const CloneScenariosPage = () => {
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [successMsg, setSuccessMsg] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const errorRef = useRef(null)
+
+  useEffect(() => {
+    if (errorMsg && errorRef.current) {
+      errorRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [errorMsg]);
 
   useEffect(() => {
     setCurrentStep(7)
@@ -93,9 +101,9 @@ export const CloneScenariosPage = () => {
 
   const handleCloneConfiguration = async () => {
     try {
-      setIsLoading(true);
       setErrorMsg('');
       setSuccessMsg('');
+      setIsLoading(true);
 
       const response = await cloneConfiguration(data);
 
@@ -111,8 +119,8 @@ export const CloneScenariosPage = () => {
   };
 
   return (
-    <main>
-      {/*<BlurryOverlay isLoading={true}/>*/}
+    <main ref={errorRef}>
+      <BlurryOverlay isLoading={isLoading} message={errorMsg ? "Error Occurred!" : successMsg ? successMsg : "Cloning your Workflows"}/>
       <header>
         <h2>Review and Clone</h2>
         <p>Review all of your data and configurations before automating the integration process. </p>
@@ -124,8 +132,6 @@ export const CloneScenariosPage = () => {
           <i style={{color: "#245815"}} className={'bi bi-check-circle'}></i> {successMsg}
       </div>}
       <div className={''}>
-        <ReviewConfigComponent img={'bi-link-45deg'} title={'Connections'} urlLocation={'/create-connections'}>
-        </ReviewConfigComponent>
 
         <ReviewConfigComponent img={'bi-person'} title={'Customer Information'} urlLocation={'/customer-information'}>
           <ReviewCustomerInfoPage/>
@@ -144,7 +150,7 @@ export const CloneScenariosPage = () => {
       </div>
       <div className="mt-4">
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/donation-config')}>Back</button>
-        <button className={"btn-success"} disabled={false} onClick={handleCloneConfiguration}>{isLoading ? "Cloning..." : "Clone"}</button>
+        <button className={"btn-success"} disabled={false} onClick={handleCloneConfiguration}>Clone</button>
       </div>
     </main>
   )
