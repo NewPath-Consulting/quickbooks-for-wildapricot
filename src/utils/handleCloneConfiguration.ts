@@ -1,11 +1,16 @@
 import {
   createDataRecord,
   createDataStore,
-  createDataStructure,
+  createDataStructure, deleteDataStore, deleteDataStructure,
   getDataStructures
 } from "../services/api/make-api/dataStructuresService.ts";
 import {teamId} from "../FirstDraft.tsx";
-import {createScenario, getScenarioBlueprint, getScenarios} from "../services/api/make-api/scenariosService.ts";
+import {
+  createScenario,
+  deleteScenario,
+  getScenarioBlueprint,
+  getScenarios
+} from "../services/api/make-api/scenariosService.ts";
 import {setConnectionValue, setDataStoreValue, setJSONValue} from "./setParameters.ts";
 import {getConnections} from "../services/api/make-api/connectionsService.ts";
 
@@ -45,11 +50,11 @@ export const cloneConfiguration = async (data) => {
     console.error("Configuration Cloning Failed:", mainError);
 
     // Rollback mechanism
-    // try {
-    //   await rollbackCreatedResources(createdResources);
-    // } catch (rollbackError) {
-    //   console.error("Rollback Failed:", rollbackError);
-    // }
+    try {
+      await rollbackCreatedResources(createdResources);
+    } catch (rollbackError) {
+      console.error("Rollback Failed:", rollbackError);
+    }
 
     throw mainError;
   }
@@ -128,6 +133,38 @@ const postDataRecordStep = async (createdResources, data) => {
   } catch (error) {
     console.error("Data Record Creation Failed:", error);
     throw error;
+  }
+};
+
+
+const rollbackCreatedResources = async (createdResources) => {
+  try {
+    // Rollback scenarios
+    if (createdResources.scenarios.length) {
+      console.log(createdResources.scenarios)
+      await Promise.all(
+        createdResources.scenarios.map(scenarioId => deleteScenario(String(scenarioId)))
+      );
+    }
+
+
+    // Rollback data store
+    if (createdResources.dataStore) {
+      console.log(createdResources.dataStore)
+      await deleteDataStore([String(createdResources.dataStore)], teamId);
+    }
+
+    // Rollback data structures
+    if (createdResources.dataStructures.length) {
+      console.log(createdResources.dataStructures)
+      await Promise.all(
+        createdResources.dataStructures.map(structureId => deleteDataStructure(String(structureId)))
+      );
+    }
+  } catch (rollbackError) {
+    console.error("Complete Rollback Failed", rollbackError);
+    // Log critical error - manual intervention might be needed
+    throw rollbackError;
   }
 };
 

@@ -27,6 +27,21 @@ export const createDataStore = async (body: IDataStoreBody) => {
   })
 }
 
+export const deleteDataStructure = async (dataStructureId: string) => {
+  return httpClient.delete(endpoints.makeApi.deleteDataStructure.replace(":dataStructureId", dataStructureId))
+}
+
+export const deleteDataStore = async (ids: string[] , teamId: number) => {
+
+  try {
+    const response = await httpClient.delete(endpoints.makeApi.deleteDataStore, {params: {teamId, ids}})
+    console.log(response)
+  }
+  catch(e) {
+    console.log(e)
+  }
+}
+
 export const createDataRecord = async (body: IDataRecordBody) => {
   return httpClient.post(endpoints.makeApi.createDataRecord.replace(":dataStoreId", String(body.id)), body)
 }

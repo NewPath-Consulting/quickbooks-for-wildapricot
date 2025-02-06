@@ -36,7 +36,10 @@ const endpoints = {
     listOrganizations: "makeApi/organizations",
     listTeams: "makeApi/teams",
     OAuth: "makeApi/oauth/auth/:connectionId",
-    getUserInfo: "makeApi/users/me"
+    getUserInfo: "makeApi/users/me",
+    deleteScenario: "makeApi/scenarios/:scenarioId",
+    deleteDataStore: "makeApi/data-stores",
+    deleteDataStructure: "makeApi/data-structures/:dataStructureId",
   },
 };
 
