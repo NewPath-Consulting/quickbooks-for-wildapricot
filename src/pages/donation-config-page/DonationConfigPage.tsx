@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useEffect, useReducer, useState} from "react";
+import {useEffect, useReducer, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {
@@ -92,6 +92,8 @@ export const DonationConfigPage = () => {
 
   const [donationMappingList, dispatchDonationMappingList] = useReducer(donationTableReducer, onBoardingData.donationMappingList ?? [{ depositAccount: "", depositAccountId: "", WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}])
 
+  const errorRef = useRef(null)
+
   useEffect(() => {
     setCurrentStep(6)
 
@@ -146,8 +148,14 @@ export const DonationConfigPage = () => {
     updateData({donationMappingList, defaultDonationMapping, donationCampaignName, donationCommentName})
   }, [donationMappingList, defaultDonationMapping, donationCampaignName, donationCommentName]);
 
+  useEffect(() => {
+    if (errorMsg && errorRef.current) {
+      errorRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [errorMsg]);
+
   return (
-    <main>
+    <main ref={errorRef}>
       <header>
         <h2>Donation Configuration</h2>
         <p>Review your mapping configurations and confirm to start cloning scenarios into your Make.com account</p>

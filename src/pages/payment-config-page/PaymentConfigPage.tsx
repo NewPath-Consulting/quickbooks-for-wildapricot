@@ -1,7 +1,7 @@
 import './PaymentConfig.css'
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import * as React from "react";
-import {useEffect, useReducer, useState} from "react";
+import {useEffect, useReducer, useRef, useState} from "react";
 import {getTenders} from "../../services/api/wild-apricot-api/tenderService.ts";
 import {useNavigate} from "react-router-dom";
 import {fetchData} from "../../services/fetchData.ts";
@@ -53,6 +53,8 @@ export const PaymentConfigPage = () => {
 
   const [paymentMappingList, dispatch] = useReducer(reducer, onBoardingData.paymentMappingList ?? [{ WATender: '', QBTender: '', QBTenderId: ''}]);
 
+  const errorRef = useRef(null)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -84,18 +86,13 @@ export const PaymentConfigPage = () => {
 
   const handleSubmission = () => {
 
-    // if(!qbReceivableAccount){
-    //   setErrorMsg("Must choose a receivables account")
-    // }
-    // else if(!qbDepositAccount){
-    //   setErrorMsg("Must choose a deposit account")
-    // }
-    // else if(paymentMappingList.length !== WildApricotTenders.length){
-    //   setErrorMsg("Please map all WildApricot tenders to QuickBooks tenders")
-    // }
-    // else{
-    //   navigate('/donation-config')
-    // }
+    const errors = validateConfig();
+
+    if(errors.length > 0){
+      setErrorMsg(errors[0])
+      return
+    }
+
     navigate('/donation-config')
   }
 
@@ -113,8 +110,34 @@ export const PaymentConfigPage = () => {
 
   }
 
+  useEffect(() => {
+    if (errorMsg && errorRef.current) {
+      errorRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [errorMsg]);
+
+  const validateConfig = () => {
+    let errors = [];
+
+    if(!qbDepositAccount.accountName || !qbDepositAccount.accountId){
+      errors.push('Please select a deposit account. ')
+    }
+
+    paymentMappingList.forEach((row, index) => {
+      if (!row.WATender || !row.QBTender || !row.QBTenderId) {
+        errors.push(`Row ${index + 1} in Payment Tender Mapping is incomplete.`);
+      }
+    });
+
+    // if(paymentMappingList.length != WildApricotTenders.length){
+    //   errors.push("Please map all WildApricot Tenders to a Quickbooks Payment Method. ")
+    // }
+
+    return errors;
+  };
+
   return (
-    <main>
+    <main ref={errorRef}>
       <header>
         <h2>Payment Configuration</h2>
         <p>Easily match payment fields from Wild Apricot to QuickBooks for a smooth and accurate integration process.</p>

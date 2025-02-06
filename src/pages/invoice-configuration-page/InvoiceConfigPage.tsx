@@ -27,14 +27,14 @@ export const InvoiceConfigPage = () => {
 
   const [errorMsg, setErrorMsg] = useState("");
   const [accountList, setAccountList] = useState([]);
-  const [accountReceivable, setAccountReceivable] = useState(onBoardingData.accountReceivable ?? {accountId: "", accountName: ""});
   const [membershipLevels, setMembershipLevels] = useState([]);
   const [products, setProducts] = useState([]);
   const [classes, setClasses] = useState([]);
   const [hasClasses, setHasClasses] = useState(onBoardingData.hasClasses || false)
   const accountsReceivableErrorMsg = "Must choose an invoice account"
   const [eventTags, setEventTags] = useState([]);
-  const [productTags, setProductTags] = useState([]);
+  const [productTags, setProductTags] = useState(["Delivery"]);
+  const [accountReceivable, setAccountReceivable] = useState(onBoardingData.accountReceivable ?? {accountId: "", accountName: ""});
 
   const [defaultMembershipProduct, setDefaultMembershipProduct] = useState<InvoiceMapping>(onBoardingData.defaultMembershipProduct ?? {QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
   const [defaultEventProduct, setDefaultEventProduct] = useState<InvoiceMapping>(onBoardingData.defaultEventProduct ?? {QBProduct: "", QBProductId: "", IncomeAccount: "", class: "", classId: ""});
@@ -45,8 +45,7 @@ export const InvoiceConfigPage = () => {
   const [eventMappingList, dispatchEventMapping] = useReducer(invoiceTableReducer, onBoardingData.eventMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
   const [onlineStoreMappingList, dispatchOnlineStoreMapping] = useReducer(invoiceTableReducer, onBoardingData.onlineStoreMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
 
-  const latestDataRef = useRef({}); // Ref to store latest data
-
+  const errorRef = useRef(null);
 
   useEffect(() => {
     setCurrentStep(4)
@@ -91,7 +90,7 @@ export const InvoiceConfigPage = () => {
           return [...new Set(response.data.map(productTag => productTag.Tags).flat())]
             .sort((a, b) => a.localeCompare(b));
         },
-        setProductTags
+        (data) => setProductTags((prev) => [...new Set([...prev, ...data])])
       )
     ]);
   }, []);
@@ -156,6 +155,14 @@ export const InvoiceConfigPage = () => {
     updateInvoiceData();
   }, [updateInvoiceData]);
 
+
+  useEffect(() => {
+    if (errorMsg && errorRef.current) {
+      errorRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [errorMsg]);
+
+
   const handleChange = () => {
     updateData({hasClasses: !hasClasses})
     setHasClasses(!hasClasses)
@@ -172,8 +179,56 @@ export const InvoiceConfigPage = () => {
     }
   }
 
+  const validateConfig = () => {
+    let errors = [];
+
+    if(!accountReceivable.accountName || !accountReceivable.accountId){
+      errors.push('Please select a receivables account. ')
+    }
+
+    const defaultMappings = [
+      { name: "Default Membership Mapping", data: defaultMembershipProduct },
+      { name: "Default Event Mapping", data: defaultEventProduct },
+      { name: "Default Online Store Mapping", data: defaultStoreProduct },
+      { name: "Manual Invoice Mapping", data: manualInvoiceMapping }
+    ];
+
+    defaultMappings.forEach(({ name, data }) => {
+      if (!data.QBProductId || !data.QBProduct || (hasClasses && !data.class)) {
+        errors.push(`Please complete all fields for ${name}.`);
+      }
+    });
+
+    const alternateMappings = [
+      { name: "Membership Level Mapping", list: membershipLevelMappingList, options: membershipLevels },
+      { name: "Event Mapping", list: eventMappingList, options: eventTags },
+      { name: "Online Store Mapping", list: onlineStoreMappingList, options: productTags }
+    ];
+
+    alternateMappings.forEach(({ name, list, options }) => {
+      list.forEach((row, index) => {
+        if (!row.WAFieldName || !row.QBProductId || !row.QBProduct || (hasClasses && !row.class)) {
+          errors.push(`Row ${index + 1} in ${name} is incomplete.`);
+        }
+      });
+
+      // if(!options.every(option => list.map(row => row.WAFieldName).includes(option))){
+      //   errors.push(`Please map all WildApricot Fields to a QuickBooks Product for ${name}. `);
+      // }
+    });
+
+    return errors;
+  };
+
   const handleSubmission = () => {
-    navigate('/payment-config')
+    const errors = validateConfig();
+
+    if (errors.length > 0) {
+      setErrorMsg(errors[0]);  // Show all errors
+      return;
+    }
+
+    navigate('/payment-config');
   }
 
   const handleMapping = (type, payload, fieldName) => {
@@ -224,12 +279,12 @@ export const InvoiceConfigPage = () => {
   }
 
   return (
-    <main>
+    <main ref={errorRef}>
       <header>
         <h2>Invoice Configuration</h2>
         <p>Easily match fields from Wild Apricot to QuickBooks for a smooth and accurate integration process.</p>
       </header>
-      {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
+      {errorMsg && <div style={{fontSize:'13px'}}  className="alert alert-danger" role="alert">
           <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
       </div>}
 
@@ -293,7 +348,7 @@ export const InvoiceConfigPage = () => {
         <div className={'online-store-table'}>
           <h6>Alternate Online Store Mapping</h6>
           <p className={'mb-3 mt-2'}>Map your WildApricot online stores to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable columns={[...tableColumns.onlineStore, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "store")} mappingData={onlineStoreMappingList} data={{products, productTags: ["Delivery", ...productTags], classes}}/>
+          <AlternateMappingTable columns={[...tableColumns.onlineStore, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "store")} mappingData={onlineStoreMappingList} data={{products, productTags, classes}}/>
         </div>
         <div className={'default product'} >
           <div className={'manual-invoice-table'}>
