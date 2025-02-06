@@ -13,13 +13,16 @@
 
 .content-area {
     flex: 1;
-    padding: 3em 7em;
+    padding: 5em 7em;
     overflow-y: auto; /* Allows scrolling if content is long */
 }
 
 
 @media (min-width: 900px) {
     .progress-bar {
+        display: none;
+    }
+    .navbar {
         display: none;
     }
 }
@@ -34,6 +37,10 @@
     }
 
     .progress-bar{
+        display: block;
+    }
+
+    .navbar {
         display: block;
     }
 }

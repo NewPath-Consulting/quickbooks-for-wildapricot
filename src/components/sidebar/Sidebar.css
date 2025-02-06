@@ -5,14 +5,12 @@
 }
 
 .sidebar {
-    padding: 3em 20px; /* Provides spacing inside the sidebar */
+    padding: 1em 30px; /* Provides spacing inside the sidebar */
     border-right: 1px solid #ddd; /* Creates a dividing line on the right */
-    height: calc(100vh - 60px); /* Adjusts for navbar height */
+    height: calc(100vh); /* Adjusts for navbar height */
     overflow-y: auto; /* Enables vertical scrolling if content exceeds height */
     scroll-behavior: auto; /* Smooth scrolling behavior */
 }
-
-
 
 /* Custom Scrollbar - Webkit Browsers */
 .sidebar::-webkit-scrollbar {

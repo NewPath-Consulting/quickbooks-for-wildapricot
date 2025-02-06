@@ -15,8 +15,7 @@ export const ReviewInvoiceConfigPage = () => {
         <p className="mb-2 fw-regular" style={{fontSize: '0.9em'}}>QB Receivable Account</p>
         <div className="col-lg-3 col-md-6 col-sm-12">
           <div className="input-group input-group-sm mb-3">
-            <span className="input-group-text" id="basic-addon1">@</span>
-            <input type="text" style={{fontSize: '12px'}} className="form-control" disabled value={onBoardingData.accountReceivable?.accountName || ""} placeholder="Username" aria-label="accounts-receivable"/>
+            <input type="text" style={{fontSize: '12px'}} className="form-control" disabled value={onBoardingData.accountReceivable?.accountName || ""} placeholder="Account" aria-label="accounts-receivable"/>
           </div>
         </div>
       </div>
