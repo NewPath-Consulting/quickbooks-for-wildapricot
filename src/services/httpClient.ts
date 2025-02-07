@@ -2,11 +2,37 @@ import axios from "axios"
 import {refreshQuickbooksAccessToken} from "./api/quickbooks-api/authService.ts";
 import quickbooksClient from "./quickbooksClient.ts";
 
-let dynamicToken: string;
+export class AuthService {
+  private static dynamicToken: string | null = null;
+  private static qbAccessToken: string | null = null;
+  private static qbRealmId: string | null = null;
+  private static baseUrl: string | null = null;
 
-export const setAuth = (token: string) => {
-  dynamicToken = token;
+  static setAuth(token: string, baseUrl: string) {
+    this.dynamicToken = token;
+    this.baseUrl = baseUrl;
+  }
+
+  static getToken() {
+    return this.dynamicToken
+  }
+
+  static getBaseUrl() {
+    return this.baseUrl
+  }
+
+  static setQuickbooksAuth(accessToken: string, realmId: string) {
+    this.qbAccessToken = accessToken;
+    this.qbRealmId = realmId;
+  }
+
+  static clearAuth() {
+    this.dynamicToken = null;
+    this.qbAccessToken = null;
+    this.qbRealmId = null;
+  }
 }
+
 
 const httpClient = axios.create({
   baseURL: "http://localhost:3000",
@@ -20,8 +46,8 @@ httpClient.interceptors.request.use(
   (config) => {
 
     if(config.url.includes("makeApi")){
-      const token = import.meta.env.API_TOKEN;
-      config.headers.Authorization = dynamicToken;
+      config.headers.Authorization = AuthService.getToken();
+      config.headers.baseUrl = AuthService.getBaseUrl()
     }
     else if(config.url.includes("quickbooks")){
       config.headers.Authorization = localStorage.getItem("qbAccessToken");

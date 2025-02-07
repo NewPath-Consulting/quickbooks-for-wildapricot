@@ -2,7 +2,7 @@ import {createContext, useEffect, useRef, useState} from "react";
 import {ICustomerInformation} from "../typings/ICustomerInformation.ts";
 import {getUserInfo} from "../services/api/make-api/usersService.ts";
 import {getConnections} from "../services/api/make-api/connectionsService.ts";
-import {setAuth} from "../services/httpClient.ts";
+import {AuthService} from "../services/httpClient.ts";
 import {ICustomerInfo} from "../pages/customer-info-page/CustomerInformationPage.tsx";
 
 interface OnboardingState {
@@ -36,7 +36,7 @@ export const OnBoardingProvider = ({children}) => {
 
   useEffect(() => {
     if(onBoardingData.baseUrl && onBoardingData.authToken){
-      setAuth(onBoardingData.authToken);
+      AuthService.setAuth(onBoardingData.authToken, onBoardingData.baseUrl);
     }
   }, []);
 

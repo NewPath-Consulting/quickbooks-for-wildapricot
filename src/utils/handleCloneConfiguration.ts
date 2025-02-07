@@ -45,6 +45,12 @@ export const cloneConfiguration = async (data) => {
     // Step 4: Clone Scenarios
     await cloneScenariosStep(dataStructureMap, createdResources);
 
+    try {
+      await rollbackCreatedResources(createdResources);
+    } catch (rollbackError) {
+      console.error("Rollback Failed:", rollbackError);
+    }
+
     return createdResources;
   } catch (mainError) {
     console.error("Configuration Cloning Failed:", mainError);
@@ -173,7 +179,7 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
     const scenarios = await getScenarios(297, 188054);
     const connection = await getConnections(teamId)
 
-    for (const scenario of scenarios.data) {
+    for (const scenario of scenarios) {
       try {
         const blueprintResponse = await getScenarioBlueprint(scenario.id);
         const blueprint = blueprintResponse.data.data;
@@ -190,8 +196,9 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
           blueprint: JSON.stringify(blueprint)
         });
 
+        console.log(createdScenario.data)
         // Track created scenarios
-        createdResources.scenarios.push(createdScenario.data.id);
+        createdResources.scenarios.push(createdScenario.data.scenario.id);
       } catch (scenarioError) {
         console.error(`Failed to clone scenario:`, scenarioError);
         // Fail fast - stop entire process if any scenario fails

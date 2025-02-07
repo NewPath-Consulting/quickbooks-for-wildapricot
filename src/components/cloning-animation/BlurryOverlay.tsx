@@ -7,26 +7,18 @@ interface BlurryOverlayProps {
 }
 
 export const BlurryOverlay: React.FC<BlurryOverlayProps> = ({ isLoading, message }) => {
-  const [progress, setProgress] = useState(0);
-  const [exit, setExit] = useState(true);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (isLoading) {
-      setProgress(0);
-      setExit(false); // Ensure we reset exit state when loading starts
-      const interval = setInterval(() => {
-        setProgress((prev) => (prev < 90 ? prev + 10 : prev)); // Stops at 90% to wait for actual completion
-      }, 500);
-      return () => clearInterval(interval);
+      setShow(true);
+    } else if (show) {
+      const timer = setTimeout(() => setShow(false), 2500);
+      return () => clearTimeout(timer);
     }
-    else {
-      setProgress(100); // Instantly complete when cloning is done
-      setTimeout(() => setExit(true), 2500); // Hide after completion
-    }
+  }, [isLoading, show]);
 
-  }, [isLoading]);
-
-  if (exit) return null;
+  if (!show) return null;
 
   return (
     <div className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center blur-container" style={{ backdropFilter: "blur(8px)", zIndex: 1050 }}>

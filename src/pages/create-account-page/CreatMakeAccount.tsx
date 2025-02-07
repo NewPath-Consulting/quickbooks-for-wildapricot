@@ -2,7 +2,7 @@ import './CreateMakeAccount.css'
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {useEffect, useState} from "react";
 import * as React from "react";
-import {setAuth} from "../../services/httpClient.ts";
+import {AuthService} from "../../services/httpClient.ts";
 import {getUserInfo} from "../../services/api/make-api/usersService.ts";
 import {useNavigate} from "react-router-dom";
 import {getConnections} from "../../services/api/make-api/connectionsService.ts";
@@ -48,8 +48,8 @@ export const CreatMakeAccountPage = () => {
 
   const handleVerification = async (e) => {
     e.preventDefault()
-    setAuth(authData.authToken);
-    console.log(authData.authToken)
+    AuthService.setAuth(authData.authToken, authData.baseUrl);
+
     try{
       await getUserInfo();
 
