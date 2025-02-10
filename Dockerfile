@@ -3,7 +3,7 @@ ARG NODE_VERSION=20.8.0
 
 FROM node:${NODE_VERSION}-alpine as base
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/frontend
 
 COPY package-lock.json .
 COPY package.json .
