@@ -45,11 +45,11 @@ export const cloneConfiguration = async (data) => {
     // Step 4: Clone Scenarios
     await cloneScenariosStep(dataStructureMap, createdResources);
 
-    try {
-      await rollbackCreatedResources(createdResources);
-    } catch (rollbackError) {
-      console.error("Rollback Failed:", rollbackError);
-    }
+    // try {
+    //   await rollbackCreatedResources(createdResources);
+    // } catch (rollbackError) {
+    //   console.error("Rollback Failed:", rollbackError);
+    // }
 
     return createdResources;
   } catch (mainError) {
@@ -179,7 +179,7 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
     const scenarios = await getScenarios(297, 188054);
     const connection = await getConnections(teamId)
 
-    for (const scenario of scenarios) {
+    for (const scenario of scenarios.data) {
       try {
         const blueprintResponse = await getScenarioBlueprint(scenario.id);
         const blueprint = blueprintResponse.data.data;
