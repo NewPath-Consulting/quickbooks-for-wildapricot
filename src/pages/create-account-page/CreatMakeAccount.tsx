@@ -5,9 +5,6 @@ import * as React from "react";
 import {AuthService} from "../../services/httpClient.ts";
 import {getUserInfo} from "../../services/api/make-api/usersService.ts";
 import {useNavigate} from "react-router-dom";
-import {getConnections} from "../../services/api/make-api/connectionsService.ts";
-import {teamId} from "../../FirstDraft.tsx";
-
 
 const steps: {description: string, img: string}[] = [
   {

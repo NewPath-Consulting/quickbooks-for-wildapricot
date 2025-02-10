@@ -4,7 +4,6 @@ import {
   createDataStructure, deleteDataStore, deleteDataStructure,
   getDataStructures
 } from "../services/api/make-api/dataStructuresService.ts";
-import {teamId} from "../FirstDraft.tsx";
 import {
   createScenario,
   deleteScenario,
@@ -79,7 +78,7 @@ const cloneDataStructures = async (createdResources) => {
         const dataStructureDetails = await createDataStructure({
           spec: dataStructures[i].spec,
           name: dataStructures[i].name,
-          teamId: teamId
+          teamId: 740188
         });
 
         // Track created data structure
@@ -111,7 +110,7 @@ const createDataStoreStep = async (dataStructureId, createdResources) => {
     const dataStoreResponse = await createDataStore({
       datastructureId: dataStructureId,
       name: 'QBWA Test',
-      teamId: teamId
+      teamId: 740188
     });
 
     // Track created data store
@@ -157,7 +156,7 @@ const rollbackCreatedResources = async (createdResources) => {
     // Rollback data store
     if (createdResources.dataStore) {
       console.log(createdResources.dataStore)
-      await deleteDataStore([String(createdResources.dataStore)], teamId);
+      await deleteDataStore([String(createdResources.dataStore)], 740188);
     }
 
     // Rollback data structures
@@ -177,7 +176,7 @@ const rollbackCreatedResources = async (createdResources) => {
 const cloneScenariosStep = async (dataStructureMap, createdResources) => {
   try {
     const scenarios = await getScenarios(297, 188054);
-    const connection = await getConnections(teamId)
+    const connection = await getConnections(740188)
 
     for (const scenario of scenarios.data) {
       try {
@@ -192,7 +191,7 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
         // Create scenario
         const createdScenario = await createScenario({
           scheduling: "{ \"type\": \"indefinitely\", \"interval\": 900 }",
-          teamId: teamId,
+          teamId: 740188,
           blueprint: JSON.stringify(blueprint)
         });
 
