@@ -17,6 +17,7 @@ import {InvoiceConfiguration} from "../../typings/InvoiceConfiguration.ts";
 import {configurations} from "../../configurations.ts";
 import {cloneConfiguration} from "../../utils/handleCloneConfiguration.ts";
 import {BlurryOverlay} from "../../components/cloning-animation/BlurryOverlay.tsx";
+import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
 
 
 export const CloneScenariosPage = () => {
@@ -116,15 +117,14 @@ export const CloneScenariosPage = () => {
   };
 
   return (
-    <main ref={errorRef}>
+    <PageTemplate
+      title={'Review and Clone'}
+      subTitle={'Review all of your data and configurations before automating the integration process. '}
+      backUrl={'/job-scheduling'}
+      validate={handleCloneConfiguration}
+      errorMsg={errorMsg}
+    >
       <BlurryOverlay isLoading={isLoading} message={errorMsg ? "Error Occurred!" : successMsg ? successMsg : "Cloning your Workflows"}/>
-      <header>
-        <h2>Review and Clone</h2>
-        <p>Review all of your data and configurations before automating the integration process. </p>
-      </header>
-      {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
-          <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
-      </div>}
       {successMsg && <div style={{fontSize:'13px'}} className="alert alert-success" role="alert">
           <i style={{color: "#245815"}} className={'bi bi-check-circle'}></i> {successMsg}
       </div>}
@@ -145,10 +145,7 @@ export const CloneScenariosPage = () => {
           <ReviewDonationConfigPage/>
         </ReviewConfigComponent>
       </div>
-      <div className="mt-4">
-        <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/job-scheduling')}>Back</button>
-        <button className={"btn-success"} disabled={false} onClick={handleCloneConfiguration}>Clone</button>
-      </div>
-    </main>
+    </PageTemplate>
+
   )
 }

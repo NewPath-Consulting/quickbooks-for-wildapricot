@@ -11,6 +11,7 @@ import {getProductTags} from "../../services/api/wild-apricot-api/storeService.t
 import {tableColumns} from "../../components/alternate-mapping-table/tableColumns.ts";
 import AlternateMappingTable from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {invoiceTableReducer} from "../../hooks/tableReducer.ts";
+import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
 export interface InvoiceMapping {
   WAFieldName ?: string,
   QBProduct ?: string,
@@ -44,8 +45,6 @@ export const InvoiceConfigPage = () => {
   const [membershipLevelMappingList, dispatchMembershipMapping] = useReducer(invoiceTableReducer, onBoardingData.membershipLevelMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
   const [eventMappingList, dispatchEventMapping] = useReducer(invoiceTableReducer, onBoardingData.eventMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
   const [onlineStoreMappingList, dispatchOnlineStoreMapping] = useReducer(invoiceTableReducer, onBoardingData.onlineStoreMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
-
-  const errorRef = useRef(null);
 
   useEffect(() => {
     setCurrentStep(4)
@@ -154,13 +153,6 @@ export const InvoiceConfigPage = () => {
   useEffect(() => {
     updateInvoiceData();
   }, [updateInvoiceData]);
-
-
-  useEffect(() => {
-    if (errorMsg && errorRef.current) {
-      errorRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }, [errorMsg]);
 
 
   const handleChange = () => {
@@ -279,89 +271,83 @@ export const InvoiceConfigPage = () => {
   }
 
   return (
-    <main ref={errorRef}>
-      <header>
-        <h2>Invoice Configuration</h2>
-        <p>Easily match fields from Wild Apricot to QuickBooks for a smooth and accurate integration process.</p>
-      </header>
-      {errorMsg && <div style={{fontSize:'13px'}}  className="alert alert-danger" role="alert">
-          <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
-      </div>}
-
-      <div id={'content'}>
-        <div className={'accounts-receivable mb-5'} >
-          <h6>QuickBooks Receivable Account for Invoices</h6>
-          <p className={'mb-3 mt-2'}>Please select your Accounts Receivable account name below</p>
-          <div className="input-group mb-3" style={{maxWidth: '500px'}}>
-            <label className="input-group-text" htmlFor="inputAccountsReceivable"><i className={'bi bi-receipt'}></i></label>
-            <select className="form-select" id="inputAccountsReceivable" value={accountReceivable.accountId} onChange={handleAccountSelection}>
-              <option value={""}>Choose Receivable Account</option>
-              {accountList.map(account => {
-                return <option key={account.Id} value={account.Id}>{account.Name}</option>
-              })}
-            </select>
+    <PageTemplate
+      title={'Invoice Configuration'}
+      subTitle={'Easily match fields from Wild Apricot to QuickBooks for a smooth and accurate integration process.'}
+      backUrl={'/customer-information'}
+      validate={handleSubmission}
+      errorMsg={errorMsg}
+    >
+        <div id={'content'}>
+          <div className={'accounts-receivable mb-5'} >
+            <h6>QuickBooks Receivable Account for Invoices</h6>
+            <p className={'mb-3 mt-2'}>Please select your Accounts Receivable account name below</p>
+            <div className="input-group mb-3" style={{maxWidth: '500px'}}>
+              <label className="input-group-text" htmlFor="inputAccountsReceivable"><i className={'bi bi-receipt'}></i></label>
+              <select className="form-select" id="inputAccountsReceivable" value={accountReceivable.accountId} onChange={handleAccountSelection}>
+                <option value={""}>Choose Receivable Account</option>
+                {accountList.map(account => {
+                  return <option key={account.Id} value={account.Id}>{account.Name}</option>
+                })}
+              </select>
+            </div>
           </div>
-        </div>
-        <div className={'quickbooks-class mb-5'} >
-          <h6>QuickBooks Classes</h6>
-          <p className={'mb-3 mt-2'}>Please select weather you want to enable QuickBooks Classes</p>
-          <div className="form-check form-check-inline">
-            <input className="form-check-input" id={"inlineRadio1"} type="radio" name="options" value="no" checked={!hasClasses} onChange={handleChange} />
-            <label className="form-check-label" htmlFor="inlineRadio1">No</label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input className="form-check-input" id={"inlineRadio2"} type="radio" name="options" value="yes" checked={hasClasses} onChange={handleChange}/>
+          <div className={'quickbooks-class mb-5'} >
+            <h6>QuickBooks Classes</h6>
+            <p className={'mb-3 mt-2'}>Please select weather you want to enable QuickBooks Classes</p>
+            <div className="form-check form-check-inline">
+              <input className="form-check-input" id={"inlineRadio1"} type="radio" name="options" value="no" checked={!hasClasses} onChange={handleChange} />
+              <label className="form-check-label" htmlFor="inlineRadio1">No</label>
+            </div>
+            <div className="form-check form-check-inline">
+              <input className="form-check-input" id={"inlineRadio2"} type="radio" name="options" value="yes" checked={hasClasses} onChange={handleChange}/>
               <label className="form-check-label"  htmlFor="inlineRadio2">Yes</label>
+            </div>
           </div>
-        </div>
-        <div className={'default product'} >
-          <div className={'membership-level-table'}>
-            <h6>Default Membership Level Mapping</h6>
+          <div className={'default product'} >
+            <div className={'membership-level-table'}>
+              <h6>Default Membership Level Mapping</h6>
+              <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
+              <DefaultMappingTable<InvoiceMapping> classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]}  defaultData={defaultMembershipProduct} QBProducts={products} onMappingChange={(payload) => handleDefaultMapping(payload, "membership")}/>
+            </div>
+          </div>
+          <div className={'membership-level-table mb-4'}>
+            <h6>Alternate Membership Level Mapping</h6>
             <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-            <DefaultMappingTable<InvoiceMapping> classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]}  defaultData={defaultMembershipProduct} QBProducts={products} onMappingChange={(payload) => handleDefaultMapping(payload, "membership")}/>
+            <AlternateMappingTable columns={[...tableColumns.membershipLevels, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "membership")} mappingData={membershipLevelMappingList} data={{products, membershipLevels, classes}}/>
           </div>
-        </div>
-        <div className={'membership-level-table mb-4'}>
-          <h6>Alternate Membership Level Mapping</h6>
-          <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable columns={[...tableColumns.membershipLevels, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "membership")} mappingData={membershipLevelMappingList} data={{products, membershipLevels, classes}}/>
-        </div>
-        <div className={'default product'} >
-          <div className={'event-registration-table'}>
-            <h6>Default Event Registration Mapping</h6>
-            <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
-            <DefaultMappingTable<InvoiceMapping> classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} QBProducts={products} defaultData={defaultEventProduct} onMappingChange={(payload) => handleDefaultMapping(payload, "event")}/>
+          <div className={'default product'} >
+            <div className={'event-registration-table'}>
+              <h6>Default Event Registration Mapping</h6>
+              <p className={'mb-3 mt-2'}>Map your WildApricot membership levels to one of your products by selecting a QuickBooks product from the drop down</p>
+              <DefaultMappingTable<InvoiceMapping> classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} QBProducts={products} defaultData={defaultEventProduct} onMappingChange={(payload) => handleDefaultMapping(payload, "event")}/>
+            </div>
           </div>
-        </div>
-        <div className={'event-registration-table mb-4'}>
-          <h6>Alternate Event Registration Mapping</h6>
-          <p className={'mb-3 mt-2'}>Map your WildApricot events to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable columns={[...tableColumns.events, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "event")} mappingData={eventMappingList} data={{products, eventTags, classes}}/>
-        </div>
-        <div className={'default product'} >
+          <div className={'event-registration-table mb-4'}>
+            <h6>Alternate Event Registration Mapping</h6>
+            <p className={'mb-3 mt-2'}>Map your WildApricot events to one of your products by selecting a QuickBooks product from the drop down</p>
+            <AlternateMappingTable columns={[...tableColumns.events, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "event")} mappingData={eventMappingList} data={{products, eventTags, classes}}/>
+          </div>
+          <div className={'default product'} >
+            <div className={'online-store-table'}>
+              <h6>Default Online Store Mapping</h6>
+              <p className={'mb-3 mt-2'}>Map your WildApricot product tags to one of your QuickBooks products by selecting a QuickBooks product from the drop down</p>
+              <DefaultMappingTable<InvoiceMapping> classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} defaultData={defaultStoreProduct} QBProducts={products} onMappingChange={(payload) => handleDefaultMapping(payload, "store")}/>
+            </div>
+          </div>
           <div className={'online-store-table'}>
-            <h6>Default Online Store Mapping</h6>
-            <p className={'mb-3 mt-2'}>Map your WildApricot product tags to one of your QuickBooks products by selecting a QuickBooks product from the drop down</p>
-            <DefaultMappingTable<InvoiceMapping> classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} defaultData={defaultStoreProduct} QBProducts={products} onMappingChange={(payload) => handleDefaultMapping(payload, "store")}/>
+            <h6>Alternate Online Store Mapping</h6>
+            <p className={'mb-3 mt-2'}>Map your WildApricot online stores to one of your products by selecting a QuickBooks product from the drop down</p>
+            <AlternateMappingTable columns={[...tableColumns.onlineStore, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "store")} mappingData={onlineStoreMappingList} data={{products, productTags, classes}}/>
+          </div>
+          <div className={'default product'} >
+            <div className={'manual-invoice-table'}>
+              <h6>Manual Invoice Mapping</h6>
+              <p className={'mb-3 mt-2'}>This section is used to map your manually created invoices to a QuickBooks product.</p>
+              <DefaultMappingTable<InvoiceMapping> classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} defaultData={manualInvoiceMapping} QBProducts={products} onMappingChange={(payload) => handleDefaultMapping(payload, "manual")}/>
+            </div>
           </div>
         </div>
-        <div className={'online-store-table'}>
-          <h6>Alternate Online Store Mapping</h6>
-          <p className={'mb-3 mt-2'}>Map your WildApricot online stores to one of your products by selecting a QuickBooks product from the drop down</p>
-          <AlternateMappingTable columns={[...tableColumns.onlineStore, ...(hasClasses ? tableColumns.classes : [])]} onMappingChange={(actionType, actionPayload) => handleMapping(actionType, actionPayload, "store")} mappingData={onlineStoreMappingList} data={{products, productTags, classes}}/>
-        </div>
-        <div className={'default product'} >
-          <div className={'manual-invoice-table'}>
-            <h6>Manual Invoice Mapping</h6>
-            <p className={'mb-3 mt-2'}>This section is used to map your manually created invoices to a QuickBooks product.</p>
-            <DefaultMappingTable<InvoiceMapping> classesList={hasClasses ? classes : undefined} headers={["QB Product", "Income Account", ...(hasClasses ? ["Class"] : [])]} defaultData={manualInvoiceMapping} QBProducts={products} onMappingChange={(payload) => handleDefaultMapping(payload, "manual")}/>
-          </div>
-        </div>
-        <div className="mt-4">
-          <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/customer-information')}>Back</button>
-          <button className={"btn-success"} disabled={false} onClick={handleSubmission}>Next</button>
-        </div>
-      </div>
-    </main>
+    </PageTemplate>
   )
 }

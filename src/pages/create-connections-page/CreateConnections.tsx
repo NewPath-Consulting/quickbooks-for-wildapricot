@@ -6,6 +6,7 @@ import {createConnection, getConnections, verifyConnection} from "../../services
 import {useNavigate} from "react-router-dom";
 import {getWildApricotAccessToken, wildApricotLogin} from "../../services/api/wild-apricot-api/authService.ts";
 import {getQuickbooksAccessToken} from "../../services/api/quickbooks-api/authService.ts";
+import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
 
 export interface IConnection {
   img: string,
@@ -161,6 +162,7 @@ export const CreateConnectionsPage = () => {
 
     try {
       const connectionResponse = await createConnection(connectionBody, 740188);
+      console.log(connectionResponse)
       const connectionId = connectionResponse.data.id;
       const URL = `https://us1.make.com/api/v2/oauth/auth/${connectionId}`;
 
@@ -226,23 +228,12 @@ export const CreateConnectionsPage = () => {
   }, []);
 
   return (
-    <main>
-      <header>
-        <h2>Connect your Tools</h2>
-        <p>Set up your app connections to automate your workflows.</p>
-      </header>
+    <PageTemplate title={'Connect your Tools'} subTitle={'Set up your app connections to automate your workflows.'} backUrl={'/'} validate={handleNextPage} errorMsg={errorMsg}>
       <div>
-        {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
-            <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
-        </div>}
         <div className={'row mb-3'}>
           {connectionsList.map((connection, index) => <ConnectionComponent createConnectionToNewPath={createConnectionToNewPath} key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
         </div>
-        <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/')}>Back</button>
-        <button className={"btn-success"} disabled={Array.from(isConnectedMap).every(val => !val[1])} type={"submit"} onClick={() => handleNextPage()}>Next</button>
       </div>
-
-
-    </main>
+    </PageTemplate>
   )
 }

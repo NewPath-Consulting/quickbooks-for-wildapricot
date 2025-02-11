@@ -8,6 +8,7 @@ import {
   getContactInfo,
   getWildApricotAccounts
 } from "../../services/api/wild-apricot-api/accountsService.ts";
+import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
 
 export interface ICustomerInfo {
   firstName: string,
@@ -143,8 +144,7 @@ export const CustomerInformationPage = () => {
     updateData({customerInfo: formData});
   }, [formData]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     console.log(onBoardingData)
     // const errors = validateForm();
     // if (Object.values(errors).some(value => value.trim() !== "")) {
@@ -173,18 +173,15 @@ export const CustomerInformationPage = () => {
 
 
   return (
-    <main>
-      <header>
-        <h2>Customer Information</h2>
-        <p>Provide your company details to personalize and streamline your integration experience.</p>
-      </header>
-      {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
-          <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
-      </div>}
-      <form onSubmit={handleSubmit} noValidate={true}>
-
+    <PageTemplate
+      title={'Customer Information'}
+      subTitle={'Provide your company details to personalize and streamline your integration experience.'}
+      backUrl={'/create-connections'}
+      validate={handleSubmit}
+      errorMsg={errorMsg}
+    >
+      <div>
         <h5 className={'mb-4'}>Wild Apricot Information</h5>
-
         <div className={"form-content"}>
           <div className="row ">
             <div className="col-md-6 mb-3">
@@ -391,12 +388,8 @@ export const CustomerInformationPage = () => {
             </div>
           </div>
         </div>
-        <div className="mt-4">
-          <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"button"} onClick={() => navigate('/create-connections')}>Back</button>
-          <button className={"btn-success"} disabled={false} type={"submit"}>Next</button>
-        </div>
-      </form>
+      </div>
+    </PageTemplate>
 
-    </main>
   )
 }

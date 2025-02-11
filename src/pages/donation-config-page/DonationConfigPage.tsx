@@ -12,6 +12,7 @@ import {getDonationFields} from "../../services/api/wild-apricot-api/donationsSe
 import AlternateMappingTable from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {tableColumns} from "../../components/alternate-mapping-table/tableColumns.ts";
 import {donationTableReducer} from "../../hooks/tableReducer.ts";
+import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
 
 export interface DonationMapping extends InvoiceMapping {
   depositAccount: string,
@@ -154,15 +155,18 @@ export const DonationConfigPage = () => {
     }
   }, [errorMsg]);
 
+  const handleSubmission = () => {
+    navigate('/job-scheduling')
+  }
+
   return (
-    <main ref={errorRef}>
-      <header>
-        <h2>Donation Configuration</h2>
-        <p>Review your mapping configurations and confirm to start cloning scenarios into your Make.com account</p>
-      </header>
-      {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
-          <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
-      </div>}
+    <PageTemplate
+      title={'Donation Configuration'}
+      subTitle={'Review your mapping configurations and confirm to start cloning scenarios into your Make.com account'}
+      backUrl={'/payment-config'}
+      validate={handleSubmission}
+      errorMsg={errorMsg}
+    >
       <div className={'generic-default-donation'}>
         <h6>Donation General Mapping</h6>
         <p className={'mb-3 mt-2'}>Choose your QuickBooks fields below where default mapping will occur</p>
@@ -217,10 +221,6 @@ export const DonationConfigPage = () => {
           <AlternateMappingTable columns={[...tableColumns.donations, ...(onBoardingData.hasClasses ? tableColumns.classes : [])]} data={{accountList, products, campaignOptions: donationCampaignName.AllowedValues.map(val => val.Label), classes}} mappingData={donationMappingList} onMappingChange={(type, payload) => dispatchDonationMappingList({type, payload})}/>
         </div>
       </div>
-      <div className="mt-4">
-        <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/payment-config')}>Back</button>
-        <button className={"btn-success"} disabled={false} onClick={() => navigate('/job-scheduling')}>Next</button>
-      </div>
-    </main>
+    </PageTemplate>
   )
 }

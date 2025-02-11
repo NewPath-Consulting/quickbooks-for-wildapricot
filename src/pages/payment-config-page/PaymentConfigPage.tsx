@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {fetchData} from "../../services/fetchData.ts";
 import AlternateMappingTable from "../../components/alternate-mapping-table/AlternateMappingTable.tsx";
 import {tableColumns} from "../../components/alternate-mapping-table/tableColumns.ts";
+import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
 
 export interface PaymentConfig {
   WATender: string,
@@ -137,14 +138,13 @@ export const PaymentConfigPage = () => {
   };
 
   return (
-    <main ref={errorRef}>
-      <header>
-        <h2>Payment Configuration</h2>
-        <p>Easily match payment fields from Wild Apricot to QuickBooks for a smooth and accurate integration process.</p>
-      </header>
-      {errorMsg && <div style={{fontSize:'13px'}} className="alert alert-danger" role="alert">
-      <i style={{color: "#58151c"}} className={'bi bi-exclamation-circle'}></i> {errorMsg}
-      </div>}
+    <PageTemplate
+      title={'Payment Configuration'}
+      subTitle={'Easily match payment fields from Wild Apricot to QuickBooks for a smooth and accurate integration process.'}
+      backUrl={'/invoice-config'}
+      validate={handleSubmission}
+      errorMsg={errorMsg}
+    >
       <div className="default-payment-mapping">
         <h6>Default Payment Mapping</h6>
         <p className={'mb-3 mt-2'}>Map your QuickBooks payment deposit account to your QuickBooks receivables account by selecting each from the dropdowns below</p>
@@ -176,10 +176,7 @@ export const PaymentConfigPage = () => {
         <p className={'mb-3'}>Map your WildApricot payment methods to one of your QuickBooks payment methods from the dropdown</p>
         <AlternateMappingTable columns={tableColumns.payment} data={{WildApricotTenders, qbPaymentMethods}} mappingData={paymentMappingList} onMappingChange={handleMapping}/>
       </div>
-      <div className="mt-4">
-        <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/invoice-config')}>Back</button>
-        <button className={"btn-success"} disabled={false} onClick={handleSubmission}>Next</button>
-      </div>
-    </main>
+    </PageTemplate>
+
   )
 }
