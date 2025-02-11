@@ -10,7 +10,7 @@ import {
   getScenarioBlueprint,
   getScenarios
 } from "../services/api/make-api/scenariosService.ts";
-import {setConnectionValue, setDataStoreValue, setJSONValue} from "./setParameters.ts";
+import {setConnectionValue, setDataRecordKey, setDataStoreValue, setJSONValue} from "./setParameters.ts";
 import {getConnections} from "../services/api/make-api/connectionsService.ts";
 
 export const cloneConfiguration = async (data) => {
@@ -127,7 +127,8 @@ const postDataRecordStep = async (createdResources, data) => {
   try {
     const response = await createDataRecord({
       id: createdResources.dataStore,
-      data
+      data,
+      key: 'ca72cb0afc44'
     });
 
     // Track created data record
@@ -187,6 +188,7 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
         setConnectionValue(blueprint, "__IMTCONN__", connection.data.data);
         setDataStoreValue(blueprint, createdResources.dataStore);
         setJSONValue(blueprint, dataStructureMap);
+        setDataRecordKey(blueprint, createdResources.dataRecord)
 
         // Create scenario
         const createdScenario = await createScenario({
