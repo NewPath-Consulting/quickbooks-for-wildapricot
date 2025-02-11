@@ -219,7 +219,7 @@ export const DonationConfigPage = () => {
       </div>
       <div className="mt-4">
         <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/payment-config')}>Back</button>
-        <button className={"btn-success"} disabled={false} onClick={() => navigate('/clone-scenarios')}>Next</button>
+        <button className={"btn-success"} disabled={false} onClick={() => navigate('/job-scheduling')}>Next</button>
       </div>
     </main>
   )

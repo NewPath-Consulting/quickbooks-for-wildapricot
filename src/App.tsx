@@ -12,6 +12,7 @@ import {DonationConfigPage} from "./pages/donation-config-page/DonationConfigPag
 import ProgressBar from "./components/progress-bar/ProgressBar.tsx";
 import ProgressBar2 from "./components/progress-bar-2/ProgressBar2.tsx";
 import {CloneScenariosPage} from "./pages/clone-scenarios-page/CloneScenariosPage.tsx";
+import {SchedulingPage} from "./pages/scheduling-page/SchedulingPage.tsx";
 
 //26aba993-f746-44bf-9378-e71a2ffae2e6
 function App() {
@@ -36,6 +37,7 @@ function App() {
               <Route path="/payment-config" element={<PaymentConfigPage />} />
               <Route path="/donation-config" element={<DonationConfigPage />} />
               <Route path="/clone-scenarios" element={<CloneScenariosPage />} />
+              <Route path="/job-scheduling" element={<SchedulingPage />} />
             </Routes>
           </div>
         </div>

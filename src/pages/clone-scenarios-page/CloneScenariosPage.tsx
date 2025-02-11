@@ -1,9 +1,7 @@
 import * as React from "react";
 import {useEffect, useMemo, useRef, useState} from "react";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
-import {FirstDraft} from "../../FirstDraft.tsx";
 import {ReviewConfigComponent} from "../../components/review-config-component/ReviewConfigComponent.tsx";
-import {CustomerInformationPage} from "../customer-info-page/CustomerInformationPage.tsx";
 import {ReviewCustomerInfoPage} from "../review-customer-info-page/ReviewCustomerInfoPage.tsx";
 import {useNavigate} from "react-router-dom";
 import {ReviewPaymentConfigPage} from "../review-payment-config-page/ReviewPaymentConfigPage.tsx";
@@ -17,7 +15,6 @@ import {
 } from "../../utils/formatter.ts";
 import {InvoiceConfiguration} from "../../typings/InvoiceConfiguration.ts";
 import {configurations} from "../../configurations.ts";
-import {createDataRecord} from "../../services/api/make-api/dataStructuresService.ts";
 import {cloneConfiguration} from "../../utils/handleCloneConfiguration.ts";
 import {BlurryOverlay} from "../../components/cloning-animation/BlurryOverlay.tsx";
 
@@ -41,7 +38,7 @@ export const CloneScenariosPage = () => {
   }, [errorMsg]);
 
   useEffect(() => {
-    setCurrentStep(7)
+    setCurrentStep(8)
 
     const invoiceConfigurations: InvoiceConfiguration[] = [
       {
@@ -149,7 +146,7 @@ export const CloneScenariosPage = () => {
         </ReviewConfigComponent>
       </div>
       <div className="mt-4">
-        <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/donation-config')}>Back</button>
+        <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate('/job-scheduling')}>Back</button>
         <button className={"btn-success"} disabled={false} onClick={handleCloneConfiguration}>Clone</button>
       </div>
     </main>
