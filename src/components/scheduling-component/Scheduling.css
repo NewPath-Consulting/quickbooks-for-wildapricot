@@ -1,0 +1,9 @@
+.scheduling-container label {
+    font-size: 0.8em;
+    color: #A9A9A9;
+    padding-bottom: 4px;
+}
+
+.scheduling-container > * {
+    margin-bottom: 1em;
+}

@@ -191,7 +191,7 @@ export const CustomerInformationPage = () => {
             <div className="col-md-6 mb-3">
               <div className="row">
                 <div className="col mb-3">
-                  <label htmlFor="userId" className=" ">User ID</label>
+                  <label htmlFor="userId" className="form-label">User ID</label>
                   <div className="input-group" defaultValue={"Choose Field Name"}>
                     <select className="form-select" onChange={handleChange} id="userId" value={formData.userId}>
                       <option value={""} disabled={true}>Choose Field Name</option>
@@ -206,7 +206,7 @@ export const CustomerInformationPage = () => {
 
                 </div>
                 <div className="col">
-                  <label htmlFor="organization" className=" ">Organization</label>
+                  <label htmlFor="organization" className="form-label">Organization</label>
                   <div className="input-group" defaultValue={"Choose Field Name"}>
                     <select className="form-select" onChange={handleChange} id="organization" value={formData.organization}>
                       <option value={""} disabled={true}>Choose Field Name</option>
@@ -223,7 +223,7 @@ export const CustomerInformationPage = () => {
 
               <div className="row">
                 <div className="col">
-                  <label htmlFor="firstName" className=" ">First Name</label>
+                  <label htmlFor="firstName" className="form-label ">First Name</label>
                   <div className="input-group" defaultValue={"Choose Field Name"}>
                     <select className="form-select" onChange={handleChange} id="firstName" value={formData.firstName}>
                       <option value={""} disabled={true}>Choose Field Name</option>
@@ -238,7 +238,7 @@ export const CustomerInformationPage = () => {
 
                 </div>
                 <div className="col">
-                  <label htmlFor="lastName" className=" ">Last Name</label>
+                  <label htmlFor="lastName" className="form-label ">Last Name</label>
                   <div className="input-group" defaultValue={"Choose Field Name"}>
                     <select className="form-select" onChange={handleChange}  id="lastName" value={formData.lastName}>
                       <option value={""} disabled={true}>Choose Field Name</option>
@@ -261,7 +261,7 @@ export const CustomerInformationPage = () => {
             </div>
             <div className="col-md-6 mb-3">
               <div className="mb-3">
-                <label htmlFor="email" className=" ">Email Address</label>
+                <label htmlFor="email" className="form-label ">Email Address</label>
                 <div className="input-group"  defaultValue={"Choose Field Name"}>
                   <select className="form-select" onChange={handleChange} id="email" value={formData.email}>
                     <option value={""} disabled={true}>Choose Field Name</option>
@@ -275,7 +275,7 @@ export const CustomerInformationPage = () => {
                 <p style={{color: 'red'}}>{formErrors.email}</p>
               </div>
               <div className="mb-3">
-                <label htmlFor="phoneNumber" className=" ">Phone Number</label>
+                <label htmlFor="phoneNumber" className="form-label ">Phone Number</label>
                 <div className="input-group" defaultValue={"Choose Field Name"}>
                   <select className="form-select" onChange={handleChange} id="phoneNumber" value={formData.phoneNumber}>
                     <option value={""} disabled={true}>Choose Field Name</option>
@@ -299,7 +299,7 @@ export const CustomerInformationPage = () => {
             <div className="col-md-6 mb-3">
               <div className="row">
                 <div className="col mb-3">
-                  <label htmlFor="address" className=" ">Street Address</label>
+                  <label htmlFor="address" className="form-label ">Street Address</label>
                   <div className="input-group " defaultValue={"Choose Field Name"}>
                     <select className="form-select" onChange={handleChange} id="address" value={formData.address}>
                       <option value={""} disabled={true}>Choose Field Name</option>
@@ -314,7 +314,7 @@ export const CustomerInformationPage = () => {
 
                 </div>
                 <div className="col">
-                  <label htmlFor="country" className=" ">Country</label>
+                  <label htmlFor="country" className=" form-label">Country</label>
                   <div className="input-group " defaultValue={"Choose Field Name"}>
                     <select className="form-select" onChange={handleChange} id="country" value={formData.country}>
                       <option value={""} disabled={true}>Choose Field Name</option>
@@ -330,7 +330,7 @@ export const CustomerInformationPage = () => {
               </div>
               <div className="row">
                 <div className="col">
-                  <label htmlFor="state" className=" ">State</label>
+                  <label htmlFor="state" className="form-label ">State</label>
                   <div className="input-group " defaultValue={"Choose Field Name"}>
                     <select className="form-select" onChange={handleChange} id="state" value={formData.state}>
                       <option value={""} disabled={true}>Choose Field Name</option>
@@ -344,7 +344,7 @@ export const CustomerInformationPage = () => {
                   <p style={{color: 'red'}}>{formErrors.state}</p>
                 </div>
                 <div className="col">
-                  <label htmlFor="city" className=" ">City</label>
+                  <label htmlFor="city" className="form-label ">City</label>
                   <div className="input-group" defaultValue={"Choose Field Name"}>
                     <select className="form-select" onChange={handleChange} id="city" value={formData.city}>
                       <option value={""} disabled={true}>Choose Field Name</option>
