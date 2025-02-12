@@ -2,7 +2,15 @@ import {ICustomerInfo} from "../pages/customer-info-page/CustomerInformationPage
 import {Account, PaymentConfig} from "../pages/payment-config-page/PaymentConfigPage.tsx";
 import {DonationFieldName, DonationMapping} from "../pages/donation-config-page/DonationConfigPage.tsx";
 import {InvoiceConfiguration} from "../typings/InvoiceConfiguration.ts";
+import {SchedulingData} from "../pages/scheduling-page/SchedulingPage.tsx";
 
+const convertTo12Hour = (time: string | undefined) => {
+  if (!time) return undefined;
+  let [hours, minutes] = time.split(":").map(Number);
+  let period = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12; // Convert to 12-hour format
+  return `${hours}:${String(minutes).padStart(2, "0")} ${period}`;
+};
 
 export const formatCustomerInfo = (customerInfo: ICustomerInfo) => {
   return {
@@ -26,24 +34,24 @@ export const formatCustomerInfo = (customerInfo: ICustomerInfo) => {
   };
 }
 
-export const formatPaymentConfig = (paymentConfig: PaymentConfig[], accountReceivable: Account, depositAccount: Account) => {
+export const formatPaymentConfig = (paymentConfig: PaymentConfig[], accountReceivable: Account, depositAccount: Account, schedulingData: SchedulingData) => {
 
   return {
     "Payment Config": {
-      "Payment Jobs Enabled": null,
+      "Payment Jobs Enabled": true,
       "Payment Job Scheduling": {
-        "Payment Job Scheduling Type": null,
+        "Payment Job Scheduling Type": schedulingData?.jobType || null,
         "Manual Payment Job Config": {
-          "Manual Start Date": null,
-          "Manual End Date": null,
-          "Manual Payment Doc Number": null
+          "Manual Start Date": schedulingData?.manualSchedule?.startDate || null,
+          "Manual End Date": schedulingData?.manualSchedule?.endDate || null,
+          "Manual Payment Doc Number": schedulingData?.manualSchedule?.docNumber || null
         },
         "Auto Scheduled Payment Job Config": {
-          "Time Period Type for Each Run": null,
-          "Number of Time Periods for Each Run": 1,
-          "Weekly-Day of Week to Start Run": null,
-          "Monthly-Day of Month to Start Run": null,
-          "Start Time": "12:45 AM",
+          "Time Period Type for Each Run": schedulingData?.scheduledSchedule?.timePeriod || null,
+          "Number of Time Periods for Each Run": schedulingData?.scheduledSchedule?.numOfTimePeriods || 1,
+          "Weekly-Day of Week to Start Run": schedulingData?.scheduledSchedule?.dayOfWeek || null,
+          "Monthly-Day of Month to Start Run": schedulingData?.scheduledSchedule?.dayOfMonth || null,
+          "Start Time": convertTo12Hour(schedulingData?.scheduledSchedule?.startTime) || "12:45 AM",
           "Last AutoRun for Payment": null
         }
       },
@@ -71,24 +79,24 @@ interface DonationConfig {
   alternateDonationConfig: DonationMapping[]
 }
 
-export const formatDonationConfig = (donationConfig: DonationConfig) => {
+export const formatDonationConfig = (donationConfig: DonationConfig, schedulingData: SchedulingData) => {
 
   return {
     "Donation Config": {
-      "Donations Jobs Enabled": null,
+      "Donation Jobs Enabled": true,
       "Donation Job Scheduling": {
-        "Donation Job Scheduling Type": null,
+        "Donation Job Scheduling Type": schedulingData?.jobType || null,
         "Manual Donation Job Config": {
-          "Manual Start Date": null,
-          "Manual End Date": null,
-          "Manual Donation Doc Number": null
+          "Manual Start Date": schedulingData?.manualSchedule?.startDate || null,
+          "Manual End Date": schedulingData?.manualSchedule?.endDate || null,
+          "Manual Donation Doc Number": schedulingData?.manualSchedule?.docNumber || null
         },
         "Auto Scheduled Donation Job Config": {
-          "Time Period Type for Each Run": null,
-          "Number of Time Periods for Each Run": 1,
-          "Weekly-Day of Week to Start Run": null,
-          "Monthly-Day of Month to Start Run": null,
-          "Start Time": "12:20 AM",
+          "Time Period Type for Each Run": schedulingData?.scheduledSchedule?.timePeriod || null,
+          "Number of Time Periods for Each Run": schedulingData?.scheduledSchedule?.numOfTimePeriods || 1,
+          "Weekly-Day of Week to Start Run": schedulingData?.scheduledSchedule?.dayOfWeek || null,
+          "Monthly-Day of Month to Start Run": schedulingData?.scheduledSchedule?.dayOfMonth || null,
+          "Start Time": convertTo12Hour(schedulingData?.scheduledSchedule?.startTime) || "12:20 AM",
           "Last AutoRun for Donation": null
         }
       },
@@ -126,24 +134,24 @@ export const formatDonationConfig = (donationConfig: DonationConfig) => {
   }
 }
 
-export const formatInvoiceConfig = (invoiceConfig: InvoiceConfiguration[]) => {
+export const formatInvoiceConfig = (invoiceConfig: InvoiceConfiguration[], schedulingData: SchedulingData) => {
 
   return {
     "Invoice Config": {
-      "Invoices Jobs Enabled": null,
+      "Invoices Jobs Enabled": true,
       "Invoice Job Scheduling": {
-        "Invoice Job Scheduling Type": null,
+        "Invoice Job Scheduling Type": schedulingData?.jobType || null,
         "Manual Invoice Job Config": {
-          "Manual Start Date": null,
-          "Manual End Date": null,
-          "Manual Invoice Doc Number": null
+          "Manual Start Date": schedulingData?.manualSchedule?.startDate || null,
+          "Manual End Date": schedulingData?.manualSchedule?.endDate || null,
+          "Manual Invoice Doc Number": schedulingData?.manualSchedule?.docNumber || null
         },
         "Auto Scheduled Invoice Job Config": {
-          "Time Period Type for Each Run": null,
-          "Number of Time Periods for Each Run": 1,
-          "Weekly-Day of Week to Start Run": null,
-          "Monthly-Day of Month to Start Run": null,
-          "Start Time for Run": "12:00 AM",
+          "Time Period Type for Each Run": schedulingData?.scheduledSchedule?.timePeriod || null,
+          "Number of Time Periods for Each Run": schedulingData?.scheduledSchedule?.numOfTimePeriods || 1,
+          "Weekly-Day of Week to Start Run": schedulingData?.scheduledSchedule?.dayOfWeek || null,
+          "Monthly-Day of Month to Start Run": schedulingData?.scheduledSchedule?.dayOfMonth || null,
+          "Start Time": convertTo12Hour(schedulingData?.scheduledSchedule?.startTime) || "12:20 AM",
           "Last AutoRun for Invoice": null
         }
       },

@@ -18,6 +18,7 @@ import {configurations} from "../../configurations.ts";
 import {cloneConfiguration} from "../../utils/handleCloneConfiguration.ts";
 import {BlurryOverlay} from "../../components/cloning-animation/BlurryOverlay.tsx";
 import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
+import {ReviewSchedulingPage} from "../review-scheduling-page/ReviewSchedulingPage.tsx";
 
 
 export const CloneScenariosPage = () => {
@@ -85,14 +86,14 @@ export const CloneScenariosPage = () => {
         ...configurations,
         "Config Last Updated": new Date(),
         ...formatCustomerInfo(onBoardingData.customerInfo),
-        ...formatPaymentConfig(onBoardingData.paymentMappingList, onBoardingData.accountReceivable, onBoardingData.qbDepositAccount),
+        ...formatPaymentConfig(onBoardingData.paymentMappingList, onBoardingData.accountReceivable, onBoardingData.qbDepositAccount, onBoardingData.paymentScheduling),
         ...formatDonationConfig({
           defaultDonationConfig: onBoardingData.defaultDonationMapping,
           alternateDonationConfig: onBoardingData.donationMappingList,
           commentName: onBoardingData.donationCommentName,
           campaignName: onBoardingData.donationCampaignName
-        }),
-        ...formatInvoiceConfig(invoiceConfigurations)
+        }, onBoardingData.donationScheduling),
+        ...formatInvoiceConfig(invoiceConfigurations, onBoardingData.invoiceScheduling)
     })
 
   }, [onBoardingData]);
@@ -153,6 +154,10 @@ export const CloneScenariosPage = () => {
 
       <ReviewConfigComponent img={'bi-piggy-bank'} title={'Donation Configuration'} urlLocation={'/donation-config'}>
         <ReviewDonationConfigPage/>
+      </ReviewConfigComponent>
+
+      <ReviewConfigComponent img={'bi-calendar'} title={'Job Scheduling'} urlLocation={'/job-scheduling'}>
+        <ReviewSchedulingPage/>
       </ReviewConfigComponent>
 
       <button className={'m-0 bg-transparent p-0 d-flex align-items-center gap-2'} onClick={handleCloneConfiguration} style={{color: '#71DD93', fontSize: '14px'}}>

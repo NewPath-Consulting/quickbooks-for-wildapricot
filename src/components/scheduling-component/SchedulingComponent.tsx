@@ -10,12 +10,6 @@ interface SchedulingComponentProps {
 
 export const SchedulingComponent = ({ title, schedulingData, dispatch }: SchedulingComponentProps) => {
 
-
-  const handleJobTypeChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-    const { value } = e.target;
-    dispatch({ type: "SET_JOB_TYPE", payload: value });
-  };
-
   const handleManualChange = (e) => {
     const { name, value } = e.target
     dispatch({ type: "UPDATE_MANUAL_SCHEDULE", payload: { [name]: value } });
@@ -23,6 +17,7 @@ export const SchedulingComponent = ({ title, schedulingData, dispatch }: Schedul
 
   const handleScheduledChange = (e) => {
     const { name, value } = e.target
+
     dispatch({ type: "UPDATE_SCHEDULED_SCHEDULE", payload: { [name]: value } });
   }
 
