@@ -116,35 +116,49 @@ export const CloneScenariosPage = () => {
     }
   };
 
+  const handleSubmission = () => {
+    if(successMsg){
+      console.log('Completed!')
+    }
+
+    else{
+      setErrorMsg('Must automate workflows before continuing!')
+    }
+  }
+
   return (
     <PageTemplate
       title={'Review and Clone'}
       subTitle={'Review all of your data and configurations before automating the integration process. '}
       backUrl={'/job-scheduling'}
-      validate={handleCloneConfiguration}
+      validate={handleSubmission}
       errorMsg={errorMsg}
     >
       <BlurryOverlay isLoading={isLoading} message={errorMsg ? "Error Occurred!" : successMsg ? successMsg : "Cloning your Workflows"}/>
       {successMsg && <div style={{fontSize:'13px'}} className="alert alert-success" role="alert">
           <i style={{color: "#245815"}} className={'bi bi-check-circle'}></i> {successMsg}
       </div>}
-      <div className={''}>
 
-        <ReviewConfigComponent img={'bi-person'} title={'Customer Information'} urlLocation={'/customer-information'}>
-          <ReviewCustomerInfoPage/>
-        </ReviewConfigComponent>
+      <ReviewConfigComponent img={'bi-person'} title={'Customer Information'} urlLocation={'/customer-information'}>
+        <ReviewCustomerInfoPage/>
+      </ReviewConfigComponent>
 
-        <ReviewConfigComponent img={'bi-credit-card'} title={'Payment Configuration'} urlLocation={'/payment-config'}>
-          <ReviewPaymentConfigPage/>
-        </ReviewConfigComponent>
+      <ReviewConfigComponent img={'bi-file-text'} title={'Invoice Configuration'} urlLocation={'/invoice-config'}>
+        <ReviewInvoiceConfigPage/>
+      </ReviewConfigComponent>
 
-        <ReviewConfigComponent img={'bi-file-text'} title={'Invoice Configuration'} urlLocation={'/invoice-config'}>
-          <ReviewInvoiceConfigPage/>
-        </ReviewConfigComponent>
-        <ReviewConfigComponent img={'bi-piggy-bank'} title={'Donation Configuration'} urlLocation={'/donation-config'}>
-          <ReviewDonationConfigPage/>
-        </ReviewConfigComponent>
-      </div>
+      <ReviewConfigComponent img={'bi-credit-card'} title={'Payment Configuration'} urlLocation={'/payment-config'}>
+        <ReviewPaymentConfigPage/>
+      </ReviewConfigComponent>
+
+      <ReviewConfigComponent img={'bi-piggy-bank'} title={'Donation Configuration'} urlLocation={'/donation-config'}>
+        <ReviewDonationConfigPage/>
+      </ReviewConfigComponent>
+
+      <button className={'m-0 bg-transparent p-0 d-flex align-items-center gap-2'} onClick={handleCloneConfiguration} style={{color: '#71DD93', fontSize: '14px'}}>
+        Automate Workflows
+        <i className={'bi bi-copy'} style={{color: '#71DD93'}}></i>
+      </button>
     </PageTemplate>
 
   )

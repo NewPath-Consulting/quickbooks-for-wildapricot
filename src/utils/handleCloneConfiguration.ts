@@ -211,37 +211,3 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
     throw error;
   }
 };
-
-// const rollbackCreatedResources = async (createdResources) => {
-//   try {
-//     // Rollback scenarios
-//     if (createdResources.scenarios.length) {
-//       await Promise.all(
-//         createdResources.scenarios.map(scenarioId => deleteScenario(scenarioId))
-//       );
-//     }
-//
-//     // Rollback data record
-//     if (createdResources.dataRecord) {
-//       await deleteDataRecord(createdResources.dataRecord);
-//     }
-//
-//     // Rollback data store
-//     if (createdResources.dataStore) {
-//       await deleteDataStore(createdResources.dataStore);
-//     }
-//
-//     // Rollback data structures
-//     if (createdResources.dataStructures.length) {
-//       await Promise.all(
-//         createdResources.dataStructures.map(structureId => deleteDataStructure(structureId))
-//       );
-//     }
-//   } catch (rollbackError) {
-//     console.error("Complete Rollback Failed", rollbackError);
-//     // Log critical error - manual intervention might be needed
-//     throw rollbackError;
-//   }
-// };
-
-// Usage in component
