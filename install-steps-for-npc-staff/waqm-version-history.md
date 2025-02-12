@@ -63,10 +63,14 @@ description: >-
 ### Upgrade impacts to existing customers:
 
 * Upgrading existing customers with v0.7.x installations.
-* From the repository, clone the Core (Invoice, Payment, Donation) scenarios into the client's Make.com environment.
+* From the repository, manually migrate ONLY the Core (Invoice, Payment, Donation) scenarios into the client's Make.com environment.
+  * For each of the choices when preparing the manual migration, use these rules of thumb:
+    * Check the "replace with" options first.   e.g. if the client created a new WildApricot connection inside their environment, choose that new connection.
+    * Choose the "use previously migrated..." option.   This usually applies to cases where the "object" was already migrated in a previous version and that object still exists.
+    * As a last resort, choose "duplicate..."&#x20;
 * For each Core scenario:
   * Update the name of the scenario to include the client's name.
-  * Ensure the Config Key in the first module matches the Data Store Config used by the client.
+  * Ensure the Config Key in the first module matches the Data Store Config Key used by the client.
   * Ensure the last HTTP module (Send to QBO-TxnPayload) is using the correct URL.  The correct URL is in the webhook (first module) of the corresponding Txn-QBO scenario.
   * Update the scenario's scheduling to match the scheduling of the previous scenarios.
 * Update "installed version" inside the active data store record. (nice to do; not required)
@@ -102,33 +106,9 @@ description: >-
 
 <figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.09.50 PM.png" alt=""><figcaption><p>issue 105 1.1.Label</p></figcaption></figure>
 
-<div>
+<div><figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.10.29 PM.png" alt=""><figcaption><p>modules impacted by issue 106</p></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.11.23 PM.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.11.44 PM.png" alt=""><figcaption></figcaption></figure></div>
 
-<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.10.29 PM.png" alt=""><figcaption><p>modules impacted by issue 106</p></figcaption></figure>
-
- 
-
-<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.11.23 PM.png" alt=""><figcaption></figcaption></figure>
-
- 
-
-<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.11.44 PM.png" alt=""><figcaption></figcaption></figure>
-
-</div>
-
-<div>
-
-<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.11.55 PM.png" alt=""><figcaption></figcaption></figure>
-
- 
-
-<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.12.09 PM.png" alt=""><figcaption></figcaption></figure>
-
- 
-
-<figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.12.20 PM.png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div><figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.11.55 PM.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.12.09 PM.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot 2023-02-15 at 1.12.20 PM.png" alt=""><figcaption></figcaption></figure></div>
 
 ## QBWA v0.7.0.5
 
