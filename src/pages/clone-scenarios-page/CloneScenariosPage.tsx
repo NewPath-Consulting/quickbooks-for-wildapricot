@@ -40,7 +40,7 @@ export const CloneScenariosPage = () => {
   }, [errorMsg]);
 
   useEffect(() => {
-    setCurrentStep(8)
+    setCurrentStep(9)
 
     const invoiceConfigurations: InvoiceConfiguration[] = [
       {

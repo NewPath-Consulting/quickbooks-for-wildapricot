@@ -70,7 +70,7 @@ export const SchedulingPage = () => {
   const [donationScheduling, dispatchDonation] = useReducer(schedulingReducer, onBoardingData.donationScheduling ?? initialState, init);
 
   useEffect(() => {
-    setCurrentStep(7)
+    setCurrentStep(8)
     console.log(onBoardingData)
   }, []);
 

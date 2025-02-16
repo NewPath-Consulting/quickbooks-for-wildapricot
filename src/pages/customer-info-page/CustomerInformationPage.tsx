@@ -74,8 +74,7 @@ export const CustomerInformationPage = () => {
   }
 
   useEffect(() => {
-    setCurrentStep(3)
-
+    setCurrentStep(4)
 
     if(Object.keys(onBoardingData.customerInfo).length !== 0) {
       setFormData(onBoardingData.customerInfo)
@@ -176,7 +175,7 @@ export const CustomerInformationPage = () => {
     <PageTemplate
       title={'Customer Information'}
       subTitle={'Provide your company details to personalize and streamline your integration experience.'}
-      backUrl={'/create-connections'}
+      backUrl={'/general-information'}
       validate={handleSubmit}
       errorMsg={errorMsg}
     >

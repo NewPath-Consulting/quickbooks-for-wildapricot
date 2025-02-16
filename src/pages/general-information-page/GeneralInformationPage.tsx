@@ -5,6 +5,7 @@ import * as React from "react";
 import moment from "moment-timezone";
 import './GeneralInformation.css'
 import {getWildApricotAccounts} from "../../services/api/wild-apricot-api/accountsService.ts";
+import {useNavigate} from "react-router-dom";
 
 interface GeneralInformationForm {
   organizationName: string,
@@ -18,7 +19,8 @@ interface GeneralInformationForm {
 }
 
 export const GeneralInformationPage = () => {
-  const { currentStep, onBoardingData, updateData } = useOnBoarding()
+  const { setCurrentStep, onBoardingData, updateData } = useOnBoarding()
+  const navigate = useNavigate();
 
   const [errorMsg, setErrorMsg] = useState('');
   const [WildApricotAccounts, setWildApricotAccounts] = useState([]);
@@ -28,6 +30,7 @@ export const GeneralInformationPage = () => {
   const [rawEmailInput, setRawEmailInput] = useState('');
 
   useEffect(() => {
+    setCurrentStep(3)
     const fetchWildApricotAccounts = async() => {
       try{
         const response = await getWildApricotAccounts();
@@ -49,7 +52,12 @@ export const GeneralInformationPage = () => {
     // }
 
     console.log(formData)
+    navigate('/customer-information')
   }
+
+  useEffect(() => {
+    updateData({generalInfo: formData});
+  }, [formData]);
 
   const validateForm = () => {
     const errors: string[] = [];
@@ -137,6 +145,7 @@ export const GeneralInformationPage = () => {
             </div>
             <div className="col-md-5">
               <label htmlFor={'config-name'}>WA Config Record Name</label>
+              <p>n/a for initialchange</p>
             </div>
             <div className="col-md-7">
               <input value={formData.recordName} name={'recordName'} onChange={handleFormData} id={'config-name'} type={"text"} placeholder={'ex. <Customer-name>-<master-use>'} className={'form-control form-control-sm'}/>

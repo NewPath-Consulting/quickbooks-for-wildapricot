@@ -216,7 +216,7 @@ export const CreateConnectionsPage = () => {
       setErrorMsg("Connect to all apps to continue")
     }
     else{
-      navigate('/customer-information')
+      navigate('/general-information')
     }
   }
 

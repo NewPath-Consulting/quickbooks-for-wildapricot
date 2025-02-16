@@ -18,8 +18,13 @@ export const steps: ISteps[] = [
     endpoint: "/create-connections"
   },
   {
+    title: "General Information",
+    subTitle: "Provide your company information",
+    endpoint: "/general-information"
+  },
+  {
     title: "Customer Information",
-    subTitle: "Add your information",
+    subTitle: "Map your field names",
     endpoint: "/customer-information"
   },
   {

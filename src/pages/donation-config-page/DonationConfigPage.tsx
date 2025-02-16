@@ -96,7 +96,7 @@ export const DonationConfigPage = () => {
   const errorRef = useRef(null)
 
   useEffect(() => {
-    setCurrentStep(6)
+    setCurrentStep(7)
 
     fetchData("select * from item", setProducts, "Item", setErrorMsg)
     fetchData("select * from class", setClasses, "Class", setErrorMsg)

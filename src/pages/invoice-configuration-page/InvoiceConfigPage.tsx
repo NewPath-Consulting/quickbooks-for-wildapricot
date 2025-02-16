@@ -47,7 +47,7 @@ export const InvoiceConfigPage = () => {
   const [onlineStoreMappingList, dispatchOnlineStoreMapping] = useReducer(invoiceTableReducer, onBoardingData.onlineStoreMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
 
   useEffect(() => {
-    setCurrentStep(4)
+    setCurrentStep(5)
 
     fetchData("select * from item", setProducts, "Item", setErrorMsg)
     fetchData("select * from account where AccountType = 'Accounts Receivable'", setAccountList, "Account", setErrorMsg)

@@ -59,7 +59,7 @@ export const PaymentConfigPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    setCurrentStep(5);
+    setCurrentStep(6);
 
     fetchData("select * from paymentmethod", setQBPaymentMethods, "PaymentMethod", setErrorMsg)
     fetchData("select * from account where AccountType IN ('Other Current Asset', 'Bank')", setDepositAccountsList, "Account", setErrorMsg)
