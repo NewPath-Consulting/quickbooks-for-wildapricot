@@ -8,9 +8,6 @@
     background-color: #ffffff;
 }
 
-.form-content input{
-    background-color: #f9f9f9;
-}
 
 .form-content > *{
     border-bottom: 1px solid var(--border-color);
