@@ -20,7 +20,7 @@ import {ReviewGeneralConfigPage} from "../review-general-config-page/ReviewGener
 
 export const CloneScenariosPage = () => {
 
-  const { setCurrentStep, onBoardingData } = useOnBoarding();
+  const { onBoardingData, getNextStep, markStepAsCompleted } = useOnBoarding();
   const navigate = useNavigate();
 
   const [data, setData] = useState({});
@@ -34,10 +34,9 @@ export const CloneScenariosPage = () => {
     if (errorMsg && errorRef.current) {
       errorRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  }, [errorMsg]);
+  },   [errorMsg]);
 
   useEffect(() => {
-    setCurrentStep(9)
 
     const invoiceConfigurations: InvoiceConfiguration[] = [
       {
@@ -129,6 +128,7 @@ export const CloneScenariosPage = () => {
       <ReviewConfigComponent img={'bi-person-vcard'} title={'General Information'} urlLocation={'/general-information'}>
         <ReviewGeneralConfigPage/>
       </ReviewConfigComponent>
+
 
       <ReviewConfigComponent img={'bi-person'} title={'Customer Information'} urlLocation={'/customer-information'}>
         <ReviewCustomerInfoPage/>

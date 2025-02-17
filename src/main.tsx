@@ -6,8 +6,6 @@ import {OnBoardingProvider} from "./contexts/onBoardingContext.tsx";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <OnBoardingProvider>
-      <App />
-    </OnBoardingProvider>
+    <App />
   </StrictMode>,
 )

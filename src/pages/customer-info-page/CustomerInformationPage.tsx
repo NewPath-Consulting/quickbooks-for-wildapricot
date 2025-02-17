@@ -25,7 +25,7 @@ export interface ICustomerInfo {
 }
 
 export const CustomerInformationPage = () => {
-  const {onBoardingData, setCurrentStep, updateData} = useOnBoarding();
+  const {onBoardingData, updateData, markStepAsCompleted, getPreviousStep, getNextStep} = useOnBoarding();
   const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState("");
   const [fieldNames, setFieldNames] = useState([]);
@@ -74,8 +74,6 @@ export const CustomerInformationPage = () => {
   }
 
   useEffect(() => {
-    setCurrentStep(4)
-
     if(Object.keys(onBoardingData.customerInfo).length !== 0) {
       setFormData(onBoardingData.customerInfo)
     }
@@ -156,7 +154,11 @@ export const CustomerInformationPage = () => {
     //   navigate("/invoice-config")
     //   console.log(onBoardingData);
     // }
-    navigate("/invoice-config")
+    markStepAsCompleted('/customer-information');
+    const nextStep = getNextStep();
+    if (nextStep) {
+      navigate(nextStep);
+    }
   };
 
   const handleChange = (event) => {
@@ -175,7 +177,6 @@ export const CustomerInformationPage = () => {
     <PageTemplate
       title={'Customer Information'}
       subTitle={'Provide your company details to personalize and streamline your integration experience.'}
-      backUrl={'/general-information'}
       validate={handleSubmit}
       errorMsg={errorMsg}
     >

@@ -51,7 +51,7 @@ const connectionsList: IConnection[] = [
 ]
 
 export const CreateConnectionsPage = () => {
-  const {onBoardingData, updateData, setCurrentStep} = useOnBoarding();
+  const {updateData, markStepAsCompleted, getNextStep, getPreviousStep} = useOnBoarding();
   const [errorMsg, setErrorMsg] = useState("");
   const [isConnectedMap, setIsConnectedMap] = useState(() => {
     return new Map(
@@ -216,19 +216,16 @@ export const CreateConnectionsPage = () => {
       setErrorMsg("Connect to all apps to continue")
     }
     else{
-      navigate('/general-information')
+      markStepAsCompleted('/create-connections');
+      const nextStep = getNextStep();
+      if (nextStep) {
+        navigate(nextStep);
+      }
     }
   }
 
-
-
-  useEffect(() => {
-    setCurrentStep(2)
-    console.log(isConnectedMap)
-  }, []);
-
   return (
-    <PageTemplate title={'Connect your Tools'} subTitle={'Set up your app connections to automate your workflows.'} backUrl={'/'} validate={handleNextPage} errorMsg={errorMsg}>
+    <PageTemplate title={'Connect your Tools'} subTitle={'Set up your app connections to automate your workflows.'} validate={handleNextPage} errorMsg={errorMsg}>
       <div>
         <div className={'row mb-3'}>
           {connectionsList.map((connection, index) => <ConnectionComponent createConnectionToNewPath={createConnectionToNewPath} key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}

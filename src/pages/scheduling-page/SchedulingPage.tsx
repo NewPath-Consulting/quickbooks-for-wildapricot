@@ -60,7 +60,7 @@ const init = (state) => {
 }
 
 export const SchedulingPage = () => {
-  const { setCurrentStep, updateData, onBoardingData } = useOnBoarding()
+  const { updateData, onBoardingData, markStepAsCompleted, getNextStep } = useOnBoarding()
   const navigate = useNavigate()
 
   const [errorMsg, setErrorMsg] = useState('');
@@ -69,17 +69,17 @@ export const SchedulingPage = () => {
   const [paymentScheduling, dispatchPayment] = useReducer(schedulingReducer, onBoardingData.paymentScheduling ?? initialState, init);
   const [donationScheduling, dispatchDonation] = useReducer(schedulingReducer, onBoardingData.donationScheduling ?? initialState, init);
 
-  useEffect(() => {
-    setCurrentStep(8)
-    console.log(onBoardingData)
-  }, []);
 
   useEffect(() => {
     updateData({ invoiceScheduling, paymentScheduling, donationScheduling})
   }, [invoiceScheduling, paymentScheduling, donationScheduling]);
 
   const handleSubmission = () => {
-    navigate('/clone-scenarios')
+    markStepAsCompleted('/job-scheduling');
+    const nextStep = getNextStep();
+    if (nextStep) {
+      navigate(nextStep);
+    }
   }
 
   return (

@@ -1,5 +1,5 @@
 import "./ProgressBar.css";
-import {steps} from "../../onboardingSteps.ts";
+import {ONBOARDING_STEPS} from "../../onboardingSteps.ts";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {Link} from "react-router-dom";
 
@@ -8,9 +8,9 @@ const ProgressBar: React.FC = () => {
 
   return (
     <aside className="progress-container">
-      <div className={`progress`} style={{width: `${(100/(steps.length-1))*(currentStep-1)}%`}}></div>
+      <div className={`progress`} style={{width: `${(100/(ONBOARDING_STEPS.length-1))*(currentStep-1)}%`}}></div>
       {
-        steps.map((step, index )=> {
+        ONBOARDING_STEPS.map((step, index )=> {
           const isClickable = index + 1 < currentStep
 
           return (

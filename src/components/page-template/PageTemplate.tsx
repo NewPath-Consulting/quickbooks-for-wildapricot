@@ -1,17 +1,18 @@
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
+import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 
 interface PageTemplateProps {
   title: string,
   subTitle: string,
-  backUrl: string,
   validate: () => void,
   errorMsg: string
 }
 
-export const PageTemplate = ({ title, subTitle, backUrl, validate, children, errorMsg}: PageTemplateProps) => {
+export const PageTemplate = ({ title, subTitle, validate, children, errorMsg}: PageTemplateProps) => {
 
+  const { getPreviousStep } = useOnBoarding()
   const errorRef = useRef(null)
   const navigate = useNavigate();
 
@@ -32,7 +33,7 @@ export const PageTemplate = ({ title, subTitle, backUrl, validate, children, err
       </div>}
       {children}
       <div className="mt-4">
-        <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate(backUrl)}>Back</button>
+        <button className={"border-black border-2 text-black me-3 bg-transparent c"} type={"submit"} onClick={() => navigate(getPreviousStep())}>Back</button>
         <button className={"btn-success"} disabled={false} onClick={validate}>Next</button>
       </div>
     </main>

@@ -26,7 +26,7 @@ const steps: {description: string, img: string}[] = [
 ]
 
 export const CreatMakeAccountPage = () => {
-  const {onBoardingData, updateData, setCurrentStep} = useOnBoarding();
+  const {onBoardingData, updateData, markStepAsCompleted, getNextStep} = useOnBoarding();
   const [authData, setAuthData] = useState({authToken: "", baseUrl: ""})
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
@@ -39,10 +39,6 @@ export const CreatMakeAccountPage = () => {
     }));
   }, [onBoardingData]);
 
-  useEffect(() => {
-    setCurrentStep(1)
-  }, []);
-
   const handleVerification = async (e) => {
     e.preventDefault()
     AuthService.setAuth(authData.authToken, authData.baseUrl);
@@ -51,7 +47,11 @@ export const CreatMakeAccountPage = () => {
       await getUserInfo();
 
       updateData({authToken: authData.authToken, baseUrl: authData.baseUrl});
-      navigate('create-connections')
+      markStepAsCompleted('/');
+      const nextStep = getNextStep();
+      if (nextStep) {
+        navigate(nextStep);
+      }
     }
     catch(e){
       console.error("Incorrect credentials: " + e.response.data.error);

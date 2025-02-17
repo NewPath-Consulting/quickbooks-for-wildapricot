@@ -1,12 +1,13 @@
 
 
-export interface ISteps {
+export interface IStep {
   title: string,
   subTitle: string,
-  endpoint: string
+  endpoint: string,
+  isCompleted?: boolean
 }
 
-export const steps: ISteps[] = [
+export const ONBOARDING_STEPS: IStep[] = [
   {
     title: "Create Make account",
     subTitle: "Sign up at Make.com",

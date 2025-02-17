@@ -19,7 +19,7 @@ export interface IGeneralInformation {
 }
 
 export const GeneralInformationPage = () => {
-  const { setCurrentStep, onBoardingData, updateData } = useOnBoarding()
+  const {onBoardingData, updateData, getNextStep, getPreviousStep, markStepAsCompleted } = useOnBoarding()
   const navigate = useNavigate();
 
   const [errorMsg, setErrorMsg] = useState('');
@@ -30,11 +30,11 @@ export const GeneralInformationPage = () => {
   const [rawEmailInput, setRawEmailInput] = useState('');
 
   useEffect(() => {
-    setCurrentStep(3)
     const fetchWildApricotAccounts = async() => {
       try{
         const response = await getWildApricotAccounts();
         setWildApricotAccounts(response.data)
+
       }
       catch (e){
         setErrorMsg(e.data.error.message)
@@ -51,8 +51,11 @@ export const GeneralInformationPage = () => {
     //   return
     // }
 
-    console.log(formData)
-    navigate('/customer-information')
+    markStepAsCompleted('/general-information');
+    const nextStep = getNextStep();
+    if (nextStep) {
+      navigate(nextStep);
+    }
   }
 
   useEffect(() => {
@@ -117,7 +120,6 @@ export const GeneralInformationPage = () => {
     <PageTemplate
       title={'General Information'}
       subTitle={'Please fill in all company information fields'}
-      backUrl={'/create-connections'}
       validate={handleSubmission}
       errorMsg={errorMsg}
     >

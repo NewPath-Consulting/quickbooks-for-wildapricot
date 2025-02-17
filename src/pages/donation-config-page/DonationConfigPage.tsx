@@ -62,7 +62,7 @@ export interface DonationFieldName {
 }
 
 export const DonationConfigPage = () => {
-  const { setCurrentStep, onBoardingData, updateData } = useOnBoarding();
+  const { onBoardingData, updateData, markStepAsCompleted, getNextStep } = useOnBoarding();
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -96,8 +96,6 @@ export const DonationConfigPage = () => {
   const errorRef = useRef(null)
 
   useEffect(() => {
-    setCurrentStep(7)
-
     fetchData("select * from item", setProducts, "Item", setErrorMsg)
     fetchData("select * from class", setClasses, "Class", setErrorMsg)
     fetchData("select * from account where AccountType = 'Bank'", setAccountList, "Account", setErrorMsg)
@@ -156,7 +154,11 @@ export const DonationConfigPage = () => {
   }, [errorMsg]);
 
   const handleSubmission = () => {
-    navigate('/job-scheduling')
+    markStepAsCompleted('/donation-config');
+    const nextStep = getNextStep();
+    if (nextStep) {
+      navigate(nextStep);
+    }
   }
 
   return (

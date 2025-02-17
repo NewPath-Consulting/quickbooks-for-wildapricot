@@ -44,7 +44,7 @@ const reducer = (state, action) => {
 }
 
 export const PaymentConfigPage = () => {
-  const { onBoardingData, setCurrentStep, updateData } = useOnBoarding();
+  const { onBoardingData, updateData, getNextStep, markStepAsCompleted } = useOnBoarding();
 
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [qbPaymentMethods, setQBPaymentMethods] = useState([]);
@@ -59,8 +59,6 @@ export const PaymentConfigPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    setCurrentStep(6);
-
     fetchData("select * from paymentmethod", setQBPaymentMethods, "PaymentMethod", setErrorMsg)
     fetchData("select * from account where AccountType IN ('Other Current Asset', 'Bank')", setDepositAccountsList, "Account", setErrorMsg)
 
@@ -94,7 +92,11 @@ export const PaymentConfigPage = () => {
       return
     }
 
-    navigate('/donation-config')
+    markStepAsCompleted('/payment-config');
+    const nextStep = getNextStep();
+    if (nextStep) {
+      navigate(nextStep);
+    }
   }
 
   const handleMapping = (type, payload) => {

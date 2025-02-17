@@ -22,7 +22,7 @@ export interface InvoiceMapping {
 }
 
 export const InvoiceConfigPage = () => {
-  const { onBoardingData, setCurrentStep, updateData } = useOnBoarding()
+  const { onBoardingData, setCurrentStep, updateData, markStepAsCompleted, getNextStep } = useOnBoarding()
 
   const navigate = useNavigate();
 
@@ -220,7 +220,11 @@ export const InvoiceConfigPage = () => {
       return;
     }
 
-    navigate('/payment-config');
+    markStepAsCompleted('/invoice-config');
+    const nextStep = getNextStep();
+    if (nextStep) {
+      navigate(nextStep);
+    }
   }
 
   const handleMapping = (type, payload, fieldName) => {
