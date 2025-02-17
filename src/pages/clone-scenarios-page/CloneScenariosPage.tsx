@@ -19,6 +19,7 @@ import {cloneConfiguration} from "../../utils/handleCloneConfiguration.ts";
 import {BlurryOverlay} from "../../components/cloning-animation/BlurryOverlay.tsx";
 import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
 import {ReviewSchedulingPage} from "../review-scheduling-page/ReviewSchedulingPage.tsx";
+import {ReviewGeneralConfigPage} from "../review-general-config-page/ReviewGeneralConfigPage.tsx";
 
 
 export const CloneScenariosPage = () => {
@@ -96,6 +97,8 @@ export const CloneScenariosPage = () => {
         ...formatInvoiceConfig(invoiceConfigurations, onBoardingData.invoiceScheduling)
     })
 
+    console.log(onBoardingData)
+
   }, [onBoardingData]);
 
   const handleCloneConfiguration = async () => {
@@ -139,6 +142,10 @@ export const CloneScenariosPage = () => {
       {successMsg && <div style={{fontSize:'13px'}} className="alert alert-success" role="alert">
           <i style={{color: "#245815"}} className={'bi bi-check-circle'}></i> {successMsg}
       </div>}
+
+      <ReviewConfigComponent img={'bi-person-vcard'} title={'General Information'} urlLocation={'/general-information'}>
+        <ReviewGeneralConfigPage/>
+      </ReviewConfigComponent>
 
       <ReviewConfigComponent img={'bi-person'} title={'Customer Information'} urlLocation={'/customer-information'}>
         <ReviewCustomerInfoPage/>

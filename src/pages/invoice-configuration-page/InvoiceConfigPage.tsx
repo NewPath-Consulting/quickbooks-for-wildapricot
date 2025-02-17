@@ -70,14 +70,14 @@ export const InvoiceConfigPage = () => {
     Promise.all([
       fetchWithErrorHandling(
         async () => {
-          const response = await getMembershipLevels('221748');
+          const response = await getMembershipLevels(onBoardingData.generalInfo.accountId || '221748');
           return response.map(level => level.Name).sort((a, b) => a.localeCompare(b));
         },
         setMembershipLevels
       ),
       fetchWithErrorHandling(
         async () => {
-          const response = await getEventTags('221748');
+          const response = await getEventTags(onBoardingData.generalInfo.accountId || '221748');
           return [...new Set(response.data.Events.map(event => event.Tags).flat())]
             .sort((a, b) => a.localeCompare(b));
         },
@@ -85,7 +85,7 @@ export const InvoiceConfigPage = () => {
       ),
       fetchWithErrorHandling(
         async () => {
-          const response = await getProductTags('221748');
+          const response = await getProductTags(onBoardingData.generalInfo.accountId || '221748');
           return [...new Set(response.data.map(productTag => productTag.Tags).flat())]
             .sort((a, b) => a.localeCompare(b));
         },

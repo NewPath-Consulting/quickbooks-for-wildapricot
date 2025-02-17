@@ -7,7 +7,7 @@ import './GeneralInformation.css'
 import {getWildApricotAccounts} from "../../services/api/wild-apricot-api/accountsService.ts";
 import {useNavigate} from "react-router-dom";
 
-interface GeneralInformationForm {
+export interface IGeneralInformation {
   organizationName: string,
   accountId: string,
   recordName: string,
@@ -24,7 +24,7 @@ export const GeneralInformationPage = () => {
 
   const [errorMsg, setErrorMsg] = useState('');
   const [WildApricotAccounts, setWildApricotAccounts] = useState([]);
-  const [formData, setFormData] = useState<GeneralInformationForm>({
+  const [formData, setFormData] = useState<IGeneralInformation>({
     QuickBooksUrl: "", accountId: "", fromEmailAddress: "", organizationName: "", recordName: "", timeZone: "", QuickBooksCountry: "", toEmailAddresses: []
   })
   const [rawEmailInput, setRawEmailInput] = useState('');
@@ -138,14 +138,14 @@ export const GeneralInformationPage = () => {
               <p>Choose WA Account which has been pulled from your accounts</p>
             </div>
             <div className="col-md-7">
-              <select className={'form-select'} value={formData.accountId} onChange={handleFormData} name={'accountId'} id={'wa-account-id'}>
+              <select className={'form-select form-select-sm'} value={formData.accountId} onChange={handleFormData} name={'accountId'} id={'wa-account-id'}>
                 <option value={""}>Choose Account</option>
                 {WildApricotAccounts.map(account => <option key={account.Id} value={account.Id}>{account.Name}</option>)}
               </select>
             </div>
             <div className="col-md-5">
               <label htmlFor={'config-name'}>WA Config Record Name</label>
-              <p>n/a for initialchange</p>
+              <p>n/a for initial change</p>
             </div>
             <div className="col-md-7">
               <input value={formData.recordName} name={'recordName'} onChange={handleFormData} id={'config-name'} type={"text"} placeholder={'ex. <Customer-name>-<master-use>'} className={'form-control form-control-sm'}/>
@@ -155,7 +155,7 @@ export const GeneralInformationPage = () => {
               <p>Must match your WA Time zone</p>
             </div>
             <div className="col-md-7">
-              <select value={formData.timeZone} name={'timeZone'} onChange={handleFormData} id={'time-zone-input'} className="form-select">
+              <select value={formData.timeZone} name={'timeZone'} onChange={handleFormData} id={'time-zone-input'} className="form-select form-select-sm">
                 <option value={""}>Choose Time Zone</option>
                 {
                   moment.tz.names().map((name, index) => {
@@ -174,7 +174,7 @@ export const GeneralInformationPage = () => {
               <p>Canada or US</p>
             </div>
             <div className="col-md-7">
-              <select value={formData.QuickBooksCountry} name={'QuickBooksCountry'} onChange={handleFormData} id={'country-input'} className="form-select">
+              <select value={formData.QuickBooksCountry} name={'QuickBooksCountry'} onChange={handleFormData} id={'country-input'} className="form-select form-select-sm">
                 <option value={""}>Choose Country</option>
                 <option value={"US"}>US</option>
                 <option value={"Canada"}>Canada</option>

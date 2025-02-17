@@ -66,7 +66,7 @@ export const PaymentConfigPage = () => {
 
     const listTenders = async () => {
       try{
-        const tenders = await getTenders('221748')
+        const tenders = await getTenders(onBoardingData.generalInfo.accountId || '221748')
         setWildApricotTenders(tenders.data.map(tender => tender.Name))
       }
       catch (e){

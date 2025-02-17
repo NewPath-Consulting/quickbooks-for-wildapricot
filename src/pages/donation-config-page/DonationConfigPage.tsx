@@ -104,7 +104,7 @@ export const DonationConfigPage = () => {
 
     const listDonationFields = async () => {
       try{
-        const donationFields = await getDonationFields('221748')
+        const donationFields = await getDonationFields(onBoardingData.generalInfo.accountId || '221748')
         setDonationFields(donationFields.data)
       }
       catch (e){

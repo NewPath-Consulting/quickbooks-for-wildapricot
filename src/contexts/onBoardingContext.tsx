@@ -4,13 +4,15 @@ import {getUserInfo} from "../services/api/make-api/usersService.ts";
 import {getConnections} from "../services/api/make-api/connectionsService.ts";
 import {AuthService} from "../services/httpClient.ts";
 import {ICustomerInfo} from "../pages/customer-info-page/CustomerInformationPage.tsx";
+import {IGeneralInformation} from "../pages/general-information-page/GeneralInformationPage.tsx";
 
 interface OnboardingState {
   authToken: string;
   baseUrl: string;
   connections: { name: string; apiKey: string }[];
   customerInfo: ICustomerInfo | {};
-  wildApricotAPI: string
+  wildApricotAPI: string,
+  generalInfo: IGeneralInformation | {}
 }
 
 interface OnboardingContextType {
@@ -30,7 +32,8 @@ export const OnBoardingProvider = ({children}) => {
       authToken: savedAuthToken,
       connections: [],
       customerInfo: {},
-      wildApricotAPI: savedWildApricotAPI
+      wildApricotAPI: savedWildApricotAPI,
+      generalInfo: {}
     };
   });
 
