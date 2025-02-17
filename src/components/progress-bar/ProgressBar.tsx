@@ -1,5 +1,5 @@
 import "./ProgressBar.css";
-import {ONBOARDING_STEPS} from "../../onboardingSteps.ts";
+import {ONBOARDING_STEPS} from "../../onboardingSteps.tsx";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {Link} from "react-router-dom";
 

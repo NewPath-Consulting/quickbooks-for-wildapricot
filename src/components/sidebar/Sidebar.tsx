@@ -1,5 +1,4 @@
 import "./Sidebar.css";
-import {ONBOARDING_STEPS} from "../../onboardingSteps.ts";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useRef} from "react";
@@ -10,8 +9,8 @@ const Sidebar: React.FC = () => {
   const stepRefs = useRef<(HTMLLIElement | null)[]>(steps.map(step => null)); // Array of refs for steps
 
   useEffect(() => {
-    if (stepRefs.current[currentStepIndex - 1]) {
-      stepRefs.current[currentStepIndex - 1]?.scrollIntoView({
+    if (stepRefs.current[currentStepIndex]) {
+      stepRefs.current[currentStepIndex]?.scrollIntoView({
         behavior: "smooth",
         block: "center",
       });

@@ -15,6 +15,7 @@ import {CloneScenariosPage} from "./pages/clone-scenarios-page/CloneScenariosPag
 import {SchedulingPage} from "./pages/scheduling-page/SchedulingPage.tsx";
 import {GeneralInformationPage} from "./pages/general-information-page/GeneralInformationPage.tsx";
 import {OnBoardingProvider} from "./contexts/onBoardingContext.tsx";
+import {ONBOARDING_STEPS} from "./onboardingSteps.tsx";
 
 //26aba993-f746-44bf-9378-e71a2ffae2e6
 function App() {
@@ -32,16 +33,7 @@ function App() {
                 <ProgressBar2 />
               </div>
               <Routes>
-                <Route path="/" element={<CreatMakeAccountPage />} />
-                <Route path="/create-connections" element={<CreateConnectionsPage />} />
-                <Route path="/customer-information" element={<CustomerInformationPage />} />
-                <Route path="/invoice-config" element={<InvoiceConfigPage />} />
-                <Route path="/oauth-success" element={<OAuthSuccess />} />
-                <Route path="/payment-config" element={<PaymentConfigPage />} />
-                <Route path="/donation-config" element={<DonationConfigPage />} />
-                <Route path="/clone-scenarios" element={<CloneScenariosPage />} />
-                <Route path="/job-scheduling" element={<SchedulingPage />} />
-                <Route path="/general-information" element={<GeneralInformationPage />} />
+                {ONBOARDING_STEPS.map(step => (<Route path={step.endpoint} element={step.component}/>))}
               </Routes>
             </div>
           </div>

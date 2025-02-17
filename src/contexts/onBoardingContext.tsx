@@ -2,7 +2,7 @@ import {createContext, useEffect, useState} from "react";
 import {AuthService} from "../services/httpClient.ts";
 import {ICustomerInfo} from "../pages/customer-info-page/CustomerInformationPage.tsx";
 import {IGeneralInformation} from "../pages/general-information-page/GeneralInformationPage.tsx";
-import {IStep, ONBOARDING_STEPS} from "../onboardingSteps.ts";
+import {IStep, ONBOARDING_STEPS} from "../onboardingSteps.tsx";
 import {useLocation} from "react-router-dom";
 
 interface OnboardingState {
