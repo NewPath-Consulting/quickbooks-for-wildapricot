@@ -77,6 +77,7 @@ export const CustomerInformationPage = () => {
     if(Object.keys(onBoardingData.customerInfo).length !== 0) {
       setFormData(onBoardingData.customerInfo)
     }
+
     const getAccountInfo = async() => {
       try{
         const userInfo = await getWildApricotAccounts();
@@ -100,13 +101,6 @@ export const CustomerInformationPage = () => {
     });
 
   }, []);
-
-  const appendToDisplayName = (field: string) => {
-    setFormData({
-      ...formData,
-      displayName: formData.displayName + field
-    })
-  }
 
   const validateForm = () => {
     const errors: ICustomerInfo = {

@@ -22,7 +22,7 @@ export interface InvoiceMapping {
 }
 
 export const InvoiceConfigPage = () => {
-  const { onBoardingData, setCurrentStep, updateData, markStepAsCompleted, getNextStep } = useOnBoarding()
+  const { onBoardingData, updateData, markStepAsCompleted, getNextStep } = useOnBoarding()
 
   const navigate = useNavigate();
 
@@ -47,11 +47,12 @@ export const InvoiceConfigPage = () => {
   const [onlineStoreMappingList, dispatchOnlineStoreMapping] = useReducer(invoiceTableReducer, onBoardingData.onlineStoreMappingList ?? [{ WAFieldName: '', QBProduct: '', QBProductId: '', IncomeAccount: '', class: '', classId: ''}]);
 
   useEffect(() => {
-    setCurrentStep(5)
 
-    fetchData("select * from item", setProducts, "Item", setErrorMsg)
-    fetchData("select * from account where AccountType = 'Accounts Receivable'", setAccountList, "Account", setErrorMsg)
-    fetchData("select * from class", setClasses, "Class", setErrorMsg)
+    Promise.all([
+      fetchData("select * from item", setProducts, "Item", setErrorMsg),
+      fetchData("select * from account where AccountType = 'Accounts Receivable'", setAccountList, "Account", setErrorMsg),
+      fetchData("select * from class", setClasses, "Class", setErrorMsg)
+    ])
 
     const fetchWithErrorHandling = async (
       fetchFn: () => Promise<any>,
