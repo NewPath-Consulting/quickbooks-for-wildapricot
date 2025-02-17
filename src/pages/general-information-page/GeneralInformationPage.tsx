@@ -19,7 +19,7 @@ export interface IGeneralInformation {
 }
 
 export const GeneralInformationPage = () => {
-  const {onBoardingData, updateData, getNextStep, getPreviousStep, markStepAsCompleted } = useOnBoarding()
+  const {onBoardingData, updateData, getNextStep, markStepAsCompleted } = useOnBoarding()
   const navigate = useNavigate();
 
   const [errorMsg, setErrorMsg] = useState('');
@@ -30,6 +30,13 @@ export const GeneralInformationPage = () => {
   const [rawEmailInput, setRawEmailInput] = useState('');
 
   useEffect(() => {
+    if(Object.keys(onBoardingData.generalInfo).length !== 0) {
+      setFormData(onBoardingData.generalInfo)
+
+      if(onBoardingData.generalInfo?.toEmailAddresses){
+        setRawEmailInput(onBoardingData.generalInfo.toEmailAddresses.join(', '))
+      }
+    }
     const fetchWildApricotAccounts = async() => {
       try{
         const response = await getWildApricotAccounts();

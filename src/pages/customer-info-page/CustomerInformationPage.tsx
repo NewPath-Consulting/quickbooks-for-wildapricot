@@ -25,7 +25,7 @@ export interface ICustomerInfo {
 }
 
 export const CustomerInformationPage = () => {
-  const {onBoardingData, updateData, markStepAsCompleted, getPreviousStep, getNextStep} = useOnBoarding();
+  const {onBoardingData, updateData, markStepAsCompleted, getNextStep} = useOnBoarding();
   const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState("");
   const [fieldNames, setFieldNames] = useState([]);
