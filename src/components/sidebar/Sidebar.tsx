@@ -27,7 +27,7 @@ const Sidebar: React.FC = () => {
           const isCompleted = step.isCompleted;
           const isActive = index === currentStepIndex;
           const isAccessible = canAccessStep(step.endpoint);
-          console.log(step.isCompleted, step)
+
           return (
             <li
               ref={(el) => { stepRefs.current[index] = el; }}
@@ -52,7 +52,7 @@ const Sidebar: React.FC = () => {
                 <div
                   className="progressing"
                   style={{
-                    height: isCompleted ? "45px" : "0px",
+                    height: (isCompleted && currentStepIndex == index + 1 || isCompleted && steps[index+1]?.isCompleted) ? "45px" : "0px",
                   }}
                 />
               </div>

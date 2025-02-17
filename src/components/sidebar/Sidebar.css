@@ -70,12 +70,12 @@
     margin-bottom: 50px; /* Spacing between steps */
 }
 
-.sidebar .steps li:not(:first-child) .step-number::before {
+.sidebar .steps li:not(:last-child) .step-number::before {
     content: '';
     position: absolute;
     width: 2px;
     height: 45px;
-    bottom: 35px;
+    top: 35px;
     background-color: var(--non-progress-color);
     left: 50%;
     transform: translateX(-50%);
@@ -85,11 +85,11 @@
     cursor: pointer;
 }
 
-.sidebar .steps li:not(:first-child) .step-number .progressing {
+.sidebar .steps li:not(:last-child) .step-number .progressing {
     content: '';
     position: absolute;
     width: 2px;
-    bottom: 35px;
+    top: 35px;
     height: 0;
     background-color: var(--app-color);
     left: 50%;
