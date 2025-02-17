@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useEffect, useMemo, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 import {ReviewConfigComponent} from "../../components/review-config-component/ReviewConfigComponent.tsx";
 import {ReviewCustomerInfoPage} from "../review-customer-info-page/ReviewCustomerInfoPage.tsx";
@@ -8,13 +8,9 @@ import {ReviewPaymentConfigPage} from "../review-payment-config-page/ReviewPayme
 import {ReviewInvoiceConfigPage} from "../review-invoice-config-page/ReviewInvoiceConfigPage.tsx";
 import {ReviewDonationConfigPage} from "../review-donation-config-page/ReviewDonationConfigPage.tsx";
 import {
-  formatCustomerInfo,
-  formatDonationConfig,
-  formatInvoiceConfig,
-  formatPaymentConfig
+  formatDataRecord,
 } from "../../utils/formatter.ts";
 import {InvoiceConfiguration} from "../../typings/InvoiceConfiguration.ts";
-import {configurations} from "../../configurations.ts";
 import {cloneConfiguration} from "../../utils/handleCloneConfiguration.ts";
 import {BlurryOverlay} from "../../components/cloning-animation/BlurryOverlay.tsx";
 import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
@@ -82,20 +78,7 @@ export const CloneScenariosPage = () => {
       }
     ]
 
-    setData(
-      {
-        ...configurations,
-        "Config Last Updated": new Date(),
-        ...formatCustomerInfo(onBoardingData.customerInfo),
-        ...formatPaymentConfig(onBoardingData.paymentMappingList, onBoardingData.accountReceivable, onBoardingData.qbDepositAccount, onBoardingData.paymentScheduling),
-        ...formatDonationConfig({
-          defaultDonationConfig: onBoardingData.defaultDonationMapping,
-          alternateDonationConfig: onBoardingData.donationMappingList,
-          commentName: onBoardingData.donationCommentName,
-          campaignName: onBoardingData.donationCampaignName
-        }, onBoardingData.donationScheduling),
-        ...formatInvoiceConfig(invoiceConfigurations, onBoardingData.invoiceScheduling)
-    })
+    setData(formatDataRecord(onBoardingData, invoiceConfigurations))
 
     console.log(onBoardingData)
 

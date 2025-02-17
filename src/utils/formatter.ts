@@ -3,6 +3,8 @@ import {Account, PaymentConfig} from "../pages/payment-config-page/PaymentConfig
 import {DonationFieldName, DonationMapping} from "../pages/donation-config-page/DonationConfigPage.tsx";
 import {InvoiceConfiguration} from "../typings/InvoiceConfiguration.ts";
 import {SchedulingData} from "../pages/scheduling-page/SchedulingPage.tsx";
+import {IGeneralInformation} from "../pages/general-information-page/GeneralInformationPage.tsx";
+import {configurations} from "../configurations.ts";
 
 const convertTo12Hour = (time: string | undefined) => {
   if (!time) return undefined;
@@ -12,6 +14,15 @@ const convertTo12Hour = (time: string | undefined) => {
   return `${hours}:${String(minutes).padStart(2, "0")} ${period}`;
 };
 
+export const formatQBVersionInfo = (generalInfo: IGeneralInformation) => {
+  return {
+    "QB Version Info": {
+      "QB Country": generalInfo.QuickBooksCountry,
+      "QB Platform": "Online",
+      "QBO Root URL": generalInfo.QuickBooksUrl
+    }
+  }
+}
 export const formatCustomerInfo = (customerInfo: ICustomerInfo) => {
   return {
     "Customer Field Config": {
@@ -83,7 +94,7 @@ export const formatDonationConfig = (donationConfig: DonationConfig, schedulingD
 
   return {
     "Donation Config": {
-      "Donation Jobs Enabled": true,
+      "Donations Jobs Enabled": true,
       "Donation Job Scheduling": {
         "Donation Job Scheduling Type": schedulingData?.jobType || null,
         "Manual Donation Job Config": {
@@ -187,5 +198,53 @@ export const formatInvoiceConfig = (invoiceConfig: InvoiceConfiguration[], sched
       }),
       "WA Invoice Line Item ExtraCost Exceptions": []
     },
+  }
+}
+
+export const formatNotificationConfig = (generalInfo: IGeneralInformation) => {
+  return {
+    "Notification Email Config": {
+      "From Email Address": generalInfo.fromEmailAddress,
+      "To Email Addresses": generalInfo.toEmailAddresses,
+      "Bcc-Support Email Addresses": [
+        "dwreed@rockitproject.com",
+        "dwreed@rockitproject.com"
+      ],
+      "Mailgun Domain Name": "rockitproject.com"
+    }
+  }
+}
+
+interface IDataRecord {
+  "WA Org Name": string,
+  "WA Config Record Name": string,
+  "Org Time Zone": string,
+  "Config Last Updated": Date,
+  "QB Version Info": any,
+  "WAQM Version info": any,
+  "Customer Field Config": any,
+  "Invoice Config": any,
+  "Payment Config": any,
+  "Donation Config": any,
+}
+
+export const formatDataRecord = (onBoardingData, invoiceConfigurations: InvoiceConfiguration[]): IDataRecord => {
+  return {
+    "Org Time Zone": onBoardingData.generalInfo.timeZone,
+    "WA Config Record Name": onBoardingData.generalInfo.recordName,
+    "WA Org Name": onBoardingData.generalInfo.organizationName,
+    ...configurations,
+    "Config Last Updated": new Date(),
+    ...formatQBVersionInfo(onBoardingData.generalInfo),
+    ...formatCustomerInfo(onBoardingData.customerInfo),
+    ...formatPaymentConfig(onBoardingData.paymentMappingList, onBoardingData.accountReceivable, onBoardingData.qbDepositAccount, onBoardingData.paymentScheduling),
+    ...formatDonationConfig({
+      defaultDonationConfig: onBoardingData.defaultDonationMapping,
+      alternateDonationConfig: onBoardingData.donationMappingList,
+      commentName: onBoardingData.donationCommentName,
+      campaignName: onBoardingData.donationCampaignName
+    }, onBoardingData.donationScheduling),
+    ...formatInvoiceConfig(invoiceConfigurations, onBoardingData.invoiceScheduling),
+    ...formatNotificationConfig(onBoardingData.generalInfo)
   }
 }
