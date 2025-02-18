@@ -23,7 +23,7 @@ export const GeneralInformationPage = () => {
   const {onBoardingData, updateData, getNextStep, markStepAsCompleted } = useOnBoarding()
   const navigate = useNavigate();
 
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState<string | string[]>('');
   const [WildApricotAccounts, setWildApricotAccounts] = useState([]);
   const [formData, setFormData] = useState<IGeneralInformation>({
     QuickBooksUrl: "", accountId: "", fromEmailAddress: "", organizationName: "", recordName: "", timeZone: "", QuickBooksCountry: "", toEmailAddresses: []
@@ -55,7 +55,7 @@ export const GeneralInformationPage = () => {
     const errors = await validateForm();
 
     if(errors.length){
-      setErrorMsg(errors.join(' '))
+      setErrorMsg(errors)
       return
     }
 
@@ -87,14 +87,14 @@ export const GeneralInformationPage = () => {
     const isUrlValid = await validateQuickBooksUrl();
 
     if(Object.keys(formData).some(key => formData[key] === "")){
-      errors.push("Must fill in all fields!")
+      errors.push("Must fill in all fields.")
     }
-    if(!formData.fromEmailAddress.includes('@')){
-      errors.push("Must be a valid email address!")
+    if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.fromEmailAddress)){
+      errors.push("from email address must be a valid email address.")
     }
 
     if(!isUrlValid){
-      errors.push("QuickBooks url is not valid!")
+      errors.push("QuickBooks url is not valid.")
     }
 
     return errors
