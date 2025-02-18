@@ -6,6 +6,7 @@ import moment from "moment-timezone";
 import './GeneralInformation.css'
 import {getWildApricotAccounts} from "../../services/api/wild-apricot-api/accountsService.ts";
 import {useNavigate} from "react-router-dom";
+import {configureQuickBooksUrl} from "../../services/api/quickbooks-api/accountService.ts";
 
 export interface IGeneralInformation {
   organizationName: string,
@@ -50,13 +51,13 @@ export const GeneralInformationPage = () => {
 
     fetchWildApricotAccounts()
   }, []);
-  const handleSubmission = () => {
-    const errors = validateForm();
+  const handleSubmission = async () => {
+    const errors = await validateForm();
 
-    // if(errors.length){
-    //   setErrorMsg(errors.join(' '))
-    //   return
-    // }
+    if(errors.length){
+      setErrorMsg(errors.join(' '))
+      return
+    }
 
     markStepAsCompleted('/general-information');
     const nextStep = getNextStep();
@@ -69,14 +70,31 @@ export const GeneralInformationPage = () => {
     updateData({generalInfo: formData});
   }, [formData]);
 
-  const validateForm = () => {
+  const validateQuickBooksUrl = async() => {
+    try{
+      const response = await configureQuickBooksUrl(formData.QuickBooksUrl);
+      console.log(response.data)
+      return true
+    }
+    catch (e){
+      return false
+    }
+  }
+
+  const validateForm = async () => {
     const errors: string[] = [];
+
+    const isUrlValid = await validateQuickBooksUrl();
 
     if(Object.keys(formData).some(key => formData[key] === "")){
       errors.push("Must fill in all fields!")
     }
     if(!formData.fromEmailAddress.includes('@')){
       errors.push("Must be a valid email address!")
+    }
+
+    if(!isUrlValid){
+      errors.push("QuickBooks url is not valid!")
     }
 
     return errors
