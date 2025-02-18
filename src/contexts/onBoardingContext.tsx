@@ -76,7 +76,7 @@ export const OnBoardingProvider = ({children}) => {
   const updateData = (data) => {
     // Update context state
     setOnBoardingData((prev) => {
-      const updatedData = { ...prev, ...data };
+      const updatedData = { ...prev, ...data }
 
       // Persist only baseUrl and authToken in localStorage
       if (data.baseUrl) {
@@ -92,6 +92,9 @@ export const OnBoardingProvider = ({children}) => {
 
   const markStepAsCompleted = (endpoint: string) => {
     // Update completedSteps in state
+    if(onBoardingData.completedSteps.includes(endpoint))
+      return;
+
     setOnBoardingData(prev => {
       const completedSteps = [...prev.completedSteps, endpoint];
       localStorage.setItem("completedSteps", JSON.stringify(completedSteps));

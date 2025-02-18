@@ -133,7 +133,7 @@ export const GeneralInformationPage = () => {
       <form>
         <h6>WildApricot Information</h6>
         <div className="form-content general-info" id={"general-info"}>
-          <div className="row g-4 pb-5">
+          <div className="row g-3 pb-5">
             <div className="col-md-5">
               <label htmlFor={'wa-org-name'}> WA Org Name</label>
               <p>This is free text. Max 41 Characters</p>
@@ -177,7 +177,7 @@ export const GeneralInformationPage = () => {
         </div>
         <h6 className={'mt-3'}>QuickBooks Version Information</h6>
         <div className="form-content general-info" id={""}>
-          <div className="row g-4 pb-5">
+          <div className="row g-3 pb-5">
             <div className="col-md-5">
               <label htmlFor={'country-input'}>QuickBooks Country</label>
               <p>Canada or US</p>
@@ -201,7 +201,7 @@ export const GeneralInformationPage = () => {
         </div>
         <h6 className={'mt-3'}>Notification Emails</h6>
         <div className="form-content general-info" id={"general-info"}>
-          <div className="row g-4 pb-5">
+          <div className="row g-3 pb-5">
             <div className="col-md-5">
               <label htmlFor={'from-email-input'}>From Email Address</label>
               <p>All success and ERROR files will be sent "from" this email (one email address only)</p>
