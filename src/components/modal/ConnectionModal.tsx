@@ -5,12 +5,10 @@ import {useEffect, useState} from "react";
 interface IConnectionModal {
   connection: IConnection,
   postConnection: Function,
-  postAppConnection: Function
 }
 
 export const ConnectionModal = (props: IConnectionModal) => {
-
-  const { connection, postConnection, postAppConnection } = props;
+  const { connection, postConnection } = props;
   const [connectionFields, setConnectionFields] = useState(
     Object.keys(connection.fields).reduce((acc, key) => {
       acc[connection.fields[key]] = "";
@@ -18,19 +16,6 @@ export const ConnectionModal = (props: IConnectionModal) => {
     }, {})
   );
 
-  const [secondaryConnectionFields, setSecondaryConnectionFields] = useState(() => {
-    if (connection?.secondaryFields) {
-      return Object.keys(connection.secondaryFields).reduce((acc, key) => {
-        acc[connection.secondaryFields[key]] = "";
-        return acc;
-      }, {});
-    }
-    return {}; // Default to an empty object if secondaryFields is null or undefined
-  });
-
-  useEffect(() => {
-    console.log(connectionFields)
-  }, []);
 
   const handleInput = (e) => {
     const {name, value} = e.target;
@@ -41,29 +26,13 @@ export const ConnectionModal = (props: IConnectionModal) => {
     })
   }
 
-  const handleSecondaryFieldsInput = (e) => {
-    const {name, value} = e.target;
-
-    setSecondaryConnectionFields({
-      ...secondaryConnectionFields,
-      [name]: value
-    })
-
-    console.log(secondaryConnectionFields)
-  }
-
   const callPostConnection = (e) => {
     e.preventDefault()
     postConnection(connectionFields)
   }
 
-  const callPostAppConnection = (e) => {
-    e.preventDefault()
-    postAppConnection(secondaryConnectionFields);
-  }
-
   return (
-    <div className="modal fade" id={`${connection.accountType}`} tabIndex="-1" aria-labelledby={`${connection.accountType}Label`} aria-hidden="true">
+    <div className="modal fade" id={`${connection.title}`} tabIndex="-1" aria-labelledby={`${connection.title}Label`} aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
@@ -79,37 +48,16 @@ export const ConnectionModal = (props: IConnectionModal) => {
                 Object.keys(connection.fields).map((field, index) => {
                   return (
                     <div className="mb-3" key={index}>
-                    <label htmlFor={connection.accountType+'-'+connection.fields[field]} className="col-form-label">{field}:</label>
-                    <input type={connection.fields[field] == 'clientSecret' || connection.fields[field] == 'apiKey' ? "password" : "text"} name={connection.fields[field]} value={connectionFields[field]} placeholder={""} onChange={handleInput} className="form-control" id={connection.accountType+'-'+connection.fields[field]}  />
+                    <label htmlFor={connection.title+'-'+connection.fields[field]} className="col-form-label">{field}:</label>
+                    <input type={connection.fields[field] == 'clientSecret' || connection.fields[field] == 'apiKey' ? "password" : "text"} name={connection.fields[field]} value={connectionFields[field]} placeholder={""} onChange={handleInput} className="form-control" id={connection.title+'-'+connection.fields[field]}  />
                   </div>
                   )
                 })
               }
               <button data-bs-dismiss="modal" type="submit">
-                Connect app to Make
+                Connect
               </button>
             </form>
-            {
-              connection.secondaryFields &&
-              <div>
-                <hr/>
-              <form onSubmit={callPostAppConnection}>
-                {
-                  Object.keys(connection.secondaryFields).map((field, index) => {
-                    return (
-                      <div className="mb-3" key={index}>
-                        <label htmlFor={connection.accountType+'-'+connection.secondaryFields[field]} className="col-form-label">{field}:</label>
-                        <input type={connection.secondaryFields[field] == 'clientSecret' || connection.secondaryFields[field] == 'apiKey' ? "password" : "text"} name={connection.secondaryFields[field]} value={secondaryConnectionFields[field]} placeholder={""} onChange={handleSecondaryFieldsInput} className="form-control" id={connection.accountType+'-'+connection.secondaryFields[field]}  />
-                      </div>
-                    )
-                  })
-                }
-                    <button data-bs-dismiss="modal" type="submit">
-                        Connect app to NewPath
-                    </button>
-                </form>
-              </div>
-            }
           </div>
           <div className="modal-footer">
             <button data-bs-dismiss="modal" type="button">

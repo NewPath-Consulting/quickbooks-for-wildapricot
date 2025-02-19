@@ -9,19 +9,18 @@ export interface ConnectionComponentProps {
   isConnected: boolean,
   createConnection: Function,
   isLoading: boolean,
-  createConnectionToNewPath: Function
 }
 
-export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoading, connection, isConnected, createConnection, createConnectionToNewPath}) => {
+export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoading, connection, isConnected, createConnection}) => {
   const {onBoardingData} = useOnBoarding();
 
   const postConnection = (connectionFields: {}) => {
     createConnection(connectionFields, connection);
   };
 
-  const postAppConnection = (secondaryConnectionFields: {}) => {
-    createConnectionToNewPath(secondaryConnectionFields, connection)
-  }
+  // const postAppConnection = (secondaryConnectionFields: {}) => {
+  //   createConnectionToNewPath(secondaryConnectionFields, connection)
+  // }
 
 
   return (
@@ -40,11 +39,11 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoadi
           {/*</div>*/}
         </div>
         <div className={`button-container` }>
-          <button data-bs-toggle="modal" className={"align-self-baseline float-end"} data-bs-target={`#${connection.accountType}`}>
+          <button data-bs-toggle="modal" className={"align-self-baseline float-end"} data-bs-target={`#${connection.title}`}>
             {isConnected ? "View Connection" : "Connect"}
           </button>
         </div>
-        <ConnectionModal postConnection={postConnection} postAppConnection={postAppConnection} connection={connection}/>
+        <ConnectionModal postConnection={postConnection} connection={connection}/>
       </div>
     </div>
   )

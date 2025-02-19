@@ -15,8 +15,7 @@ export const getWildApricotAccessToken = async (body: IWAAuthBody) => {
   try{
     const response: AxiosResponse<IWAAuthResponse> = await httpClient.post(endpoints.wildApricotApi.getAccessToken, body)
     const {accessToken, refreshToken} = response.data;
-    localStorage.setItem("waAccessToken", accessToken);
-    localStorage.setItem("waRefreshToken", refreshToken);
+    return {accessToken, refreshToken}
   }
   catch(e) {
     throw new Error("Unable to get access token")

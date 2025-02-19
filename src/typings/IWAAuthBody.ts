@@ -4,8 +4,7 @@ export interface IWAAuthBody {
 }
 
 export interface IWARefreshTokenBody {
-  clientId: string,
-  clientSecret: string,
+  apiKey: string
   refreshToken: string
 }
 

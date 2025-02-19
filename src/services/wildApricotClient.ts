@@ -29,10 +29,10 @@ wildApricotClient.interceptors.response.use(
       originalRequest._retry = true; // Mark request as retried
 
       try {
-        const clientId = localStorage.getItem('waClientId');
-        const clientSecret = localStorage.getItem('waClientSecret');
+        // const clientId = localStorage.getItem('waClientId');
+        const apiKey = localStorage.getItem('waApiKey');
         const refreshToken = localStorage.getItem('waRefreshToken');
-        await refreshWildApricotAccessToken({clientId, clientSecret, refreshToken})
+        await refreshWildApricotAccessToken({apiKey, refreshToken})
 
         // Update the Authorization header and retry the original request
         originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('waAccessToken')}`;

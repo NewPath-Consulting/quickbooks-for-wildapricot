@@ -20,18 +20,17 @@ export interface IConnection {
 const connectionsList: IConnection[] = [
   {
     img: "wa-logo.png",
-    title: "WildApricot",
-    description: "Connect to your Wild Apricot account to manage your organization's membership data and events.",
+    title: "WildApricot-1",
+    description: "Connect to your Wild Apricot account to automate your workflows in Make",
     accountType: "wild-apricot",
     scopes: ["auto"],
     fields: {"API Key": "apiKey"},
-    secondaryFields: {"Client Id": "clientId", "Client Secret": "clientSecret"}
   },
 
   {
     img: "qb-logo.png",
-    title: "QuickBooks",
-    description: "Connect to QuickBooks to automatically sync your financial transactions and manage billing.",
+    title: "QuickBooks-1",
+    description: "Connect to QuickBooks to automate your workflows with Make",
     accountType: "quickbooks",
     scopes: [
       "com.intuit.quickbooks.accounting",
@@ -39,7 +38,6 @@ const connectionsList: IConnection[] = [
     "openid"
     ],
     fields: {},
-    secondaryFields: {"Client Id": "clientId", "Client Secret": "clientSecret"}
   },
   {
     img: "mg-logo.png",
@@ -50,12 +48,42 @@ const connectionsList: IConnection[] = [
   }
 ]
 
+const accountBridgeConnectionsList: IConnection[] = [
+  {
+    img: "wa-logo.png",
+    title: "WildApricot-2",
+    description: "Connect to your Wild Apricot account to manage your organization's membership data and events.",
+    accountType: "wild-apricot",
+    scopes: ["auto"],
+    fields: {"API Key": "apiKey"},
+  },
+
+  {
+    img: "qb-logo.png",
+    title: "QuickBooks-2",
+    description: "Connect to QuickBooks to automatically sync your financial transactions and manage billing.",
+    accountType: "quickbooks",
+    scopes: [
+      "com.intuit.quickbooks.accounting",
+      "com.intuit.quickbooks.payment",
+      "openid"
+    ],
+    fields: {"Client Id": "clientId", "Client Secret": "clientSecret"},
+  }
+]
+
 export const CreateConnectionsPage = () => {
   const {updateData, markStepAsCompleted, getNextStep, getPreviousStep} = useOnBoarding();
   const [errorMsg, setErrorMsg] = useState("");
   const [isConnectedMap, setIsConnectedMap] = useState(() => {
     return new Map(
       connectionsList.map((connection) => [connection.accountType, false])
+    );
+  });
+
+  const [isAppConnectedToAccountBridgeMap, setIsAppConnectedToAccountBridgeMap] = useState(() => {
+    return new Map(
+      accountBridgeConnectionsList.map((connection) => [connection.accountType, false])
     );
   });
   const [isLoadingMap, setIsLoadingMap] = useState(() => {
@@ -100,18 +128,6 @@ export const CreateConnectionsPage = () => {
               return newMap;
             });
 
-            // if (connectionBody.accountType === "wild-apricot") {
-            //   localStorage.setItem("waApiKey", connectionBody.apiKey as string);
-            //   await getWildApricotAccessToken({apiKey: connectionBody.apiKey as string});
-            // }
-            // else if(connectionBody.accountType === "quickbooks"){
-            //   localStorage.setItem("qbClientId", connectionBody.clientId as string);
-            //   localStorage.setItem("qbClientSecret", connectionBody.clientSecret as string)
-            //   const response = await getQuickbooksAccessToken({clientSecret: connectionBody.clientSecret as string, clientId: connectionBody.clientId as string})
-            //   const { authUri } = response;
-            //   window.location.href = authUri;
-            // }
-
             setConnectionLoading(connectionBody.accountType, false);
             resolve();
           } catch (error: any) {
@@ -124,7 +140,7 @@ export const CreateConnectionsPage = () => {
     });
   };
 
-  const createConnectionToNewPath = async (fields, connection: IConnection) => {
+  const createConnectionToAccountBridge = async (fields, connection: IConnection) => {
 
     try{
       if(connection.accountType === "quickbooks"){
@@ -132,15 +148,37 @@ export const CreateConnectionsPage = () => {
         localStorage.setItem("qbClientSecret", fields.clientSecret)
         const response = await getQuickbooksAccessToken({clientSecret: fields.clientSecret, clientId: fields.clientId})
         const { authUri } = response.data;
-        window.location.href = authUri;
+        const authWindow = openAuthWindow(authUri)
+
+        window.addEventListener('message', (event) => {
+          if (event.data.type === 'QB_AUTH_SUCCESS') {
+            localStorage.setItem(`qbAccessToken`, event.data.data.accessToken);
+            localStorage.setItem(`qbRefreshToken`, event.data.data.refreshToken);
+            localStorage.setItem(`qbRealmId`, event.data.data.realmId);
+            setIsAppConnectedToAccountBridgeMap((prevMap) => {
+              const newMap = new Map(prevMap);
+              newMap.set('quickbooks', true);
+              return newMap;
+            });
+            authWindow?.close();
+            // Handle success - maybe show a message
+          } else if (event.data.type === 'QB_AUTH_ERROR') {
+            setErrorMsg("Failed to connect to QuickBooks");
+            authWindow?.close();
+          }
+        });
       }
       else if(connection.accountType === "wild-apricot"){
-        localStorage.setItem("waClientId", fields.clientId);
-        localStorage.setItem("waClientSecret", fields.clientSecret);
-        const response = await wildApricotLogin({clientSecret: fields.clientSecret, clientId: fields.clientId})
-        const { ssoUrl } = response.data;
-        console.log(response, ssoUrl)
-        window.location.href = ssoUrl;
+        localStorage.setItem("waApiKey", fields.apiKey);
+        const response = await getWildApricotAccessToken({apiKey: fields.apiKey})
+        localStorage.setItem("waAccessToken", response.accessToken);
+        localStorage.setItem("waRefreshToken", response.refreshToken);
+        setIsAppConnectedToAccountBridgeMap((prevMap) => {
+          const newMap = new Map(prevMap);
+          newMap.set('wild-apricot', true);
+          return newMap;
+        });
+
       }
       setErrorMsg("")
     }
@@ -198,6 +236,18 @@ export const CreateConnectionsPage = () => {
 
           return newMap; // Return the updated map
         });
+
+        setIsAppConnectedToAccountBridgeMap(prevMap => {
+          const newMap = new Map(prevMap);
+
+          if(localStorage.getItem('qbAccessToken') && (localStorage.getItem('qbRefreshToken'))){
+            newMap.set('quickbooks', true);
+          }
+          if(localStorage.getItem('waAccessToken') && (localStorage.getItem('waRefreshToken'))){
+            newMap.set('wild-apricot', true);
+          }
+          return newMap
+        })
       } catch (error) {
         console.error("Failed to fetch connections:", error.response?.data?.error || error.message);
       }
@@ -212,7 +262,7 @@ export const CreateConnectionsPage = () => {
   }, []); // Empty dependency array ensures this runs once
 
   const handleNextPage = () => {
-    if(Array.from(isConnectedMap).some(val => !val[1])){
+    if(Array.from(isConnectedMap).some(val => !val[1]) || Array.from(isAppConnectedToAccountBridgeMap).some(val => !val[1])){
       setErrorMsg("Connect to all apps to continue")
     }
     else{
@@ -227,8 +277,13 @@ export const CreateConnectionsPage = () => {
   return (
     <PageTemplate title={'Connect your Tools'} subTitle={'Set up your app connections to automate your workflows.'} validate={handleNextPage} errorMsg={errorMsg}>
       <div>
+        <h6 className={'mb-3 ms-2 fw-light'}>Connect To Make</h6>
         <div className={'row mb-3'}>
-          {connectionsList.map((connection, index) => <ConnectionComponent createConnectionToNewPath={createConnectionToNewPath} key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
+          {connectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
+        </div>
+        <h6 className={'mb-3 ms-2 fw-light'}>Connect To Account Bridge</h6>
+        <div className={'row mb-3'}>
+          {accountBridgeConnectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={createConnectionToAccountBridge} isConnected={isAppConnectedToAccountBridgeMap.get(connection.accountType) || false} connection={connection}/>)}
         </div>
       </div>
     </PageTemplate>
