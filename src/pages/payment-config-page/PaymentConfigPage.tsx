@@ -46,7 +46,7 @@ const reducer = (state, action) => {
 export const PaymentConfigPage = () => {
   const { onBoardingData, updateData, getNextStep, markStepAsCompleted } = useOnBoarding();
 
-  const [errorMsg, setErrorMsg] = useState<string>('');
+  const [errorMsg, setErrorMsg] = useState<string | string[]>('');
   const [qbPaymentMethods, setQBPaymentMethods] = useState([]);
   const [WildApricotTenders, setWildApricotTenders] = useState([]);
   const [depositAccountsList, setDepositAccountsList] = useState([]);
@@ -88,7 +88,7 @@ export const PaymentConfigPage = () => {
     const errors = validateConfig();
 
     if(errors.length > 0){
-      setErrorMsg(errors[0])
+      setErrorMsg(errors)
       return
     }
 

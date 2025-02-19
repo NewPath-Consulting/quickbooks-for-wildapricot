@@ -26,7 +26,7 @@ export const InvoiceConfigPage = () => {
 
   const navigate = useNavigate();
 
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState<string | string[]>("");
   const [accountList, setAccountList] = useState([]);
   const [membershipLevels, setMembershipLevels] = useState([]);
   const [products, setProducts] = useState([]);
@@ -217,7 +217,7 @@ export const InvoiceConfigPage = () => {
     const errors = validateConfig();
 
     if (errors.length > 0) {
-      setErrorMsg(errors[0]);  // Show all errors
+      setErrorMsg(errors);  // Show all errors
       return;
     }
 
