@@ -18,25 +18,16 @@ export const ConnectionComponent: React.FC<ConnectionComponentProps> = ({isLoadi
     createConnection(connectionFields, connection);
   };
 
-  // const postAppConnection = (secondaryConnectionFields: {}) => {
-  //   createConnectionToNewPath(secondaryConnectionFields, connection)
-  // }
-
-
   return (
     <div className={'mb-3 col-md-4 col-sm-12'}>
       <div className={`instruction-container h-100 ${isConnected ? "completed" : ""}`}>
         <div className={'header'}>
           <div>
             <img src={connection.img} className={"rounded-1"} width={40} alt={"predefined images for each step"}/>
-            {isConnected && <i className={'bi bi-check2-circle float-end fw-bold'} style={{color: 'rgb(141,231,165)'}}></i>}
+            {isConnected && <i className={'bi bi-check2-circle float-end'} style={{color: 'rgb(141,231,165)', fontSize: '18px'}}></i>}
           </div>
           <strong className={'fw-normal'}>{connection.title}</strong>
           <p style={{color: "gray", }}>{connection.description}</p>
-          {/*<div>*/}
-          {/*  <button className={'me-2 mb-2'}>Connect</button>*/}
-          {/*  <button>Connect to Make</button>*/}
-          {/*</div>*/}
         </div>
         <div className={`button-container` }>
           <button data-bs-toggle="modal" className={"align-self-baseline float-end"} data-bs-target={`#${connection.title}`}>

@@ -1,5 +1,5 @@
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
-import {useEffect, useState} from "react";
+import {EventHandler, useEffect, useState} from "react";
 import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
 import * as React from "react";
 import moment from "moment-timezone";
@@ -41,6 +41,7 @@ export const GeneralInformationPage = () => {
     const fetchWildApricotAccounts = async() => {
       try{
         const response = await getWildApricotAccounts();
+        console.log(response.data)
         setWildApricotAccounts(response.data)
 
       }
@@ -105,6 +106,11 @@ export const GeneralInformationPage = () => {
     setFormData({...formData, [name]: value})
   }
 
+  const handleAccountChange = (e) => {
+    const orgName = WildApricotAccounts.find(account => account.Id == e.target.value);
+    setFormData({...formData, accountId: e.target.value, organizationName: orgName.Name ?? ""})
+  }
+
   const handleToEmailAddressesChange = (e) => {
     const value = e.target.value;
 
@@ -153,22 +159,22 @@ export const GeneralInformationPage = () => {
         <div className="form-content general-info" id={"general-info"}>
           <div className="row g-3 pb-5">
             <div className="col-md-5">
-              <label htmlFor={'wa-org-name'}> WA Org Name</label>
-              <p>This is free text. Max 41 Characters</p>
-            </div>
-            <div className="col-md-7">
-              <input
-                value={formData.organizationName} name={'organizationName'} onChange={handleFormData} type={"text"} id={'wa-org-name'} className={'form-control form-control-sm'} placeholder={'type here...'} maxLength={41}/>
-            </div>
-            <div className="col-md-5">
               <label htmlFor={'wa-account-id'}>WA Account ID</label>
               <p>Choose WA Account which has been pulled from your accounts</p>
             </div>
             <div className="col-md-7">
-              <select className={'form-select form-select-sm'} value={formData.accountId} onChange={handleFormData} name={'accountId'} id={'wa-account-id'}>
+              <select className={'form-select form-select-sm'} value={formData.accountId} onChange={handleAccountChange} name={'accountId'} id={'wa-account-id'}>
                 <option value={""}>Choose Account</option>
-                {WildApricotAccounts.map(account => <option key={account.Id} value={account.Id}>{account.Name}</option>)}
+                {WildApricotAccounts.map(account => <option key={account.Id} value={account.Id}>{account.Name} - ({account.Id})</option>)}
               </select>
+            </div>
+            <div className="col-md-5">
+              <label htmlFor={'wa-org-name'}> WA Org Name</label>
+              <p>This field is populated when account is chosen</p>
+            </div>
+            <div className="col-md-7">
+              <input
+                value={formData.organizationName} name={'organizationName'} onChange={handleFormData} type={"text"} id={'wa-org-name'} className={'form-control form-control-sm'} disabled={true} placeholder={''} maxLength={41}/>
             </div>
             <div className="col-md-5">
               <label htmlFor={'config-name'}>WA Config Record Name</label>
