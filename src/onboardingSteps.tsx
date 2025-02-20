@@ -68,4 +68,9 @@ export const ONBOARDING_STEPS: IStep[] = [
     subTitle: "Automate your work flows",
     endpoint: "/clone-scenarios",
   },
+  {
+    title: "Run and Test",
+    subTitle: "Test your automations",
+    endpoint: "/run-and-test",
+  },
 ]

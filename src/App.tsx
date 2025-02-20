@@ -18,6 +18,7 @@ import {ONBOARDING_STEPS} from "./onboardingSteps.tsx";
 import {useEffect, useRef} from "react";
 import {ProtectedOnboardingRoute} from "./components/protected-onboarding-route/ProtectedOnboardingRoute.tsx";
 import {ScrollToTop} from "./components/scroll-to-top/ScrollToTop.tsx";
+import {RunScenariosPage} from "./pages/run-scenarios-page/RunScenariosPage.tsx";
 
 //26aba993-f746-44bf-9378-e71a2ffae2e6
 
@@ -47,6 +48,7 @@ function App() {
                 <Route path="/clone-scenarios" element={<ProtectedOnboardingRoute><CloneScenariosPage /></ProtectedOnboardingRoute>} />
                 <Route path="/job-scheduling" element={<ProtectedOnboardingRoute><SchedulingPage /></ProtectedOnboardingRoute>} />
                 <Route path="/general-information" element={<ProtectedOnboardingRoute><GeneralInformationPage /></ProtectedOnboardingRoute>} />
+                <Route path="/run-and-test" element={<ProtectedOnboardingRoute><RunScenariosPage /></ProtectedOnboardingRoute>} />
               </Routes>
             </div>
           </div>

@@ -104,11 +104,20 @@ export const CloneScenariosPage = () => {
 
   const handleSubmission = () => {
     if(successMsg){
-      console.log('Completed!')
+      markStepAsCompleted('/clone-scenarios')
+      const endpoint = getNextStep();
+      if(endpoint){
+        navigate(endpoint);
+      }
     }
 
     else{
       setErrorMsg('Must automate workflows before continuing!')
+      markStepAsCompleted('/clone-scenarios')
+      const endpoint = getNextStep();
+      if(endpoint){
+        navigate(endpoint);
+      }
     }
   }
 
