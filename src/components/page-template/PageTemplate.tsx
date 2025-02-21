@@ -47,7 +47,7 @@ export const PageTemplate = ({ title, subTitle, validate, children, errorMsg}: P
   return (
     <main ref={errorRef}>
       <header>
-        <h2>{title}</h2>
+        <h2 >{title}</h2>
         <p>{subTitle}</p>
       </header>
       {errorMsg && renderErrorMsg()}
