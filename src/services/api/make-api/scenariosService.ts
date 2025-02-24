@@ -18,3 +18,28 @@ export const deleteScenario = async (scenarioId: string) => {
 export const getScenarioBlueprint = async (scenarioId) => {
   return httpClient.get(endpoints.makeApi.getScenarioBlueprint.replace(":scenarioId", scenarioId));
 }
+
+export const runScenario =  async (scenarioId) => {
+  try{
+    return httpClient.post(endpoints.makeApi.runScenarios.replace(":scenarioId", scenarioId), {responsive: true});
+  }
+  catch(e){
+    console.log(e)
+  }
+}
+
+interface ActivateScenarioResponse {
+  id: number,
+  islinked: boolean,
+  isActive: boolean
+}
+
+export const activateScenario =  async (scenarioId): Promise<AxiosResponse<ActivateScenarioResponse>> => {
+  try{
+    return httpClient.post(endpoints.makeApi.activeScenario.replace(":scenarioId", scenarioId));
+  }
+  catch(e){
+    console.log(e)
+  }
+}
+
