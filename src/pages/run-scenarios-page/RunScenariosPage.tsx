@@ -1,7 +1,7 @@
 import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
 import {useState} from "react";
 import {Clock, CheckCircle, AlertCircle, RotateCw, PlayCircle, UserCheck, BarChart3, Timer} from 'lucide-react';
-
+import './RunScenarios.css'
 
 export const RunScenariosPage = () => {
   const [errorMsg, setErrorMsg] = useState<string | string[]>('')
@@ -32,7 +32,7 @@ export const RunScenariosPage = () => {
         </button>
       </div>
       <div>
-        <div className="row ms-0 g-3">
+        <div className="row g-3">
           <RunScenarioComponent runScenario={() => {}} subTitle={'Configure invoice generation'} title={'Invoices'}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
               <path
@@ -56,20 +56,6 @@ export const RunScenariosPage = () => {
           </RunScenarioComponent>
         </div>
       </div>
-      <div className="row g-3 ms-0">
-        <div className={'p-3 border border-1 rounded-3 col-sm-12'}>
-          <h6>Invoice Summary</h6>
-          <RunSummaryComponent/>
-        </div>
-        <div className={'p-3 border border-1 rounded-3 col-sm-12'}>
-          <h6>Invoice Summary</h6>
-          <RunSummaryComponent/>
-        </div>
-        <div className={'p-3 border border-1 rounded-3 col-sm-12'}>
-          <h6>Invoice Summary</h6>
-          <RunSummaryComponent/>
-        </div>
-      </div>
 
     </PageTemplate>
   )
@@ -84,57 +70,50 @@ interface RunScenarioProps {
 const RunScenarioComponent = ({ title, subTitle, runScenario, children}: RunScenarioProps) => {
 
   return (
-    <div className={'d-flex justify-content-between align-items-center p-3 border border1 rounded-3'}>
-      <div className="d-flex align-items-center gap-3">
-        <div
-          className="text-dark d-flex align-items-center justify-content-center rounded bg-light flex-shrink-0"
-          style={{ width: '48px', height: '48px' }}
-          data-icon="Database"
-          data-size="24px"
-          data-weight="regular"
-        >
-          {children}
+    <div className={'d-flex flex-column'}>
+      <div className={'d-flex bg-light justify-content-between align-items-center p-3 border border-1 rounded-3 rounded-bottom-0'}>
+        <div className="d-flex align-items-center gap-3">
+          <div
+          >
+            <CheckCircle className={'text-success'} style={{width: '20px'}}/>
+            {/*<RotateCw className={'text-info run-scenario-spinner'} style={{width: '20px'}} />*/}
+            {/*<AlertCircle className={'text-danger'} style={{width: '20px'}} />*/}
+          </div>
+          <div className="d-flex flex-column justify-content-center">
+            <p className="text-dark fw-semibold" style={{ fontSize: '16px' }}>
+              {title}
+            </p>
+            <p className="text-secondary" >
+              {subTitle}
+            </p>
+          </div>
         </div>
-        <div className="d-flex flex-column justify-content-center">
-          <p className="text-dark fw-semibold" style={{ fontSize: '16px' }}>
-            {title}
-          </p>
-          <p className="text-secondary text-truncate" style={{ maxWidth: '250px', fontSize: '12px' }}>
-            {subTitle}
-          </p>
-        </div>
+        <p className={'run-scenario-progress text-dark fw-bold text-truncate'}>Not run yet</p>
       </div>
-      <PlayCircle className={'text-dark'} style={{rotate: '', animation: 's'}} />
-    </div>
-  )
-}
-
-const RunSummaryComponent = () => {
-
-  return (
-    <div className="d-grid gap-2">
-      <div className="d-flex justify-content-between align-items-center">
-        <div className="d-flex align-items-center gap-2">
-          <i className="bi bi-clock text-secondary"></i>
-          <span className="text-muted small">Avg Duration</span>
+      <div className={'p-3 border border-1 rounded-3 border-top-0 rounded-top-0 d-grid gap-2 text-dark'}>
+        <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex align-items-center gap-2">
+            <Clock style={{width: '20px'}}/>
+            <span className=" small">Avg Duration</span>
+          </div>
+          <span className="fw-medium">--</span>
         </div>
-        <span className="fw-medium">--</span>
-      </div>
 
-      <div className="d-flex justify-content-between align-items-center">
-        <div className="d-flex align-items-center gap-2">
-          <i className="bi bi-bar-chart text-secondary"></i>
-          <span className="text-muted small">Success Rate</span>
+        <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex align-items-center gap-2">
+            <BarChart3 style={{width: '20px'}} />
+            <span className=" small">Success Rate</span>
+          </div>
+          <span className="fw-medium">--</span>
         </div>
-        <span className="fw-medium">--</span>
-      </div>
 
-      <div className="d-flex justify-content-between align-items-center">
-        <div className="d-flex align-items-center gap-2">
-          <i className="bi bi-person-check text-secondary"></i>
-          <span className="text-muted small">Total Runs</span>
+        <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex align-items-center gap-2">
+            <UserCheck style={{width: '20px'}}/>
+            <span className=" small">Total Runs</span>
+          </div>
+          <span className="fw-medium">--</span>
         </div>
-        <span className="fw-medium">--</span>
       </div>
     </div>
   )
