@@ -1,8 +1,8 @@
 import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Clock, CheckCircle, AlertCircle, RotateCw, PlayCircle, ClipboardCheck, BarChart3, Timer, Calendar} from 'lucide-react';
 import './RunScenarios.css'
-import {activateScenario, runScenario} from "../../services/api/make-api/scenariosService.ts";
+import {activateScenario, getScenarioDetails, runScenario} from "../../services/api/make-api/scenariosService.ts";
 
 interface ScenarioRun {
   scenarioId: number,
@@ -63,10 +63,34 @@ export const RunScenariosPage = () => {
 
   }
 
+  useEffect(() => {
+    const activateScenarios = async () => {
+      try {
+        const updatedScenarios = await Promise.all(
+          scenarios.map(async (scenario) => {
+            const scenarioDetails = await getScenarioDetails(scenario.scenarioId);
+            return {
+              ...scenario,
+              isActive: scenarioDetails.data.isActive
+            };
+          })
+        );
+        setScenarios(updatedScenarios);
+      } catch (error) {
+        console.error("Failed to activate scenarios:", error);
+      }
+    };
+
+    activateScenarios();
+    // Empty dependency array means this only runs once on mount
+  }, []);
+
+
   const runScenarios = async () => {
     setScenarios(current =>
       current.map((s) => ({...s, isRunning: true}))
     );
+
     setErrorMsg('')
     try {
       // Create a copy of scenarios to work with

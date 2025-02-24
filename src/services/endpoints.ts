@@ -43,6 +43,7 @@ const endpoints = {
     deleteDataStructure: "makeApi/data-structures/:dataStructureId",
     runScenarios: "makeApi/scenarios/:scenarioId/run",
     activeScenario: "makeApi/scenarios/:scenarioId/start",
+    getScenarioDetails: "makeApi/scenarios/:scenarioId"
   },
 };
 

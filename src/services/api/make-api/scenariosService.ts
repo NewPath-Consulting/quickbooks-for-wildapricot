@@ -3,6 +3,20 @@ import endpoints from "../../endpoints.ts";
 import {IScenarioBody, IScenarioResponse} from "../../../typings/IScenarioBody.ts";
 import {AxiosResponse} from "axios";
 
+interface ActivateScenarioResponse {
+  id: number,
+  islinked: boolean,
+  isActive: boolean
+}
+
+interface ScenarioDetailsResponse {
+  id: number,
+  name: string,
+  isActive: boolean,
+  teamId: string,
+
+}
+
 export const getScenarios = async (teamId: number, folderId ?: number): Promise<AxiosResponse<IScenarioResponse[]>> => {
   const params = {teamId, folderId};
   return httpClient.get(endpoints.makeApi.listScenarios, {params})
@@ -15,8 +29,12 @@ export const deleteScenario = async (scenarioId: string) => {
   return httpClient.delete(endpoints.makeApi.deleteScenario.replace(":scenarioId", scenarioId))
 }
 
-export const getScenarioBlueprint = async (scenarioId) => {
+export const getScenarioBlueprint = async (scenarioId)=> {
   return httpClient.get(endpoints.makeApi.getScenarioBlueprint.replace(":scenarioId", scenarioId));
+}
+
+export const getScenarioDetails = async (scenarioId): Promise<AxiosResponse<ScenarioDetailsResponse>> => {
+  return httpClient.get(endpoints.makeApi.getScenarioDetails.replace(":scenarioId", scenarioId));
 }
 
 export const runScenario =  async (scenarioId) => {
@@ -26,12 +44,6 @@ export const runScenario =  async (scenarioId) => {
   catch(e){
     console.log(e)
   }
-}
-
-interface ActivateScenarioResponse {
-  id: number,
-  islinked: boolean,
-  isActive: boolean
 }
 
 export const activateScenario =  async (scenarioId): Promise<AxiosResponse<ActivateScenarioResponse>> => {
