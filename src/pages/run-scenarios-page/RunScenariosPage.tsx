@@ -14,7 +14,6 @@ interface ScenarioRun {
   numOfRuns: number,
   lastRun: string | null,
   isCompleted: boolean,
-  isActive: boolean,
   isSuccessful: boolean,
   subtitle: string,
   title: string,
@@ -57,7 +56,6 @@ export const RunScenariosPage = () => {
             numOfRuns: 0,
             lastRun: null,
             isCompleted: false,
-            isActive: scenario.isActive,
             isSuccessful: false,
             subtitle,
             title: scenario.name,
@@ -91,25 +89,20 @@ export const RunScenariosPage = () => {
       for (let i = 0; i < updatedScenarios.length; i++) {
         // Update single scenario to show it's running
         const scenario = updatedScenarios[i];
-
+        let isActive = true;
         const startTime = Date.now();
 
+        const scenarioDetails = await getScenarioDetails(scenario.scenarioId)
         // Activate if needed
-        if (!scenario.isActive) {
+        if (!scenarioDetails.data.isActive) {
           const activateResponse = await activateScenario(scenario.scenarioId);
-          if (activateResponse.data.isActive) {
-            setScenarios(current =>
-              current.map((s, index) =>
-                index === i ? {...s, isActive: true} : s
-              )
-            );
-            // Update our working copy too
-            updatedScenarios[i] = {...updatedScenarios[i], isActive: true};
+          if (!activateResponse.data.isActive) {
+            isActive = false;
           }
         }
 
         // Run the scenario with its specific ID
-        if (updatedScenarios[i].isActive) {
+        if (isActive) {
           const response = await runScenario(scenario.scenarioId);
           console.log(response.data);
 
