@@ -1,8 +1,13 @@
 import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
 import {useEffect, useState} from "react";
-import {Clock, CheckCircle, AlertCircle, RotateCw, PlayCircle, ClipboardCheck, BarChart3, Timer, Calendar} from 'lucide-react';
+import {Clock, CheckCircle, AlertCircle, RotateCw, PlayCircle, ClipboardCheck, ClipboardList, Timer,} from 'lucide-react';
 import './RunScenarios.css'
-import {activateScenario, getScenarioDetails, runScenario} from "../../services/api/make-api/scenariosService.ts";
+import {
+  activateScenario,
+  getScenarioDetails,
+  getScenarios, getUserScenarios,
+  runScenario
+} from "../../services/api/make-api/scenariosService.ts";
 
 interface ScenarioRun {
   scenarioId: number,
@@ -16,72 +21,45 @@ interface ScenarioRun {
   isRunning: boolean,
   runDuration: number
 }
-const scenarioObjects: ScenarioRun[] = [
-  {
-    scenarioId: 3704193,
-    numOfRuns: 0,
-    lastRun: null,
-    isCompleted: false,
-    isActive: false,
-    isSuccessful: false,
-    subTitle: 'Configure invoice generation',
-    title: 'Invoices',
-    isRunning: false,
-    runDuration: 0
-  },
-  {
-    scenarioId: 3704194,
-    numOfRuns: 0,
-    lastRun: null,
-    isCompleted: false,
-    isActive: false,
-    isSuccessful: false,
-    subTitle: "Configure payment workflow",
-    title: 'Payments',
-    isRunning: false,
-    runDuration: 0
-  },
-  {
-    scenarioId: 3704191,
-    numOfRuns: 0,
-    lastRun: null,
-    isCompleted: false,
-    isActive: false,
-    isSuccessful: false,
-    subTitle: 'Configure donations and receipts',
-    title: 'Donations',
-    isRunning: false,
-    runDuration: 0
-  }
-]
+
 
 export const RunScenariosPage = () => {
   const [errorMsg, setErrorMsg] = useState<string | string[]>('')
-  const [scenarios, setScenarios] = useState<ScenarioRun[]>(scenarioObjects);
+  const [scenarios, setScenarios] = useState<ScenarioRun[]>([]);
 
   const handleSubmission = () => {
 
   }
 
   useEffect(() => {
-    const activateScenarios = async () => {
+    const listScenarios = async() => {
       try {
-        const updatedScenarios = await Promise.all(
-          scenarios.map(async (scenario) => {
-            const scenarioDetails = await getScenarioDetails(scenario.scenarioId);
-            return {
-              ...scenario,
-              isActive: scenarioDetails.data.isActive
-            };
-          })
-        );
-        setScenarios(updatedScenarios);
+        const response = await getUserScenarios(740188, 220109 )
+
+        const scenarios: ScenarioRun[] = response.data.map((scenario, index) => {
+
+          return {
+            scenarioId: scenario.id,
+            numOfRuns: 0,
+            lastRun: null,
+            isCompleted: false,
+            isActive: scenario.isActive,
+            isSuccessful: false,
+            subTitle: scenario.name,
+            title: scenario.name,
+            isRunning: false,
+            runDuration: 0
+          }
+        })
+
+        setScenarios(scenarios)
       } catch (error) {
         console.error("Failed to activate scenarios:", error);
+        setErrorMsg(error.response.data.message)
       }
-    };
+    }
 
-    activateScenarios();
+    listScenarios()
     // Empty dependency array means this only runs once on mount
   }, []);
 
@@ -219,13 +197,12 @@ const RunScenarioComponent = ({ scenario}: RunScenarioProps) => {
               {scenario.title}
             </p>
             <p className="text-secondary" >
-              {scenario.subTitle}
+              <p className={'run-scenario-progress text-secondary text-truncate'}>Last run: {scenario.lastRun || "not ran yet"}</p>
             </p>
           </div>
         </div>
         <div className={'d-flex flex-column'}>
           <p className={'run-scenario-progress text-dark fw-bold text-truncate align-self-end'}>{getStatusText()}</p>
-          {scenario.lastRun && !scenario.isRunning && <p className={'run-scenario-progress text-secondary text-truncate'}>Last run: {scenario.lastRun}</p>}
         </div>
       </div>
       {scenario.isCompleted && <div className={'p-3 border border-1 rounded-3 border-top-0 rounded-top-0 d-grid gap-2 text-dark'}>
@@ -238,7 +215,7 @@ const RunScenarioComponent = ({ scenario}: RunScenarioProps) => {
 
         <div className="">
           <div className="d-flex align-items-center gap-2">
-            <ClipboardCheck style={{width: '15px'}}/>
+            <ClipboardList style={{width: '15px'}}/>
             <span className=" small">Total Runs: {scenario.numOfRuns || '--'}</span>
           </div>
         </div>

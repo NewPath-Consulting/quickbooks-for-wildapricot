@@ -9,5 +9,6 @@ export interface IScenarioResponse{
   id: number,
   teamId: number,
   folderId: number,
-  name: string
+  name: string,
+  isActive: boolean
 }
