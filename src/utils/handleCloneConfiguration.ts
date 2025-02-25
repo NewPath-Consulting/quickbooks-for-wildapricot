@@ -70,7 +70,7 @@ const cloneDataStructures = async (createdResources) => {
   let firstDataStructureId = null;
 
   try {
-    const response = await getDataStructures(297);
+    const response = await getDataStructures();
     const dataStructures = response.data
 
     for (let i = 0; i < 9; i++) {
@@ -176,7 +176,7 @@ const rollbackCreatedResources = async (createdResources) => {
 
 const cloneScenariosStep = async (dataStructureMap, createdResources) => {
   try {
-    const scenarios = await getScenarios(297, 188054);
+    const scenarios = await getScenarios();
     const connection = await getConnections(740188)
 
     for (const scenario of scenarios.data) {
@@ -194,6 +194,7 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
         const createdScenario = await createScenario({
           scheduling: "{ \"type\": \"indefinitely\", \"interval\": 900 }",
           teamId: 740188,
+          folderId: 220109,
           blueprint: JSON.stringify(blueprint)
         });
 

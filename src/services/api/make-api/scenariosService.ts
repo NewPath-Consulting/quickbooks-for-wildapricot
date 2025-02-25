@@ -17,9 +17,8 @@ interface ScenarioDetailsResponse {
 
 }
 
-export const getScenarios = async (teamId: number, folderId ?: number): Promise<AxiosResponse<IScenarioResponse[]>> => {
-  const params = {teamId, folderId};
-  return httpClient.get(endpoints.makeApi.listScenarios, {params})
+export const getScenarios = async (): Promise<AxiosResponse<IScenarioResponse[]>> => {
+  return httpClient.get(endpoints.makeApi.listScenarios)
 }
 export const createScenario = async (body: IScenarioBody) => {
   return httpClient.post(endpoints.makeApi.createScenario, body,{params: {confirmed: true}})

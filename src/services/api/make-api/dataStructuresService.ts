@@ -4,13 +4,9 @@ import {IDataRecordBody, IDataStoreBody, IDataStructureBody} from "../../../typi
 import {AxiosResponse} from "axios";
 
 
-export const getDataStructures = async (teamId: number): Promise<AxiosResponse<IDataStructureBody[]>> => {
+export const getDataStructures = async (): Promise<AxiosResponse<IDataStructureBody[]>> => {
 
-  return httpClient.get(endpoints.makeApi.listDataStructures, {
-    params: {
-      teamId,
-    }
-  })
+  return httpClient.get(endpoints.makeApi.listDataStructures)
 }
 
 export const createDataStructure = async (body: IDataStructureBody) => {
