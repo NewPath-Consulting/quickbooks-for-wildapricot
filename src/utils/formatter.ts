@@ -162,6 +162,7 @@ export const formatInvoiceConfig = (invoiceConfig: InvoiceConfiguration[], sched
           "Number of Time Periods for Each Run": schedulingData?.scheduledSchedule?.numOfTimePeriods || 1,
           "Weekly-Day of Week to Start Run": schedulingData?.scheduledSchedule?.dayOfWeek || null,
           "Monthly-Day of Month to Start Run": schedulingData?.scheduledSchedule?.dayOfMonth || null,
+          "Start Time for Run": convertTo12Hour(schedulingData?.scheduledSchedule?.startTime) || "12:20 AM",
           "Start Time": convertTo12Hour(schedulingData?.scheduledSchedule?.startTime) || "12:20 AM",
           "Last AutoRun for Invoice": null
         }
