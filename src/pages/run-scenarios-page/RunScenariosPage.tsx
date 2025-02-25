@@ -16,7 +16,7 @@ interface ScenarioRun {
   isCompleted: boolean,
   isActive: boolean,
   isSuccessful: boolean,
-  subTitle: string,
+  subtitle: string,
   title: string,
   isRunning: boolean,
   runDuration: number
@@ -37,6 +37,20 @@ export const RunScenariosPage = () => {
         const response = await getUserScenarios(740188, 220109 )
 
         const scenarios: ScenarioRun[] = response.data.map((scenario, index) => {
+          let subtitle;
+
+          if(scenario.name.toLowerCase().includes('donation')) {
+            subtitle = "Configure your donations"
+          }
+          else if (scenario.name.toLowerCase().includes('invoice')){
+            subtitle = "Configure your Invoices"
+          }
+          else if(scenario.name.toLowerCase().includes('payment')) {
+            subtitle = "Configure your Payments"
+          }
+          else{
+            subtitle = "Configure this workflow"
+          }
 
           return {
             scenarioId: scenario.id,
@@ -45,7 +59,7 @@ export const RunScenariosPage = () => {
             isCompleted: false,
             isActive: scenario.isActive,
             isSuccessful: false,
-            subTitle: scenario.name,
+            subtitle,
             title: scenario.name,
             isRunning: false,
             runDuration: 0
@@ -193,30 +207,32 @@ const RunScenarioComponent = ({ scenario}: RunScenarioProps) => {
         <div className="d-flex align-items-center gap-3">
           <div>{getStatusIcon()}</div>
           <div className="d-flex flex-column justify-content-center">
-            <p className="text-dark fw-semibold" style={{ fontSize: '16px' }}>
+            <p className="text-dark fw-semibold" style={{ fontSize: 'calc(0.7em + 0.1vw)' }}>
               {scenario.title}
             </p>
-            <p className="text-secondary" >
-              <p className={'run-scenario-progress text-secondary text-truncate'}>Last run: {scenario.lastRun || "not ran yet"}</p>
+            <p className="text-secondary" style={{ fontSize: 'calc(0.6em + 0.1vw)' }}>
+              {scenario.subtitle}
             </p>
           </div>
         </div>
         <div className={'d-flex flex-column'}>
-          <p className={'run-scenario-progress text-dark fw-bold text-truncate align-self-end'}>{getStatusText()}</p>
+          <p className={'run-scenario-progress text-dark fw-bold text-truncate align-self-end'} style={{ fontSize: 'calc(0.6em + 0.1vw)' }}>{getStatusText()}</p>
+          {!scenario.isRunning && scenario.lastRun && <p className={'run-scenario-progress text-truncate text-secondary'}
+              style={{fontSize: 'calc(0.6em + 0.1vw)'}}>Last run: {scenario.lastRun}</p>}
         </div>
       </div>
       {scenario.isCompleted && <div className={'p-3 border border-1 rounded-3 border-top-0 rounded-top-0 d-grid gap-2 text-dark'}>
         <div className="">
           <div className="d-flex align-items-center gap-2">
             <Timer style={{width: '15px'}}/>
-            <span className=" small">Avg Duration: {(scenario.runDuration ? scenario.runDuration + 's' : '--')}</span>
+            <p style={{fontSize: 'calc(0.7em + 0.1vw)'}}>Time to execute: {(scenario.runDuration ? scenario.runDuration + 's' : '--')}</p>
           </div>
         </div>
 
         <div className="">
           <div className="d-flex align-items-center gap-2">
             <ClipboardList style={{width: '15px'}}/>
-            <span className=" small">Total Runs: {scenario.numOfRuns || '--'}</span>
+            <p style={{fontSize: 'calc(0.7em + 0.1vw)'}}>Total Runs: {scenario.numOfRuns || '--'}</p>
           </div>
         </div>
       </div>}

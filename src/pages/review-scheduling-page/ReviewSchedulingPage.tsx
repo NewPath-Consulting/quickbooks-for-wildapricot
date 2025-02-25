@@ -1,4 +1,4 @@
-import * as React from "react";
+ import * as React from "react";
 import {SchedulingData} from "../scheduling-page/SchedulingPage.tsx";
 import {useOnBoarding} from "../../hooks/useOnboarding.ts";
 

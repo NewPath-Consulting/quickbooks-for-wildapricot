@@ -28,14 +28,14 @@ export const ReviewConfigComponent = (props: IReviewConfig) => {
           <div className={'review-icon'}>
             <i className={`bi ${img}`} style={{color: '#2bec4b', fontSize: "clamp(15px, 2vw, 20px)"}}></i>
           </div>
-          <h6 className={'m-0'} style={{fontSize: 'clamp(12px, 2vw, 16px)'}}>{title}</h6>
+          <h6 className={'m-0'} style={{fontSize: 'clamp(14px, 2vw, 16px)'}}>{title}</h6>
         </div>
         <div className={'d-flex align-items-center gap-2'}>
           <button className={'edit-button'} onClick={() => navigate(urlLocation)}>Edit</button>
           <i className={`bi bi-chevron-down chevron ${!isCollapsed ? 'spin' : ''}`} style={{color: 'grey'}}></i>
         </div>
       </div>
-      <div className="collapse" id={`collapseExample-${urlLocation}`}>
+      <div className="collapse" style={{fontSize: 'clamp(14px, 2vw, 16px)'}} id={`collapseExample-${urlLocation}`}>
         {children}
       </div>
     </div>
