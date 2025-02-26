@@ -281,7 +281,7 @@ export const CreateConnectionsPage = () => {
         <div className={'row mb-3'}>
           {connectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={handleConnection} isConnected={isConnectedMap.get(connection.accountType) || false} connection={connection}/>)}
         </div>
-        <h6 className={'mb-3 ms-2 fw-light'}>Connect To Account Bridge</h6>
+        <h6 className={'mb-3 ms-2 fw-light'}>Connect To AccountBridge</h6>
         <div className={'row mb-3'}>
           {accountBridgeConnectionsList.map((connection, index) => <ConnectionComponent key={index} isLoading={isLoadingMap.get(connection.accountType) || false} createConnection={createConnectionToAccountBridge} isConnected={isAppConnectedToAccountBridgeMap.get(connection.accountType) || false} connection={connection}/>)}
         </div>

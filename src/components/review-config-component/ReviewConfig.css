@@ -10,6 +10,8 @@
     transition: transform 0.8s ease;
 }
 
+
+
 .review-icon:hover {
     transform: rotate(360deg);
 }
