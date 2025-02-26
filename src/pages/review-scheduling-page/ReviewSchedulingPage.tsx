@@ -46,22 +46,26 @@ const ReviewSchedulingComponent = ({ schedulingData, title }: ReviewSchedulingCo
                 <p>{schedulingData?.scheduledSchedule?.timePeriod || 'Time Period'} </p>
               </div>
             </div>
-            <div className="col-md-6">
-              <label className="mb-1"># of Time Periods</label>
-              <div className={'text-field'}>
-                <p>{schedulingData?.scheduledSchedule?.numOfTimePeriods || 'Num of Periods'} </p>
-              </div>
-            </div>
-            <div className="col-md-6">
+            {schedulingData?.scheduledSchedule?.timePeriod == 'Weekly' ? <div className="col-md-6">
               <label className="mb-1">Weekly: Day of week to start run</label>
               <div className={'text-field'}>
                 <p>{schedulingData?.scheduledSchedule?.dayOfWeek || 'Day of week'} </p>
               </div>
-            </div>
+            </div> :
+              schedulingData?.scheduledSchedule?.timePeriod == 'Monthly' ? <div className="col-md-6">
+                <label className="mb-1">Monthly: Day of month to start run</label>
+                <div className={'text-field'}>
+                  <p>{schedulingData?.scheduledSchedule?.dayOfMonth || 'Day of month'} </p>
+                </div>
+              </div>
+                :
+                <div className={'col-md-6 m-0'}/>
+            }
+
             <div className="col-md-6">
-              <label className="mb-1">Monthly: Day of month to start run</label>
+              <label className="mb-1"># of Time Periods</label>
               <div className={'text-field'}>
-                <p>{schedulingData?.scheduledSchedule?.dayOfMonth || 'Day of month'} </p>
+                <p>{schedulingData?.scheduledSchedule?.numOfTimePeriods || 'Num of Periods'} </p>
               </div>
             </div>
             <div className="col-md-6">
