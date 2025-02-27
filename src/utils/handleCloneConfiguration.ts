@@ -18,7 +18,7 @@ import {
   setWebhookValues
 } from "./setParameters.ts";
 import {getConnections} from "../services/api/make-api/connectionsService.ts";
-import {createHook} from "../services/api/make-api/hooksService.ts";
+import {createHook, getHooksFromSource} from "../services/api/make-api/hooksService.ts";
 
 export const cloneConfiguration = async (data) => {
   // Track resources created to enable potential rollback
@@ -50,12 +50,6 @@ export const cloneConfiguration = async (data) => {
 
     // Step 4: Clone Scenarios
     await cloneScenariosStep(dataStructureMap, createdResources);
-
-    // try {
-    //   await rollbackCreatedResources(createdResources);
-    // } catch (rollbackError) {
-    //   console.error("Rollback Failed:", rollbackError);
-    // }
 
     return createdResources;
   } catch (mainError) {
@@ -180,19 +174,22 @@ const rollbackCreatedResources = async (createdResources) => {
 const cloneScenariosStep = async (dataStructureMap, createdResources) => {
   try {
     const scenarios = await getScenarios();
+    scenarios.data.sort((a, b) => b.hookId  - a.hookId)
     const connection = await getConnections(740495)
-    const webhooksMap = new Map(); // Store original webhook ID → new webhook ID mapping
+    const webhooksIdMap = new Map(); // Store original webhook ID → new webhook ID mapping
+
 
     for (const scenario of scenarios.data) {
       try {
         const blueprintResponse = await getScenarioBlueprint(scenario.id);
         const blueprint = blueprintResponse.data.data;
+        const hooksResponse = await getHooksFromSource();
 
         const webhookReferences = extractWebhookReferences(blueprint);
 
         // Create new webhooks for each reference found
         for (const webhookRef of webhookReferences) {
-          if (!webhooksMap.has(webhookRef.id)) {
+          if (!webhooksIdMap.has(webhookRef.id)) {
             // Create new webhook with necessary configuration
             const newWebhook = await createHook({
               name: `Cloned: ${webhookRef.name}`,
@@ -203,18 +200,18 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
               headers: false
             });
 
-            webhooksMap.set(webhookRef.id, newWebhook.data.id);
+            webhooksIdMap.set(webhookRef.id, newWebhook.data.id);
           }
         }
 
-        console.log(webhooksMap)
+        console.log(webhooksIdMap)
 
         // Modify blueprint with new mappings
         setConnectionValue(blueprint, "__IMTCONN__", connection.data.data);
         setDataStoreValue(blueprint, createdResources.dataStore);
         setJSONValue(blueprint, dataStructureMap);
         setDataRecordKey(blueprint, createdResources.dataRecord)
-        setWebhookValues(blueprint, webhooksMap); // New function to replace webhook references
+        setWebhookValues(blueprint, webhooksIdMap); // New function to replace webhook references
 
         // Create scenario
         const createdScenario = await createScenario({
@@ -223,8 +220,8 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
           folderId: 246724,
           blueprint: JSON.stringify(blueprint)
         });
-
-        // Track created scenarios
+        //
+        // // Track created scenarios
         createdResources.scenarios.push(createdScenario.data.scenario.id);
       } catch (scenarioError) {
         console.error(`Failed to clone scenario:`, scenarioError);
@@ -240,8 +237,6 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
 
 const extractWebhookReferences = (blueprint) => {
   const webhookRefs = [];
-  // Implement logic to traverse blueprint and find webhook references
-  // This will depend on how webhooks are represented in your blueprints
 
   const findWebhooks = (obj) => {
     for (const key in obj) {
@@ -263,3 +258,4 @@ const extractWebhookReferences = (blueprint) => {
   findWebhooks(blueprint);
   return webhookRefs;
 };
+
