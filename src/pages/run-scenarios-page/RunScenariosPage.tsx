@@ -8,6 +8,7 @@ import {
   getScenarios, getUserScenarios,
   runScenario
 } from "../../services/api/make-api/scenariosService.ts";
+import {folderId, teamId} from "../../App.tsx";
 
 interface ScenarioRun {
   scenarioId: number,
@@ -33,7 +34,7 @@ export const RunScenariosPage = () => {
   useEffect(() => {
     const listScenarios = async() => {
       try {
-        const response = await getUserScenarios(740495, 246724 )
+        const response = await getUserScenarios(teamId, folderId )
 
         const scenarios: ScenarioRun[] = response.data.map((scenario, index) => {
           let subtitle;

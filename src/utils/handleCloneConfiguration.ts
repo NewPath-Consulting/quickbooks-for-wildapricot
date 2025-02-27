@@ -19,6 +19,7 @@ import {
 } from "./setParameters.ts";
 import {getConnections} from "../services/api/make-api/connectionsService.ts";
 import {createHook, getHooksFromSource} from "../services/api/make-api/hooksService.ts";
+import {folderId, teamId} from "../App.tsx";
 
 export const cloneConfiguration = async (data) => {
   // Track resources created to enable potential rollback
@@ -79,7 +80,7 @@ const cloneDataStructures = async (createdResources) => {
         const dataStructureDetails = await createDataStructure({
           spec: dataStructures[i].spec,
           name: dataStructures[i].name,
-          teamId: 740495
+          teamId: teamId
         });
 
         // Track created data structure
@@ -111,7 +112,7 @@ const createDataStoreStep = async (dataStructureId, createdResources) => {
     const dataStoreResponse = await createDataStore({
       datastructureId: dataStructureId,
       name: 'QBWA Test',
-      teamId: 740495
+      teamId: teamId
     });
 
     // Track created data store
@@ -155,7 +156,7 @@ const rollbackCreatedResources = async (createdResources) => {
 
     // Rollback data store
     if (createdResources.dataStore) {
-      await deleteDataStore([String(createdResources.dataStore)], 740495);
+      await deleteDataStore([String(createdResources.dataStore)], teamId);
     }
 
     // Rollback data structures
@@ -175,7 +176,7 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
   try {
     const scenarios = await getScenarios();
     scenarios.data.sort((a, b) => b.hookId  - a.hookId)
-    const connection = await getConnections(740495)
+    const connection = await getConnections(teamId)
     const webhooksIdMap = new Map(); // Store original webhook ID → new webhook ID mapping
 
 
@@ -193,7 +194,7 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
             // Create new webhook with necessary configuration
             const newWebhook = await createHook({
               name: `Cloned: ${webhookRef.name}`,
-              teamId: 740495,
+              teamId: teamId,
               stringify: false,
               method: false,
               typeName: 'gateway-webhook',
@@ -216,8 +217,8 @@ const cloneScenariosStep = async (dataStructureMap, createdResources) => {
         // Create scenario
         const createdScenario = await createScenario({
           scheduling: "{ \"type\": \"indefinitely\", \"interval\": 900 }",
-          teamId: 740495,
-          folderId: 246724,
+          teamId: teamId,
+          folderId: folderId,
           blueprint: JSON.stringify(blueprint)
         });
         //

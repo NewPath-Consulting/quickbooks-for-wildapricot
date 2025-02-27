@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {getWildApricotAccessToken, wildApricotLogin} from "../../services/api/wild-apricot-api/authService.ts";
 import {getQuickbooksAccessToken} from "../../services/api/quickbooks-api/authService.ts";
 import {PageTemplate} from "../../components/page-template/PageTemplate.tsx";
+import {teamId} from "../../App.tsx";
 
 export interface IConnection {
   img: string,
@@ -199,7 +200,7 @@ export const CreateConnectionsPage = () => {
     };
 
     try {
-      const connectionResponse = await createConnection(connectionBody, 740495);
+      const connectionResponse = await createConnection(connectionBody, teamId);
       console.log(connectionResponse)
       const connectionId = connectionResponse.data.id;
       const URL = `https://us1.make.com/api/v2/oauth/auth/${connectionId}`;
@@ -218,7 +219,7 @@ export const CreateConnectionsPage = () => {
   useEffect(() => {
     const listConnections = async () => {
       try {
-        const response = await getConnections(740495);
+        const response = await getConnections(teamId);
 
         console.log(response)
         // Update the context state with fetched connections
