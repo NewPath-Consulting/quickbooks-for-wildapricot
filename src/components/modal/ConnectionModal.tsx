@@ -32,7 +32,7 @@ export const ConnectionModal = (props: IConnectionModal) => {
   }
 
   return (
-    <div className="modal fade" id={`${connection.title}`} tabIndex="-1" aria-labelledby={`${connection.title}Label`} aria-hidden="true">
+    <div className="modal fade" id={`${connection.modalId}`} tabIndex="-1" aria-labelledby={`${connection.modalId}Label`} aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
