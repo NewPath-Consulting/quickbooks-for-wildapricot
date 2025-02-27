@@ -21,7 +21,8 @@ import {ScrollToTop} from "./components/scroll-to-top/ScrollToTop.tsx";
 import {RunScenariosPage} from "./pages/run-scenarios-page/RunScenariosPage.tsx";
 
 //26aba993-f746-44bf-9378-e71a2ffae2e6
-
+export const teamId = 740495;
+export const folderId = 246724;
 function App() {
   return (
     <Router >

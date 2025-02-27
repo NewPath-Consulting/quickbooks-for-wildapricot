@@ -64,3 +64,55 @@ export const setJSONValue = (obj, dataStructureMap: Map<number, number>) => {
     }
   }
 }
+
+export const setWebhookValues = (obj, webhooksMap) => {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      if (key === "hook" && typeof obj[key] === "number") {
+        // Replace webhook ID with the new one from the map
+        const newWebhookId = webhooksMap.get(obj[key]);
+        if (newWebhookId) {
+          obj[key] = newWebhookId;
+        }
+      } else if (typeof obj[key] === "object" && obj[key] !== null) {
+        setWebhookValues(obj[key], webhooksMap);
+      }
+    }
+  }
+};
+
+const updateWebhookUrls = (blueprint, webhookMap) => {
+  // Find references to webhook URLs in the blueprint and replace them
+
+  const replaceUrls = (obj) => {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        // Check if we found a mapper object with a url property that contains a Make.com webhook URL
+        if (key === "mapper" && obj[key] &&
+          typeof obj[key].url === "string" &&
+          obj[key].url.includes("hook")) {
+
+          // Extract the webhook ID from the URL (the part after the last slash)
+          const urlParts = obj[key].url.split('/');
+          const webhookId = urlParts[urlParts.length - 1];
+
+          // Check if we have this webhook in our map
+          for (const [originalId, webhookInfo] of webhookMap.entries()) {
+            // If the webhook IDs match or if the URL contains the original ID
+            if (webhookId === originalId || obj[key].url.includes(`/${originalId}`)) {
+              // Replace with the new webhook URL
+              obj[key].url = webhookInfo.url;
+              console.log(`Updated webhook URL from ${originalId} to ${webhookInfo.url}`);
+              break;
+            }
+          }
+        } else if (typeof obj[key] === "object" && obj[key] !== null) {
+          // Recursively search nested objects
+          replaceUrls(obj[key]);
+        }
+      }
+    }
+  };
+
+  replaceUrls(blueprint);
+};
