@@ -10,10 +10,19 @@ export interface HookResponse {
   teamId: number
 }
 
-export const getHooks = async (teamId: number): Promise<AxiosResponse<HookResponse[]>> => {
-  return httpClient.get(endpoints.makeApi.hooks, {params: {teamId}})
+export interface HookBody {
+  name: string,
+  teamId: number,
+  typeName: string,
+  method: boolean,
+  headers: boolean,
+  stringify: boolean
 }
 
-export const createHook = async (body: number): Promise<AxiosResponse<HookResponse>> => {
+export const getHooksFromSource = async (): Promise<AxiosResponse<HookResponse[]>> => {
+  return httpClient.get(endpoints.makeApi.hooks)
+}
+
+export const createHook = async (body: HookBody): Promise<AxiosResponse<HookResponse>> => {
   return httpClient.post(endpoints.makeApi.hooks, body)
 }

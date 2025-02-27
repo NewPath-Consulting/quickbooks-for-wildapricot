@@ -64,3 +64,19 @@ export const setJSONValue = (obj, dataStructureMap: Map<number, number>) => {
     }
   }
 }
+
+export const setWebhookValues = (obj, webhooksMap) => {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      if (key === "hook" && typeof obj[key] === "number") {
+        // Replace webhook ID with the new one from the map
+        const newWebhookId = webhooksMap.get(obj[key]);
+        if (newWebhookId) {
+          obj[key] = newWebhookId;
+        }
+      } else if (typeof obj[key] === "object" && obj[key] !== null) {
+        setWebhookValues(obj[key], webhooksMap);
+      }
+    }
+  }
+};
