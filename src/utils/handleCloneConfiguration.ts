@@ -78,7 +78,7 @@ const cloneDataStructures = async (createdResources) => {
         const dataStructureDetails = await createDataStructure({
           spec: dataStructures[i].spec,
           name: dataStructures[i].name,
-          teamId: 740188
+          teamId: 740495
         });
 
         // Track created data structure
@@ -110,7 +110,7 @@ const createDataStoreStep = async (dataStructureId, createdResources) => {
     const dataStoreResponse = await createDataStore({
       datastructureId: dataStructureId,
       name: 'QBWA Test',
-      teamId: 740188
+      teamId: 740495
     });
 
     // Track created data store
@@ -157,7 +157,7 @@ const rollbackCreatedResources = async (createdResources) => {
     // Rollback data store
     if (createdResources.dataStore) {
       console.log(createdResources.dataStore)
-      await deleteDataStore([String(createdResources.dataStore)], 740188);
+      await deleteDataStore([String(createdResources.dataStore)], 740495);
     }
 
     // Rollback data structures
@@ -177,24 +177,25 @@ const rollbackCreatedResources = async (createdResources) => {
 const cloneScenariosStep = async (dataStructureMap, createdResources) => {
   try {
     const scenarios = await getScenarios();
-    const connection = await getConnections(740188)
+    const connection = await getConnections(740495)
 
     for (const scenario of scenarios.data) {
       try {
         const blueprintResponse = await getScenarioBlueprint(scenario.id);
         const blueprint = blueprintResponse.data.data;
-
+        console.log(blueprint)
         // Modify blueprint with new mappings
         setConnectionValue(blueprint, "__IMTCONN__", connection.data.data);
         setDataStoreValue(blueprint, createdResources.dataStore);
         setJSONValue(blueprint, dataStructureMap);
         setDataRecordKey(blueprint, createdResources.dataRecord)
 
+        console.log(JSON.stringify(JSON.stringify(blueprint)))
         // Create scenario
         const createdScenario = await createScenario({
           scheduling: "{ \"type\": \"indefinitely\", \"interval\": 900 }",
-          teamId: 740188,
-          folderId: 220109,
+          teamId: 740495,
+          folderId: 246724,
           blueprint: JSON.stringify(blueprint)
         });
 

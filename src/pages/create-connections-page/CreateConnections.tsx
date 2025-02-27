@@ -199,7 +199,7 @@ export const CreateConnectionsPage = () => {
     };
 
     try {
-      const connectionResponse = await createConnection(connectionBody, 740188);
+      const connectionResponse = await createConnection(connectionBody, 740495);
       console.log(connectionResponse)
       const connectionId = connectionResponse.data.id;
       const URL = `https://us1.make.com/api/v2/oauth/auth/${connectionId}`;
@@ -218,7 +218,7 @@ export const CreateConnectionsPage = () => {
   useEffect(() => {
     const listConnections = async () => {
       try {
-        const response = await getConnections(740188);
+        const response = await getConnections(740495);
 
         console.log(response)
         // Update the context state with fetched connections
@@ -250,6 +250,7 @@ export const CreateConnectionsPage = () => {
         })
       } catch (error) {
         console.error("Failed to fetch connections:", error.response?.data?.error || error.message);
+        setErrorMsg("Failed to fetch connections: " + error.response?.data?.error || "Ask for help")
       }
       finally {
         setTimeout(() => {

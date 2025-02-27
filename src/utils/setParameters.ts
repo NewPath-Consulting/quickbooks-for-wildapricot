@@ -10,7 +10,7 @@ export const setConnectionValue = (obj, targetField: string, connections: IConne
           obj[key] = localConnectionId;
         } else {
           localConnectionId = connections
-            .find((val) => val.accountName === obj[key]["data"]["connection"])?.id;
+            .find((val) => val.accountName === obj[key]?.data?.connection)?.id;
         }
       } else if (typeof obj[key] === "object" && obj[key] !== null) {
         setConnectionValue(obj[key], targetField, connections); // Pass connectionId to recursive calls
@@ -23,7 +23,8 @@ export const setDataRecordKey = (obj, dataRecordKey: string) => {
 
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
-      if ((key === "ConfigKey" && !obj[key].includes("{{")) || (key === "key" && !obj[key].includes("{{"))) {
+
+      if ((key === "ConfigKey" && !obj[key].includes("{{"))) {
         obj[key] = dataRecordKey;
       }
       else if(key === "variables" && Array.isArray(obj[key])) {

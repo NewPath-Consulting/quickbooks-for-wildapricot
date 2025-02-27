@@ -23,10 +23,10 @@ const Sidebar: React.FC = () => {
       <div className={'d-flex gap-2 align-items-center mb-5 mt-1'}>
         <div className={'rounded-2 logo d-flex justify-content-center align-items-center'}>
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet">
-            <path d="M100 250 L150 50 L200 250" stroke="#fff" stroke-width="30" stroke-linejoin="miter" stroke-linecap="butt" fill="none" />
+            <path d="M100 250 L150 50 L200 250" stroke="#fff" strokeWidth="30" strokeLinejoin="miter" strokeLinecap="butt" fill="none" />
 
-            <line x1="70" y1="170" x2="230" y2="170" stroke="#fff" stroke-width="15" stroke-linecap="butt" />
-            <line x1="70" y1="210" x2="230" y2="210" stroke="#fff" stroke-width="15" stroke-linecap="butt" />
+            <line x1="70" y1="170" x2="230" y2="170" stroke="#fff" strokeWidth="15" strokeLinecap="butt" />
+            <line x1="70" y1="210" x2="230" y2="210" stroke="#fff" strokeWidth="15" strokeLinecap="butt" />
           </svg>
         </div>
         <div>

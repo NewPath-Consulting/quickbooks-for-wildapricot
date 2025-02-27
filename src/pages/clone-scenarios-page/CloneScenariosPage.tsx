@@ -96,7 +96,7 @@ export const CloneScenariosPage = () => {
       setSuccessMsg("Configuration cloned successfully!");
     } catch (error) {
       // Error handling
-      setErrorMsg(error.message || "Configuration cloning failed");
+      setErrorMsg(error.response.data.error.detail || "Configuration cloning failed");
     } finally {
       setIsLoading(false);
     }

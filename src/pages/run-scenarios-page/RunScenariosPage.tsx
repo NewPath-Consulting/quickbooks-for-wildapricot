@@ -33,7 +33,7 @@ export const RunScenariosPage = () => {
   useEffect(() => {
     const listScenarios = async() => {
       try {
-        const response = await getUserScenarios(740188, 220109 )
+        const response = await getUserScenarios(740495, 246724 )
 
         const scenarios: ScenarioRun[] = response.data.map((scenario, index) => {
           let subtitle;
